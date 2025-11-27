@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "hello": "Hello!",
+  "@hello": {
+    "description": "Simple greeting"
+  },
+  "welcome": "Welcome, {name}!",
+  "@welcome": {
+    "placeholders": { "name": {} }
+  }
+  ,
+  "loginTitle": "Login",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "signInButton": "Sign in"
+}

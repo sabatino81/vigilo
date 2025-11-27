@@ -1,0 +1,75 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+windows/flutter/ephemeral/
+linux/flutter/ephemeral/
+
+
+# Root .env patterns
+.env
+# Ignore environment-specific files by default
+.env.*
+# But keep env files inside assets/env tracked
+#!assets/env/.env.*
+!assets/env/.env.dev
+!assets/env/.env.preview
+!assets/env/.env.prod
+!assets/env/.env.staging
+# Keep example templates tracked
+!.env.*.example
+
+# Large binaries not needed in template
+sentry-wizard.exe
+.dart_tool/
+build/
+ios/Flutter/Flutter.framework
+android/app/google-services.json
+lib/generated_plugin_registrant.dart
+sentry.properties
+
+# Transient logs and test outputs
+test_output.txt
+recent_logcat.txt
+

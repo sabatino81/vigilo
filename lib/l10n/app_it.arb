@@ -1,0 +1,16 @@
+{
+  "@@locale": "it",
+  "hello": "Ciao!",
+  "@hello": {
+    "description": "Saluto semplice"
+  },
+  "welcome": "Benvenuto, {name}!",
+  "@welcome": {
+    "placeholders": { "name": {} }
+  }
+  ,
+  "loginTitle": "Accesso",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "signInButton": "Accedi"
+}

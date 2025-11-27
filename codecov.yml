@@ -1,0 +1,21 @@
+# Basic Codecov configuration for Flutter/Dart
+# Make sure CI produces coverage/lcov.info
+codecov:
+  require_ci_to_pass: no
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+
+parsers:
+  lcov:
+    branch_detection: true
+    comment: false
+
+# Files to include/exclude (relative to repo root)
+ignore:
+  - "**/test/**"
+  - "**/*.g.dart"
+  - "**/generated/**"

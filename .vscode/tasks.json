@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run tests (compact)",
+			"type": "shell",
+			"command": "flutter test -r compact",
+			"isBackground": false,
+			"problemMatcher": [
+				"$dart-errors"
+			],
+			"group": "test"
+		}
+	]
+}

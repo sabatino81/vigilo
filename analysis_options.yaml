@@ -1,0 +1,18 @@
+# Configura l'analizzatore statico di Dart per controllare errori, warning e lints.
+# Esegue automaticamente quando lanci `flutter analyze`.
+
+# 👉 Usa le regole di lint consigliate da Very Good Analysis (sovrascrive Flutter Lints)
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    # Puoi personalizzare o disattivare alcune regole se necessario.
+    # Esempi:
+    # avoid_print: false          # disattiva il divieto di usare print()
+    # prefer_single_quotes: true  # forza l'uso degli apici singoli
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"   # ignora i file generati automaticamente
+    - "**/*.freezed.dart"

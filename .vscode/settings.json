@@ -1,0 +1,8 @@
+{
+  "sonarlint.connectedMode.project": {
+    "connectionId": "sabatino81",
+    "projectKey": "{{SONAR_PROJECT_KEY}}"
+  },
+  "commentTranslate.targetLanguage": "it",
+  "commentTranslate.hover.enabled": true
+}
