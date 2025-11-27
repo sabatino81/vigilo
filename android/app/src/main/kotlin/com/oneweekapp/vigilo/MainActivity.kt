@@ -1,4 +1,4 @@
-package {{PACKAGE_NAME_ANDROID}}
+package com.oneweekapp.vigilo
 
 import io.flutter.embedding.android.FlutterActivity
 

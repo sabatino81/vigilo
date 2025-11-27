@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/l10n/generated/app_localizations.dart';
-import 'package:flutter_app_template/providers/locale_provider.dart';
+import 'package:vigilo/l10n/generated/app_localizations.dart';
+import 'package:vigilo/providers/locale_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';

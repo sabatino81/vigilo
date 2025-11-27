@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "{{PACKAGE_NAME_ANDROID}}"
+    namespace = "com.oneweekapp.vigilo"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     defaultConfig {
-        applicationId = "{{PACKAGE_NAME_ANDROID}}"
+        applicationId = "com.oneweekapp.vigilo"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

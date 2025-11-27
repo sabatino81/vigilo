@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_app_template/core/utils/secure_storage.dart';
+import 'package:vigilo/core/utils/secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /// Helper per inizializzare Hive e abilitare cifratura AES per le box.

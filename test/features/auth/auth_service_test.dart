@@ -1,4 +1,4 @@
-import 'package:flutter_app_template/features/auth/data/auth_service.dart';
+import 'package:vigilo/features/auth/data/auth_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

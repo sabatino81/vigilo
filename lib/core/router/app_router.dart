@@ -1,6 +1,6 @@
-import 'package:flutter_app_template/features/auth/presentation/login_page.dart';
-import 'package:flutter_app_template/features/home/presentation/home_page.dart';
-import 'package:flutter_app_template/features/splash/presentation/splash_page.dart';
+import 'package:vigilo/features/auth/presentation/login_page.dart';
+import 'package:vigilo/features/home/presentation/home_page.dart';
+import 'package:vigilo/features/splash/presentation/splash_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

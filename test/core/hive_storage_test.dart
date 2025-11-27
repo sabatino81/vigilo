@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_app_template/core/storage/hive_storage.dart';
-import 'package:flutter_app_template/core/utils/secure_storage.dart';
+import 'package:vigilo/core/storage/hive_storage.dart';
+import 'package:vigilo/core/utils/secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';
 import 'package:mocktail/mocktail.dart';

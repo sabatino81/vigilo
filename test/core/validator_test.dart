@@ -1,4 +1,4 @@
-import 'package:flutter_app_template/core/utils/validator.dart';
+import 'package:vigilo/core/utils/validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

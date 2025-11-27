@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="{{PACKAGE_NAME_ANDROID}}">
+    package="com.oneweekapp.vigilo">
 
     <!-- Add permissions -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -15,7 +15,7 @@
 
     <application
         android:name="${applicationName}"
-        android:label="{{PROJECT_NAME}}"
+        android:label="Vigilo"
         android:icon="@mipmap/ic_launcher">
         <!-- Optional: default notification channel id -->
         <meta-data

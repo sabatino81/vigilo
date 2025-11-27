@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_template/core/env/env.dart';
-import 'package:flutter_app_template/core/router/app_router.dart';
-import 'package:flutter_app_template/core/storage/hive_storage.dart';
-import 'package:flutter_app_template/core/theme/app_theme.dart';
-import 'package:flutter_app_template/features/auth/auth_manager.dart';
-import 'package:flutter_app_template/l10n/generated/app_localizations.dart';
-import 'package:flutter_app_template/providers/locale_provider.dart';
+import 'package:vigilo/core/env/env.dart';
+import 'package:vigilo/core/router/app_router.dart';
+import 'package:vigilo/core/storage/hive_storage.dart';
+import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/auth/auth_manager.dart';
+import 'package:vigilo/l10n/generated/app_localizations.dart';
+import 'package:vigilo/providers/locale_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -182,7 +182,7 @@ class MyApp extends ConsumerWidget {
     if (!supabaseConfigured) {
       // show a minimal MaterialApp with a helpful configuration error page
       return MaterialApp(
-        title: '{{PROJECT_NAME}} - Missing Config',
+        title: 'Vigilo - Missing Config',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         home: const Scaffold(
@@ -194,7 +194,7 @@ class MyApp extends ConsumerWidget {
     }
 
     return MaterialApp.router(
-      title: '{{PROJECT_NAME}}',
+      title: 'Vigilo',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       locale: locale,

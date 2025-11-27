@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "{{PROJECT_NAME}}",
+            "name": "Vigilo",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "{{PROJECT_NAME}} (profile mode)",
+            "name": "Vigilo (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "{{PROJECT_NAME}} (release mode)",
+            "name": "Vigilo (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
