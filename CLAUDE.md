@@ -124,4 +124,5 @@ SUPABASE_ANON_KEY=your_anon_key
 | `docs/SSCC_TECHNICAL_SPEC.md` | Spec tecnica sistema casco-centrico |
 | `docs/PIATTAFORMA_FORMAZIONE.md` | Spec tecnica LMS per Partner |
 | `docs/WIREFRAMES.md` | Wireframe ASCII di tutte le schermate |
+| `docs/VIGILO_MGMT_SPEC.md` | Spec tecnica dashboard gestionale |
 | `docs/ROADMAP.md` | Roadmap e gap analysis |
