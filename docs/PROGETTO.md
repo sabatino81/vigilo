@@ -579,6 +579,216 @@ lib/features/<feature>/
 
 ---
 
+## Sistema Incentivi all'Utilizzo
+
+### Filosofia: Sicurezza come Vantaggio, non Obbligo
+
+Il sistema di incentivi è progettato per **trasformare la percezione della sicurezza** da obbligo burocratico a vantaggio personale e di team. L'approccio si basa su tre pilastri:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    PIRAMIDE INCENTIVI                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│                        🏆 PREMI                                 │
+│                      Ricompense tangibili                       │
+│                                                                 │
+│                    ────────────────────                         │
+│                                                                 │
+│                  🎮 GAMIFICATION                                │
+│                Punti, livelli, classifiche                      │
+│                                                                 │
+│              ──────────────────────────────                     │
+│                                                                 │
+│            👥 RICONOSCIMENTO SOCIALE                           │
+│          Safety Star, team challenge, VOW                       │
+│                                                                 │
+│        ────────────────────────────────────────                 │
+│                                                                 │
+│      🛡️ SICUREZZA PERSONALE (Base)                            │
+│    Protezione sé stessi, famiglia, colleghi                     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Azioni Premiate e Punti
+
+#### Comportamenti Sicuri (Guadagno Punti)
+
+| Azione | Punti | Frequenza | Logica |
+|--------|-------|-----------|--------|
+| **DPI indossati correttamente** | +5 | Giornaliero | Verifica automatica tag |
+| **Completamento formazione** | +50-200 | Per corso | In base a durata/difficoltà |
+| **Quiz superato** | +20-50 | Per quiz | Bonus se primo tentativo |
+| **Segnalazione pericolo** | +30 | Per segnalazione | Incentiva near-miss reporting |
+| **Survey VOW completato** | +10 | Fine turno | Feedback quotidiano |
+| **Wellness check-in** | +5 | Giornaliero | Monitora benessere |
+| **Pausa effettuata** | +5 | Per pausa | SmartBreak rispettato |
+| **Zero incidenti (team)** | +100 | Settimanale | Bonus collettivo |
+| **Hot streak DPI** | +10/giorno | Consecutivo | Moltiplicatore streak |
+| **Nomination Safety Star** | +15 | Per nomination | Riconoscimento peer |
+| **Vincita Safety Star** | +200 | Settimanale | Premio settimanale |
+
+#### Penalità (Perdita Punti)
+
+| Azione | Punti | Note |
+|--------|-------|------|
+| **DPI non indossato** | -20 | Alert inviato prima |
+| **Formazione scaduta** | -50 | Dopo reminder |
+| **Ingresso zona senza DPI** | -30 | Area vincolata |
+
+> ⚠️ **Nota privacy:** Le penalità sono applicate automaticamente dal sistema, senza intervento di supervisori. Nessun uso disciplinare.
+
+---
+
+### Sistema Livelli
+
+| Livello | Punti Richiesti | Badge | Benefici |
+|---------|-----------------|-------|----------|
+| 🥉 **Bronze** | 0 - 499 | Principiante | Accesso base |
+| 🥈 **Silver** | 500 - 1.499 | Attento | Spin extra ruota (2/giorno) |
+| 🥇 **Gold** | 1.500 - 3.999 | Esperto | Premi esclusivi, priorità catalogo |
+| 💎 **Platinum** | 4.000 - 9.999 | Veterano | Sconto 10% premi, badge profilo |
+| 👑 **Diamond** | 10.000+ | Campione | Accesso anticipato novità, mentor badge |
+
+**Progressione:**
+- I punti **non scadono** (lifetime)
+- Il livello **non può scendere**
+- Bonus punti al passaggio di livello (+100/+200/+300/+500)
+
+---
+
+### Premi e Catalogo
+
+#### Categorie Premi
+
+| Categoria | Esempi | Range Punti | Sponsor |
+|-----------|--------|-------------|---------|
+| 🎫 **Voucher** | Amazon, benzina, supermercato | 500 - 5.000 | VCT / Partner |
+| 🦺 **DPI Premium** | Cuffie antirumore, occhiali, zaino | 300 - 2.000 | VCT |
+| 👕 **Gadget** | T-shirt Vigilo, borraccia, cappellino | 200 - 800 | VCT |
+| 🎁 **Esperienze** | Cena per 2, weekend, biglietti eventi | 3.000 - 10.000 | Partner |
+| 🏆 **Esclusivi** | Dispositivi tech, attrezzatura sport | 5.000+ | VCT |
+
+#### Premi Speciali
+
+| Premio | Condizione | Valore |
+|--------|------------|--------|
+| **Premio Trimestrale Top Safety** | #1 classifica trimestre | Voucher €200 |
+| **Team Zero Infortuni** | 0 incidenti mese (team) | Pranzo team offerto |
+| **Safety Star dell'Anno** | Più nomination annue | Targa + premio €500 |
+| **Mentor Award** | Aiuto onboarding colleghi | Badge speciale + 500 punti |
+
+---
+
+### Ruota Fortunata
+
+**Meccanica:**
+- 1 spin gratuito al giorno
+- Spin extra per livelli Silver+ o azioni speciali
+- Premi istantanei (punti, voucher piccoli, gadget)
+
+| Settore | Probabilità | Premio |
+|---------|-------------|--------|
+| 🎯 **Punti x2** | 25% | Raddoppio punti giornalieri |
+| 🎁 **5-50 punti** | 40% | Punti bonus istantanei |
+| 🎫 **Mini voucher** | 15% | €5-10 buono |
+| 🦺 **Gadget** | 10% | Item casuale catalogo |
+| 👑 **Jackpot** | 5% | Premio top (€50+ valore) |
+| ❌ **Ritenta** | 5% | Spin extra gratis |
+
+---
+
+### Sfide e Challenge
+
+#### Sfide Individuali
+
+| Sfida | Durata | Obiettivo | Premio |
+|-------|--------|-----------|--------|
+| **Prima Settimana Perfetta** | 7 giorni | 100% DPI compliance | 200 punti + badge |
+| **Studente Modello** | 30 giorni | 5 corsi completati | 500 punti |
+| **Segnalatore Attivo** | Continuo | 10 segnalazioni utili | 300 punti + badge |
+| **Streak Master** | Continuo | 30 giorni consecutivi DPI | 1.000 punti + badge |
+
+#### Sfide Team
+
+| Sfida | Durata | Obiettivo | Premio |
+|-------|--------|-----------|--------|
+| **Settimana Zero Infortuni** | 7 giorni | Nessun incidente team | 100 punti/persona |
+| **Mese della Formazione** | 30 giorni | 80% team completa corso X | 200 punti/persona |
+| **Challenge Cantiere** | Variabile | Competizione tra cantieri | Trofeo + premio team |
+
+---
+
+### Riconoscimento Sociale
+
+#### Safety Star della Settimana
+
+**Meccanica:**
+1. Ogni lavoratore può **nominare** un collega (1 nomination/settimana)
+2. Le nomination sono **anonime** (privacy)
+3. Chi riceve più nomination vince
+4. Il vincitore riceve: **+200 punti** + **badge pubblico** + **menzione**
+
+**Categorie nomination:**
+- 🦺 "Ha aiutato con i DPI"
+- ⚠️ "Ha segnalato un pericolo"
+- 🤝 "Ha supportato un collega in difficoltà"
+- 📚 "Ha condiviso conoscenze di sicurezza"
+- 🏃 "Ha reagito prontamente a un'emergenza"
+
+#### Transparency Dashboard
+
+Widget "**Hai detto → Abbiamo fatto**":
+- Mostra segnalazioni del team → azioni intraprese
+- Crea **fiducia** nel sistema
+- Incentiva **future segnalazioni**
+
+---
+
+### Incentivi per il Partner
+
+I Partner possono **personalizzare** gli incentivi per i propri clienti:
+
+| Funzionalità | Descrizione |
+|--------------|-------------|
+| **Catalogo personalizzato** | Aggiungere premi brandizzati |
+| **Sfide custom** | Creare challenge specifiche |
+| **Bonus formazione** | Extra punti per i propri corsi |
+| **Report engagement** | Dashboard utilizzo per cliente |
+| **Co-branding premi** | Logo Partner su gadget |
+
+---
+
+### Metriche di Successo Incentivi
+
+| KPI | Target | Misura |
+|-----|--------|--------|
+| **Daily Active Users (DAU)** | >70% | % lavoratori che aprono app/giorno |
+| **Completion rate formazione** | >85% | Corsi completati vs assegnati |
+| **VOW survey response** | >60% | Survey completati vs inviati |
+| **Near-miss reporting** | +50% | Incremento segnalazioni vs baseline |
+| **DPI compliance** | >95% | Tempo con DPI conformi |
+| **Punti riscattati** | >40% | Punti spesi vs guadagnati |
+| **NPS lavoratori** | >50 | Net Promoter Score |
+
+---
+
+### ROI Incentivi per l'Azienda
+
+| Beneficio | Stima Risparmio | Fonte |
+|-----------|-----------------|-------|
+| **Riduzione infortuni -30%** | €15.000-50.000/anno | Meno fermi, assicurazioni |
+| **Riduzione turnover** | €5.000-10.000/anno | Costo sostituzione personale |
+| **Audit più rapidi** | €2.000-5.000/anno | Documentazione automatica |
+| **Premio INAIL (OT23)** | Fino a 28% sconto | Prevenzione documentata |
+
+> 💡 **Il costo dei premi (€50-100/lavoratore/anno) è ampiamente ripagato dai risparmi generati.**
+
+---
+
 ## Localizzazione
 
 **Lingue supportate:**
