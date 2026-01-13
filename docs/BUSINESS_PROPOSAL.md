@@ -1016,4 +1016,4 @@ Referral      ───► Business     ───► Formazione     ───►
 
 ---
 
-*Documento riservato - © 2024 VCT - Virtual Creative Technologies*
+*Documento riservato - © 2025 Vigilo*
