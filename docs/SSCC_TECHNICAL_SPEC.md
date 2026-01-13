@@ -1412,4 +1412,4 @@ Sì. Dalla tua area personale puoi:
 
 *Documento generato dalla specifica "Safety & Sustainability Control Center — Documento Base Di Progetto (casco-centrico)"*
 
-*© VCT - Virtual Creative Technologies*
+*© 2025 Vigilo*
