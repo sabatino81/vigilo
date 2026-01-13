@@ -122,4 +122,5 @@ SUPABASE_ANON_KEY=your_anon_key
 | `docs/PROGETTO.md` | Specifiche funzionali complete |
 | `docs/BUSINESS_PROPOSAL.md` | Business model e go-to-market |
 | `docs/SSCC_TECHNICAL_SPEC.md` | Spec tecnica sistema casco-centrico |
+| `docs/PIATTAFORMA_FORMAZIONE.md` | Spec tecnica LMS per Partner |
 | `docs/ROADMAP.md` | Roadmap e gap analysis |
