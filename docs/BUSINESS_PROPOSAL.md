@@ -397,6 +397,84 @@ Il modello di business di Vigilo è **autofinanziato**: le aziende clienti utili
 
 ---
 
+## Analisi del Mercato: Formazione Sicurezza Online
+
+### Quadro Normativo (Accordo Stato-Regioni 2025)
+
+Il nuovo **Accordo Stato-Regioni n. 59/CSR del 17 aprile 2025** disciplina la formazione sicurezza online:
+
+| Modalità | Requisiti |
+|----------|-----------|
+| **E-learning asincrono** | LMS conforme, tracciamento SCORM, tutor di contenuto + processo |
+| **Videoconferenza sincrona** | Max 30 partecipanti, equivalente all'aula, no smartphone |
+| **Moduli pratici** | Obbligatoriamente in presenza |
+
+### Come Operano Oggi i Formatori
+
+#### Opzione 1: Piattaforme "Chiavi in Mano" (White-Label)
+
+I formatori freelance/RSPP usano piattaforme di terze parti:
+
+| Piattaforma | Modello | Pro | Contro |
+|-------------|---------|-----|--------|
+| **Tutor81** | LMS white-label | Attestati col proprio brand | Costi per corso, nessun IoT |
+| **Progetto81** | Ente accreditato | UNI EN ISO 9001-2015 | Margini compressi |
+| **Vega Formazione** | Catalogo + videoconferenza | Corsi pronti | Zero personalizzazione |
+
+**Modello economico tipico:**
+- Il formatore **acquista** i corsi (€20-80/corso)
+- Li **rivende** ai clienti (€50-150/corso)
+- **Margine**: 30-50%
+- **Attestato**: emesso dall'ente accreditato (non dal formatore)
+
+#### Opzione 2: LMS Proprietario
+
+Enti formativi più strutturati acquistano/affittano una piattaforma LMS:
+
+| Requisito Accordo 2025 | Cosa serve |
+|------------------------|------------|
+| Tracciamento SCORM | LMS certificato |
+| Tutor di contenuto | Docente qualificato |
+| Tutor di processo | Supporto tecnico |
+| Test intermedi/finali | Quiz builder |
+| Autorizzazione regionale | Accreditamento o convenzione |
+
+**Costi stimati LMS proprietario:** €3.000-15.000/anno
+
+### Pain Points dei Formatori Oggi
+
+| Problema | Impatto |
+|----------|---------|
+| **Costi piattaforma elevati** | Margini ridotti, difficile per freelance |
+| **Nessuna differenziazione** | Tutti vendono gli stessi corsi standard |
+| **Attestati non propri** | Il brand del formatore sparisce |
+| **Zero engagement** | Corsi noiosi, dropout alto |
+| **Nessun upsell** | Finito il corso, finita la relazione |
+| **Compliance complessa** | Accordo 2025 richiede più figure |
+
+### Come Vigilo Risolve i Pain Points
+
+| Pain Point Attuale | Soluzione Vigilo |
+|--------------------|------------------|
+| Costi piattaforma | **GRATIS** per i Partner |
+| Nessuna differenziazione | **IoT + Gamification** = offerta unica |
+| Attestati non propri | **White-label** completo |
+| Zero engagement | **€240/anno in premi** per operaio |
+| Nessun upsell | **Monitoraggio continuo** = revenue ricorrente |
+| Compliance complessa | **Tutor di processo incluso** nella piattaforma |
+
+### Confronto Modelli Economici
+
+| Aspetto | Formatore Oggi | Formatore con Vigilo |
+|---------|----------------|----------------------|
+| Costo piattaforma | €3.000-15.000/anno | **€0** |
+| Margine formazione | 30-50% | **100%** (formazione sua) |
+| Revenue ricorrente | ❌ No | ✅ Royalty €72/operaio/anno |
+| Differenziazione | ❌ Corsi standard | ✅ IoT + AI + Gamification |
+| Fidelizzazione cliente | ❌ Bassa | ✅ Alta (monitoraggio continuo) |
+
+---
+
 ## Competitive Landscape
 
 ### Competitor Diretti
