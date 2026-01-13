@@ -144,6 +144,244 @@ La piattaforma supporta:
 
 ---
 
+## Funzionalità per Attore
+
+### 👷 OPERAIO (Lavoratore)
+
+#### Funzionalità App Mobile
+
+| Modulo | Funzionalità | Descrizione |
+|--------|--------------|-------------|
+| **Home** | Dashboard personale | Safety score, stato DPI, KPI (FI/ASI), checklist giornaliera |
+| **Home** | Smart Break | Timer pause intelligenti, zone ombra vicine |
+| **SOS** | Pulsante emergenza | Hold 3s → invia posizione GPS + stato a tutti i contatti |
+| **SOS** | Segnalazioni | Near-miss, pericoli, suggerimenti (con foto/audio) |
+| **Punti** | Wallet punti | Saldo, transazioni, livello (Bronze→Diamond) |
+| **Punti** | Catalogo premi | Voucher, DPI premium, gadget (riscatto con punti) |
+| **Punti** | Ruota fortunata | 1 spin gratuito/giorno, premi istantanei |
+| **Impara** | Corsi formazione | Video, PDF, lezioni del proprio Formatore |
+| **Impara** | Quiz certificativi | Test con punteggio minimo, tentativi multipli |
+| **Impara** | Certificati | Download attestati, notifica scadenze |
+| **Team** | Social wall | Foto cantiere, commenti, like |
+| **Team** | Sfide team | Challenge settimanali (es. "Zero Infortuni") |
+| **Team** | Safety Star | Nomina colleghi meritevoli |
+| **Team** | VOW Survey | Feedback fine turno (+10 punti) |
+
+#### Vantaggi Operaio
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| 💰 **Premi reali** | €240/anno in premi riscattabili (voucher Amazon, DPI, gadget) |
+| 🛡️ **Protezione** | Monitoraggio FI/ASI previene incidenti da fatica/stress |
+| 🆘 **SOS immediato** | Un pulsante per chiamare aiuto in 3 secondi |
+| 📚 **Formazione facile** | Corsi online dal telefono, punti per ogni completamento |
+| 🏆 **Riconoscimento** | Safety Star, classifiche, badge pubblici |
+| 👁️ **Trasparenza** | Vede solo i propri dati, privacy garantita |
+
+---
+
+### 👔 PREPOSTO
+
+#### Funzionalità
+
+| Piattaforma | Funzionalità | Descrizione |
+|-------------|--------------|-------------|
+| **Web** | Stato DPI area | Vista real-time DPI per persona/zona |
+| **Web** | Controllo varchi | Chi entra/esce da aree vincolate |
+| **Web** | Playbook emergenze | Procedure passo-passo per ogni tipo di alert |
+| **Web** | Registro DPI | Consegne, sostituzioni, scadenze |
+| **Mobile** | Gestione SOS | Ricezione alert, conferma arrivo, chiusura |
+| **Mobile** | Scanner DPI | Verifica tag NFC/BLE su casco/scarpe/guanti |
+| **Mobile** | Interventi | Cronologia con tempi, foto, firma digitale |
+
+#### Vantaggi Preposto
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| ⚡ **Reattività** | Alert in tempo reale sul telefono |
+| 📋 **Procedure chiare** | Playbook elimina dubbi su cosa fare |
+| 📱 **Mobilità** | Tutto dal telefono, anche offline |
+| 📊 **Tracciabilità** | Ogni intervento documentato automaticamente |
+| ⚖️ **Tutela legale** | Evidenze oggettive della propria vigilanza |
+
+---
+
+### 🏗️ RESPONSABILE CANTIERE
+
+#### Funzionalità
+
+| Piattaforma | Funzionalità | Descrizione |
+|-------------|--------------|-------------|
+| **Web** | Cruscotto rischio | Heatmap fatica/stress per area/lavorazione |
+| **Web** | Non conformità | Gestione NC con workflow e scadenze |
+| **Web** | Azioni correttive | Assegnazione, follow-up, chiusura |
+| **Web** | Configurazione soglie | Personalizzazione alert per il cantiere |
+| **Web** | Allegati POS | Upload documenti, aggiornamenti |
+| **Mobile** | Verifica DPI on-site | Scanner + foto + coordinate |
+| **Mobile** | Azioni rapide | Messa in sicurezza area, allontanamento |
+| **Mobile** | Chiusura NC | Foto, firma, geolocalizzazione |
+
+#### Vantaggi Responsabile Cantiere
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| 🎯 **Visione completa** | Tutto il cantiere in un cruscotto |
+| ⏱️ **Risparmio tempo** | NC gestite digitalmente, zero carta |
+| 📉 **Riduzione incidenti** | Alert preventivi prima dell'evento |
+| 📄 **POS sempre aggiornato** | Allegati digitali, versioning automatico |
+| ✅ **Compliance** | Evidenze per audit e ispezioni |
+
+---
+
+### 🛡️ RSPP (Responsabile Servizio Prevenzione e Protezione)
+
+#### Funzionalità
+
+| Piattaforma | Funzionalità | Descrizione |
+|-------------|--------------|-------------|
+| **Web** | Osservatorio HSE | Dashboard cross-sito, trend, correlazioni |
+| **Web** | Policy & soglie | Configurazione centralizzata regole alert |
+| **Web** | Integrazione DVR | Aggiornamenti motivati da evidenze |
+| **Web** | Gestione DPIA | Registro trattamenti, valutazione impatti |
+| **Web** | Libreria procedure | Istruzioni operative ISO 45001 |
+| **Web** | Report HSE | KPI, analisi cause, piani miglioramento |
+| **Mobile** | Ispezioni | Checklist offline, verbali firmati |
+| **Mobile** | Azioni correttive | Assegnazione a responsabili cantiere |
+
+#### Vantaggi RSPP
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| 📊 **Data-driven** | Decisioni basate su dati reali, non sensazioni |
+| 🔄 **DVR dinamico** | Aggiornamenti automatici da evidenze |
+| ⚖️ **Compliance GDPR** | DPIA e registro trattamenti integrati |
+| 🎯 **Prevenzione** | FI/ASI rilevano rischi prima dell'incidente |
+| 📱 **Ispezioni smart** | Offline-first, firma digitale, geotag |
+| 💼 **Professionalità** | Strumenti digitali moderni per i clienti |
+
+---
+
+### 🖥️ COS (Centro Operativo Sicurezza)
+
+#### Funzionalità
+
+| Piattaforma | Funzionalità | Descrizione |
+|-------------|--------------|-------------|
+| **Web** | Command Center | Mappa multi-sito, layer attivabili |
+| **Web** | Triage allarmi | Presa in carico, assegnazione, escalation |
+| **Web** | Playback forense | Timeline sincronizzata (GSR/HR, posizione, DPI) |
+| **Web** | Pacchetti probatori | PDF + JSON firmabili per POS/DVR/PSC |
+| **Web** | Audit log | Tracciabilità completa di ogni azione |
+| **Mobile** | Allarmi critici | Notifica push, presa in carico one-tap |
+| **Mobile** | Checklist emergenze | Procedure guidate |
+| **Mobile** | Chiusura interventi | Note, foto, audio, firma digitale |
+
+#### Vantaggi COS
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| 🌐 **Vista globale** | Tutti i cantieri in un'unica console |
+| ⚡ **SLA garantiti** | Triage < 60s, escalation automatica |
+| 🔍 **Forense** | Ricostruzione eventi con timeline completa |
+| 📦 **Pacchetti probatori** | Export per autorità e assicurazioni |
+| 🔒 **Privacy** | Pseudonimi by default, de-pseud. tracciata |
+
+---
+
+### 👔 DIREZIONE / DATORE DI LAVORO
+
+#### Funzionalità
+
+| Piattaforma | Funzionalità | Descrizione |
+|-------------|--------------|-------------|
+| **Web** | KPI aggregati | Incidenti, near-miss, compliance DPI, tempi risposta |
+| **Web** | Benchmark | Confronto cantieri, fornitori, periodi |
+| **Web** | ESG | Metriche ambientali (rumore, polveri, CO₂) |
+| **Web** | ROI sicurezza | Costi evitati, risparmio INAIL |
+| **Web** | Stato audit | Ispezioni, NC aperte, azioni in corso |
+| **Mobile** | Snapshot executive | 5-7 KPI chiave |
+| **Mobile** | Approvazioni | Firma digitale documenti |
+
+#### Vantaggi Direzione
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| 💰 **ROI misurabile** | Risparmio INAIL OT23 fino al 28% |
+| 📉 **-30% infortuni** | Prevenzione = meno fermi cantiere |
+| ⚖️ **Tutela penale** | Evidenze di adempimento D.Lgs. 81/2008 |
+| 📊 **ESG ready** | Report per stakeholder e bandi |
+| 🏆 **Employer branding** | Azienda che investe in sicurezza |
+| 💵 **Costo zero** | Per PMI ≤10: risparmio INAIL copre costo Vigilo |
+
+---
+
+### 📚 PARTNER / FORMATORE
+
+#### Funzionalità
+
+| Piattaforma | Funzionalità | Descrizione |
+|-------------|--------------|-------------|
+| **Web** | CMS Formazione | Upload video, PDF, lezioni |
+| **Web** | Quiz builder | Creazione test certificativi D.Lgs. 81 |
+| **Web** | Generatore certificati | Attestati con firma digitale |
+| **Web** | Dashboard corsisti | Progress, completamenti, scadenze |
+| **Web** | Report compliance | Export per audit clienti |
+| **Web** | Accesso dati IoT | Indici FI/ASI, eventi, allarmi |
+| **Web** | Catalogo premi custom | Premi brandizzati personalizzati |
+| **Web** | Sfide custom | Challenge specifiche per clienti |
+
+#### Vantaggi Partner/Formatore
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| 🆓 **Piattaforma GRATIS** | Zero costi per CMS, quiz, certificati |
+| 💰 **Royalty €72/anno** | Per ogni operaio dei propri clienti |
+| 💯 **Formazione = 100% sua** | Fattura direttamente al cliente |
+| 🎯 **Differenziazione** | IoT + Gamification = offerta unica |
+| 📈 **Upsell** | Da formatore a consulente tech |
+| 🔄 **Revenue ricorrente** | Monitoraggio = relazione continua |
+| 🏷️ **White-label** | Attestati col proprio brand |
+
+---
+
+### 🔍 CONSULENTE HSE / COORDINATORE SICUREZZA
+
+#### Funzionalità
+
+| Piattaforma | Funzionalità | Descrizione |
+|-------------|--------------|-------------|
+| **Web** | KPI per incarico | Performance dei cantieri seguiti |
+| **Web** | Audit digitale | Checklist Titolo IV D.Lgs. 81 |
+| **Web** | Piani miglioramento | Azioni correttive con scadenze |
+| **Web** | Pacchetti PSC/POS | Report esportabili |
+| **Mobile** | Ispezioni offline | Evidenze geotaggate, firma |
+
+#### Vantaggi Consulente HSE
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| 📱 **Mobilità** | Ispezioni da tablet, anche senza rete |
+| 📊 **Dati oggettivi** | KPI reali per supportare raccomandazioni |
+| 📄 **Documentazione** | Pacchetti probatori pronti per PSC |
+| ⏱️ **Efficienza** | Meno tempo su carta, più consulenza |
+
+---
+
+### Riepilogo Vantaggi per Attore
+
+| Attore | Vantaggio Principale | Valore Economico |
+|--------|---------------------|------------------|
+| **Operaio** | Premi reali + protezione | €240/anno in premi |
+| **Preposto** | Alert real-time + playbook | Riduzione responsabilità |
+| **Resp. Cantiere** | Cruscotto rischio + NC digitali | -50% tempo admin |
+| **RSPP** | DVR dinamico + data-driven | Compliance garantita |
+| **COS** | Command center H24 | SLA < 3 min |
+| **Direzione** | ROI + tutela penale | Fino a +€180/operaio/anno |
+| **Formatore** | Piattaforma gratis + royalty | €72/operaio/anno |
+| **Consulente HSE** | Audit digitale | +30% efficienza |
+
+---
+
 ## Target Market
 
 ### Target Primario: Consulenti Sicurezza e Formazione
