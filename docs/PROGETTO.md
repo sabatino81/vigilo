@@ -43,19 +43,38 @@ L'app utilizza una **bottom navigation** con 5 tab principali:
 
 ## Funzionalità per Modulo
 
+### Riepilogo Moduli
+
+| Modulo | Features | Stato | Priorità Prossime |
+|--------|----------|-------|-------------------|
+| **🏠 Home** | 9 cards dashboard | ✅ Completo | Progress bar formazione |
+| **👥 Team** | 8 widgets + VOW survey | ✅ Completo | Notifiche menzioni |
+| **🆘 SOS** | 4 tipi segnalazione | ✅ Completo | Countdown visivo, storico |
+| **🎯 Punti** | 5 livelli + ruota | ✅ Completo | Achievements/badge |
+| **📚 Impara** | CMS + Quiz + Certificati | ✅ Completo | Offline download |
+
+---
+
 ### 1. Home - Dashboard
 
 Cards visualizzate in ordine di priorità:
 
-1. **SiteAccessCard** - Verifica conformità cantiere (D.Lgs. 81/2008)
-2. **SafetyScoreCard** - Punteggio sicurezza personale /100
-3. **SocialWallCard** - Post social del cantiere
-4. **DpiStatusCard** - Stato DPI con alert batteria
-5. **TeamChallengeCard** - Sfida attiva con hot streak
-6. **SmartBreakCard** - Timer pausa e zone ombra
-7. **WelcomeGuideCard** - Guida onboarding
-8. **DailyTodoCard** - Checklist giornaliera
-9. **PersonalKpiCard** - KPI personali
+| # | Card | Funzione | Dati Mostrati |
+|---|------|----------|---------------|
+| 1 | **SiteAccessCard** | Verifica conformità cantiere | Stato accesso, DPI richiesti, formazione valida |
+| 2 | **SafetyScoreCard** | Punteggio sicurezza /100 | Score, trend 7gg, breakdown fattori |
+| 3 | **DpiStatusCard** | Stato DPI personali | Lista DPI, stato ON/OFF, % batteria, ultimo check |
+| 4 | **SocialWallCard** | Feed social cantiere | Ultimi 3 post, contatore commenti |
+| 5 | **TeamChallengeCard** | Sfida attiva | Nome sfida, progress %, hot streak 🔥 |
+| 6 | **SmartBreakCard** | Timer pausa intelligente | Tempo prossima pausa, zone ombra vicine |
+| 7 | **DailyTodoCard** | Checklist giornaliera | Todo completati/totali, prossimo item |
+| 8 | **PersonalKpiCard** | KPI personali | FI/ASI attuali, ore lavorate, segnalazioni |
+| 9 | **WelcomeGuideCard** | Onboarding (solo nuovi utenti) | Step completati, prossimo step |
+
+**Logica Priorità:**
+- Cards 1-3: **Sicurezza critica** - sempre visibili in alto
+- Cards 4-6: **Engagement** - ordine basato su attività recente
+- Cards 7-9: **Informative** - collassabili/nascondibili
 
 ---
 
@@ -108,9 +127,35 @@ Cards visualizzate in ordine di priorità:
 - Contatto Familiare
 
 **Funzione SOS:**
-- Pulsante emergenza con hold-to-activate
-- Invio automatico: segnale, posizione GPS, movimento
-- Notifica a tutti i contatti configurati
+- Pulsante emergenza con **hold-to-activate** (3 secondi)
+- **Countdown circolare visivo** durante pressione (feedback UX)
+- Vibrazione progressiva durante hold
+- Invio automatico: segnale, posizione GPS, stato movimento
+- Notifica simultanea a tutti i contatti configurati
+- Conferma visiva e sonora post-invio
+
+**UX Flow SOS:**
+```
+┌─────────────────────────────────────────────────────────┐
+│                                                         │
+│     Pressione iniziale → Countdown 3s (cerchio)        │
+│              │                                          │
+│              ▼                                          │
+│     ┌─────────────┐                                    │
+│     │   ◯ 3...    │  ← Vibrazione leggera              │
+│     │   ◯ 2...    │  ← Vibrazione media                │
+│     │   ◯ 1...    │  ← Vibrazione forte                │
+│     └─────────────┘                                    │
+│              │                                          │
+│              ▼                                          │
+│     ┌─────────────┐                                    │
+│     │  ✅ INVIATO │  ← Conferma + suono                │
+│     └─────────────┘                                    │
+│                                                         │
+│     Rilascio anticipato → Annulla (nessun invio)       │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -174,11 +219,25 @@ Cards visualizzate in ordine di priorità:
 | `WellnessCheckinCard` | Check-in umore (Great/So-so/Stressed) |
 | `TransparencyDashboardCard` | "Hai detto → Abbiamo fatto" |
 
-**Survey VOW:**
-1. Ti sei sentito sicuro oggi? (Sì/No)
-2. Qual è stato il rischio maggiore? (Attrezzature/Procedure/Ambiente/Altro)
-3. Hai segnalato un pericolo? (Sì/No)
-4. Commento libero
+**Survey VOW (Voice of Worker):**
+
+| # | Domanda | Tipo | Obbligatoria |
+|---|---------|------|--------------|
+| 1 | Ti sei sentito sicuro oggi? | Sì/No | ✅ |
+| 2 | Qual è stato il rischio maggiore? | Scelta multipla | ✅ |
+| 3 | Hai segnalato un pericolo? | Sì/No | ✅ |
+| 4 | Commento libero | Testo (max 500 char) | ❌ |
+
+**Opzioni Domanda 2:**
+- 🔧 Attrezzature/Macchinari
+- 📋 Procedure non chiare
+- 🌡️ Ambiente (caldo/freddo/rumore)
+- 👷 Comportamenti colleghi
+- 🦺 DPI inadeguati
+- 📦 Altro
+
+**Frequenza:** Fine turno (notifica automatica)
+**Incentivo:** +10 punti per completamento
 
 ---
 
@@ -372,6 +431,23 @@ Sensore rileva anomalia
 | Storico dati | ✅ Ultimi 7gg | ✅ Completo + analytics |
 | Geolocalizzazione | ✅ Propria | ✅ Mappa cantiere live |
 | Report incidenti | ✅ Creazione | ✅ Gestione + follow-up |
+
+### KPI Personali (visibili in app)
+
+L'operatore può visualizzare i propri KPI nella `PersonalKpiCard`:
+
+| KPI | Descrizione | Visualizzazione |
+|-----|-------------|-----------------|
+| **Safety Score** | Punteggio sicurezza 0-100 | Gauge + trend |
+| **FI (Fatigue Index)** | Indice affaticamento | Semaforo 🟢🟡🔴 |
+| **ASI (Acute Stress)** | Indice stress acuto | Semaforo 🟢🟡🔴 |
+| **DPI Compliance** | % tempo con DPI conformi | Percentuale |
+| **Ore lavorate** | Ore nel periodo | Numero + confronto |
+| **Segnalazioni** | Near-miss/pericoli segnalati | Contatore |
+| **Formazione** | Corsi completati/scaduti | Progress bar |
+| **Punti sicurezza** | Punti guadagnati | Numero + livello |
+
+**Privacy:** L'operatore vede SOLO i propri dati. I supervisori vedono dati aggregati/pseudonimizzati.
 
 ### Dati e Privacy
 
@@ -611,15 +687,70 @@ flutter build ios --flavor prod --release
 
 ## Roadmap Futura
 
-- [x] ~~Integrazione IoT sensori DPI~~ ✅ Completato (InSite)
-- [x] ~~Dashboard supervisor web~~ ✅ Completato (InSite)
-- [ ] Notifiche push real-time
-- [ ] Modalità offline completa
-- [ ] Integrazione calendario turni
-- [ ] Export report PDF
-- [ ] Integrazione con sistemi HR
-- [ ] Machine learning per predizione rischi
-- [ ] Realtà aumentata per istruzioni sicurezza
+### Completati ✅
+
+| Feature | Stato | Note |
+|---------|-------|------|
+| Integrazione IoT sensori DPI | ✅ Completato | Piattaforma InSite |
+| Dashboard supervisor web | ✅ Completato | insite.vct-me.com |
+| Sistema casco-centrico | ✅ Completato | GSR/EDA, HRV, Tag DPI |
+| Gamification completa | ✅ Completato | Punti, livelli, ruota |
+| Formazione Partner | ✅ Completato | CMS, Quiz, Certificati |
+
+### Priorità Alta 🔴 (Prossimo Sprint)
+
+| Feature | Descrizione | Impatto |
+|---------|-------------|---------|
+| **Notifiche push real-time** | Alert critici, SOS, reminder DPI | Essenziale per sicurezza |
+| **Modalità offline** | Cache locale, sync quando online | Cantieri senza rete |
+| **Countdown SOS visivo** | Feedback durante hold-to-activate | UX critica |
+
+### Priorità Media 🟡 (Q2)
+
+| Feature | Descrizione | Impatto |
+|---------|-------------|---------|
+| Export report PDF | Report compliance per audit | Richiesto per DVR/POS |
+| Calendario turni | Integrazione presenze/turni | Pianificazione |
+| Notifiche preventive | Alert pre-scadenza formazione/DPI | Compliance |
+
+### Priorità Bassa 🟢 (Q3-Q4)
+
+| Feature | Descrizione | Impatto |
+|---------|-------------|---------|
+| Integrazione HR | Sync anagrafica dipendenti | Automazione |
+| ML predizione rischi | Modelli predittivi su FI/ASI | Prevenzione avanzata |
+| AR istruzioni sicurezza | Overlay procedure su camera | Innovazione |
+| Multi-lingua aggiuntive | Francese, Tedesco, Spagnolo | Espansione DACH |
+
+---
+
+## Gap Analysis
+
+### Funzionalità Critiche Mancanti
+
+| Gap | Rischio | Mitigazione Attuale | Soluzione |
+|-----|---------|---------------------|-----------|
+| **Push notifications** | Alert non ricevuti | Polling manuale | Implementare FCM/APNs |
+| **Offline mode** | App inutilizzabile senza rete | Nessuna | Cache locale + sync |
+| **Biometric lock** | Accesso non autorizzato | Pin/password | Implementare local_auth |
+
+### Miglioramenti UX Identificati
+
+| Area | Problema | Soluzione Proposta |
+|------|----------|-------------------|
+| SOS Button | Nessun feedback durante hold | Countdown circolare 3s |
+| DPI Status | Solo stato binario | Aggiungere % batteria, ultimo check |
+| Training Progress | Progress poco visibile | Barra progress in card Home |
+| Alert History | Non accessibile facilmente | Aggiungere tab "Storico" in SOS |
+
+### Debito Tecnico
+
+| Item | Priorità | Effort |
+|------|----------|--------|
+| Test coverage < 50% | 🔴 Alta | 2 sprint |
+| Mancano test E2E | 🟡 Media | 1 sprint |
+| Documentazione API incompleta | 🟡 Media | 1 settimana |
+| Accessibilità (a11y) non testata | 🟢 Bassa | 1 sprint |
 
 ---
 
