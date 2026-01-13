@@ -1,27 +1,28 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-const _kSettingsBox = 'settings';
 const _kLocaleKey = 'locale';
 
 class LocaleNotifier extends Notifier<Locale> {
   @override
   Locale build() {
-    // Read persisted locale from Hive if available
+    // Load persisted locale asynchronously; don't block the UI
+    // ignore: discarded_futures
+    _loadLocale();
+    return const Locale('en');
+  }
+
+  Future<void> _loadLocale() async {
     try {
-      final box = Hive.isBoxOpen(_kSettingsBox)
-          ? Hive.box<dynamic>(_kSettingsBox)
-          : null;
-      final stored = box?.get(_kLocaleKey) as String?;
-      if (stored != null && stored.isNotEmpty) {
-        final parts = stored.split('-');
-        return Locale(parts[0]);
+      final prefs = await SharedPreferences.getInstance();
+      final code = prefs.getString(_kLocaleKey);
+      if (code != null && code.isNotEmpty) {
+        state = Locale(code);
       }
     } on Object catch (_) {
-      // ignore and fallback to default
+      // ignore and keep default
     }
-    return const Locale('en');
   }
 
   void setLocale(Locale locale) {
@@ -33,10 +34,8 @@ class LocaleNotifier extends Notifier<Locale> {
 
   Future<void> _persistLocale(String code) async {
     try {
-      final box = Hive.isBoxOpen(_kSettingsBox)
-          ? Hive.box<dynamic>(_kSettingsBox)
-          : await Hive.openBox<dynamic>(_kSettingsBox);
-      await box.put(_kLocaleKey, code);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_kLocaleKey, code);
     } on Object catch (_) {
       // ignore persistence errors
     }

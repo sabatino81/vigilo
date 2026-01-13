@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vigilo/core/env/env.dart';
 import 'package:vigilo/core/router/app_router.dart';
-import 'package:vigilo/core/storage/hive_storage.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/auth/auth_manager.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
@@ -47,9 +46,6 @@ Future<void> main() async {
     logger.w('dotenv asset load error for $assetEnv; continuing.');
     logger.d('dotenv asset load error', error: e, stackTrace: s);
   }
-
-  // Init Hive for local cache/storage
-  await HiveStorage.init();
 
   // Helper to safely read dotenv keys without throwing if dotenv was
   // never initialized. flutter_dotenv throws NotInitializedError when
