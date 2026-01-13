@@ -15,17 +15,18 @@ Vigilo **non è solo un prodotto**, ma una piattaforma che abilita i Partner a:
 - 🆕 **Offrire nuovi servizi** basati su IoT e AI (monitoraggio real-time, prevenzione)
 - 📈 **Scalare il business** senza aumentare i costi fissi
 
-### Modello di Business: Partner Network
+### Modello di Business: INAIL-Funded Safety
 
-Vigilo adotta un modello **B2B2B** attraverso una rete di **Consulenti Sicurezza e Formatori Abilitati** (D.Lgs. 81/2008):
+Vigilo adotta un modello **autofinanziato dal risparmio INAIL OT23**: le aziende clienti utilizzano il risparmio sul premio assicurativo per pagare il servizio.
 
 | Elemento | Modello |
 |----------|---------|
-| **Revenue VCT** | Fee per utente (€/utente/mese) |
+| **Costo per azienda** | €40/operaio/mese (coperto da risparmio INAIL) |
+| **Servizio monitoraggio** | €20/mese → royalty 30% ai Partner |
+| **Fondo premi gamification** | €20/mese → no royalty, 30% gross margin Vigilo |
 | **Sensori IoT** | 🆓 Comodato d'uso (non venduti) |
 | **Piattaforma contenuti** | 🆓 Gratuita per i Partner |
-| **Formazione** | ❌ Non passa da VCT (100% business del Partner) |
-| **Royalty Partner** | ~30% della fee per clienti portati |
+| **Formazione** | ❌ Non passa da Vigilo (100% business del Partner) |
 
 ### Architettura Aperta
 
@@ -122,7 +123,7 @@ La piattaforma supporta:
 
 #### 3. Piattaforma Formazione per Partner
 
-> ⚠️ La formazione è erogata dai **Partner**, NON da VCT. La piattaforma fornisce gli strumenti digitali.
+> ⚠️ La formazione è erogata dai **Partner**, NON da Vigilo. La piattaforma fornisce gli strumenti digitali.
 
 - 📤 **CMS** per caricare contenuti (video, PDF, lezioni)
 - ❓ **Quiz builder** per test certificativi D.Lgs. 81
@@ -190,40 +191,40 @@ Per diventare Partner è necessario possedere **almeno uno** dei seguenti requis
 ### Buyer Personas (Partner)
 
 #### 1. Alessandro - RSPP Esterno Abilitato
-- **Profilo**: 45 anni, laurea ingegneria, RSPP dal 2010, gestisce 25 PMI edili
+- **Profilo**: 45 anni, laurea ingegneria, RSPP dal 2010, gestisce 25 PMI edili (~500 operai)
 - **Qualifica**: RSPP modulo A-B-C, Formatore qualificato area 2 (D.I. 6/3/2013)
 - **Goal**: Differenziarsi dalla concorrenza, aumentare ricavi per cliente
 - **Pain**: Clienti vedono sicurezza come costo, difficile fidelizzare
 - **Trigger**: Un suo cliente ha avuto infortunio grave → cerca soluzioni innovative
-- **Opportunità**: Partnership Vigilo **senza costi**, royalty 30% su tutto
-- **Revenue potenziale**: €20-35K/anno in royalty
+- **Opportunità**: Partnership Vigilo **senza costi**, royalty €72/operaio/anno
+- **Revenue potenziale**: 500 × €72 = **€36.000/anno** in royalty passive
 
 #### 2. Francesca - Titolare Studio Consulenza HSE
-- **Profilo**: 50 anni, studio con 5 consulenti RSPP, 80 aziende clienti
+- **Profilo**: 50 anni, studio con 5 consulenti RSPP, 80 aziende clienti (~1.600 operai)
 - **Qualifica**: Tutti i consulenti sono RSPP abilitati + 2 formatori qualificati
 - **Goal**: Scalare senza assumere, digitalizzare servizi ripetitivi
 - **Pain**: Troppo tempo su formazione base, margini bassi su corsi standard
 - **Trigger**: Concorrente ha iniziato a offrire formazione online
 - **Opportunità**: Vigilo come **differenziatore premium** (IoT + gamification)
-- **Revenue potenziale**: €60-100K/anno in royalty per lo studio
+- **Revenue potenziale**: 1.600 × €72 = **€115.200/anno** in royalty per lo studio
 
 #### 3. Roberto - Direttore Ente Formazione Accreditato
-- **Profilo**: Ente accreditato Regione Lombardia, 200 aziende/anno, 3.000 corsisti
+- **Profilo**: Ente accreditato Regione Lombardia, 200 aziende/anno (~3.000 operai)
 - **Qualifica**: Accreditamento regionale, 10 formatori abilitati in organico
 - **Goal**: Innovare offerta formativa, ridurre dropout, aumentare engagement
 - **Pain**: Corsi in aula poco efficaci, difficile tracciare apprendimento
 - **Trigger**: Bando regionale per digitalizzazione formazione sicurezza
 - **Opportunità**: Vigilo come piattaforma **blended learning** certificata
-- **Revenue potenziale**: €80-150K/anno in royalty
+- **Revenue potenziale**: 3.000 × €72 = **€216.000/anno** in royalty
 
 #### 4. Giuseppe - Formatore Freelance Specializzato
-- **Profilo**: 38 anni, ex-capocantiere, formatore da 8 anni, 40 aziende clienti
+- **Profilo**: 38 anni, ex-capocantiere, formatore da 8 anni, 40 aziende clienti (~800 operai)
 - **Qualifica**: Formatore qualificato area 2 + esperienza cantieri (criterio 3)
 - **Goal**: Ampliare offerta, passare da formazione base a consulenza premium
 - **Pain**: Concorrenza sui prezzi, difficile giustificare tariffe alte
 - **Trigger**: Cliente chiede soluzione IoT vista a fiera SAIE
 - **Opportunità**: Vigilo come **upgrade di posizionamento** (da formatore a consulente tech)
-- **Revenue potenziale**: €15-25K/anno in royalty
+- **Revenue potenziale**: 800 × €72 = **€57.600/anno** in royalty
 
 ### Buyer Persona (Cliente Finale)
 
@@ -233,67 +234,108 @@ Per diventare Partner è necessario possedere **almeno uno** dei seguenti requis
 - **Goal**: Azzerare infortuni, ridurre premi assicurativi, evitare responsabilità penale
 - **Budget**: €30-50K/anno per sicurezza (già spende per consulente + formazione)
 - **Decisione**: Si affida al proprio RSPP esterno (Partner Vigilo) per soluzione completa
-- **NON contattato direttamente da VCT** → arriva tramite il suo consulente
+- **NON contattato direttamente da Vigilo** → arriva tramite il suo consulente
 
 ---
 
 ## Business Model
 
-### Modello B2B2B: Partner Network
+### Modello INAIL-Funded: Il Servizio Si Ripaga Da Solo
+
+Il modello di business di Vigilo è **autofinanziato**: le aziende clienti utilizzano il **risparmio INAIL OT23** per pagare il servizio, ottenendo sicurezza a costo zero (o addirittura con guadagno).
 
 ```
-                    FLUSSO ECONOMICO E SERVIZI
-                    ==========================
+                    FLUSSO ECONOMICO VIGILO
+                    =======================
 
 ┌─────────────────────────────────────────────────────────────────┐
 │                   AZIENDE CLIENTI                               │
 │              (Imprese edili, Manifatturiero)                   │
+│                                                                 │
+│   📉 RISPARMIO INAIL OT23: €55/mese per operaio (PMI ≤10)     │
+│   💰 COSTO VIGILO: €40/mese per operaio                        │
+│   ✅ SALDO NETTO: +€15/mese = GUADAGNO                         │
 └──────────────┬────────────────────────────────┬─────────────────┘
                │                                │
-               │ 💰 Fee per utente              │ 💰 Formazione
-               │    (€X/utente/mese)            │    (pagata direttamente)
+               │ €40/operaio/mese               │ 💰 Formazione
+               │ (coperto da risparmio INAIL)   │    (pagata direttamente)
                ▼                                ▼
 ┌──────────────────────────────┐    ┌─────────────────────────────┐
-│           VCT                │    │      PARTNER                │
-│    (Piattaforma Vigilo)      │    │   (Formatore/RSPP)          │
+│         VIGILO               │    │      PARTNER                │
+│                              │    │   (Formatore/RSPP)          │
+│ Riceve €40/operaio/mese:     │    │                             │
+│ ├─ €20 Monitoraggio          │    │ Cosa fornisce:              │
+│ │   └─ 30% royalty Partner   │    │ • Formazione D.Lgs. 81      │
+│ └─ €20 Fondo Premi           │    │ • Consulenza sicurezza      │
+│     └─ 30% gross margin      │    │ • DVR e documentazione      │
 │                              │    │                             │
-│ Cosa fornisce:               │    │ Cosa fornisce:              │
-│ • App Vigilo                 │    │ • Formazione D.Lgs. 81      │
-│ • Sensori in COMODATO        │    │ • Consulenza sicurezza      │
-│ • Dashboard monitoraggio     │    │ • DVR e documentazione      │
+│ Cosa fornisce:               │    │ Cosa riceve GRATIS:         │
+│ • App Vigilo                 │    │ • Piattaforma contenuti     │
+│ • Sensori in COMODATO        │    │ • Quiz e materiali          │
+│ • Dashboard monitoraggio     │    │ • Strumenti digitali        │
 │ • Centrale operativa H24     │    │                             │
-│                              │    │ Cosa riceve GRATIS da VCT:  │
-│ Paga ai Partner:             │    │ • Piattaforma contenuti     │
-│ • Royalty ~30% fee utente    │    │ • Quiz e materiali          │
-│   (per clienti portati)      │    │ • Strumenti digitali        │
+│ • Premi gamification         │    │ Cosa riceve DA VIGILO:      │
+│                              │    │ • Royalty €6/operaio/mese   │
 └──────────────────────────────┘    └─────────────────────────────┘
 ```
 
-### Il Modello in Sintesi
+### Calcolo Risparmio INAIL OT23
 
-| Elemento | Come funziona |
-|----------|---------------|
-| **Revenue VCT** | Fee per utente (€/utente/mese) pagata dal cliente |
-| **Sensori IoT** | 🆓 **COMODATO D'USO** - non venduti, prestati ai clienti |
-| **Piattaforma contenuti** | 🆓 **GRATUITA** per i Partner - quiz, materiali, corsi |
-| **Formazione** | ❌ **NON passa da VCT** - Partner la eroga e incassa direttamente |
-| **Royalty Partner** | ~30% della fee utente per i clienti che il Partner porta |
+**Base di calcolo (operaio edile medio):**
 
-### Revenue Stream VCT: Fee per Utente
+| Parametro | Valore | Fonte |
+|-----------|--------|-------|
+| RAL media operaio edile | €26.000/anno | CCNL Edilizia 2024 |
+| Tasso INAIL edilizia (rischio alto) | 9% | Classe 7-9 INAIL |
+| **Premio INAIL/operaio** | **€2.340/anno** | €26.000 × 9% |
 
-VCT ha **un'unica fonte di revenue**: la fee mensile per utente monitorato.
+**Riduzione OT23 per dimensione azienda:**
 
-| Piano | Fee/utente/mese | Incluso |
-|-------|-----------------|---------|
-| **Base** | €8 | App, sensori comodato, dashboard |
-| **Plus** | €12 | + Centrale operativa H24 |
-| **Premium** | €18 | + Intervento emergenze, SLA garantito |
+| Dimensione Azienda | Dipendenti | Riduzione OT23 | Risparmio/anno | Risparmio/mese |
+|--------------------|------------|----------------|----------------|----------------|
+| **Piccola** | ≤10 | **28%** | **€655** | **€55** |
+| **Media** | 11-50 | 18% | €421 | €35 |
+| **Medio-grande** | 51-200 | 10% | €234 | €20 |
+| **Grande** | 201-500 | 7% | €164 | €14 |
 
-> 💡 **Sensori in comodato**: Il cliente NON acquista i dispositivi. VCT li fornisce in comodato d'uso incluso nella fee.
+> 📊 **Fonte**: [INAIL OT23 2025](https://biblus.acca.it/ot23-riduzione-tasso-medio-prevenzione-inail/) - Riduzione tasso medio per prevenzione
 
-### Cosa Riceve il Partner (GRATIS)
+### Il Modello: €40/operaio/mese
 
-La piattaforma consente ai Partner di **digitalizzare i servizi che già erogano** e di **offrire nuovi servizi** basati su IoT:
+| Componente | Importo/mese | Destinazione |
+|------------|--------------|--------------|
+| **Servizio Monitoraggio** | €20 | Vigilo (royalty 30% al Partner) |
+| **Fondo Premi Gamification** | €20 | Lavoratori (gross margin 30% Vigilo) |
+| **TOTALE** | **€40** | |
+
+### Bilancio per l'Azienda Cliente
+
+| Dimensione | Risparmio INAIL | Costo Vigilo | **Saldo/mese** | **Saldo/anno** |
+|------------|-----------------|--------------|----------------|----------------|
+| **Piccola (≤10)** | €55 | €40 | **+€15** ✅ | **+€180** |
+| **Media (11-50)** | €35 | €40 | -€5 | -€60 |
+| **Grande (51-200)** | €20 | €40 | -€20 | -€240 |
+
+> 💡 **Per le PMI piccole**: Vigilo si ripaga completamente + €180/anno di risparmio netto per operaio
+>
+> 💡 **Per aziende medie/grandi**: Costo netto €60-240/anno per operaio, ma compensato da:
+> - **Riduzione infortuni -30%** = €15.000-50.000 risparmiati per incidente evitato
+> - Minori fermi cantiere
+> - Protezione legale e compliance D.Lgs. 81/2008
+> - Documentazione automatica per audit
+
+### Distribuzione Revenue (per operaio/mese)
+
+| Destinatario | Importo | % | Note |
+|--------------|---------|---|------|
+| **Partner** (royalty) | €6 | 15% | 30% del monitoraggio (€20) |
+| **Lavoratori** (premi effettivi) | €14 | 35% | 70% del fondo premi (€20) |
+| **Vigilo** (net revenue) | €20 | 50% | €14 monitoraggio + €6 margin premi |
+| **TOTALE** | €40 | 100% | |
+
+### Cosa Riceve il Partner (GRATIS + Royalty)
+
+**Strumenti gratuiti:**
 
 | Strumento | Descrizione | Servizio Digitalizzato |
 |-----------|-------------|------------------------|
@@ -303,68 +345,55 @@ La piattaforma consente ai Partner di **digitalizzare i servizi che già erogano
 | **Dashboard Compliance** | Monitora DPI, scadenze, audit | Consulenza HSE continua |
 | **Report POS/DVR** | Pacchetti probatori esportabili | Documentazione per audit |
 | **Accesso dati IoT** | Indici FI/ASI, eventi, allarmi | Nuovi servizi predittivi |
-| **Co-branding** | Materiali marketing personalizzabili | Posizionamento premium |
 
-> ⚠️ **La formazione rimane business del Partner**: VCT non incassa nulla sulla formazione. Il Partner la eroga, la fattura e la incassa direttamente dai suoi clienti. La piattaforma è solo lo **strumento digitale**.
+**Royalty garantita (solo su monitoraggio):**
 
-### Nuovi Servizi Abilitati dalla Piattaforma
+| Voce | Calcolo | Importo |
+|------|---------|---------|
+| Per operaio/mese | 30% di €20 | **€6** |
+| Per operaio/anno | €6 × 12 | **€72** |
 
-| Servizio Tradizionale | Evoluzione Digitale con Vigilo |
-|-----------------------|--------------------------------|
-| Formazione in aula | Blended learning + quiz + certificati automatici |
-| Audit periodici | Monitoraggio continuo + report real-time |
-| Consulenza DVR | Aggiornamenti basati su evidenze (eventi, NC) |
-| Sopralluoghi | Dashboard compliance + alert proattivi |
-| **NUOVO:** | Servizi predittivi basati su FI/ASI |
-| **NUOVO:** | Pacchetti "Zero Infortuni" con SLA |
-
-### Royalty Partner: 30% della Fee Utente
-
-Per ogni cliente che il Partner porta a VCT, riceve **~30% della fee mensile** per tutta la durata del contratto.
-
-| Scenario | Fee VCT | Royalty Partner (30%) |
-|----------|---------|----------------------|
-| 1 cliente, 50 utenti, piano Base | €400/mese | €120/mese |
-| 1 cliente, 50 utenti, piano Plus | €600/mese | €180/mese |
-| 1 cliente, 100 utenti, piano Premium | €1.800/mese | €540/mese |
+> ⚠️ **La formazione rimane business del Partner**: Vigilo non incassa nulla sulla formazione. Il Partner la eroga, la fattura e la incassa direttamente.
+>
+> ⚠️ **Nessuna royalty sui premi**: Il fondo premi (€20/mese) non genera royalty per i Partner.
 
 ### Esempio Economico Partner
 
 **Partner tipo: RSPP con 20 aziende clienti, 400 lavoratori totali**
 
-| Voce | Fonte | Ricavo Partner/anno |
-|------|-------|---------------------|
-| **Royalty Vigilo** (400 utenti × €10 × 30% × 12) | VCT paga al Partner | **€14.400** |
-| **Formazione base** (400 × €80) | Cliente paga direttamente al Partner | €32.000 |
-| **Aggiornamenti annuali** (400 × €50) | Cliente paga direttamente al Partner | €20.000 |
-| **Consulenza DVR** (20 × €500) | Cliente paga direttamente al Partner | €10.000 |
-| **TOTALE PARTNER** | | **€76.400** |
+| Voce | Fonte | Ricavo/anno |
+|------|-------|-------------|
+| **Royalty Vigilo** (400 × €6 × 12) | Vigilo paga al Partner | **€28.800** |
+| **Formazione base** (400 × €80) | Cliente paga direttamente | €32.000 |
+| **Aggiornamenti annuali** (400 × €50) | Cliente paga direttamente | €20.000 |
+| **Consulenza DVR** (20 × €500) | Cliente paga direttamente | €10.000 |
+| **TOTALE PARTNER** | | **€90.800** |
 
-> ✅ Di cui **€14.400 sono royalty passive** da VCT (rendita ricorrente senza lavoro aggiuntivo)
-> ✅ **€62.000 sono ricavi diretti** dalla formazione (business tradizionale del Partner, 100% suo)
+> ✅ Di cui **€28.800 sono royalty passive** da Vigilo (rendita ricorrente)
+> ✅ **€62.000 sono ricavi diretti** dalla formazione (100% business del Partner)
 
-### Esempio Economico VCT
+### Esempio Economico Vigilo
 
-**Su 100 Partner attivi, 2.000 aziende clienti, 40.000 utenti**
+**Su 100 Partner attivi, 2.000 aziende clienti, 40.000 operai**
 
-| Voce | Calcolo | Revenue | Royalty Partner | Netto VCT |
-|------|---------|---------|-----------------|-----------|
-| Fee utenti (40.000 × €10 medio × 12) | | €4.800.000 | -€1.440.000 | €3.360.000 |
-| Upgrade Premium (10.000 × €8 extra × 12) | | €960.000 | -€288.000 | €672.000 |
-| **TOTALE** | | **€5.760.000** | **-€1.728.000** | **€4.032.000** |
+| Voce | Calcolo | Importo/anno |
+|------|---------|--------------|
+| **Revenue totale** | 40.000 × €40 × 12 | €19.200.000 |
+| - Royalty Partner | 40.000 × €6 × 12 | -€2.880.000 |
+| - Premi lavoratori | 40.000 × €14 × 12 | -€6.720.000 |
+| **Revenue netto Vigilo** | 40.000 × €20 × 12 | **€9.600.000** |
+| - COGS (sensori, cloud, COS) | ~40% | -€3.840.000 |
+| **Gross Profit** | | **€5.760.000** |
 
-> VCT paga **€1.7M/anno in royalty** ai Partner, trattenendo **€4M** netti.
-> ⚠️ **Formazione NON inclusa**: i Partner la erogano e incassano direttamente (~€60M/anno nel network)
+### Vantaggi del Modello INAIL-Funded
 
-### Vantaggi del Modello
-
-| Per VCT | Per il Partner | Per l'Azienda Cliente |
-|---------|----------------|----------------------|
-| Revenue ricorrente (fee utente) | **Royalty 30% passive** (rendita) | Costo chiaro €/utente/mese |
-| No gestione hardware (comodato) | **Formazione = 100% suo** business | Sensori inclusi, no acquisto |
-| Scalabilità via Partner | **Piattaforma GRATIS** per contenuti | Un solo fornitore sicurezza |
-| Focus su tecnologia | Zero investimento iniziale | Compliance D.Lgs. 81 garantita |
-| CAC basso (partner porta clienti) | Strumenti digitali moderni | Consulente di fiducia |
+| Per Vigilo | Per il Partner | Per l'Azienda Cliente |
+|------------|----------------|----------------------|
+| Revenue ricorrente €20/operaio | **Royalty €72/anno** per operaio | **Costo zero** (PMI piccole) |
+| Gross margin 50% | **Formazione = 100% suo** | Risparmio INAIL garantito |
+| Scalabilità via Partner | **Piattaforma GRATIS** | Sensori in comodato |
+| CAC basso | Strumenti digitali moderni | Compliance D.Lgs. 81 |
+| Modello difendibile | Zero investimento iniziale | Riduzione infortuni -30% |
 
 ---
 
@@ -383,14 +412,15 @@ Per ogni cliente che il Partner porta a VCT, riceve **~30% della fee mensile** p
 
 | Vantaggio | Descrizione |
 |-----------|-------------|
+| **INAIL-Funded** | Il servizio si ripaga con il risparmio INAIL OT23 (costo zero per PMI) |
 | **Piattaforma aperta** | Architettura estendibile, integra sensori VCT + terze parti |
 | **Partner = Professionisti HSE** | Solo RSPP/Formatori qualificati → formazione valida per legge |
-| **Digitalizzazione servizi** | Partner erogano i loro servizi in modalità digitale |
+| **Gamification con premi reali** | €20/operaio/mese in premi → engagement altissimo |
 | **AI predittiva (FI/ASI)** | Indici calcolati rilevano condizioni critiche prima dell'evento |
 | **Privacy-by-design** | Pseudonimizzazione, GDPR, Statuto art. 4 nativi |
 | **Made in Italy** | Compliance normativa italiana (D.Lgs. 81/2008) nativa |
-| **Zero costi per Partner** | Piattaforma gratuita, royalty 30% sui clienti portati |
-| **COS H24** | Centrale operativa opzionale per emergenze (piano Plus/Premium) |
+| **Zero costi per Partner** | Piattaforma gratuita, royalty €72/operaio/anno |
+| **COS H24** | Centrale operativa inclusa nel servizio |
 
 ### Posizionamento
 
@@ -441,7 +471,7 @@ Vigilo **non vende direttamente** alle aziende finali. La crescita avviene attra
 - 🎯 **Ordini professionali** - Ingegneri (sezione sicurezza), Architetti, Periti
 - 🎯 **Enti bilaterali edilizia** - FORMEDIL, Scuole Edili provinciali
 
-**KPI**: 30 Partner abilitati, 1.500 utenti, NPS Partner > 60
+**KPI**: 30 Partner abilitati, 1.500 operai, €720K ARR lordo, NPS Partner > 60
 
 ### Fase 2: Partner Acceleration (Mesi 7-18)
 
@@ -461,7 +491,7 @@ Vigilo **non vende direttamente** alle aziende finali. La crescita avviene attra
 - Template corsi D.Lgs. 81 preconfigurati
 - Supporto tecnico prioritario su piattaforma e IoT
 
-**KPI**: 100 Partner abilitati, 8.000 utenti formati, €1.5M ARR, Partner churn < 10%
+**KPI**: 100 Partner abilitati, 8.000 operai, €3.84M ARR lordo (€1.92M netto), Partner churn < 10%
 
 ### Fase 3: Network Expansion (Mesi 19-36)
 
@@ -475,7 +505,7 @@ Vigilo **non vende direttamente** alle aziende finali. La crescita avviene attra
 | Espansione DACH | Partner formatori in Germania, Austria, Svizzera |
 | White-label assicurazioni | Co-branding con compagnie (canale alternativo) |
 
-**KPI**: 300 Partner, 25.000 utenti, €5M ARR, 3 paesi
+**KPI**: 300 Partner, 25.000 operai, €12M ARR lordo (€6M netto), 3 paesi
 
 ### Partner Journey
 
@@ -500,59 +530,74 @@ Referral      ───► Business     ───► Formazione     ───►
 | Time to First Revenue | <45 giorni |
 | Partner NPS | >50 |
 | Partner Churn | <10%/anno |
-| Revenue per Partner | €30K/anno (media) |
+| Operai medi per Partner | 83 |
+| **Royalty media per Partner** | **€6.000/anno** (83 × €72) |
 | Partner referral rate | 25% nuovi Partner da referral |
 
 ---
 
 ## Proiezioni Finanziarie
 
-### Revenue Forecast (3 anni) - Fee per Utente
+### Revenue Forecast (3 anni) - Modello €40/operaio
 
-| Anno | Partner | Utenti | Fee media | ARR Lordo | Royalty Partner (30%) | ARR VCT Netto | Crescita |
-|------|---------|--------|-----------|-----------|----------------------|---------------|----------|
-| **Anno 1** | 30 | 1.500 | €10 | €180K | -€54K | €126K | - |
-| **Anno 2** | 100 | 8.000 | €10 | €960K | -€288K | €672K | +433% |
-| **Anno 3** | 300 | 25.000 | €11 | €3.3M | -€990K | €2.31M | +244% |
+| Anno | Partner | Operai | Revenue Lordo | Royalty Partner | Premi Lavoratori | **Revenue Netto Vigilo** | Crescita |
+|------|---------|--------|---------------|-----------------|------------------|--------------------------|----------|
+| **Anno 1** | 30 | 1.500 | €720K | -€108K | -€252K | **€360K** | - |
+| **Anno 2** | 100 | 8.000 | €3.84M | -€576K | -€1.34M | **€1.92M** | +433% |
+| **Anno 3** | 300 | 25.000 | €12M | -€1.8M | -€4.2M | **€6M** | +213% |
 
-### Breakdown Revenue Anno 3
+**Calcolo:**
+- Revenue lordo = Operai × €40 × 12 mesi
+- Royalty Partner = Operai × €6 × 12 (15% del totale)
+- Premi lavoratori = Operai × €14 × 12 (35% del totale)
+- Revenue netto Vigilo = Operai × €20 × 12 (50% del totale)
 
-| Fonte | Revenue | Royalty Partner | Netto VCT | % |
-|-------|---------|-----------------|-----------|---|
-| Fee Base (15.000 utenti × €8 × 12) | €1.440K | -€432K | €1.008K | 44% |
-| Fee Plus (7.000 utenti × €12 × 12) | €1.008K | -€302K | €706K | 30% |
-| Fee Premium (3.000 utenti × €18 × 12) | €648K | -€194K | €454K | 20% |
-| Setup/Onboarding una tantum | €200K | -€60K | €140K | 6% |
-| **TOTALE** | **€3.296K** | **-€988K** | **€2.308K** | 100% |
+### Breakdown Revenue Anno 3 (25.000 operai)
 
-> ⚠️ **Formazione esclusa**: Non passa da VCT. I 300 Partner la erogano direttamente ai clienti (~€18M/anno nel network totale).
-> 💡 **Hardware escluso**: Sensori in comodato, nessuna vendita.
+| Componente | Per operaio/mese | Totale/anno | % Revenue |
+|------------|------------------|-------------|-----------|
+| **Revenue lordo** | €40 | €12.000.000 | 100% |
+| - Royalty Partner | €6 | -€1.800.000 | 15% |
+| - Premi lavoratori | €14 | -€4.200.000 | 35% |
+| **= Revenue netto Vigilo** | €20 | **€6.000.000** | 50% |
+| - COGS (sensori, cloud, COS) | ~€8 | -€2.400.000 | 20% |
+| **= Gross Profit** | €12 | **€3.600.000** | 30% |
+
+> ⚠️ **Formazione esclusa**: Non passa da Vigilo. I 300 Partner la erogano direttamente ai clienti (~€18M/anno nel network totale).
+> 💡 **Hardware in comodato**: Sensori forniti gratuitamente, costo incluso nel COGS.
 
 ### Unit Economics
 
 | Metrica | Valore | Note |
 |---------|--------|------|
-| **ARPU** (Average Revenue Per User) | €10/mese | Fee media per utente |
+| **ARPU** (Revenue per operaio) | €40/mese lordo, €20/mese netto | Dopo royalty e premi |
 | **CAC Partner** | €1.500 | Basso: piattaforma gratis, zero rischio |
-| **LTV per utente** (3 anni) | €252 | €10 × 70% × 36 mesi |
-| **Utenti medi per Partner** | 83 | 25.000 utenti / 300 Partner |
-| **Revenue VCT per Partner/anno** | €7.700 | 83 utenti × €10 × 70% × 12 |
-| **LTV/CAC Ratio Partner** | 15x | Buono per modello B2B2B |
-| **Gross Margin** | 70% | Dopo royalty 30% ai Partner |
+| **LTV per operaio** (3 anni) | €720 | €20 × 36 mesi |
+| **Operai medi per Partner** | 83 | 25.000 operai / 300 Partner |
+| **Revenue Vigilo per Partner/anno** | €20.000 | 83 operai × €20 × 12 |
+| **LTV/CAC Ratio Partner** | 48x | Eccellente per modello B2B2B |
+| **Gross Margin** | 60% | Su revenue netto (€20) |
 | **Partner Retention** | 95%/anno | Alta: guadagnano senza investire |
-| **Avg Royalty per Partner** | €3.300/anno | Rendita passiva ricorrente |
+| **Avg Royalty per Partner** | €6.000/anno | 83 operai × €72/anno |
 
-### Breakdown Costi (su Revenue Netto VCT)
+### Breakdown Costi (su Revenue Netto Vigilo €6M Anno 3)
 
-| Voce | % Revenue Netto | Note |
-|------|-----------------|------|
-| COGS (sensori comodato, cloud, centrale) | 35% | Hardware in comodato = costo VCT |
-| Partner Success & Marketing | 18% | Recruiting e supporto Partner |
-| R&D | 22% | App, piattaforma, AI |
-| G&A | 10% | Amministrazione |
-| **EBITDA Margin** | **15%** (Anno 3: 22%) | |
+| Voce | Importo | % Revenue Netto | Note |
+|------|---------|-----------------|------|
+| COGS (sensori, cloud, COS) | €2.4M | 40% | Hardware comodato ammortizzato 3 anni |
+| Partner Success & Marketing | €720K | 12% | Recruiting e supporto Partner |
+| R&D | €900K | 15% | App, piattaforma, AI |
+| G&A | €480K | 8% | Amministrazione |
+| **EBITDA** | **€1.5M** | **25%** | |
 
-> ⚠️ **Costo sensori**: VCT sostiene il costo dei dispositivi (comodato), ammortizzato su 3 anni.
+### Margini per Stakeholder
+
+| Stakeholder | Importo/operaio/anno | Su 25.000 operai | % del totale |
+|-------------|----------------------|------------------|--------------|
+| **Partner** (royalty) | €72 | €1.8M | 15% |
+| **Lavoratori** (premi) | €168 | €4.2M | 35% |
+| **Vigilo** (netto) | €240 | €6M | 50% |
+| **TOTALE** | €480 | €12M | 100% |
 
 ---
 
@@ -598,11 +643,11 @@ Referral      ───► Business     ───► Formazione     ───►
 
 ### Milestones 18 mesi
 
-- ✅ 5.000 utenti attivi
-- ✅ €1.5M ARR
+- ✅ 5.000 operai monitorati
+- ✅ €2.4M ARR lordo (€1.2M netto Vigilo)
 - ✅ Break-even operativo
 - ✅ 3 partnership strategiche (ANCE, assicurazione, INAIL)
-- ✅ Lancio mercato DACH
+- ✅ 80 Partner attivi
 
 ---
 
