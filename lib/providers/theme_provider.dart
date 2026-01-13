@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-const _kSettingsBox = 'settings';
 const _kThemeKey = 'theme_mode';
 
 class ThemeNotifier extends Notifier<ThemeMode> {
   @override
   ThemeMode build() {
+    // Load persisted theme asynchronously; don't block the UI
+    // ignore: discarded_futures
+    _loadTheme();
+    return ThemeMode.dark; // Default: dark theme
+  }
+
+  Future<void> _loadTheme() async {
     try {
-      final box = Hive.isBoxOpen(_kSettingsBox)
-          ? Hive.box<dynamic>(_kSettingsBox)
-          : null;
-      final stored = box?.get(_kThemeKey) as String?;
+      final prefs = await SharedPreferences.getInstance();
+      final stored = prefs.getString(_kThemeKey);
       if (stored != null) {
         switch (stored) {
           case 'light':
-            return ThemeMode.light;
+            state = ThemeMode.light;
           case 'dark':
-            return ThemeMode.dark;
+            state = ThemeMode.dark;
           default:
-            return ThemeMode.system;
+            state = ThemeMode.system;
         }
       }
     } on Object catch (_) {}
-    return ThemeMode.dark; // Default: dark theme
   }
 
   void setThemeMode(ThemeMode mode) {
@@ -44,9 +47,7 @@ class ThemeNotifier extends Notifier<ThemeMode> {
 
   Future<void> _persistTheme(ThemeMode mode) async {
     try {
-      final box = Hive.isBoxOpen(_kSettingsBox)
-          ? Hive.box<dynamic>(_kSettingsBox)
-          : await Hive.openBox<dynamic>(_kSettingsBox);
+      final prefs = await SharedPreferences.getInstance();
       String value;
       switch (mode) {
         case ThemeMode.light:
@@ -56,7 +57,7 @@ class ThemeNotifier extends Notifier<ThemeMode> {
         case ThemeMode.system:
           value = 'system';
       }
-      await box.put(_kThemeKey, value);
+      await prefs.setString(_kThemeKey, value);
     } on Object catch (_) {}
   }
 }
