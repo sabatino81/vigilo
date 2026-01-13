@@ -11,17 +11,21 @@
 ### Modello di Business: Partner Network
 
 Vigilo adotta un modello **B2B2B** attraverso una rete di **Consulenti Sicurezza e Formatori Abilitati** (D.Lgs. 81/2008):
-- 🎓 **Solo professionisti abilitati**: RSPP, ASPP, Formatori qualificati, Enti accreditati
-- 📚 Erogano formazione **certificata e valida per legge**
-- 💰 Ricevono **royalty ~30%** su ogni attività (zero costi di ingresso)
-- 🤝 Propongono Vigilo ai propri clienti mantenendo la relazione consulenziale
+
+| Elemento | Modello |
+|----------|---------|
+| **Revenue VCT** | Fee per utente (€/utente/mese) |
+| **Sensori IoT** | 🆓 Comodato d'uso (non venduti) |
+| **Piattaforma contenuti** | 🆓 Gratuita per i Partner |
+| **Formazione** | ❌ Non passa da VCT (100% business del Partner) |
+| **Royalty Partner** | ~30% della fee per clienti portati |
 
 La soluzione integra:
 - 📱 **App mobile** per lavoratori (iOS/Android)
-- 🪖 **DPI sensorizzati** VCT InSite (Smart Helmet, Band)
+- 🪖 **DPI sensorizzati** VCT InSite in **comodato d'uso**
 - 🖥️ **Dashboard** centrale operativa ([insite.vct-me.com](https://insite.vct-me.com))
 - 🤖 **Intelligenza artificiale** per prevenzione e alert
-- 👨‍💼 **Portale Consulente** per gestione clienti e contenuti
+- 👨‍💼 **Portale Partner** gratuito per contenuti e quiz
 
 ---
 
@@ -214,131 +218,117 @@ Per diventare Partner è necessario possedere **almeno uno** dei seguenti requis
 
 ## Business Model
 
-### Modello B2B2B: Partner Network (VCT paga Royalty ai Partner)
+### Modello B2B2B: Partner Network
 
 ```
-                    FLUSSO ECONOMICO
-                    ================
+                    FLUSSO ECONOMICO E SERVIZI
+                    ==========================
 
 ┌─────────────────────────────────────────────────────────────────┐
 │                   AZIENDE CLIENTI                               │
 │              (Imprese edili, Manifatturiero)                   │
-└─────────────────────────────┬───────────────────────────────────┘
-                              │
-                              │ 💰 Pagamento 100%
-                              │    (Abbonamenti, Formazione, Hardware)
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                          VCT                                    │
-│                    (Piattaforma Vigilo)                        │
-│                                                                 │
-│   • Riceve 100% dei pagamenti dai clienti                      │
-│   • Trattiene ~70% come revenue                                │
-│   • Paga ~30% royalty ai Partner per attività svolte           │
-└─────────────────────────────┬───────────────────────────────────┘
-                              │
-                              │ 💸 Royalty ~30%
-                              │    (per ogni attività svolta)
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                   PARTNER NETWORK                               │
-│         (Consulenti Sicurezza, RSPP, Enti Formazione)          │
-│                                                                 │
-│   ✅ ZERO costi di ingresso                                    │
-│   ✅ Nessuna fee mensile                                       │
-│   ✅ Ricevono royalty (~30%) per ogni attività                 │
-│   • Gestiscono contenuti normativi                             │
-│   • Erogano formazione D.Lgs. 81/2008                          │
-│   • Propongono Vigilo ai propri clienti                        │
-│   • Mantengono relazione consulenziale                         │
-└─────────────────────────────────────────────────────────────────┘
+└──────────────┬────────────────────────────────┬─────────────────┘
+               │                                │
+               │ 💰 Fee per utente              │ 💰 Formazione
+               │    (€X/utente/mese)            │    (pagata direttamente)
+               ▼                                ▼
+┌──────────────────────────────┐    ┌─────────────────────────────┐
+│           VCT                │    │      PARTNER                │
+│    (Piattaforma Vigilo)      │    │   (Formatore/RSPP)          │
+│                              │    │                             │
+│ Cosa fornisce:               │    │ Cosa fornisce:              │
+│ • App Vigilo                 │    │ • Formazione D.Lgs. 81      │
+│ • Sensori in COMODATO        │    │ • Consulenza sicurezza      │
+│ • Dashboard monitoraggio     │    │ • DVR e documentazione      │
+│ • Centrale operativa H24     │    │                             │
+│                              │    │ Cosa riceve GRATIS da VCT:  │
+│ Paga ai Partner:             │    │ • Piattaforma contenuti     │
+│ • Royalty ~30% fee utente    │    │ • Quiz e materiali          │
+│   (per clienti portati)      │    │ • Strumenti digitali        │
+└──────────────────────────────┘    └─────────────────────────────┘
 ```
 
-### Revenue Streams VCT
+### Il Modello in Sintesi
 
-> **Nota importante**: I Partner NON pagano alcuna fee a VCT. È VCT che paga royalty (~30%) ai Partner per le attività che svolgono.
+| Elemento | Come funziona |
+|----------|---------------|
+| **Revenue VCT** | Fee per utente (€/utente/mese) pagata dal cliente |
+| **Sensori IoT** | 🆓 **COMODATO D'USO** - non venduti, prestati ai clienti |
+| **Piattaforma contenuti** | 🆓 **GRATUITA** per i Partner - quiz, materiali, corsi |
+| **Formazione** | ❌ **NON passa da VCT** - Partner la eroga e incassa direttamente |
+| **Royalty Partner** | ~30% della fee utente per i clienti che il Partner porta |
 
-#### 1. Abbonamenti Clienti (100% a VCT, poi royalty ai Partner)
+### Revenue Stream VCT: Fee per Utente
 
-I clienti finali pagano VCT direttamente. VCT poi riconosce royalty ai Partner.
+VCT ha **un'unica fonte di revenue**: la fee mensile per utente monitorato.
 
-| Piano Cliente | Prezzo/mese | Revenue VCT (70%) | Royalty Partner (30%) |
-|---------------|-------------|-------------------|----------------------|
-| **Base** | €199 | €139 | €60 |
-| **Professional** | €499 | €349 | €150 |
-| **Enterprise** | €999 | €699 | €300 |
+| Piano | Fee/utente/mese | Incluso |
+|-------|-----------------|---------|
+| **Base** | €8 | App, sensori comodato, dashboard |
+| **Plus** | €12 | + Centrale operativa H24 |
+| **Premium** | €18 | + Intervento emergenze, SLA garantito |
 
-#### 2. Formazione e Attività (VCT paga royalty ai Partner)
+> 💡 **Sensori in comodato**: Il cliente NON acquista i dispositivi. VCT li fornisce in comodato d'uso incluso nella fee.
 
-Per ogni attività formativa, VCT incassa dal cliente e paga royalty al Partner:
+### Cosa Riceve il Partner (GRATIS)
 
-| Attività | Prezzo al Cliente | Revenue VCT (70%) | Royalty Partner (30%) |
-|----------|-------------------|-------------------|----------------------|
-| Corso formazione base (4h) | €80/utente | €56 | €24 |
-| Corso specifico rischi (8h) | €150/utente | €105 | €45 |
-| Quiz certificazione | €15/utente | €10.50 | €4.50 |
-| Aggiornamento annuale | €50/utente | €35 | €15 |
-| Consulenza DVR digitale | €500/azienda | €350 | €150 |
+| Strumento | Descrizione | Valore |
+|-----------|-------------|--------|
+| **Piattaforma contenuti** | CMS per caricare corsi, video, documenti | Gratuito |
+| **Quiz builder** | Crea quiz certificativi per i propri clienti | Gratuito |
+| **Materiali D.Lgs. 81** | Template, procedure, checklist aggiornate | Gratuito |
+| **Dashboard Partner** | Monitora i propri clienti, report compliance | Gratuito |
+| **Co-branding** | Materiali marketing personalizzabili | Gratuito |
 
-#### 3. Hardware (Vendita diretta VCT + Royalty Partner)
+> ⚠️ **La formazione rimane business del Partner**: VCT non incassa nulla sulla formazione. Il Partner la eroga, la fattura e la incassa direttamente dai suoi clienti.
 
-VCT vende hardware ai clienti e riconosce royalty ai Partner che hanno portato il cliente:
+### Royalty Partner: 30% della Fee Utente
 
-| Dispositivo | Prezzo Cliente | Revenue VCT (70%) | Royalty Partner (30%) |
-|-------------|----------------|-------------------|----------------------|
-| VCT InSite Smart Helmet | €450 | €315 | €135 |
-| VCT InSite Band | €180 | €126 | €54 |
-| Kit cantiere (5 caschi + 10 band) | €4.000 | €2.800 | €1.200 |
+Per ogni cliente che il Partner porta a VCT, riceve **~30% della fee mensile** per tutta la durata del contratto.
 
-#### 4. Centrale Operativa (Premium)
-
-| Servizio | Costo/mese | Revenue VCT |
-|----------|------------|-------------|
-| Monitoraggio H24 base | €5/utente | 100% VCT |
-| Monitoraggio H24 + intervento | €12/utente | 100% VCT |
-| Centrale dedicata | €2.500 flat | 100% VCT |
+| Scenario | Fee VCT | Royalty Partner (30%) |
+|----------|---------|----------------------|
+| 1 cliente, 50 utenti, piano Base | €400/mese | €120/mese |
+| 1 cliente, 50 utenti, piano Plus | €600/mese | €180/mese |
+| 1 cliente, 100 utenti, piano Premium | €1.800/mese | €540/mese |
 
 ### Esempio Economico Partner
 
 **Partner tipo: RSPP con 20 aziende clienti, 400 lavoratori totali**
 
-> ✅ **ZERO costi di ingresso** - Il Partner non paga alcuna fee a VCT
+| Voce | Fonte | Ricavo Partner/anno |
+|------|-------|---------------------|
+| **Royalty Vigilo** (400 utenti × €10 × 30% × 12) | VCT paga al Partner | **€14.400** |
+| **Formazione base** (400 × €80) | Cliente paga direttamente al Partner | €32.000 |
+| **Aggiornamenti annuali** (400 × €50) | Cliente paga direttamente al Partner | €20.000 |
+| **Consulenza DVR** (20 × €500) | Cliente paga direttamente al Partner | €10.000 |
+| **TOTALE PARTNER** | | **€76.400** |
 
-| Voce | Calcolo | Royalty Partner (30%) |
-|------|---------|----------------------|
-| Abbonamenti clienti (20 × €499 × 12 mesi) | 20 aziende Professional | €35.928 |
-| Formazione base (400 × €24) | 400 utenti | €9.600 |
-| Aggiornamenti (400 × €15) | 400 utenti | €6.000 |
-| Quiz certificazioni (400 × €4.50) | 400 utenti | €1.800 |
-| Hardware (50 caschi × €135) | 50 dispositivi | €6.750 |
-| DVR digitali (20 × €150) | 20 aziende | €3.000 |
-| **TOTALE ROYALTY PARTNER** | | **€63.078** |
-
-**Partner guadagna €63K/anno in royalty** senza alcun costo di ingresso o fee mensile.
+> ✅ Di cui **€14.400 sono royalty passive** da VCT (rendita ricorrente senza lavoro aggiuntivo)
+> ✅ **€62.000 sono ricavi diretti** dalla formazione (business tradizionale del Partner, 100% suo)
 
 ### Esempio Economico VCT
 
 **Su 100 Partner attivi, 2.000 aziende clienti, 40.000 utenti**
 
-| Voce | Calcolo | Revenue Lordo | Royalty Partner (30%) | Revenue VCT Netto |
-|------|---------|---------------|----------------------|-------------------|
-| Abbonamenti (2.000 aziende × €400/mese × 12) | | €9.600.000 | -€2.880.000 | €6.720.000 |
-| Formazione (40.000 × €100 medio) | | €4.000.000 | -€1.200.000 | €2.800.000 |
-| Hardware (5.000 dispositivi × €300 medio) | | €1.500.000 | -€450.000 | €1.050.000 |
-| Centrale operativa (10.000 × €8/mese × 12) | | €960.000 | €0 (100% VCT) | €960.000 |
-| **TOTALE** | | **€16.060.000** | **-€4.530.000** | **€11.530.000** |
+| Voce | Calcolo | Revenue | Royalty Partner | Netto VCT |
+|------|---------|---------|-----------------|-----------|
+| Fee utenti (40.000 × €10 medio × 12) | | €4.800.000 | -€1.440.000 | €3.360.000 |
+| Upgrade Premium (10.000 × €8 extra × 12) | | €960.000 | -€288.000 | €672.000 |
+| **TOTALE** | | **€5.760.000** | **-€1.728.000** | **€4.032.000** |
 
-> VCT paga circa **€4.5M/anno in royalty** ai Partner, trattenendo **€11.5M** come revenue netto.
+> VCT paga **€1.7M/anno in royalty** ai Partner, trattenendo **€4M** netti.
+> ⚠️ **Formazione NON inclusa**: i Partner la erogano e incassano direttamente (~€60M/anno nel network)
 
-### Vantaggi del Modello Partner
+### Vantaggi del Modello
 
 | Per VCT | Per il Partner | Per l'Azienda Cliente |
 |---------|----------------|----------------------|
-| Scalabilità senza sales team | **ZERO costi di ingresso** | Unico interlocutore (consulente) |
-| CAC basso (partner acquisisce) | **Royalty 30% su ogni attività** | Compliance garantita |
-| Revenue ricorrente (70%) | Nessun rischio finanziario | Tecnologia senza complessità |
-| Focus su prodotto | Fidelizzazione clienti | Costi chiari e prevedibili |
-| Rete capillare sul territorio | Strumenti digitali moderni | Supporto professionale |
+| Revenue ricorrente (fee utente) | **Royalty 30% passive** (rendita) | Costo chiaro €/utente/mese |
+| No gestione hardware (comodato) | **Formazione = 100% suo** business | Sensori inclusi, no acquisto |
+| Scalabilità via Partner | **Piattaforma GRATIS** per contenuti | Un solo fornitore sicurezza |
+| Focus su tecnologia | Zero investimento iniziale | Compliance D.Lgs. 81 garantita |
+| CAC basso (partner porta clienti) | Strumenti digitali moderni | Consulente di fiducia |
 
 ---
 
@@ -480,50 +470,52 @@ Referral      ───► Business     ───► Formazione     ───►
 
 ## Proiezioni Finanziarie
 
-### Revenue Forecast (3 anni) - Modello Partner
+### Revenue Forecast (3 anni) - Fee per Utente
 
-| Anno | Partner | Utenti | ARR Lordo | Royalty Partner | ARR VCT Netto | Crescita |
-|------|---------|--------|-----------|-----------------|---------------|----------|
-| **Anno 1** | 30 | 1.500 | €640K | -€190K | €450K | - |
-| **Anno 2** | 100 | 8.000 | €2.6M | -€780K | €1.8M | +300% |
-| **Anno 3** | 300 | 25.000 | €9.5M | -€2.5M | €7.0M | +289% |
+| Anno | Partner | Utenti | Fee media | ARR Lordo | Royalty Partner (30%) | ARR VCT Netto | Crescita |
+|------|---------|--------|-----------|-----------|----------------------|---------------|----------|
+| **Anno 1** | 30 | 1.500 | €10 | €180K | -€54K | €126K | - |
+| **Anno 2** | 100 | 8.000 | €10 | €960K | -€288K | €672K | +433% |
+| **Anno 3** | 300 | 25.000 | €11 | €3.3M | -€990K | €2.31M | +244% |
 
-### Breakdown Revenue Anno 3 (dopo royalty ai Partner)
+### Breakdown Revenue Anno 3
 
-| Fonte | Revenue Lordo | Royalty Partner (30%) | Revenue VCT Netto | % |
-|-------|---------------|----------------------|-------------------|---|
-| Abbonamenti clienti | €4.500K | -€1.350K | €3.150K | 45% |
-| Formazione | €2.500K | -€750K | €1.750K | 25% |
-| Hardware | €1.200K | -€360K | €840K | 12% |
-| Centrale operativa | €1.260K | €0 | €1.260K | 18% |
-| **TOTALE** | **€9.460K** | **-€2.460K** | **€7.000K** | 100% |
+| Fonte | Revenue | Royalty Partner | Netto VCT | % |
+|-------|---------|-----------------|-----------|---|
+| Fee Base (15.000 utenti × €8 × 12) | €1.440K | -€432K | €1.008K | 44% |
+| Fee Plus (7.000 utenti × €12 × 12) | €1.008K | -€302K | €706K | 30% |
+| Fee Premium (3.000 utenti × €18 × 12) | €648K | -€194K | €454K | 20% |
+| Setup/Onboarding una tantum | €200K | -€60K | €140K | 6% |
+| **TOTALE** | **€3.296K** | **-€988K** | **€2.308K** | 100% |
 
-> I Partner ricevono complessivamente **€2.46M in royalty** nell'Anno 3.
+> ⚠️ **Formazione esclusa**: Non passa da VCT. I 300 Partner la erogano direttamente ai clienti (~€18M/anno nel network totale).
+> 💡 **Hardware escluso**: Sensori in comodato, nessuna vendita.
 
-### Unit Economics (Partner-based)
+### Unit Economics
 
 | Metrica | Valore | Note |
 |---------|--------|------|
-| **CAC Partner** | €2.000 | Basso perché Partner non paga fee |
-| **LTV per Cliente** (3 anni) | €15.000 | Revenue netto VCT per cliente |
-| **Clienti medi per Partner** | 20 | |
-| **Revenue VCT per Partner** (3 anni) | €210.000 | 20 clienti × €3.500/anno × 3 anni |
-| **LTV/CAC Ratio** | 105x | Eccellente grazie a zero fee Partner |
+| **ARPU** (Average Revenue Per User) | €10/mese | Fee media per utente |
+| **CAC Partner** | €1.500 | Basso: piattaforma gratis, zero rischio |
+| **LTV per utente** (3 anni) | €252 | €10 × 70% × 36 mesi |
+| **Utenti medi per Partner** | 83 | 25.000 utenti / 300 Partner |
+| **Revenue VCT per Partner/anno** | €7.700 | 83 utenti × €10 × 70% × 12 |
+| **LTV/CAC Ratio Partner** | 15x | Buono per modello B2B2B |
 | **Gross Margin** | 70% | Dopo royalty 30% ai Partner |
-| **Partner Retention** | 95%/anno | Alta (zero rischio per Partner) |
-| **Avg Royalty per Partner** | €21K/anno | Partner guadagna senza costi |
+| **Partner Retention** | 95%/anno | Alta: guadagnano senza investire |
+| **Avg Royalty per Partner** | €3.300/anno | Rendita passiva ricorrente |
 
-### Breakdown Costi (su Revenue Netto dopo royalty)
+### Breakdown Costi (su Revenue Netto VCT)
 
-| Voce | % Revenue Netto |
-|------|-----------------|
-| COGS (hardware, cloud, infrastruttura) | 25% |
-| Partner Success & Marketing | 20% |
-| R&D | 22% |
-| G&A | 11% |
-| **EBITDA Margin** | **22%** (Anno 3: 28%) |
+| Voce | % Revenue Netto | Note |
+|------|-----------------|------|
+| COGS (sensori comodato, cloud, centrale) | 35% | Hardware in comodato = costo VCT |
+| Partner Success & Marketing | 18% | Recruiting e supporto Partner |
+| R&D | 22% | App, piattaforma, AI |
+| G&A | 10% | Amministrazione |
+| **EBITDA Margin** | **15%** (Anno 3: 22%) | |
 
-> Nota: Le royalty Partner (~30%) sono già detratte dal Revenue Lordo.
+> ⚠️ **Costo sensori**: VCT sostiene il costo dei dispositivi (comodato), ammortizzato su 3 anni.
 
 ---
 
