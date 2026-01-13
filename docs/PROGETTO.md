@@ -785,7 +785,7 @@ I Partner possono **personalizzare** gli incentivi per i propri clienti:
 | **Audit più rapidi** | €2.000-5.000/anno | Documentazione automatica |
 | **Premio INAIL (OT23)** | Fino a 28% sconto | Prevenzione documentata |
 
-> 💡 **Il costo dei premi (€50-100/lavoratore/anno) è ampiamente ripagato dai risparmi generati.**
+> 💡 **Il costo dei premi (€240/lavoratore/anno = €20/mese) è ampiamente ripagato dal risparmio INAIL OT23.**
 
 ---
 
