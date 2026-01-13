@@ -8,11 +8,20 @@
 
 **Vigilo** è una soluzione innovativa che combina un'app mobile per i lavoratori con una piattaforma IoT di monitoraggio real-time, progettata per **azzerare gli infortuni sul lavoro** nei cantieri edili e negli ambienti industriali.
 
+### Modello di Business: Partner Network
+
+Vigilo adotta un modello **B2B2B** attraverso una rete di **Consulenti per la Sicurezza sul Lavoro** che:
+- 🤝 Propongono Vigilo ai propri clienti (aziende finali)
+- 📚 Gestiscono i contenuti normativi e la formazione secondo D.Lgs. 81/2008
+- 💰 Ricevono **royalty** per ogni attività svolta sulla piattaforma
+- 🎓 Mantengono il rapporto consulenziale con le aziende clienti
+
 La soluzione integra:
 - 📱 **App mobile** per lavoratori (iOS/Android)
 - 🪖 **DPI sensorizzati** VCT InSite (Smart Helmet, Band)
 - 🖥️ **Dashboard** centrale operativa ([insite.vct-me.com](https://insite.vct-me.com))
 - 🤖 **Intelligenza artificiale** per prevenzione e alert
+- 👨‍💼 **Portale Consulente** per gestione clienti e contenuti
 
 ---
 
@@ -111,85 +120,169 @@ La soluzione integra:
 
 ## Target Market
 
-### Segmenti Primari
+### Target Primario: Consulenti Sicurezza sul Lavoro
 
-| Segmento | Dimensione Italia | Pain Point Principale |
-|----------|-------------------|----------------------|
-| **Grandi imprese edili** | ~500 aziende | Compliance, responsabilità, immagine |
-| **PMI costruzioni** | ~80.000 aziende | Costi infortuni, assicurazioni |
-| **General contractor** | ~2.000 aziende | Gestione subappaltatori |
-| **Facility management** | ~5.000 aziende | Manutenzione edifici |
+Vigilo si rivolge principalmente ai **professionisti della sicurezza** che diventano Partner della piattaforma.
 
-### Segmenti Secondari
+| Tipologia Partner | Numero Italia | Clienti Medi | Opportunità |
+|-------------------|---------------|--------------|-------------|
+| **RSPP esterni** | ~15.000 | 10-30 aziende | Upselling servizi digitali |
+| **Studi consulenza sicurezza** | ~3.000 | 30-100 aziende | Differenziazione competitiva |
+| **Associazioni di categoria** | ~500 | 100-1.000 associati | Volume, credibilità |
+| **Enti di formazione accreditati** | ~2.000 | 50-200 aziende | Integrazione corsi |
+| **Medici competenti** | ~8.000 | 20-50 aziende | Cross-selling salute |
 
-- Oil & Gas
-- Manifatturiero pesante
-- Logistica e magazzini
-- Utilities (energia, acqua, gas)
-- Eventi e spettacoli
+### Target Secondario: Aziende Finali (tramite Partner)
+
+| Segmento | Dimensione Italia | Raggiunto tramite |
+|----------|-------------------|-------------------|
+| **PMI costruzioni** | ~80.000 aziende | RSPP esterni, consulenti |
+| **Grandi imprese edili** | ~500 aziende | Studi consulenza |
+| **Manifatturiero** | ~50.000 aziende | Associazioni categoria |
+| **Logistica** | ~15.000 aziende | Enti formazione |
 
 ### Buyer Personas
 
-#### 1. Marco - CEO Impresa Edile (50-100 dipendenti)
+#### 1. Alessandro - RSPP Esterno (Libero Professionista)
+- **Profilo**: 45 anni, 15 anni esperienza, gestisce 25 aziende clienti
+- **Goal**: Differenziarsi dalla concorrenza, aumentare ricavi per cliente
+- **Pain**: Clienti vedono sicurezza come costo, difficile fidelizzare
+- **Opportunità**: Royalty su formazione, upselling monitoraggio IoT
+- **Revenue potenziale**: €15-25K/anno in royalty
+
+#### 2. Francesca - Titolare Studio Consulenza HSE
+- **Profilo**: 50 anni, studio con 5 consulenti, 80 aziende clienti
+- **Goal**: Scalare senza assumere, digitalizzare servizi
+- **Pain**: Troppo tempo su attività ripetitive, margini bassi
+- **Opportunità**: Gestione centralizzata, white-label, formazione automatizzata
+- **Revenue potenziale**: €50-80K/anno in royalty
+
+#### 3. Roberto - Direttore Ente Formazione
+- **Profilo**: Ente accreditato Regione, 200 aziende/anno
+- **Goal**: Innovare offerta formativa, aumentare engagement
+- **Pain**: Corsi in aula poco efficaci, alto dropout
+- **Opportunità**: Formazione blended, certificazioni digitali, gamification
+- **Revenue potenziale**: €30-50K/anno in royalty
+
+#### 4. Marco - CEO Impresa Edile (Cliente Finale)
+- **Profilo**: 50-100 dipendenti, 3-5 cantieri attivi
 - **Goal**: Evitare responsabilità penali, ridurre premi assicurativi
-- **Pain**: Ha avuto un infortunio grave l'anno scorso, teme ispezioni
-- **Budget**: €30-50K/anno per sicurezza
-
-#### 2. Laura - RSPP Gruppo Costruzioni
-- **Goal**: Digitalizzare compliance, dati per audit
-- **Pain**: Gestisce 10 cantieri, documentazione cartacea
-- **Budget**: Influenza acquisti, non decide
-
-#### 3. Giuseppe - Capocantiere
-- **Goal**: Finire lavori senza incidenti
-- **Pain**: Non riesce a controllare 30 operai contemporaneamente
-- **Budget**: Nessuno (utente finale)
+- **Pain**: Ha avuto un infortunio grave, teme ispezioni
+- **Decisione**: Si affida al proprio consulente sicurezza (Partner Vigilo)
 
 ---
 
 ## Business Model
 
-### Revenue Streams
+### Modello B2B2B: Partner Network
 
-#### 1. SaaS Subscription (Recurring)
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                          VCT                                    │
+│                    (Piattaforma Vigilo)                        │
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                              │ Licenza Partner + Formazione
+                              │ Royalty su attività
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                   PARTNER NETWORK                               │
+│         (Consulenti Sicurezza, RSPP, Enti Formazione)          │
+│                                                                 │
+│   • Gestiscono contenuti normativi                             │
+│   • Erogano formazione D.Lgs. 81/2008                          │
+│   • Propongono Vigilo ai clienti                               │
+│   • Ricevono royalty per attività                              │
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                              │ Servizi sicurezza + Vigilo
+                              │ Consulenza + Monitoraggio
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                   AZIENDE CLIENTI                               │
+│              (Imprese edili, Manifatturiero)                   │
+│                                                                 │
+│   • Pagano il Partner per servizi sicurezza                    │
+│   • Utilizzano app Vigilo e DPI sensorizzati                   │
+│   • Accedono a centrale operativa                              │
+└─────────────────────────────────────────────────────────────────┘
+```
 
-| Piano | Prezzo/utente/mese | Funzionalità |
-|-------|-------------------|--------------|
-| **Base** | €15 | App, formazione, quiz, certificati |
-| **Pro** | €35 | + Smart Helmet, monitoraggio vitali |
-| **Enterprise** | €55 | + Centrale operativa 24/7, SLA 99.9% |
+### Revenue Streams VCT
 
-#### 2. Hardware (One-time + Maintenance)
+#### 1. Fee Partner (Recurring)
 
-| Dispositivo | Prezzo | Manutenzione/anno |
-|-------------|--------|-------------------|
-| VCT InSite Smart Helmet | €450 | €50 |
-| VCT InSite Band | €180 | €25 |
-| Kit cantiere (gateway, sensori) | €1.200 | €150 |
+| Piano Partner | Fee/mese | Incluso |
+|---------------|----------|---------|
+| **Starter** | €199 | Fino a 100 utenti, 5 aziende clienti |
+| **Professional** | €499 | Fino a 500 utenti, 20 aziende clienti |
+| **Enterprise** | €999 | Utenti illimitati, white-label |
 
-#### 3. Servizi Professionali
+#### 2. Revenue Share su Attività
 
-| Servizio | Prezzo |
-|----------|--------|
-| Setup e configurazione | €2.000 - 5.000 |
-| Formazione formatori | €1.500/giornata |
-| Integrazione sistemi HR/ERP | €5.000 - 15.000 |
-| Centrale operativa dedicata | €3.000/mese |
+VCT trattiene una percentuale sulle attività erogate dal Partner:
 
-### Pricing Example
+| Attività | Prezzo al Cliente | Quota VCT | Royalty Partner |
+|----------|-------------------|-----------|-----------------|
+| Corso formazione base (4h) | €80/utente | 30% (€24) | 70% (€56) |
+| Corso specifico rischi (8h) | €150/utente | 30% (€45) | 70% (€105) |
+| Quiz certificazione | €15/utente | 30% (€4.50) | 70% (€10.50) |
+| Aggiornamento annuale | €50/utente | 30% (€15) | 70% (€35) |
+| Consulenza DVR digitale | €500/azienda | 25% (€125) | 75% (€375) |
 
-**Cantiere medio: 50 lavoratori**
+#### 3. Hardware (Margine su vendita)
 
-| Voce | Costo Anno 1 | Costo Anno 2+ |
-|------|--------------|---------------|
-| Licenze Pro (50 × €35 × 12) | €21.000 | €21.000 |
-| Smart Helmet (50 × €450) | €22.500 | - |
-| Band (50 × €180) | €9.000 | - |
-| Setup | €3.000 | - |
-| Manutenzione HW | - | €3.750 |
-| **TOTALE** | **€55.500** | **€24.750** |
+| Dispositivo | Prezzo Partner | Prezzo Consigliato | Margine Partner |
+|-------------|----------------|-------------------|-----------------|
+| VCT InSite Smart Helmet | €350 | €450-500 | €100-150 |
+| VCT InSite Band | €140 | €180-220 | €40-80 |
+| Kit cantiere | €900 | €1.200-1.500 | €300-600 |
 
-**ROI**: Un solo infortunio grave evitato (€50-150K) ripaga l'investimento.
+#### 4. Centrale Operativa (Premium)
+
+| Servizio | Costo/mese | Revenue VCT |
+|----------|------------|-------------|
+| Monitoraggio H24 base | €5/utente | 100% VCT |
+| Monitoraggio H24 + intervento | €12/utente | 100% VCT |
+| Centrale dedicata | €2.500 flat | 100% VCT |
+
+### Esempio Economico Partner
+
+**Partner tipo: RSPP con 20 aziende clienti, 400 lavoratori totali**
+
+| Voce | Calcolo | Ricavo Partner/anno |
+|------|---------|---------------------|
+| Fee Partner Professional | - | -€5.988 |
+| Formazione base (400 × €56) | 400 utenti | €22.400 |
+| Aggiornamenti (400 × €35) | 400 utenti | €14.000 |
+| Quiz certificazioni (400 × €10.50) | 400 utenti | €4.200 |
+| Margine hardware (50 caschi × €100) | 50 dispositivi | €5.000 |
+| DVR digitali (20 × €375) | 20 aziende | €7.500 |
+| **TOTALE NETTO PARTNER** | | **€47.112** |
+
+**Partner guadagna €47K/anno in royalty** fornendo servizi Vigilo ai propri clienti.
+
+### Esempio Economico VCT
+
+**Su 100 Partner attivi (mix piani)**
+
+| Voce | Calcolo | Revenue VCT/anno |
+|------|---------|------------------|
+| Fee Partner (media €400/mese) | 100 × €400 × 12 | €480.000 |
+| Revenue share formazione | 40.000 utenti × €30 | €1.200.000 |
+| Margine hardware | 5.000 dispositivi × €80 | €400.000 |
+| Centrale operativa | 10.000 utenti × €8/mese × 12 | €960.000 |
+| **TOTALE REVENUE VCT** | | **€3.040.000** |
+
+### Vantaggi del Modello Partner
+
+| Per VCT | Per il Partner | Per l'Azienda Cliente |
+|---------|----------------|----------------------|
+| Scalabilità senza sales team | Nuova linea di ricavi | Unico interlocutore (consulente) |
+| CAC basso (partner acquisisce) | Differenziazione competitiva | Compliance garantita |
+| Revenue ricorrente | Fidelizzazione clienti | Tecnologia senza complessità |
+| Focus su prodotto | Contenuti sempre aggiornati | Costi chiari e prevedibili |
+| Rete capillare sul territorio | Strumenti digitali moderni | Supporto professionale |
 
 ---
 
@@ -208,10 +301,12 @@ La soluzione integra:
 
 | Vantaggio | Descrizione |
 |-----------|-------------|
+| **Partner Network** | Rete consulenti che gestiscono contenuti e clienti |
 | **Ecosistema integrato** | App + IoT + Dashboard + AI in un'unica soluzione |
 | **Gamification** | Unico sistema con punti, premi, classifiche |
 | **AI predittiva** | Rileva condizioni critiche prima dell'evento |
 | **Made in Italy** | Compliance D.Lgs. 81/2008 nativa |
+| **Contenuti certificati** | Formazione gestita da professionisti abilitati |
 | **Centrale operativa** | Servizio H24 opzionale |
 
 ### Posizionamento
@@ -236,77 +331,132 @@ La soluzione integra:
 
 ## Go-to-Market Strategy
 
-### Fase 1: Early Adopters (Mesi 1-6)
+### Strategia: Partner-First
 
-**Target**: 5-10 grandi imprese edili (>200 dipendenti)
+Vigilo **non vende direttamente** alle aziende finali. La crescita avviene attraverso il reclutamento e l'abilitazione di Partner (consulenti sicurezza) che propongono la soluzione ai propri clienti.
 
-| Azione | Obiettivo |
-|--------|-----------|
-| Pilot gratuito 3 mesi | Validazione prodotto, case study |
-| Partnership ANCE | Accesso network imprese edili |
-| Presenza fiere (SAIE, Made Expo) | Lead generation |
-| Webinar con RSPP | Thought leadership |
+### Fase 1: Founding Partners (Mesi 1-6)
 
-**KPI**: 500 utenti attivi, 3 case study, NPS > 50
-
-### Fase 2: Scale-up (Mesi 7-18)
-
-**Target**: PMI costruzioni (50-200 dipendenti)
+**Target**: 20-30 Partner pilota (RSPP, studi consulenza)
 
 | Azione | Obiettivo |
 |--------|-----------|
-| Inside sales team (5 persone) | 50 nuovi clienti/mese |
-| Partner program (consulenti sicurezza) | 20 partner attivi |
-| Integrazione INAIL/ASL | Incentivi fiscali, credibilità |
-| Marketing automation | Lead nurturing |
+| Selezione Partner pilota | 30 consulenti con >10 clienti ciascuno |
+| Onboarding gratuito | Formazione piattaforma, certificazione |
+| Co-creazione contenuti | Contenuti normativi validati da esperti |
+| Case study congiunti | Success stories per recruiting |
 
-**KPI**: 5.000 utenti, €1M ARR, churn < 5%
+**Canali recruiting Partner:**
+- LinkedIn (RSPP, HSE Manager)
+- Associazioni professionali (AIFOS, AIAS)
+- Ordini professionali (Ingegneri, Architetti)
+- Passaparola Partner esistenti
 
-### Fase 3: Espansione (Mesi 19-36)
+**KPI**: 30 Partner attivi, 1.500 utenti, NPS Partner > 60
 
-**Target**: Nuovi settori, internazionalizzazione
+### Fase 2: Partner Acceleration (Mesi 7-18)
+
+**Target**: 100 Partner attivi
 
 | Azione | Obiettivo |
 |--------|-----------|
-| Vertical Oil & Gas | 10 clienti enterprise |
-| Espansione DACH | Germania, Austria, Svizzera |
-| API marketplace | Integrazioni terze parti |
-| White-label per assicurazioni | Revenue sharing |
+| Partner Portal | Self-service onboarding, gestione clienti |
+| Accademia Vigilo | Certificazione Partner (online) |
+| Partner Tiers (Bronze/Silver/Gold) | Incentivi per performance |
+| Eventi Partner | 2 convention/anno, networking |
+| Referral Program | Partner porta Partner (€500 bonus) |
 
-**KPI**: 20.000 utenti, €5M ARR, 3 paesi
+**Supporto Partner:**
+- Partner Success Manager dedicato (1:20 ratio)
+- Materiali marketing co-branded
+- Lead generation per Partner (opzionale)
+- Supporto tecnico prioritario
+
+**KPI**: 100 Partner, 8.000 utenti, €1.5M ARR, Partner churn < 10%
+
+### Fase 3: Network Expansion (Mesi 19-36)
+
+**Target**: 300 Partner, espansione verticali e geografica
+
+| Azione | Obiettivo |
+|--------|-----------|
+| Verticali specializzati | Oil&Gas, Food, Pharma |
+| Partnership associazioni | ANCE, Confindustria, CNA |
+| Espansione DACH | Partner in Germania, Austria, Svizzera |
+| White-label assicurazioni | Co-branding con compagnie |
+| API & Integrazioni | Marketplace terze parti |
+
+**KPI**: 300 Partner, 25.000 utenti, €5M ARR, 3 paesi
+
+### Partner Journey
+
+```
+AWARENESS          CONSIDERATION       ONBOARDING         SUCCESS
+─────────          ─────────────       ──────────         ───────
+
+LinkedIn Ads  ───► Webinar demo  ───► Certificazione ───► Revenue
+
+Fiere/Eventi  ───► Free trial   ───► Setup clienti  ───► Upselling
+                   (30 giorni)       (1° cliente)
+
+Referral      ───► Business     ───► Formazione     ───► Tier upgrade
+                   case              piattaforma         (Gold)
+```
+
+### Metriche Partner Program
+
+| Metrica | Target |
+|---------|--------|
+| Partner Activation Rate | >70% (attivi entro 60gg) |
+| Time to First Revenue | <45 giorni |
+| Partner NPS | >50 |
+| Partner Churn | <10%/anno |
+| Revenue per Partner | €30K/anno (media) |
+| Partner referral rate | 25% nuovi Partner da referral |
 
 ---
 
 ## Proiezioni Finanziarie
 
-### Revenue Forecast (3 anni)
+### Revenue Forecast (3 anni) - Modello Partner
 
-| Anno | Utenti | ARR | Crescita |
-|------|--------|-----|----------|
-| **Anno 1** | 1.000 | €350K | - |
-| **Anno 2** | 5.000 | €1.8M | +414% |
-| **Anno 3** | 15.000 | €5.5M | +206% |
+| Anno | Partner | Utenti | ARR | Crescita |
+|------|---------|--------|-----|----------|
+| **Anno 1** | 30 | 1.500 | €450K | - |
+| **Anno 2** | 100 | 8.000 | €1.8M | +300% |
+| **Anno 3** | 300 | 25.000 | €5.5M | +206% |
 
-### Unit Economics
+### Breakdown Revenue Anno 3
+
+| Fonte | Revenue | % |
+|-------|---------|---|
+| Fee Partner (300 × €500/mese × 12) | €1.800K | 33% |
+| Revenue share formazione | €2.000K | 36% |
+| Hardware margin | €700K | 13% |
+| Centrale operativa | €1.000K | 18% |
+| **TOTALE** | **€5.500K** | 100% |
+
+### Unit Economics (Partner-based)
 
 | Metrica | Valore |
 |---------|--------|
-| **CAC** (Costo acquisizione cliente) | €2.500 |
-| **LTV** (Lifetime value) | €12.600 |
-| **LTV/CAC Ratio** | 5.0x |
-| **Payback Period** | 8 mesi |
-| **Gross Margin** | 72% |
-| **Net Revenue Retention** | 115% |
+| **CAC Partner** | €3.000 |
+| **LTV Partner** (3 anni) | €90.000 |
+| **LTV/CAC Ratio** | 30x |
+| **Payback Period** | 4 mesi |
+| **Gross Margin** | 68% |
+| **Partner Retention** | 90%/anno |
+| **Avg Revenue per Partner** | €30K/anno |
 
 ### Breakdown Costi
 
 | Voce | % Revenue |
 |------|-----------|
-| COGS (hardware, cloud) | 28% |
-| Sales & Marketing | 35% |
-| R&D | 20% |
-| G&A | 12% |
-| **EBITDA Margin** | **5%** (Anno 3: 15%) |
+| COGS (hardware, cloud, royalty) | 32% |
+| Partner Success & Marketing | 25% |
+| R&D | 22% |
+| G&A | 11% |
+| **EBITDA Margin** | **10%** (Anno 3: 18%) |
 
 ---
 
@@ -316,10 +466,10 @@ La soluzione integra:
 
 | Ruolo | Responsabilità |
 |-------|----------------|
-| **CEO** | Strategia, fundraising, partnership |
+| **CEO** | Strategia, fundraising, partnership strategiche |
 | **CTO** | Prodotto, tecnologia, IoT |
 | **COO** | Operations, centrale operativa |
-| **Sales Director** | Vendite, partner program |
+| **Head of Partner Success** | Recruiting, onboarding, supporto Partner |
 
 ### Advisory Board
 
