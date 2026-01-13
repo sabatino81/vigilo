@@ -173,35 +173,63 @@ Cards visualizzate in ordine di priorità:
 
 Vigilo si integra con la piattaforma **InSite** di VCT per il monitoraggio centralizzato della sicurezza in cantiere. La dashboard web consente alla **Centrale Operativa di Sicurezza** di monitorare in tempo reale tutti i lavoratori e intervenire rapidamente in caso di emergenza.
 
-### DPI Sensorizzati
+### Dispositivi VCT InSite
 
-| Dispositivo | Sensori | Dati Rilevati |
-|-------------|---------|---------------|
-| **Casco Smart** | Accelerometro, giroscopio, GPS, temperatura | Urti, cadute, posizione, temperatura ambiente |
-| **Gilet Smart** | Cardiofrequenzimetro, temperatura corporea | Battito cardiaco, stress termico, affaticamento |
-| **Scarpe Antinfortunistiche** | Pressione, movimento | Postura, ore in piedi, percorsi |
-| **Guanti Smart** | Vibrazione, pressione | Esposizione vibrazioni, presa attrezzi |
+#### VCT InSite Smart Helmet
+
+Casco intelligente con monitoraggio salute integrato.
+
+| Parametro | Descrizione |
+|-----------|-------------|
+| **Frequenza cardiaca** | Monitoraggio continuo bpm |
+| **Temperatura corporea** | Rilevazione stress termico |
+| **Saturazione ossigeno** | Livelli SpO2 nel sangue |
+| **Stress e ansia** | Analisi stato psicofisico |
+
+**Condizioni critiche rilevate:**
+- 🔴 Colpo di calore
+- 🔴 Tachicardia
+- 🔴 Infarto
+- 🔴 Ictus ischemico
+
+**Funzionalità aggiuntive:**
+- Sistema di comunicazione integrato
+- Alert in tempo reale
+- Intelligenza artificiale per anomalie
+
+#### VCT InSite Band
+
+Wearable per monitoraggio parametri vitali.
+
+| Funzionalità | Descrizione |
+|--------------|-------------|
+| **Parametri vitali** | Monitoraggio continuo salute |
+| **Tracking real-time** | Posizione e movimenti |
+| **Gestione presenze** | Controllo accessi cantiere |
+| **Alert automatici** | Notifiche condizioni anomale |
 
 ### Metriche Monitorate
 
-**Stato DPI:**
+**Stato Dispositivi:**
 - ✅ Indossato correttamente
 - ⚠️ Indossato parzialmente
 - ❌ Non indossato
 - 🔋 Livello batteria dispositivo
+- 📍 Posizione GPS
 
-**Parametri Vitali:**
+**Parametri Vitali (Smart Helmet + Band):**
 - ❤️ Frequenza cardiaca (bpm)
 - 🌡️ Temperatura corporea
-- 💧 Livello idratazione (stimato)
-- 😰 Indice di stress/affaticamento
-- 🏃 Livello attività fisica
+- 🩸 Saturazione ossigeno (SpO2)
+- 😰 Indice di stress/ansia
+- 🧠 Stato psicofisico generale
 
-**Parametri Ambientali:**
-- 🌡️ Temperatura ambiente
-- ☀️ Esposizione UV
-- 🔊 Livello rumore
-- 💨 Qualità aria (con sensori aggiuntivi)
+**Condizioni Critiche Rilevate (AI):**
+- 🔴 Colpo di calore
+- 🔴 Tachicardia / Bradicardia
+- 🔴 Sospetto infarto
+- 🔴 Sospetto ictus ischemico
+- 🔴 Perdita di coscienza
 
 ### Centrale Operativa di Sicurezza
 
