@@ -1170,6 +1170,493 @@ $$;
 
 ---
 
+## Checklist Implementazione
+
+### 🏗️ Fase 0: Setup Progetto
+
+#### Inizializzazione
+- [ ] Creare nuovo progetto Flutter: `flutter create vigilo_mgmt`
+- [ ] Configurare `pubspec.yaml` con dipendenze
+- [ ] Setup struttura cartelle (`lib/core/`, `lib/features/`, etc.)
+- [ ] Configurare flavors (dev, staging, prod)
+- [ ] Setup `.env` files per ambienti
+- [ ] Configurare `analysis_options.yaml` (very_good_analysis)
+- [ ] Setup Git repository e branch strategy
+
+#### Dipendenze Core
+- [ ] `flutter_riverpod: ^2.6.1`
+- [ ] `go_router: ^16.0.0`
+- [ ] `supabase_flutter: ^2.8.0`
+- [ ] `shared_preferences: ^2.2.2`
+- [ ] `fl_chart: ^0.69.0`
+- [ ] `flutter_map: ^7.0.0`
+- [ ] `latlong2: ^0.9.0`
+- [ ] `intl: ^0.19.0`
+- [ ] `freezed_annotation: ^2.4.0`
+- [ ] `json_annotation: ^4.8.0`
+
+#### Dipendenze Dev
+- [ ] `freezed: ^2.4.0`
+- [ ] `json_serializable: ^6.7.0`
+- [ ] `build_runner: ^2.4.0`
+- [ ] `mocktail: ^1.0.0`
+- [ ] `very_good_analysis: ^6.0.0`
+
+---
+
+### 🧱 Fase 1: Core Infrastructure
+
+#### 1.1 Theme & Design System
+- [ ] Creare `lib/core/theme/app_theme.dart`
+- [ ] Definire color scheme Vigilo (safety colors)
+- [ ] Configurare tipografia (Roboto/Inter)
+- [ ] Creare dark/light theme
+- [ ] Definire spacing constants
+- [ ] Creare `ThemeProvider` con persistenza
+
+#### 1.2 Layout Admin
+- [ ] Creare `lib/core/layout/admin_layout.dart`
+- [ ] Implementare `Sidebar` collassabile
+- [ ] Implementare `TopAppBar` con user menu
+- [ ] Creare responsive breakpoints (desktop/tablet)
+- [ ] Implementare menu navigation state
+- [ ] Creare `BreadcrumbBar`
+
+#### 1.3 Router & Navigation
+- [ ] Creare `lib/core/router/app_router.dart`
+- [ ] Configurare `ShellRoute` per AdminLayout
+- [ ] Definire tutte le routes (vedi menu structure)
+- [ ] Implementare route guards (auth check)
+- [ ] Creare redirect logic per login
+- [ ] Implementare deep linking
+
+#### 1.4 Auth
+- [ ] Creare `lib/features/auth/`
+- [ ] Implementare `LoginPage`
+- [ ] Creare `AuthProvider` con Supabase Auth
+- [ ] Implementare logout
+- [ ] Gestire session persistence
+- [ ] Creare `SplashPage` con auth check
+
+#### 1.5 Data Layer
+- [ ] Creare `lib/core/data/repository/cached_repository.dart`
+- [ ] Implementare cache-first pattern
+- [ ] Creare `LocalStorageManager` con SharedPreferences
+- [ ] Creare `SupabaseService` wrapper
+- [ ] Implementare error handling globale
+- [ ] Creare `AsyncDataView` widget
+
+#### 1.6 Environment & Config
+- [ ] Creare `lib/core/env/env.dart`
+- [ ] Configurare `Env.requireEnv()` helper
+- [ ] Setup Supabase URL/Key per ambiente
+- [ ] Configurare PostHog (opzionale)
+
+---
+
+### 📊 Fase 2: MVP Features
+
+#### 2.1 Dashboard Home (`/home`)
+- [ ] Creare `lib/features/home/`
+- [ ] Implementare `HomePage`
+- [ ] Creare `KpiCard` widget riutilizzabile
+- [ ] Implementare 6 KPI cards (MRR, Operai, Partner, Cantieri, Safety, Training)
+- [ ] Creare `AiInsightsCard` (mock inizialmente)
+- [ ] Implementare `RevenueTrendChart` con FL Chart
+- [ ] Creare `SitesMapCard` con Flutter Map
+- [ ] Implementare `AlertFeedCard`
+- [ ] Creare `DashboardProvider` per dati aggregati
+
+#### 2.2 Business Model (`/business-model`)
+- [ ] Creare `lib/features/business_model/`
+- [ ] Implementare `BusinessModelPage`
+- [ ] Creare form configurazione pricing
+- [ ] Implementare sliders distribuzione revenue
+- [ ] Creare simulatore con input Partner/Operai
+- [ ] Implementare calcolo automatico unit economics
+- [ ] Creare `PieChart` distribuzione revenue
+- [ ] Implementare export configurazione
+- [ ] Creare `BusinessModelProvider`
+
+#### 2.3 Piano Finanziario (`/financial-plan`)
+- [ ] Creare `lib/features/financial/`
+- [ ] Implementare `FinancialPlanPage`
+- [ ] Creare KPI cards (Revenue, Costi, EBITDA)
+- [ ] Implementare `LineChart` proiezione 12 mesi
+- [ ] Creare tabella dettaglio mensile
+- [ ] Implementare break-even analysis card
+- [ ] Creare `AreaChart` cash flow cumulativo
+- [ ] Implementare export CSV/PDF
+- [ ] Creare `FinancialProvider`
+
+#### 2.4 Gestione Partner (`/partners`)
+- [ ] Creare `lib/features/partners/`
+- [ ] Implementare `PartnersListPage`
+- [ ] Creare `PartnerCard` widget
+- [ ] Implementare filtri (tipo, regione, stato)
+- [ ] Creare search bar
+- [ ] Implementare KPI cards (Partner, Operai, Royalty)
+- [ ] Creare `PartnerDetailPage`
+- [ ] Implementare mappa distribuzione regionale
+- [ ] Creare `AddPartnerDialog`
+- [ ] Implementare azioni (contatta, riattiva)
+- [ ] Creare `PartnersProvider`
+
+#### 2.5 KPI Dashboard (`/kpi`)
+- [ ] Creare `lib/features/kpi/`
+- [ ] Implementare `KpiDashboardPage`
+- [ ] Creare sezione Business KPIs (6 cards)
+- [ ] Creare sezione Safety KPIs (6 cards)
+- [ ] Creare sezione Partner KPIs (3 cards)
+- [ ] Implementare `MultiLineChart` trend 12 mesi
+- [ ] Creare indicatori target (✅/❌)
+- [ ] Implementare `KpiProvider`
+
+---
+
+### 🤝 Fase 3: Partner Network
+
+#### 3.1 Pipeline Commerciale (`/commercial`)
+- [ ] Creare `lib/features/commercial/`
+- [ ] Implementare `CommercialPipelinePage`
+- [ ] Creare visualizzazione funnel vendite
+- [ ] Implementare `StackedBarChart` pipeline/mese
+- [ ] Creare lista lead per temperatura (hot/warm/cold)
+- [ ] Implementare `AddLeadDialog`
+- [ ] Creare `LeadDetailPage`
+- [ ] Implementare tabella sales team performance
+- [ ] Creare `CommercialProvider`
+
+#### 3.2 Mappa Italia (`/commercial/map`)
+- [ ] Creare `ItalyMapPage`
+- [ ] Implementare mappa con Flutter Map
+- [ ] Creare marker clustering per cantieri
+- [ ] Implementare heatmap Partner per regione
+- [ ] Creare popup dettaglio al click
+- [ ] Implementare filtri regionali
+- [ ] Creare legenda interattiva
+
+#### 3.3 Onboarding Funnel (`/commercial/funnel`)
+- [ ] Creare `OnboardingFunnelPage`
+- [ ] Implementare visualizzazione funnel onboarding
+- [ ] Creare metriche conversion rate per step
+- [ ] Implementare tempo medio per fase
+- [ ] Creare lista Partner in onboarding
+
+---
+
+### 🏗️ Fase 4: Operations
+
+#### 4.1 Piano Operativo (`/operational`)
+- [ ] Creare `lib/features/operational/`
+- [ ] Implementare `OperationalPlanPage`
+- [ ] Creare `LineChart` crescita operai 36 mesi
+- [ ] Implementare milestone tracker
+- [ ] Creare charts Partner growth e ARPU trend
+- [ ] Implementare `OperationalProvider`
+
+#### 4.2 Aziende Clienti (`/companies`)
+- [ ] Creare `lib/features/companies/`
+- [ ] Implementare `CompaniesListPage`
+- [ ] Creare `CompanyCard` widget
+- [ ] Implementare filtri e search
+- [ ] Creare `CompanyDetailPage`
+- [ ] Implementare metriche (operai, cantieri, safety score)
+- [ ] Creare `CompaniesProvider`
+
+#### 4.3 Cantieri Attivi (`/sites`)
+- [ ] Creare `lib/features/sites/`
+- [ ] Implementare `SitesListPage`
+- [ ] Creare `SiteCard` con status indicator
+- [ ] Implementare mappa cantieri
+- [ ] Creare `SiteDetailPage`
+- [ ] Implementare alert feed per cantiere
+- [ ] Creare `SitesProvider`
+
+#### 4.4 Database Operai (`/workers`)
+- [ ] Creare `lib/features/workers/`
+- [ ] Implementare `WorkersListPage`
+- [ ] Creare tabella paginata operai
+- [ ] Implementare filtri (azienda, cantiere, safety)
+- [ ] Creare KPI cards (totali, attivi, safety avg)
+- [ ] Implementare `Histogram` distribuzione safety score
+- [ ] Creare `WorkerDetailPage`
+- [ ] Implementare `WorkersProvider`
+
+#### 4.5 Compliance (`/compliance`)
+- [ ] Creare `lib/features/compliance/`
+- [ ] Implementare `CompliancePage`
+- [ ] Creare lista documenti DVR/POS
+- [ ] Implementare scadenze tracker
+- [ ] Creare export report compliance
+
+---
+
+### 🎯 Fase 5: Gamification
+
+#### 5.1 Fondo Premi (`/gamification/fund`)
+- [ ] Creare `lib/features/gamification/`
+- [ ] Implementare `PrizeFundPage`
+- [ ] Creare KPI cards (Fondo, Riscatti, Saldo)
+- [ ] Implementare `PieChart` riscatti per categoria
+- [ ] Creare lista premi più riscattati
+- [ ] Implementare trend riscatti mensili
+- [ ] Creare `GamificationProvider`
+
+#### 5.2 Catalogo Premi (`/gamification/rewards`)
+- [ ] Creare `RewardsCatalogPage`
+- [ ] Implementare grid premi
+- [ ] Creare `RewardCard` widget
+- [ ] Implementare `AddRewardDialog`
+- [ ] Creare `EditRewardDialog`
+- [ ] Implementare gestione stock
+
+#### 5.3 Riscatti (`/gamification/redemptions`)
+- [ ] Creare `RedemptionsPage`
+- [ ] Implementare lista riscatti con status
+- [ ] Creare filtri (pending, shipped, delivered)
+- [ ] Implementare azioni (ship, deliver)
+- [ ] Creare export lista riscatti
+
+#### 5.4 Classifiche (`/gamification/leaderboards`)
+- [ ] Creare `LeaderboardsPage`
+- [ ] Implementare classifica operai
+- [ ] Creare classifica team
+- [ ] Implementare classifica cantieri
+- [ ] Creare filtri temporali
+
+---
+
+### 📚 Fase 6: Formazione
+
+#### 6.1 Corsi Attivi (`/training/courses`)
+- [ ] Creare `lib/features/training/`
+- [ ] Implementare `CoursesListPage`
+- [ ] Creare `CourseCard` widget
+- [ ] Implementare filtri per Partner/categoria
+- [ ] Creare metriche enrollments/completions
+
+#### 6.2 Completamenti (`/training/completions`)
+- [ ] Creare `CompletionsPage`
+- [ ] Implementare `BarChart` completamenti per tipo corso
+- [ ] Creare trend completamenti mensili
+- [ ] Implementare lista ultimi completamenti
+
+#### 6.3 Certificati (`/training/certificates`)
+- [ ] Creare `CertificatesPage`
+- [ ] Implementare lista certificati con scadenza
+- [ ] Creare alert certificati in scadenza
+- [ ] Implementare export certificati
+
+#### 6.4 Training Analytics (`/training/analytics`)
+- [ ] Creare `TrainingAnalyticsPage`
+- [ ] Implementare KPI cards
+- [ ] Creare top Partner per formazione
+- [ ] Implementare `TrainingProvider`
+
+---
+
+### 🔌 Fase 7: IoT & Sensori
+
+#### 7.1 Dispositivi (`/iot/devices`)
+- [ ] Creare `lib/features/iot/`
+- [ ] Implementare `DevicesListPage`
+- [ ] Creare `DeviceCard` con status/battery
+- [ ] Implementare `DonutChart` dispositivi per stato
+- [ ] Creare filtri (online, offline, maintenance)
+- [ ] Implementare `IotProvider`
+
+#### 7.2 Alert Attivi (`/iot/alerts`)
+- [ ] Creare `AlertsPage`
+- [ ] Implementare lista alert con severity
+- [ ] Creare filtri per tipo/stato
+- [ ] Implementare azioni (acknowledge, resolve)
+- [ ] Creare real-time updates con Supabase Realtime
+
+#### 7.3 Metriche FI/ASI (`/iot/metrics`)
+- [ ] Creare `BiometricsPage`
+- [ ] Implementare distribuzione FI/ASI aggregata
+- [ ] Creare trend giornaliero
+- [ ] Implementare heatmap per cantiere
+
+#### 7.4 MQTT Monitor (`/iot/mqtt`)
+- [ ] Creare `MqttMonitorPage`
+- [ ] Implementare log real-time messaggi
+- [ ] Creare filtri per topic/device
+- [ ] Implementare statistiche throughput
+
+---
+
+### 📈 Fase 8: Analytics
+
+#### 8.1 Analytics Dashboard (`/analytics`)
+- [ ] Creare `lib/features/analytics/`
+- [ ] Implementare `AnalyticsDashboardPage`
+- [ ] Creare overview metriche principali
+- [ ] Implementare `AnalyticsProvider`
+
+#### 8.2 Engagement (`/analytics/engagement`)
+- [ ] Creare `EngagementPage`
+- [ ] Implementare DAU/MAU charts
+- [ ] Creare metriche sessioni/tempo
+- [ ] Implementare funnel engagement
+
+#### 8.3 Retention (`/analytics/retention`)
+- [ ] Creare `RetentionPage`
+- [ ] Implementare cohort analysis
+- [ ] Creare churn rate trend
+- [ ] Implementare retention matrix
+
+---
+
+### 🤖 Fase 9: AI Insights
+
+#### 9.1 AI Integration
+- [ ] Creare `lib/features/ai_insights/`
+- [ ] Implementare `AiInsightsService` con Claude API
+- [ ] Creare `AiInsightsProvider`
+- [ ] Implementare caching risposte
+- [ ] Creare rate limiting
+
+#### 9.2 Business Insights
+- [ ] Implementare analisi revenue trend
+- [ ] Creare risk assessment automatico
+- [ ] Implementare opportunity detection
+- [ ] Creare action recommendations
+
+---
+
+### ⚙️ Fase 10: Settings & Polish
+
+#### 10.1 Settings (`/settings`)
+- [ ] Creare `lib/features/settings/`
+- [ ] Implementare `SettingsPage`
+- [ ] Creare toggle dark/light theme
+- [ ] Implementare language selector (it/en)
+- [ ] Creare gestione notifiche
+- [ ] Implementare user profile edit
+
+#### 10.2 Polish & UX
+- [ ] Implementare loading skeletons
+- [ ] Creare empty states per liste
+- [ ] Implementare error boundaries
+- [ ] Creare toast notifications
+- [ ] Implementare pull-to-refresh
+- [ ] Creare animazioni transizioni
+
+#### 10.3 Localizzazione
+- [ ] Setup `flutter_localizations`
+- [ ] Creare `lib/l10n/app_it.arb`
+- [ ] Creare `lib/l10n/app_en.arb`
+- [ ] Implementare tutti i testi localizzati
+
+---
+
+### 🗄️ Fase 11: Database Supabase
+
+#### 11.1 Schema Tables
+- [ ] Creare tabella `partners`
+- [ ] Creare tabella `companies`
+- [ ] Creare tabella `sites`
+- [ ] Creare tabella `workers`
+- [ ] Creare tabella `devices`
+- [ ] Creare tabella `alerts`
+- [ ] Creare tabella `rewards`
+- [ ] Creare tabella `redemptions`
+- [ ] Creare tabella `courses`
+- [ ] Creare tabella `certificates`
+- [ ] Creare tabella `commercial_leads`
+- [ ] Creare tabella `business_config`
+- [ ] Creare tabella `financial_months`
+
+#### 11.2 RPC Functions
+- [ ] Implementare `calculate_simulation()`
+- [ ] Implementare `get_partners_with_metrics()`
+- [ ] Implementare `get_commercial_pipeline()`
+- [ ] Implementare `get_kpi_dashboard()`
+- [ ] Implementare `get_active_alerts()`
+- [ ] Implementare `get_prize_fund_summary()`
+- [ ] Implementare `get_top_redemptions()`
+
+#### 11.3 Row Level Security
+- [ ] Configurare RLS per tutte le tabelle
+- [ ] Creare policies per ruoli (admin, viewer)
+- [ ] Testare accessi
+
+#### 11.4 Realtime
+- [ ] Abilitare Realtime su `alerts`
+- [ ] Configurare subscriptions per dashboard
+
+---
+
+### 🧪 Fase 12: Testing
+
+#### 12.1 Unit Tests
+- [ ] Test `BusinessModelProvider`
+- [ ] Test `FinancialProvider`
+- [ ] Test `PartnersProvider`
+- [ ] Test `KpiProvider`
+- [ ] Test calcoli simulazione
+- [ ] Test cache repository
+
+#### 12.2 Widget Tests
+- [ ] Test `KpiCard`
+- [ ] Test `PartnerCard`
+- [ ] Test `AdminLayout`
+- [ ] Test `Sidebar`
+- [ ] Test charts widgets
+
+#### 12.3 Integration Tests
+- [ ] Test login flow
+- [ ] Test navigation
+- [ ] Test data loading
+- [ ] Test CRUD Partner
+
+---
+
+### 🚀 Fase 13: Deployment
+
+#### 13.1 Web Build
+- [ ] Configurare `flutter build web --release`
+- [ ] Setup hosting (Vercel/Netlify/Firebase)
+- [ ] Configurare dominio custom
+- [ ] Setup SSL
+
+#### 13.2 Desktop Build (opzionale)
+- [ ] Configurare Windows build
+- [ ] Configurare macOS build
+- [ ] Creare installer
+
+#### 13.3 CI/CD
+- [ ] Setup GitHub Actions
+- [ ] Configurare build automatico
+- [ ] Configurare deploy automatico
+- [ ] Setup test automatici
+
+---
+
+### 📋 Riepilogo Progress
+
+| Fase | Items | Completati | % |
+|------|-------|------------|---|
+| 0. Setup | 14 | 0 | 0% |
+| 1. Core | 24 | 0 | 0% |
+| 2. MVP | 41 | 0 | 0% |
+| 3. Partner Network | 17 | 0 | 0% |
+| 4. Operations | 25 | 0 | 0% |
+| 5. Gamification | 17 | 0 | 0% |
+| 6. Formazione | 13 | 0 | 0% |
+| 7. IoT | 15 | 0 | 0% |
+| 8. Analytics | 10 | 0 | 0% |
+| 9. AI | 8 | 0 | 0% |
+| 10. Settings | 13 | 0 | 0% |
+| 11. Database | 22 | 0 | 0% |
+| 12. Testing | 13 | 0 | 0% |
+| 13. Deployment | 10 | 0 | 0% |
+| **TOTALE** | **242** | **0** | **0%** |
+
+---
+
 ## Changelog
 
 | Data | Versione | Modifiche |
