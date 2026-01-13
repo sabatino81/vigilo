@@ -1,12 +1,19 @@
 # Vigilo - Business Proposal
 
-> Piattaforma integrata per la sicurezza sul lavoro nei cantieri edili
+> Piattaforma digitale per la sicurezza sul lavoro nei cantieri edili
 
 ---
 
 ## Executive Summary
 
-**Vigilo** è una soluzione innovativa che combina un'app mobile per i lavoratori con una piattaforma IoT di monitoraggio real-time, progettata per **azzerare gli infortuni sul lavoro** nei cantieri edili e negli ambienti industriali.
+**Vigilo** è una **piattaforma digitale** che consente ai professionisti della sicurezza di erogare i propri servizi in modalità digitale e di offrire nuovi servizi basati su tecnologia IoT. L'obiettivo è **azzerare gli infortuni sul lavoro** nei cantieri edili e negli ambienti industriali.
+
+### Vision: Platform-as-a-Service per la Sicurezza
+
+Vigilo **non è solo un prodotto**, ma una piattaforma che abilita i Partner a:
+- 🔄 **Digitalizzare** i servizi che già erogano (formazione, consulenza, audit)
+- 🆕 **Offrire nuovi servizi** basati su IoT e AI (monitoraggio real-time, prevenzione)
+- 📈 **Scalare il business** senza aumentare i costi fissi
 
 ### Modello di Business: Partner Network
 
@@ -20,12 +27,15 @@ Vigilo adotta un modello **B2B2B** attraverso una rete di **Consulenti Sicurezza
 | **Formazione** | ❌ Non passa da VCT (100% business del Partner) |
 | **Royalty Partner** | ~30% della fee per clienti portati |
 
-La soluzione integra:
+### Architettura Aperta
+
+La piattaforma supporta:
 - 📱 **App mobile** per lavoratori (iOS/Android)
-- 🪖 **DPI sensorizzati** VCT InSite in **comodato d'uso**
-- 🖥️ **Dashboard** centrale operativa ([insite.vct-me.com](https://insite.vct-me.com))
-- 🤖 **Intelligenza artificiale** per prevenzione e alert
-- 👨‍💼 **Portale Partner** gratuito per contenuti e quiz
+- 🪖 **Sensoristica VCT InSite** (casco-centrico) in **comodato d'uso**
+- 🔌 **Integrazione sensori terze parti** (architettura aperta)
+- 🖥️ **Dashboard COS** centrale operativa ([insite.vct-me.com](https://insite.vct-me.com))
+- 🤖 **Intelligenza artificiale** per prevenzione e alert (FI/ASI)
+- 👨‍💼 **Portale Partner** gratuito per contenuti, quiz e certificazioni
 
 ---
 
@@ -90,35 +100,46 @@ La soluzione integra:
 
 ### Funzionalità Chiave
 
-#### 1. Monitoraggio Salute Real-Time
+#### 1. Monitoraggio Fisiologico Real-Time (Sistema Casco-Centrico)
 
-| Parametro | Tecnologia | Beneficio |
-|-----------|------------|-----------|
-| Frequenza cardiaca | Smart Helmet/Band | Rileva tachicardia, infarto |
-| Temperatura corporea | Sensori integrati | Previene colpo di calore |
-| Saturazione O2 | Pulsossimetro | Identifica ipossia |
-| Stress/Ansia | AI analysis | Previene errori umani |
+| Sensore | Parametro | Indice AI | Beneficio |
+|---------|-----------|-----------|-----------|
+| GSR/EDA | Risposta galvanica | **ASI** (Acute Stress Index) | Rileva stress acuto |
+| HRV | Variabilità cardiaca | **FI** (Fatigue Index) | Previene errori da stanchezza |
+| Temperatura cutanea | Stress termico | Correlazione WBGT | Previene colpo di calore |
+| Accelerometro | Pattern movimento | Uomo a terra | Intervento immediato |
 
-#### 2. Controllo DPI Automatico
+> 🔌 **Architettura aperta:** la piattaforma supporta l'integrazione di sensori aggiuntivi (ambientali, RTLS, wearable terze parti)
+
+#### 2. Controllo DPI Automatico (Tag NFC/BLE)
 
 - ✅ Verifica indossamento casco in tempo reale
-- ⚠️ Alert se DPI rimosso in zona pericolosa
-- 📊 Report compliance per audit
-- 🏆 Punti bonus per utilizzo corretto
+- 👟 Tag per scarpe antinfortunistiche
+- 🧤 Tag per guanti
+- 🦺 Tag per cintura/cordino
+- ⚠️ Alert se DPI mancante in zona vincolata
+- 📊 Report compliance per audit (allegabili a POS/DVR)
 
-#### 3. Formazione Gamificata
+#### 3. Piattaforma Formazione per Partner
 
-- 🎮 Quiz interattivi con punti
-- 📹 Video-pillole da 5 minuti
-- 🏅 Certificazioni digitali
-- 🏆 Classifiche e sfide team
+> ⚠️ La formazione è erogata dai **Partner**, NON da VCT. La piattaforma fornisce gli strumenti digitali.
 
-#### 4. Sistema SOS Intelligente
+- 📤 **CMS** per caricare contenuti (video, PDF, lezioni)
+- ❓ **Quiz builder** per test certificativi D.Lgs. 81
+- 📊 **Dashboard** progress corsisti
+- 📜 **Certificati digitali** con firma
+- 🏆 **Gamification** integrata (punti, classifiche)
 
-- 🆘 Pulsante emergenza manuale
-- 🤖 Attivazione automatica (caduta, immobilità, parametri critici)
-- 📍 Geolocalizzazione istantanea
-- 📞 Notifica simultanea: capocantiere, 118, centrale operativa
+#### 4. Sistema SOS e Allarmi Intelligenti
+
+- 🆘 Pulsante emergenza manuale (app + casco)
+- 🤖 Attivazione automatica su:
+  - Uomo a terra (pattern caduta/immobilità)
+  - ASI critico (stress acuto)
+  - FI critico (affaticamento severo)
+  - DPI non conformi in zona vincolata
+- 📍 Geolocalizzazione zona cantiere
+- 📞 Notifica simultanea: Preposto, COS, 118
 
 ---
 
@@ -272,15 +293,30 @@ VCT ha **un'unica fonte di revenue**: la fee mensile per utente monitorato.
 
 ### Cosa Riceve il Partner (GRATIS)
 
-| Strumento | Descrizione | Valore |
-|-----------|-------------|--------|
-| **Piattaforma contenuti** | CMS per caricare corsi, video, documenti | Gratuito |
-| **Quiz builder** | Crea quiz certificativi per i propri clienti | Gratuito |
-| **Materiali D.Lgs. 81** | Template, procedure, checklist aggiornate | Gratuito |
-| **Dashboard Partner** | Monitora i propri clienti, report compliance | Gratuito |
-| **Co-branding** | Materiali marketing personalizzabili | Gratuito |
+La piattaforma consente ai Partner di **digitalizzare i servizi che già erogano** e di **offrire nuovi servizi** basati su IoT:
 
-> ⚠️ **La formazione rimane business del Partner**: VCT non incassa nulla sulla formazione. Il Partner la eroga, la fattura e la incassa direttamente dai suoi clienti.
+| Strumento | Descrizione | Servizio Digitalizzato |
+|-----------|-------------|------------------------|
+| **CMS Formazione** | Carica corsi, video, documenti | Formazione D.Lgs. 81 online |
+| **Quiz Builder** | Crea test certificativi | Verifiche apprendimento |
+| **Generatore Certificati** | Attestati con firma digitale | Certificazioni automatiche |
+| **Dashboard Compliance** | Monitora DPI, scadenze, audit | Consulenza HSE continua |
+| **Report POS/DVR** | Pacchetti probatori esportabili | Documentazione per audit |
+| **Accesso dati IoT** | Indici FI/ASI, eventi, allarmi | Nuovi servizi predittivi |
+| **Co-branding** | Materiali marketing personalizzabili | Posizionamento premium |
+
+> ⚠️ **La formazione rimane business del Partner**: VCT non incassa nulla sulla formazione. Il Partner la eroga, la fattura e la incassa direttamente dai suoi clienti. La piattaforma è solo lo **strumento digitale**.
+
+### Nuovi Servizi Abilitati dalla Piattaforma
+
+| Servizio Tradizionale | Evoluzione Digitale con Vigilo |
+|-----------------------|--------------------------------|
+| Formazione in aula | Blended learning + quiz + certificati automatici |
+| Audit periodici | Monitoraggio continuo + report real-time |
+| Consulenza DVR | Aggiornamenti basati su evidenze (eventi, NC) |
+| Sopralluoghi | Dashboard compliance + alert proattivi |
+| **NUOVO:** | Servizi predittivi basati su FI/ASI |
+| **NUOVO:** | Pacchetti "Zero Infortuni" con SLA |
 
 ### Royalty Partner: 30% della Fee Utente
 
@@ -347,13 +383,14 @@ Per ogni cliente che il Partner porta a VCT, riceve **~30% della fee mensile** p
 
 | Vantaggio | Descrizione |
 |-----------|-------------|
-| **Partner = Formatori Abilitati** | Solo RSPP/Formatori qualificati → formazione valida per legge |
-| **Ecosistema integrato** | App + IoT + Dashboard + AI in un'unica soluzione |
-| **Gamification certificata** | Quiz e corsi con attestati validi D.Lgs. 81/2008 |
-| **AI predittiva** | Rileva condizioni critiche prima dell'evento |
-| **Made in Italy** | Compliance normativa italiana nativa |
-| **Zero costi per Partner** | Formatori guadagnano royalty senza investimento |
-| **Centrale operativa** | Servizio H24 opzionale per emergenze |
+| **Piattaforma aperta** | Architettura estendibile, integra sensori VCT + terze parti |
+| **Partner = Professionisti HSE** | Solo RSPP/Formatori qualificati → formazione valida per legge |
+| **Digitalizzazione servizi** | Partner erogano i loro servizi in modalità digitale |
+| **AI predittiva (FI/ASI)** | Indici calcolati rilevano condizioni critiche prima dell'evento |
+| **Privacy-by-design** | Pseudonimizzazione, GDPR, Statuto art. 4 nativi |
+| **Made in Italy** | Compliance normativa italiana (D.Lgs. 81/2008) nativa |
+| **Zero costi per Partner** | Piattaforma gratuita, royalty 30% sui clienti portati |
+| **COS H24** | Centrale operativa opzionale per emergenze (piano Plus/Premium) |
 
 ### Posizionamento
 

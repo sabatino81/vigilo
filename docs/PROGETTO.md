@@ -1,20 +1,29 @@
 # Vigilo - Documentazione di Progetto
 
-> App mobile per la sicurezza sul lavoro nei cantieri edili
+> Piattaforma digitale per la sicurezza sul lavoro nei cantieri edili
 
 ---
 
 ## Panoramica
 
-**Vigilo** è un'applicazione Flutter per la sicurezza sul lavoro, progettata per cantieri edili e ambienti industriali. Segue le normative italiane D.Lgs. 81/2008, fornendo ai lavoratori strumenti per:
+**Vigilo** è una **piattaforma digitale** per la sicurezza sul lavoro, progettata per cantieri edili e ambienti industriali. Consente ai **Partner** (RSPP, Formatori, Consulenti HSE) di erogare i propri servizi in modalità digitale e di offrire nuovi servizi basati su tecnologia IoT.
 
-- Monitorare metriche di sicurezza personali
+La piattaforma segue le normative italiane D.Lgs. 81/2008 e GDPR, fornendo:
+
+**Per i lavoratori:**
+- Monitorare metriche di sicurezza personali (indici FI/ASI)
 - Segnalare incidenti e pericoli
-- Completare formazione obbligatoria
-- Guadagnare punti e premi
+- Accedere a formazione erogata dal Partner
+- Guadagnare punti e premi (gamification)
 - Collaborare come team
 
-**Vigilo** si integra con la piattaforma **InSite** per il monitoraggio real-time dei DPI sensorizzati e dello stato di salute dei lavoratori
+**Per i Partner:**
+- Piattaforma per erogare contenuti formativi digitali
+- Dashboard per monitorare i propri clienti
+- Strumenti per quiz e certificazioni
+- Accesso ai dati IoT dei dispositivi integrati
+
+**Vigilo** si integra con la piattaforma **InSite** (VCT) e supporta l'integrazione di **sensoristica di terze parti** per il monitoraggio real-time dei DPI e dello stato di salute dei lavoratori
 
 ---
 
@@ -105,9 +114,17 @@ Cards visualizzate in ordine di priorità:
 
 ---
 
-### 4. Impara - Formazione
+### 4. Impara - Formazione (Piattaforma Partner)
 
-**Tipi Contenuto:**
+> ⚠️ **Nota:** La formazione è erogata dai **Partner** (RSPP, Formatori abilitati), NON da VCT. La piattaforma fornisce gli strumenti digitali gratuitamente ai Partner per erogare i propri corsi.
+
+**Cosa offre la piattaforma ai Partner:**
+- 📤 **CMS** per caricare contenuti (video, PDF, lezioni)
+- ❓ **Quiz builder** per creare test certificativi
+- 📊 **Dashboard** per monitorare progress dei corsisti
+- 📜 **Generatore certificati** con firma digitale
+
+**Tipi Contenuto (caricati dal Partner):**
 
 | Tipo | Icona | Colore |
 |------|-------|--------|
@@ -116,18 +133,18 @@ Cards visualizzate in ordine di priorità:
 | Quiz | ❓ | Viola |
 | Lezione | 📖 | Blu |
 
-**Categorie:**
+**Categorie D.Lgs. 81/2008:**
 - Sicurezza DPI
 - Primo Soccorso
-- Procedure
-- Macchinari
+- Procedure operative
+- Macchinari e attrezzature
 - Rischi Specifici
-- Generale
+- Formazione generale/specifica
 
-**Funzionalità:**
+**Funzionalità per il Lavoratore:**
 - Libreria contenuti con ricerca e filtri
 - Progress tracking per contenuto
-- Quiz con punteggio minimo 60%
+- Quiz con punteggio minimo configurabile
 - Certificati con data scadenza
 - Contenuti obbligatori vs opzionali
 
@@ -135,9 +152,9 @@ Cards visualizzate in ordine di priorità:
 
 | Modello | Campi Principali |
 |---------|------------------|
-| `TrainingContent` | title, type, category, duration, points, progress, isMandatory |
-| `Quiz` | questions[], passingScore, maxAttempts, points |
-| `Certificate` | title, earnedAt, expiresAt, isExpiringSoon |
+| `TrainingContent` | title, type, category, duration, points, progress, isMandatory, **partnerId** |
+| `Quiz` | questions[], passingScore, maxAttempts, points, **partnerId** |
+| `Certificate` | title, earnedAt, expiresAt, isExpiringSoon, **issuedBy** |
 | `TrainingProgress` | completedModules, certificates, progressPercentage |
 
 ---
@@ -167,46 +184,80 @@ Cards visualizzate in ordine di priorità:
 
 ## Sensoristica IoT e Centrale Operativa
 
-### Piattaforma InSite
+### Architettura Modulare
+
+Vigilo adotta un'**architettura aperta** per la sensoristica IoT:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    PIATTAFORMA VIGILO                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   SENSORI INTEGRATI          SENSORI TERZE PARTI               │
+│   ─────────────────          ──────────────────                │
+│   • VCT InSite (casco)       • Wearable generici               │
+│   • Tag DPI (NFC/BLE)        • Sensori ambientali              │
+│   • Gateway VCT              • RTLS UWB/BLE                    │
+│                              • Altri (futuro)                   │
+│                                                                 │
+│                         ▼                                       │
+│              GATEWAY / EDGE PROCESSING                          │
+│              (BLE/LoRa → LTE/5G/Wi-Fi)                         │
+│                         ▼                                       │
+│              PIATTAFORMA CLOUD                                  │
+│              (API aperte per integrazioni)                      │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Piattaforma InSite (VCT)
 
 **Dashboard:** [https://insite.vct-me.com/](https://insite.vct-me.com/)
 
-Vigilo si integra con la piattaforma **InSite** di VCT per il monitoraggio centralizzato della sicurezza in cantiere. La dashboard web consente alla **Centrale Operativa di Sicurezza** di monitorare in tempo reale tutti i lavoratori e intervenire rapidamente in caso di emergenza.
+La piattaforma **InSite** di VCT è il sistema di riferimento per il monitoraggio centralizzato. La dashboard web consente al **COS (Centro Operativo Sicurezza)** di monitorare in tempo reale tutti i lavoratori e intervenire rapidamente in caso di emergenza.
 
-### Dispositivi VCT InSite
+### Sistema Casco-Centrico VCT
 
-#### VCT InSite Smart Helmet
+Il casco intelligente è il dispositivo principale, equipaggiato con centralina per:
 
-Casco intelligente con monitoraggio salute integrato.
+| Sensore | Parametro | Indice Calcolato |
+|---------|-----------|------------------|
+| **GSR/EDA** | Risposta galvanica cutanea | ASI (Acute Stress Index) |
+| **HRV** | Variabilità cardiaca (RMSSD/SDNN) | FI (Fatigue Index) |
+| **Temperatura cutanea** | Stress termico | Correlazione WBGT |
+| **Accelerometro** | Pattern movimento/immobilità | Uomo a terra |
 
-| Parametro | Descrizione |
-|-----------|-------------|
-| **Frequenza cardiaca** | Monitoraggio continuo bpm |
-| **Temperatura corporea** | Rilevazione stress termico |
-| **Saturazione ossigeno** | Livelli SpO2 nel sangue |
-| **Stress e ansia** | Analisi stato psicofisico |
+**Indici calcolati dalla piattaforma:**
 
-**Condizioni critiche rilevate:**
-- 🔴 Colpo di calore
-- 🔴 Tachicardia
-- 🔴 Infarto
-- 🔴 Ictus ischemico
+| Indice | Descrizione | Uso |
+|--------|-------------|-----|
+| **FI (Fatigue Index)** | Indice di affaticamento basato su HRV, GSR, temperatura, micro-immobilità | Prevenzione errori da stanchezza |
+| **ASI (Acute Stress Index)** | Indice stress acuto da burst EDA e incremento HR | Rilevazione situazioni critiche |
 
-**Funzionalità aggiuntive:**
-- Sistema di comunicazione integrato
-- Alert in tempo reale
-- Intelligenza artificiale per anomalie
+**Condizioni critiche rilevate (AI):**
+- 🔴 Uomo a terra (pattern caduta/immobilità)
+- 🔴 Colpo di calore (correlazione WBGT)
+- 🔴 Tachicardia/Bradicardia
+- 🔴 Perdita di coscienza
 
-#### VCT InSite Band
+### Tag DPI
 
-Wearable per monitoraggio parametri vitali.
+Sistema di verifica conformità DPI tramite tag NFC/BLE:
 
-| Funzionalità | Descrizione |
-|--------------|-------------|
-| **Parametri vitali** | Monitoraggio continuo salute |
-| **Tracking real-time** | Posizione e movimenti |
-| **Gestione presenze** | Controllo accessi cantiere |
-| **Alert automatici** | Notifiche condizioni anomale |
+| DPI | Tag | Verifica |
+|-----|-----|----------|
+| **Casco** | Integrato | Indossamento corretto |
+| **Scarpe antinfortunistiche** | Tag NFC | Presenza/conformità |
+| **Guanti** | Tag NFC | Presenza/conformità |
+| **Cintura/Cordino** | Tag NFC | Presenza/conformità |
+
+### Sensoristica Futura (Estendibile)
+
+La piattaforma supporta l'integrazione di:
+- 📡 **Sensori ambientali** (rumore, polveri, CO₂, WBGT)
+- 📍 **RTLS UWB/BLE** per localizzazione precisa
+- ⌚ **Wearable generici** compatibili
+- 🔌 **API aperte** per sensori di terze parti
 
 ### Metriche Monitorate
 
@@ -215,21 +266,31 @@ Wearable per monitoraggio parametri vitali.
 - ⚠️ Indossato parzialmente
 - ❌ Non indossato
 - 🔋 Livello batteria dispositivo
-- 📍 Posizione GPS
+- 📍 Posizione (zona cantiere)
 
-**Parametri Vitali (Smart Helmet + Band):**
-- ❤️ Frequenza cardiaca (bpm)
-- 🌡️ Temperatura corporea
-- 🩸 Saturazione ossigeno (SpO2)
-- 😰 Indice di stress/ansia
-- 🧠 Stato psicofisico generale
+**Parametri Fisiologici (Sistema Casco-Centrico):**
+- 📊 GSR/EDA (risposta galvanica cutanea)
+- ❤️ HRV - Variabilità cardiaca (RMSSD/SDNN)
+- 🌡️ Temperatura cutanea
+- 🚶 Pattern movimento/immobilità
 
-**Condizioni Critiche Rilevate (AI):**
-- 🔴 Colpo di calore
-- 🔴 Tachicardia / Bradicardia
-- 🔴 Sospetto infarto
-- 🔴 Sospetto ictus ischemico
-- 🔴 Perdita di coscienza
+**Indici Calcolati (AI):**
+- 😴 **FI (Fatigue Index)** - Indice affaticamento
+- 😰 **ASI (Acute Stress Index)** - Indice stress acuto
+- 🌡️ Correlazione **WBGT** (stress termico ambientale)
+
+**Conformità DPI (Tag NFC/BLE):**
+- 🪖 Casco: indossamento
+- 👟 Scarpe: presenza tag
+- 🧤 Guanti: presenza tag
+- 🦺 Cintura/Cordino: presenza tag
+
+**Eventi Critici Rilevati (AI):**
+- 🔴 Uomo a terra (pattern caduta/immobilità)
+- 🔴 Colpo di calore (FI + WBGT)
+- 🔴 Stress acuto critico (ASI elevato)
+- 🔴 DPI non conformi (tag mancante/area vincolata)
+- 🔴 Perdita segnale dispositivo
 
 ### Centrale Operativa di Sicurezza
 
@@ -314,12 +375,31 @@ Sensore rileva anomalia
 
 ### Dati e Privacy
 
-- I dati biometrici sono trattati in conformità GDPR
-- Consenso esplicito del lavoratore richiesto
-- Dati aggregati per statistiche anonime
-- Accesso ai dati individuali solo per emergenze
-- Retention policy: 90 giorni per dati dettagliati, 2 anni per aggregati
-- Crittografia end-to-end per trasmissione dati
+La piattaforma è progettata **privacy-by-design** in conformità a GDPR e Statuto Lavoratori (art. 4):
+
+| Principio | Applicazione |
+|-----------|--------------|
+| **Pseudonimizzazione** | Dati mascherati by default nelle dashboard |
+| **De-pseudonimizzazione** | Solo su evento critico, con doppia autorizzazione e log |
+| **Minimizzazione** | Solo dati necessari per finalità HSE |
+| **Limitazione finalità** | Esclusi usi disciplinari o di produttività |
+
+**Base giuridica:** Obbligo legale D.Lgs. 81/2008 (art. 6(1)(c) GDPR), non consenso.
+
+**Retention Policy:**
+
+| Tipo Dato | Conservazione | Poi |
+|-----------|---------------|-----|
+| Segnali grezzi (GSR/HRV) | 30-90 giorni | Aggregazione/cancellazione |
+| Eventi/allarmi/log | 12-24 mesi | Cancellazione |
+| Report direzionali | Indefinito | Solo aggregati anonimi |
+| Audit trail | Immutabile | Conservazione legale |
+
+**Sicurezza:**
+- Crittografia in transito (TLS) e a riposo
+- IAM con MFA e RBAC
+- Segregazione dati per tenant/cliente
+- Backup cifrati con test DR periodici
 
 ---
 
@@ -491,23 +571,41 @@ flutter build ios --flavor prod --release
 
 ---
 
-## Sicurezza
+## Sicurezza e Compliance
 
-### Autenticazione
+### Autenticazione (IAM)
 - Supabase Auth (email/password)
+- MFA opzionale per ruoli privilegiati
 - Refresh token automatico
 - Auto-signout su inattività
 - Biometria opzionale (local_auth)
+- SSO (OIDC/SAML) per integrazioni enterprise
 
-### Storage
+### Storage Locale
 - Credenziali in flutter_secure_storage
 - Settings in SharedPreferences
-- No dati sensibili in locale
+- **No dati sensibili/biometrici in locale**
+- Cache solo per UI, mai per dati HSE
 
-### Normative
-- Conforme D.Lgs. 81/2008
-- Privacy GDPR
-- Dati wellness anonimi
+### Normative e Certificazioni
+| Normativa | Applicazione |
+|-----------|--------------|
+| **D.Lgs. 81/2008** | Titoli I, III (DPI), IV (cantieri) |
+| **Statuto art. 4** | Accordo sindacale/Aut. INL pre-attivazione |
+| **GDPR** | DPIA, art. 28, registro trattamenti |
+| **ISO 45001** | SGSSL (roadmap) |
+| **ISO 27001/27701** | ISMS/PIMS (roadmap) |
+
+### RBAC (Role-Based Access Control)
+
+| Ruolo | Visibilità Dati | Azioni |
+|-------|-----------------|--------|
+| **COS** | Pseudonimi + de-pseud. su evento | Triage, escalation, pacchetti probatori |
+| **RSPP** | Aggregati + audit | Policy, DVR/DPIA, soglie |
+| **Resp. Cantiere** | Proprio cantiere | NC, azioni correttive |
+| **Preposto** | Propria area | Verifica DPI, interventi |
+| **Operatore** | Solo propri dati | SOS, segnalazioni |
+| **Direzione** | Solo aggregati anonimi | KPI, ESG, benchmark |
 
 ---
 

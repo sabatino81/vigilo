@@ -315,13 +315,26 @@ Il sistema è progettato **privacy-by-design** e si integra nei **POS/DVR/PSC/Fa
 Campo → Edge → Cloud → App (web/mobile)
 ```
 
+> 🔌 **Architettura aperta:** La piattaforma è progettata per integrare sensoristica VCT e di terze parti, consentendo ai Partner di erogare nuovi servizi digitali.
+
 ### 3.2 Dispositivi di campo
+
+**Sensoristica VCT (sistema di riferimento):**
 
 | Dispositivo | Funzione |
 |-------------|----------|
 | **Casco con centralina** | GSR, parametri cardiovascolari |
 | **Tag DPI** | Scarpe, guanti, cintura/cordino |
-| **Opzionali** | UWB/BLE per localizzazione |
+| **Gateway VCT** | Aggregazione e edge processing |
+
+**Sensoristica estendibile (terze parti):**
+
+| Categoria | Esempi | Integrazione |
+|-----------|--------|--------------|
+| **Wearable** | Smartwatch, band | API standard |
+| **Ambientali** | Rumore, polveri, CO₂, WBGT | MQTT/REST |
+| **Localizzazione** | RTLS UWB/BLE | SDK |
+| **Altri** | Sensori custom | API aperte |
 
 ### 3.3 Connettività & Edge
 
