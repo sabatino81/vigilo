@@ -83,6 +83,230 @@ La **Piattaforma Formazione Vigilo** è un LMS (Learning Management System) **gr
 | **Certificati** | PDF con firma digitale | Template personalizzabili |
 | **Analytics** | Mixpanel / PostHog | Metriche engagement |
 
+### Stack Tecnologico Dettagliato
+
+#### Piattaforme LMS Open Source (Valutazione)
+
+| Piattaforma | Linguaggio | Pro | Contro | Scelta |
+|-------------|------------|-----|--------|--------|
+| **Moodle** | PHP | Standard de facto, community enorme, SCORM nativo | Pesante, UI datata, difficile customizzazione | ❌ No |
+| **Open edX** | Python/Django | Usato da MIT/Harvard, scalabile, XBlock extensible | Complessità infrastrutturale, curva apprendimento ripida | ❌ No |
+| **Canvas LMS** | Ruby | UI moderna, API REST complete | Licenza commerciale per self-hosted | ❌ No |
+| **Frappe LMS** | Python/JS | Leggero, moderno, facile customizzazione | Community piccola, meno feature | ⚠️ Valutare |
+| **Custom (React + Supabase)** | TypeScript | Controllo totale, integrazione nativa Vigilo | Effort sviluppo maggiore | ✅ **Scelto** |
+
+**Decisione:** Sviluppo custom con React + Supabase per integrazione nativa con ecosistema Vigilo e controllo totale UX.
+
+---
+
+#### SCORM Engine
+
+| Libreria | Licenza | SCORM | Pro | Contro |
+|----------|---------|-------|-----|--------|
+| **scorm-again** | MIT | 1.2, 2004 | Moderno, TypeScript, attivo, ben documentato | Solo runtime client |
+| **simplify-scorm** | MIT | 1.2, 2004 | Semplice, leggero | Meno feature, community piccola |
+| **Rustici Engine** | Commerciale | 1.2, 2004, xAPI | Enterprise, supporto | €€€ (migliaia €/anno) |
+
+**Raccomandazione:** `scorm-again` (MIT) per runtime client SCORM 1.2 e 2004.
+
+```bash
+npm install scorm-again
+```
+
+```typescript
+// Esempio utilizzo scorm-again
+import { Scorm12API, Scorm2004API } from 'scorm-again';
+
+const scorm = new Scorm2004API({
+  autocommit: true,
+  autocommitSeconds: 60,
+  logLevel: 4,
+});
+
+// Inizializzazione
+scorm.Initialize('');
+
+// Tracciamento progress
+scorm.SetValue('cmi.completion_status', 'incomplete');
+scorm.SetValue('cmi.progress_measure', '0.5'); // 50%
+
+// Salvataggio score
+scorm.SetValue('cmi.score.raw', '85');
+scorm.SetValue('cmi.score.scaled', '0.85');
+
+// Commit e termina
+scorm.Commit('');
+scorm.Terminate('');
+```
+
+---
+
+#### Video Streaming
+
+| Provider | Prezzo | Pro | Contro |
+|----------|--------|-----|--------|
+| **Mux** | ~$0.001/min streaming, $0.015/min encoding | API eccellente, analytics, DRM | Costi possono scalare |
+| **Cloudflare Stream** | $1/1000 min watched, $5/1000 min stored | Economico, CDN globale, facile | Meno analytics, no DRM nativo |
+| **Bunny Stream** | €0.005/GB + €0.50/1000 views | Molto economico, EU-based | Community più piccola |
+| **Self-hosted (HLS)** | Solo infra | Controllo totale, no costi per minuto | Effort DevOps, CDN da gestire |
+
+**Raccomandazione:** **Cloudflare Stream** per MVP (economico, semplice), valutare **Mux** per DRM avanzato.
+
+**Stima costi Cloudflare Stream:**
+- 1.000 corsisti × 20 ore formazione/anno = 20.000 ore = 1.200.000 minuti
+- Costo: ~$1.200/anno streaming + ~$500/anno storage = **~$1.700/anno**
+
+---
+
+#### Videoconferenza
+
+| Provider | Prezzo | Pro | Contro |
+|----------|--------|-----|--------|
+| **Jitsi (self-hosted)** | GRATIS | Open source, nessun limite, GDPR compliant | Infra da gestire, scalabilità manuale |
+| **Jitsi as a Service (JaaS)** | $99-999/mese | Managed, API, recording | Costi fissi mensili |
+| **Daily.co** | $0.004/min (pay-as-you-go) | API moderna, facile integrazione | Costi possono scalare |
+| **Whereby Embedded** | €59-99/mese | Semplice, no-code | Limiti partecipanti |
+| **Zoom SDK** | $0.0033/min | Standard di mercato | Branding Zoom visibile |
+
+**Raccomandazione:** **Jitsi self-hosted** per costi zero e GDPR compliance. Fallback: **Daily.co** pay-as-you-go.
+
+```typescript
+// Integrazione Jitsi Meet
+const domain = 'meet.vigilo.app'; // Self-hosted
+const options = {
+  roomName: `corso-${courseId}-session-${sessionId}`,
+  parentNode: document.getElementById('jitsi-container'),
+  userInfo: {
+    displayName: learnerName,
+    email: learnerEmail,
+  },
+  configOverwrite: {
+    startWithAudioMuted: true,
+    startWithVideoMuted: true,
+    disableDeepLinking: true,
+    prejoinPageEnabled: true,
+  },
+  interfaceConfigOverwrite: {
+    TOOLBAR_BUTTONS: ['microphone', 'camera', 'chat', 'raisehand', 'tileview', 'hangup'],
+    SHOW_JITSI_WATERMARK: false,
+    SHOW_BRAND_WATERMARK: true,
+    BRAND_WATERMARK_LINK: 'https://vigilo.app',
+  },
+};
+
+const api = new JitsiMeetExternalAPI(domain, options);
+
+// Tracciamento presenze
+api.addListener('participantJoined', (participant) => {
+  logAttendance(sessionId, participant.id, 'joined');
+});
+
+api.addListener('participantLeft', (participant) => {
+  logAttendance(sessionId, participant.id, 'left');
+});
+```
+
+---
+
+#### PDF Generation & Firma Digitale
+
+| Libreria | Uso | Pro | Contro |
+|----------|-----|-----|--------|
+| **@react-pdf/renderer** | Generazione PDF da React | Componenti React, layout flessibile | Solo generazione, no firma |
+| **pdf-lib** | Manipolazione PDF | Leggero, modifica PDF esistenti | API più verbosa |
+| **pdfme** | Template-based PDF | Template visuale, veloce | Community piccola |
+| **@signpdf/signpdf** | Firma digitale PAdES | Standard PAdES, certificati X.509 | Richiede certificati |
+| **node-signpdf** | Firma digitale | Semplice | Meno mantenuto |
+
+**Raccomandazione:** **@react-pdf/renderer** (generazione) + **@signpdf/signpdf** (firma digitale).
+
+```bash
+npm install @react-pdf/renderer @signpdf/signpdf @signpdf/signer-p12
+```
+
+```typescript
+// Generazione certificato con @react-pdf/renderer
+import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
+
+const CertificateDocument = ({ certificate }: { certificate: Certificate }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.header}>
+        <Image src={certificate.partnerLogo} style={styles.logo} />
+        <Image src="/vigilo-logo.png" style={styles.logo} />
+      </View>
+
+      <Text style={styles.title}>ATTESTATO DI FORMAZIONE</Text>
+
+      <Text style={styles.text}>Si certifica che</Text>
+      <Text style={styles.name}>{certificate.learnerName}</Text>
+      <Text style={styles.text}>CF: {certificate.learnerFiscalCode}</Text>
+
+      <Text style={styles.text}>ha completato con esito positivo il corso:</Text>
+      <Text style={styles.courseTitle}>"{certificate.courseTitle}"</Text>
+
+      <View style={styles.details}>
+        <Text>Durata: {certificate.courseDuration} ore</Text>
+        <Text>Data completamento: {formatDate(certificate.completedAt)}</Text>
+        <Text>Punteggio: {certificate.score}%</Text>
+        <Text>Validità fino al: {formatDate(certificate.expiresAt)}</Text>
+      </View>
+
+      <Text style={styles.reference}>
+        Riferimento normativo: D.Lgs. 81/2008, art. 37{'\n'}
+        Accordo Stato-Regioni 17/04/2025
+      </Text>
+
+      <Text style={styles.number}>N. Attestato: {certificate.number}</Text>
+
+      <View style={styles.footer}>
+        <View style={styles.signature}>
+          <Text>Il Formatore</Text>
+          <Text>{certificate.signedBy}</Text>
+        </View>
+        <Image src={certificate.qrCodeUrl} style={styles.qrCode} />
+      </View>
+    </Page>
+  </Document>
+);
+
+// Firma digitale con @signpdf/signpdf
+import { SignPdf } from '@signpdf/signpdf';
+import { P12Signer } from '@signpdf/signer-p12';
+
+async function signCertificate(pdfBuffer: Buffer, p12Buffer: Buffer, passphrase: string) {
+  const signer = new P12Signer(p12Buffer, { passphrase });
+  const signedPdf = await SignPdf.sign(pdfBuffer, signer, {
+    reason: 'Attestato di formazione D.Lgs. 81/2008',
+    contactInfo: 'formazione@vigilo.app',
+    name: 'Vigilo S.r.l.',
+    location: 'Italia',
+  });
+  return signedPdf;
+}
+```
+
+---
+
+#### Riepilogo Stack Tecnologico Finale
+
+| Componente | Tecnologia Scelta | Licenza | Costo Stimato |
+|------------|-------------------|---------|---------------|
+| **Frontend** | React + Next.js 14 | MIT | €0 |
+| **Backend** | Supabase (Edge Functions) | Apache 2.0 | ~$25/mese (Pro) |
+| **Database** | PostgreSQL (Supabase) | PostgreSQL | Incluso |
+| **SCORM Engine** | scorm-again | MIT | €0 |
+| **Video Streaming** | Cloudflare Stream | Commerciale | ~$150/mese |
+| **Videoconferenza** | Jitsi (self-hosted) | Apache 2.0 | ~$50/mese (VPS) |
+| **PDF Generation** | @react-pdf/renderer | MIT | €0 |
+| **Firma Digitale** | @signpdf/signpdf | MIT | €0 |
+| **Storage Files** | Supabase Storage | Apache 2.0 | ~$25/mese |
+| **Analytics** | PostHog (self-hosted) | MIT | €0 |
+
+**Costo infrastruttura stimato:** ~$250-300/mese per MVP con 1.000 corsisti.
+
+---
+
 ### Architettura Multi-Tenant
 
 ```
