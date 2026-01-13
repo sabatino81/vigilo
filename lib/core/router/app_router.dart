@@ -1,8 +1,8 @@
-import 'package:vigilo/features/auth/presentation/login_page.dart';
-import 'package:vigilo/features/home/presentation/home_page.dart';
-import 'package:vigilo/features/splash/presentation/splash_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:vigilo/features/auth/presentation/login_page.dart';
+import 'package:vigilo/features/shell/main_shell.dart';
+import 'package:vigilo/features/splash/presentation/splash_page.dart';
 
 class AppRouter {
   static GoRouter get router {
@@ -31,7 +31,7 @@ class AppRouter {
         ),
         GoRoute(
           path: '/home',
-          builder: (context, state) => const HomePage(),
+          builder: (context, state) => const MainShell(),
         ),
       ],
     );

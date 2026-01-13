@@ -5,6 +5,7 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/auth/auth_manager.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 import 'package:vigilo/providers/locale_provider.dart';
+import 'package:vigilo/providers/theme_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -174,6 +175,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeProvider);
+    final themeMode = ref.watch(themeProvider);
 
     if (!supabaseConfigured) {
       // show a minimal MaterialApp with a helpful configuration error page
@@ -181,6 +183,7 @@ class MyApp extends ConsumerWidget {
         title: 'Vigilo - Missing Config',
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
+        themeMode: themeMode,
         home: const Scaffold(
           body: Center(
             child: Text('Configuration missing. See README for setup.'),
@@ -193,6 +196,7 @@ class MyApp extends ConsumerWidget {
       title: 'Vigilo',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
       locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,

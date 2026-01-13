@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:vigilo/features/team/presentation/widgets/safety_star_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/team_header_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/team_leaderboard_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/team_members_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/transparency_dashboard_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/vow_survey_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/wellness_checkin_card.dart';
+
+class TeamPage extends StatelessWidget {
+  const TeamPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
+      children: const [
+        // Header team
+        TeamHeaderCard(),
+        SizedBox(height: 16),
+
+        // PRIORITÀ 1: Empatia e connessione - "come ti senti oggi?"
+        WellnessCheckinCard(),
+        SizedBox(height: 16),
+
+        // Gamification sociale
+        TeamLeaderboardCard(),
+        SizedBox(height: 16),
+        SafetyStarCard(),
+        SizedBox(height: 16),
+
+        // Membri e community
+        TeamMembersCard(),
+        SizedBox(height: 16),
+
+        // Trasparenza e feedback
+        TransparencyDashboardCard(),
+        SizedBox(height: 16),
+        VowSurveyCard(),
+
+        // NOTA: SocialWallCard e TeamChallengeCard spostate in HomePage
+        // per massimizzare engagement immediato all'apertura app
+      ],
+    );
+  }
+}

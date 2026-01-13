@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     // Use a cancellable Timer so tests can dispose the widget without
     // leaving pending timers active.
-    _bootstrapTimer = Timer(const Duration(milliseconds: 800), () {
+    _bootstrapTimer = Timer(const Duration(milliseconds: 2500), () {
       final session = Supabase.instance.client.auth.currentSession;
       if (!mounted) return;
       if (session == null) {
@@ -42,17 +42,31 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(
+        0xFF1A1A1A,
+      ), // Dark background matching splash
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Use FlutterLogo in tests/environments where the image asset
-            // may not be available. This keeps the splash simple and robust
-            // for CI.
-            const FlutterLogo(size: 120),
-            const SizedBox(height: 24),
+            // Vigilo splash screen with fade-in animation
+            AnimatedOpacity(
+              opacity: 1.0,
+              duration: const Duration(milliseconds: 600),
+              child: Image.asset(
+                'assets/logo/splash.jpg',
+                width: MediaQuery.of(context).size.width * 0.8,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  // Fallback to FlutterLogo if image not found (CI/tests)
+                  return const FlutterLogo(size: 120);
+                },
+              ),
+            ),
+            const SizedBox(height: 48),
             CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.primary,
+              color: const Color(0xFFFFB800), // Safety yellow
+              strokeWidth: 3,
             ),
           ],
         ),
