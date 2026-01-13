@@ -10,11 +10,11 @@
 
 ### Modello di Business: Partner Network
 
-Vigilo adotta un modello **B2B2B** attraverso una rete di **Consulenti per la Sicurezza sul Lavoro** che:
-- 🤝 Propongono Vigilo ai propri clienti (aziende finali)
-- 📚 Gestiscono i contenuti normativi e la formazione secondo D.Lgs. 81/2008
-- 💰 Ricevono **royalty** per ogni attività svolta sulla piattaforma
-- 🎓 Mantengono il rapporto consulenziale con le aziende clienti
+Vigilo adotta un modello **B2B2B** attraverso una rete di **Consulenti Sicurezza e Formatori Abilitati** (D.Lgs. 81/2008):
+- 🎓 **Solo professionisti abilitati**: RSPP, ASPP, Formatori qualificati, Enti accreditati
+- 📚 Erogano formazione **certificata e valida per legge**
+- 💰 Ricevono **royalty ~30%** su ogni attività (zero costi di ingresso)
+- 🤝 Propongono Vigilo ai propri clienti mantenendo la relazione consulenziale
 
 La soluzione integra:
 - 📱 **App mobile** per lavoratori (iOS/Android)
@@ -120,17 +120,38 @@ La soluzione integra:
 
 ## Target Market
 
-### Target Primario: Consulenti Sicurezza sul Lavoro
+### Target Primario: Consulenti Sicurezza e Formazione
 
-Vigilo si rivolge principalmente ai **professionisti della sicurezza** che diventano Partner della piattaforma.
+Vigilo si rivolge esclusivamente a **professionisti abilitati alla formazione sulla sicurezza** ai sensi del D.Lgs. 81/2008.
 
-| Tipologia Partner | Numero Italia | Clienti Medi | Opportunità |
-|-------------------|---------------|--------------|-------------|
-| **RSPP esterni** | ~15.000 | 10-30 aziende | Upselling servizi digitali |
-| **Studi consulenza sicurezza** | ~3.000 | 30-100 aziende | Differenziazione competitiva |
-| **Associazioni di categoria** | ~500 | 100-1.000 associati | Volume, credibilità |
-| **Enti di formazione accreditati** | ~2.000 | 50-200 aziende | Integrazione corsi |
-| **Medici competenti** | ~8.000 | 20-50 aziende | Cross-selling salute |
+#### Requisiti Partner Vigilo
+
+Per diventare Partner è necessario possedere **almeno uno** dei seguenti requisiti:
+- ✅ Qualifica di **RSPP** (Responsabile Servizio Prevenzione e Protezione)
+- ✅ Qualifica di **ASPP** (Addetto Servizio Prevenzione e Protezione)
+- ✅ Abilitazione come **Formatore per la Sicurezza** (D.I. 6 marzo 2013)
+- ✅ Accreditamento come **Ente di Formazione** regionale
+- ✅ Iscrizione all'**Albo Formatori** di associazioni riconosciute (AIFOS, AIAS, ecc.)
+
+#### Tipologie Partner
+
+| Tipologia Partner | Numero Italia | Clienti Medi | Opportunità | Priorità |
+|-------------------|---------------|--------------|-------------|----------|
+| **RSPP/ASPP esterni** | ~15.000 | 10-30 aziende | Formazione + consulenza DVR | 🥇 Alta |
+| **Formatori sicurezza abilitati** | ~8.000 | 20-50 aziende | Corsi certificati D.Lgs. 81 | 🥇 Alta |
+| **Enti di formazione accreditati** | ~2.000 | 50-200 aziende | Volume corsi, credibilità | 🥇 Alta |
+| **Studi consulenza HSE** | ~3.000 | 30-100 aziende | Pacchetti completi sicurezza | 🥈 Media |
+| **Associazioni di categoria** | ~500 | 100-1.000 associati | Volume, canale B2B2B | 🥈 Media |
+
+#### Perché Solo Professionisti Abilitati?
+
+| Motivo | Beneficio |
+|--------|-----------|
+| **Compliance normativa** | Formazione erogata è valida per legge |
+| **Credibilità** | Partner qualificati aumentano trust del brand |
+| **Revenue garantito** | Aziende DEVONO fare formazione (obbligo D.Lgs. 81) |
+| **Competenza tecnica** | Sanno spiegare valore DPI sensorizzati |
+| **Rete esistente** | Hanno già clienti che necessitano sicurezza |
 
 ### Target Secondario: Aziende Finali (tramite Partner)
 
@@ -141,34 +162,53 @@ Vigilo si rivolge principalmente ai **professionisti della sicurezza** che diven
 | **Manifatturiero** | ~50.000 aziende | Associazioni categoria |
 | **Logistica** | ~15.000 aziende | Enti formazione |
 
-### Buyer Personas
+### Buyer Personas (Partner)
 
-#### 1. Alessandro - RSPP Esterno (Libero Professionista)
-- **Profilo**: 45 anni, 15 anni esperienza, gestisce 25 aziende clienti
+#### 1. Alessandro - RSPP Esterno Abilitato
+- **Profilo**: 45 anni, laurea ingegneria, RSPP dal 2010, gestisce 25 PMI edili
+- **Qualifica**: RSPP modulo A-B-C, Formatore qualificato area 2 (D.I. 6/3/2013)
 - **Goal**: Differenziarsi dalla concorrenza, aumentare ricavi per cliente
 - **Pain**: Clienti vedono sicurezza come costo, difficile fidelizzare
-- **Opportunità**: Diventare Partner Vigilo **senza costi**, ricevere royalty 30%
-- **Revenue potenziale**: €15-25K/anno in royalty (zero investimento iniziale)
+- **Trigger**: Un suo cliente ha avuto infortunio grave → cerca soluzioni innovative
+- **Opportunità**: Partnership Vigilo **senza costi**, royalty 30% su tutto
+- **Revenue potenziale**: €20-35K/anno in royalty
 
 #### 2. Francesca - Titolare Studio Consulenza HSE
-- **Profilo**: 50 anni, studio con 5 consulenti, 80 aziende clienti
-- **Goal**: Scalare senza assumere, digitalizzare servizi
-- **Pain**: Troppo tempo su attività ripetitive, margini bassi
-- **Opportunità**: Partnership **gratuita**, royalty 30% su ogni cliente portato
-- **Revenue potenziale**: €50-80K/anno in royalty (nessun costo di ingresso)
+- **Profilo**: 50 anni, studio con 5 consulenti RSPP, 80 aziende clienti
+- **Qualifica**: Tutti i consulenti sono RSPP abilitati + 2 formatori qualificati
+- **Goal**: Scalare senza assumere, digitalizzare servizi ripetitivi
+- **Pain**: Troppo tempo su formazione base, margini bassi su corsi standard
+- **Trigger**: Concorrente ha iniziato a offrire formazione online
+- **Opportunità**: Vigilo come **differenziatore premium** (IoT + gamification)
+- **Revenue potenziale**: €60-100K/anno in royalty per lo studio
 
-#### 3. Roberto - Direttore Ente Formazione
-- **Profilo**: Ente accreditato Regione, 200 aziende/anno
-- **Goal**: Innovare offerta formativa, aumentare engagement
-- **Pain**: Corsi in aula poco efficaci, alto dropout
-- **Opportunità**: Partnership **senza fee**, royalty 30% su formazione erogata
-- **Revenue potenziale**: €30-50K/anno in royalty (zero rischio finanziario)
+#### 3. Roberto - Direttore Ente Formazione Accreditato
+- **Profilo**: Ente accreditato Regione Lombardia, 200 aziende/anno, 3.000 corsisti
+- **Qualifica**: Accreditamento regionale, 10 formatori abilitati in organico
+- **Goal**: Innovare offerta formativa, ridurre dropout, aumentare engagement
+- **Pain**: Corsi in aula poco efficaci, difficile tracciare apprendimento
+- **Trigger**: Bando regionale per digitalizzazione formazione sicurezza
+- **Opportunità**: Vigilo come piattaforma **blended learning** certificata
+- **Revenue potenziale**: €80-150K/anno in royalty
 
-#### 4. Marco - CEO Impresa Edile (Cliente Finale)
-- **Profilo**: 50-100 dipendenti, 3-5 cantieri attivi
-- **Goal**: Evitare responsabilità penali, ridurre premi assicurativi
-- **Pain**: Ha avuto un infortunio grave, teme ispezioni
-- **Decisione**: Si affida al proprio consulente sicurezza (Partner Vigilo)
+#### 4. Giuseppe - Formatore Freelance Specializzato
+- **Profilo**: 38 anni, ex-capocantiere, formatore da 8 anni, 40 aziende clienti
+- **Qualifica**: Formatore qualificato area 2 + esperienza cantieri (criterio 3)
+- **Goal**: Ampliare offerta, passare da formazione base a consulenza premium
+- **Pain**: Concorrenza sui prezzi, difficile giustificare tariffe alte
+- **Trigger**: Cliente chiede soluzione IoT vista a fiera SAIE
+- **Opportunità**: Vigilo come **upgrade di posizionamento** (da formatore a consulente tech)
+- **Revenue potenziale**: €15-25K/anno in royalty
+
+### Buyer Persona (Cliente Finale)
+
+#### Marco - CEO Impresa Edile (raggiunto tramite Partner)
+- **Profilo**: 55 anni, impresa 80 dipendenti, 4 cantieri attivi
+- **Pain**: Infortunio grave nel 2023, ispezione ASL, premio INAIL aumentato
+- **Goal**: Azzerare infortuni, ridurre premi assicurativi, evitare responsabilità penale
+- **Budget**: €30-50K/anno per sicurezza (già spende per consulente + formazione)
+- **Decisione**: Si affida al proprio RSPP esterno (Partner Vigilo) per soluzione completa
+- **NON contattato direttamente da VCT** → arriva tramite il suo consulente
 
 ---
 
@@ -317,13 +357,13 @@ VCT vende hardware ai clienti e riconosce royalty ai Partner che hanno portato i
 
 | Vantaggio | Descrizione |
 |-----------|-------------|
-| **Partner Network** | Rete consulenti che gestiscono contenuti e clienti |
+| **Partner = Formatori Abilitati** | Solo RSPP/Formatori qualificati → formazione valida per legge |
 | **Ecosistema integrato** | App + IoT + Dashboard + AI in un'unica soluzione |
-| **Gamification** | Unico sistema con punti, premi, classifiche |
+| **Gamification certificata** | Quiz e corsi con attestati validi D.Lgs. 81/2008 |
 | **AI predittiva** | Rileva condizioni critiche prima dell'evento |
-| **Made in Italy** | Compliance D.Lgs. 81/2008 nativa |
-| **Contenuti certificati** | Formazione gestita da professionisti abilitati |
-| **Centrale operativa** | Servizio H24 opzionale |
+| **Made in Italy** | Compliance normativa italiana nativa |
+| **Zero costi per Partner** | Formatori guadagnano royalty senza investimento |
+| **Centrale operativa** | Servizio H24 opzionale per emergenze |
 
 ### Posizionamento
 
@@ -347,60 +387,66 @@ VCT vende hardware ai clienti e riconosce royalty ai Partner che hanno portato i
 
 ## Go-to-Market Strategy
 
-### Strategia: Partner-First
+### Strategia: Partner-First (Solo Professionisti Abilitati)
 
-Vigilo **non vende direttamente** alle aziende finali. La crescita avviene attraverso il reclutamento e l'abilitazione di Partner (consulenti sicurezza) che propongono la soluzione ai propri clienti.
+Vigilo **non vende direttamente** alle aziende finali. La crescita avviene attraverso il reclutamento di **Consulenti Sicurezza e Formatori Abilitati** che propongono la soluzione ai propri clienti.
+
+> ⚠️ **Requisito obbligatorio**: Ogni Partner deve dimostrare qualifica RSPP/ASPP o abilitazione come Formatore (D.I. 6/3/2013) o accreditamento ente formativo.
 
 ### Fase 1: Founding Partners (Mesi 1-6)
 
-**Target**: 20-30 Partner pilota (RSPP, studi consulenza)
+**Target**: 20-30 Partner pilota (RSPP esterni, Formatori abilitati, Enti formazione)
 
 | Azione | Obiettivo |
 |--------|-----------|
-| Selezione Partner pilota | 30 consulenti con >10 clienti ciascuno |
-| Onboarding gratuito | Formazione piattaforma, certificazione |
-| Co-creazione contenuti | Contenuti normativi validati da esperti |
+| Selezione Partner pilota | 30 professionisti abilitati con >10 clienti ciascuno |
+| Verifica qualifiche | Controllo certificazioni RSPP/Formatore |
+| Onboarding gratuito | Formazione piattaforma Vigilo |
+| Co-creazione contenuti | Corsi D.Lgs. 81 validati da esperti |
 | Case study congiunti | Success stories per recruiting |
 
-**Canali recruiting Partner:**
-- LinkedIn (RSPP, HSE Manager)
-- Associazioni professionali (AIFOS, AIAS)
-- Ordini professionali (Ingegneri, Architetti)
-- Passaparola Partner esistenti
+**Canali recruiting Partner (focus formazione sicurezza):**
+- 🎯 **AIFOS** (Associazione Italiana Formatori Sicurezza) - 3.000+ iscritti
+- 🎯 **AIAS** (Associazione Italiana Ambiente e Sicurezza) - 2.000+ iscritti
+- 🎯 **AiFOS Academy** - Rete formatori certificati
+- 🎯 **LinkedIn** - Gruppi "RSPP Italia", "Formatori Sicurezza", "HSE Manager"
+- 🎯 **Fiere di settore** - SAIE, Ambiente Lavoro, Safety Expo
+- 🎯 **Ordini professionali** - Ingegneri (sezione sicurezza), Architetti, Periti
+- 🎯 **Enti bilaterali edilizia** - FORMEDIL, Scuole Edili provinciali
 
-**KPI**: 30 Partner attivi, 1.500 utenti, NPS Partner > 60
+**KPI**: 30 Partner abilitati, 1.500 utenti, NPS Partner > 60
 
 ### Fase 2: Partner Acceleration (Mesi 7-18)
 
-**Target**: 100 Partner attivi
+**Target**: 100 Partner abilitati attivi
 
 | Azione | Obiettivo |
 |--------|-----------|
-| Partner Portal | Self-service onboarding, gestione clienti |
-| Accademia Vigilo | Certificazione Partner (online) |
-| Partner Tiers (Bronze/Silver/Gold) | Incentivi per performance |
-| Eventi Partner | 2 convention/anno, networking |
-| Referral Program | Partner porta Partner (€500 bonus) |
+| Partner Portal | Self-service onboarding con verifica qualifiche |
+| Accademia Vigilo | Certificazione specifica piattaforma (online) |
+| Partner Tiers (Bronze/Silver/Gold) | Incentivi per volume formazione erogata |
+| Eventi Partner | 2 convention/anno + webinar mensili |
+| Referral Program | Formatore porta Formatore (€500 bonus) |
 
 **Supporto Partner:**
 - Partner Success Manager dedicato (1:20 ratio)
-- Materiali marketing co-branded
-- Lead generation per Partner (opzionale)
-- Supporto tecnico prioritario
+- Materiali marketing co-branded per formatori
+- Template corsi D.Lgs. 81 preconfigurati
+- Supporto tecnico prioritario su piattaforma e IoT
 
-**KPI**: 100 Partner, 8.000 utenti, €1.5M ARR, Partner churn < 10%
+**KPI**: 100 Partner abilitati, 8.000 utenti formati, €1.5M ARR, Partner churn < 10%
 
 ### Fase 3: Network Expansion (Mesi 19-36)
 
-**Target**: 300 Partner, espansione verticali e geografica
+**Target**: 300 Partner abilitati, espansione verticali e geografica
 
 | Azione | Obiettivo |
 |--------|-----------|
-| Verticali specializzati | Oil&Gas, Food, Pharma |
-| Partnership associazioni | ANCE, Confindustria, CNA |
-| Espansione DACH | Partner in Germania, Austria, Svizzera |
-| White-label assicurazioni | Co-branding con compagnie |
-| API & Integrazioni | Marketplace terze parti |
+| Verticali specializzati | Formatori settore Oil&Gas, Food, Pharma, Chimico |
+| Partnership associazioni | AIFOS nazionale, ANCE, Confindustria |
+| Accordi enti bilaterali | FORMEDIL, OPRA, Fondi interprofessionali |
+| Espansione DACH | Partner formatori in Germania, Austria, Svizzera |
+| White-label assicurazioni | Co-branding con compagnie (canale alternativo) |
 
 **KPI**: 300 Partner, 25.000 utenti, €5M ARR, 3 paesi
 
