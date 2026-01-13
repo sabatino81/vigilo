@@ -28,7 +28,7 @@
 | **State Management** | Riverpod 3.0+ | AsyncNotifierProvider |
 | **Navigation** | Go Router 16.x | ShellRoute per layout |
 | **Backend** | Supabase | Auth, Database, Storage, Edge Functions |
-| **Local Storage** | Hive 2.2.3 | Cache-first pattern |
+| **Local Storage** | SharedPreferences | Settings e cache locale |
 | **Charts** | FL Chart, Syncfusion | Visualizzazioni finanziarie |
 | **Maps** | Flutter Map | Mappa cantieri Italia |
 | **Analytics** | PostHog (self-hosted) | Privacy-first |
@@ -57,7 +57,7 @@
 │  └─ CachedRepository<T> (cache-first, then network)            │
 ├─────────────────────────────────────────────────────────────────┤
 │  Data Layer                                                      │
-│  ├─ Hive (local cache)                                          │
+│  ├─ SharedPreferences (local cache)                             │
 │  └─ Supabase RPC (remote)                                       │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -71,7 +71,7 @@ lib/
 │   ├── data/
 │   │   ├── providers/    # CachedAsyncNotifier
 │   │   ├── repository/   # CachedRepository base
-│   │   └── storage/      # HiveManager
+│   │   └── storage/      # LocalStorageManager
 │   ├── env/              # Environment variables
 │   ├── layout/           # AdminLayout, Sidebar, TopAppBar
 │   ├── navigation/       # AppShell, route guards
