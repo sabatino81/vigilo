@@ -114,3 +114,12 @@ SUPABASE_ANON_KEY=your_anon_key
 4. Crea providers in `lib/providers/` se necessario
 5. Registra routes in `lib/core/router/app_router.dart`
 6. Aggiungi translations in `lib/l10n/app_en.arb` e `app_it.arb`
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| `docs/PROGETTO.md` | Specifiche funzionali complete |
+| `docs/BUSINESS_PROPOSAL.md` | Business model e go-to-market |
+| `docs/SSCC_TECHNICAL_SPEC.md` | Spec tecnica sistema casco-centrico |
+| `docs/ROADMAP.md` | Roadmap e gap analysis |
