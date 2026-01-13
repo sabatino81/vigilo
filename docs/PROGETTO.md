@@ -14,6 +14,8 @@
 - Guadagnare punti e premi
 - Collaborare come team
 
+**Vigilo** si integra con la piattaforma **InSite** per il monitoraggio real-time dei DPI sensorizzati e dello stato di salute dei lavoratori
+
 ---
 
 ## Navigazione App
@@ -163,6 +165,136 @@ Cards visualizzate in ordine di priorità:
 
 ---
 
+## Sensoristica IoT e Centrale Operativa
+
+### Piattaforma InSite
+
+**Dashboard:** [https://insite.vct-me.com/](https://insite.vct-me.com/)
+
+Vigilo si integra con la piattaforma **InSite** di VCT per il monitoraggio centralizzato della sicurezza in cantiere. La dashboard web consente alla **Centrale Operativa di Sicurezza** di monitorare in tempo reale tutti i lavoratori e intervenire rapidamente in caso di emergenza.
+
+### DPI Sensorizzati
+
+| Dispositivo | Sensori | Dati Rilevati |
+|-------------|---------|---------------|
+| **Casco Smart** | Accelerometro, giroscopio, GPS, temperatura | Urti, cadute, posizione, temperatura ambiente |
+| **Gilet Smart** | Cardiofrequenzimetro, temperatura corporea | Battito cardiaco, stress termico, affaticamento |
+| **Scarpe Antinfortunistiche** | Pressione, movimento | Postura, ore in piedi, percorsi |
+| **Guanti Smart** | Vibrazione, pressione | Esposizione vibrazioni, presa attrezzi |
+
+### Metriche Monitorate
+
+**Stato DPI:**
+- ✅ Indossato correttamente
+- ⚠️ Indossato parzialmente
+- ❌ Non indossato
+- 🔋 Livello batteria dispositivo
+
+**Parametri Vitali:**
+- ❤️ Frequenza cardiaca (bpm)
+- 🌡️ Temperatura corporea
+- 💧 Livello idratazione (stimato)
+- 😰 Indice di stress/affaticamento
+- 🏃 Livello attività fisica
+
+**Parametri Ambientali:**
+- 🌡️ Temperatura ambiente
+- ☀️ Esposizione UV
+- 🔊 Livello rumore
+- 💨 Qualità aria (con sensori aggiuntivi)
+
+### Centrale Operativa di Sicurezza
+
+La Centrale Operativa monitora H24 tutti i cantieri attivi tramite la dashboard InSite:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   CENTRALE OPERATIVA                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐      │
+│   │  Cantiere A │   │  Cantiere B │   │  Cantiere C │      │
+│   │  👷 12/12   │   │  👷 8/10    │   │  👷 15/15   │      │
+│   │  ✅ OK      │   │  ⚠️ Alert   │   │  ✅ OK      │      │
+│   └─────────────┘   └─────────────┘   └─────────────┘      │
+│                                                             │
+│   ┌─────────────────────────────────────────────────┐      │
+│   │  ALERT ATTIVI                                    │      │
+│   │  🔴 Mario R. - Battito cardiaco elevato (142bpm)│      │
+│   │  🟠 Luca B. - Casco non indossato               │      │
+│   │  🟡 Area C - Temperatura elevata (38°C)         │      │
+│   └─────────────────────────────────────────────────┘      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Flusso di Intervento
+
+```
+Sensore rileva anomalia
+        │
+        ▼
+┌───────────────────┐
+│ Alert su InSite   │ ──► Dashboard Centrale Operativa
+└───────────────────┘
+        │
+        ▼
+┌───────────────────┐
+│ Notifica Vigilo   │ ──► App del lavoratore
+└───────────────────┘
+        │
+        ▼
+┌───────────────────┐
+│ Valutazione       │
+│ Centrale Operativa│
+└───────────────────┘
+        │
+        ├──► Situazione sotto controllo ──► Monitoraggio continuo
+        │
+        └──► Intervento necessario
+                    │
+                    ▼
+            ┌───────────────────┐
+            │ Azioni possibili: │
+            │ • Chiamata diretta│
+            │ • Alert capocant. │
+            │ • Invio soccorsi  │
+            │ • Evacuazione     │
+            └───────────────────┘
+```
+
+### Tipi di Alert
+
+| Livello | Colore | Trigger | Azione |
+|---------|--------|---------|--------|
+| **Critico** | 🔴 Rosso | Caduta rilevata, battito assente, SOS manuale | Intervento immediato, 118 |
+| **Alto** | 🟠 Arancione | Battito anomalo, temperatura corporea alta, immobilità prolungata | Contatto diretto, verifica |
+| **Medio** | 🟡 Giallo | DPI non indossato, zona pericolosa, batteria scarica | Notifica + reminder |
+| **Basso** | 🔵 Blu | Pausa non effettuata, idratazione bassa | Suggerimento in-app |
+
+### Integrazione App-Dashboard
+
+| Funzione | App Vigilo | Dashboard InSite |
+|----------|------------|------------------|
+| Visualizzazione stato DPI | ✅ Personale | ✅ Tutti i lavoratori |
+| Parametri vitali | ✅ Personali | ✅ Aggregati + singoli |
+| Invio SOS | ✅ Manuale | ✅ Ricezione + gestione |
+| Alert automatici | ✅ Ricezione | ✅ Generazione + dispatch |
+| Storico dati | ✅ Ultimi 7gg | ✅ Completo + analytics |
+| Geolocalizzazione | ✅ Propria | ✅ Mappa cantiere live |
+| Report incidenti | ✅ Creazione | ✅ Gestione + follow-up |
+
+### Dati e Privacy
+
+- I dati biometrici sono trattati in conformità GDPR
+- Consenso esplicito del lavoratore richiesto
+- Dati aggregati per statistiche anonime
+- Accesso ai dati individuali solo per emergenze
+- Retention policy: 90 giorni per dati dettagliati, 2 anni per aggregati
+- Crittografia end-to-end per trasmissione dati
+
+---
+
 ## Architettura Tecnica
 
 ### Stack Tecnologico
@@ -173,6 +305,7 @@ Cards visualizzate in ordine di priorità:
 | State Management | Riverpod 3.0+ |
 | Navigation | Go Router 16.x |
 | Backend | Supabase (Auth, Database, Storage) |
+| IoT Platform | InSite VCT (sensori DPI, monitoraggio) |
 | Local Storage | SharedPreferences |
 | Sicurezza | flutter_secure_storage, local_auth |
 | Splash | flutter_native_splash |
@@ -352,13 +485,15 @@ flutter build ios --flavor prod --release
 
 ## Roadmap Futura
 
-- [ ] Integrazione IoT sensori DPI
+- [x] ~~Integrazione IoT sensori DPI~~ ✅ Completato (InSite)
+- [x] ~~Dashboard supervisor web~~ ✅ Completato (InSite)
 - [ ] Notifiche push real-time
-- [ ] Modalità offline
-- [ ] Dashboard supervisor web
+- [ ] Modalità offline completa
 - [ ] Integrazione calendario turni
 - [ ] Export report PDF
 - [ ] Integrazione con sistemi HR
+- [ ] Machine learning per predizione rischi
+- [ ] Realtà aumentata per istruzioni sicurezza
 
 ---
 
