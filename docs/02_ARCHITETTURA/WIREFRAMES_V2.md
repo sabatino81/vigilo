@@ -149,9 +149,9 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  PUNTI ELMETTO                              1.200 pt  | |
+|  |  PUNTI ELMETTO                              1.800 pt  | |
 |  |                                                         | |
-|  |  Valore: E120.00 in sconti                             | |
+|  |  Valore: E30.00 in sconti                              | |
 |  |  Welfare aziendale: [ATTIVO]                           | |
 |  |                                                         | |
 |  |  Vai al negozio >                                      | |
@@ -505,8 +505,8 @@
 |  |  +---------------------------------------------------+ | |
 |  |  |  PUNTI ELMETTO                                    | | |
 |  |  |                                                    | | |
-|  |  |       1.200 punti                                  | | |
-|  |  |       Valore: E120.00 in sconti                    | | |
+|  |  |       1.800 punti                                  | | |
+|  |  |       Valore: E30.00 in sconti                     | | |
 |  |  |                                                    | | |
 |  |  |  Welfare aziendale: [ATTIVO]                       | | |
 |  |  |  Con welfare: sconto fino al 100%                  | | |
@@ -589,7 +589,7 @@
 - Wallet unico Punti Elmetto con badge welfare attivo/non attivo
 - Transazioni mostrano punti e eventuali quote welfare azienda
 - Tabella "Come guadagno punti" con soli Punti Elmetto
-- Conversione e cap sconto ben visibili (10pt = 1EUR, max 20%, 100% con welfare)
+- Conversione e cap sconto ben visibili (60pt = 1EUR, max 20%, 100% con welfare)
 - Classifica su Punti Elmetto
 - Badge welfare nascosto se azienda non ha welfareActive
 
@@ -625,7 +625,7 @@
 |  | (default)   | | (welfare copre)  | | (Elmetto >10%)  |  |
 |  +-------------+ +------------------+ +-----------------+  |
 |                                                             |
-|  Punti Elmetto: 1.200 (E120)  |  Welfare: [ATTIVO]       |
+|  Punti Elmetto: 1.800 (E30)   |  Welfare: [ATTIVO]       |
 |                                                             |
 |  124 prodotti                                               |
 |                                                             |
@@ -701,8 +701,8 @@
 |  Prezzo: E30.00                                            |
 |                                                             |
 |  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 1.200 punti                                       |
-|  Usa: [o=================] 1.000 punti                     |
+|  Saldo: 1.800 punti (E30)                                 |
+|  Usa: [o=================] 360 punti                       |
 |  Sconto: -20% (-E6.00)                                    |
 |                                                             |
 |  -------------------------------------------------         |
@@ -743,8 +743,8 @@
 |  Prezzo: E30.00                                            |
 |                                                             |
 |  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 1.200 punti                                       |
-|  Usa: [o=================] 60 punti                        |
+|  Saldo: 1.800 punti (E30)                                 |
+|  Usa: [o=================] 1.800 punti                     |
 |  Sconto base: -20% (-E6.00)                               |
 |                                                             |
 |  -- Welfare aziendale [ATTIVO] ----------------------      |
@@ -829,8 +829,8 @@
 |  Prezzo: E85.00                                            |
 |                                                             |
 |  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 120 punti                                          |
-|  Ancora 80 punti per il primo sconto! (5% = -E4.25)       |
+|  Saldo: 120 punti (E2)                                     |
+|  Ancora 135 punti per il primo sconto! (5% = -E4.25)      |
 |                                                             |
 |  Completa 2 quiz per raggiungerlo!                         |
 |                                                             |
@@ -871,8 +871,8 @@
 |  Prezzo promo:      E45.50    (-30%)                       |
 |                                                             |
 |  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 1.200 punti                                       |
-|  Usa: [o=========.........] 500 punti                      |
+|  Saldo: 1.800 punti (E30)                                 |
+|  Usa: [o=========.........] 273 punti                      |
 |  Sconto: -10% (-E4.55)                                    |
 |                                                             |
 |  -------------------------------------------------         |
@@ -915,9 +915,9 @@
 |  +-------------------------------------------------------+ |
 |  |  PUNTI ELMETTO                                         | |
 |  |                                                         | |
-|  |  Saldo disponibile: 1.200 punti (E120)                 | |
+|  |  Saldo disponibile: 1.800 punti (E30)                  | |
 |  |                                                         | |
-|  |  Usa: [o===========........] 900 punti                  | |
+|  |  Usa: [o===========........] 540 punti                  | |
 |  |  Sconto applicato (20%):                -E9.00         | |
 |  +-------------------------------------------------------+ |
 |                                                             |

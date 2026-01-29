@@ -238,18 +238,18 @@ L'azienda riceve fattura mensile aggregata per tutte le quote welfare erogate ai
 
 ### Conversione Punti Elmetto → valore
 
-**Conversione: 10 Punti Elmetto = 1 EUR. Sconto max senza welfare: 20%.**
+**Conversione: 60 Punti Elmetto = 1 EUR. Sconto max senza welfare: 20%.**
 
 | Punti Elmetto spesi | Valore EUR | Sconto applicato | Esempio su prodotto €30 |
 |----------------------|------------|------------------|-------------------------|
-| 30                   | €3         | 5%               | Paga €28.50 (senza welfare) |
-| 80                   | €8         | 10%              | Paga €27.00 (senza welfare) |
-| 160                  | €16        | 15%              | Paga €25.50 (senza welfare) |
-| 240+                 | €24+       | 20% (max)        | Paga €24.00 (senza welfare) |
+| 90                   | €1.50      | 5%               | Paga €28.50 (senza welfare) |
+| 180                  | €3         | 10%              | Paga €27.00 (senza welfare) |
+| 270                  | €4.50      | 15%              | Paga €25.50 (senza welfare) |
+| 360+                 | €6+        | 20% (max)        | Paga €24.00 (senza welfare) |
 
-**1 Punto Elmetto** = €0.10
+**1 Punto Elmetto** = €0.0167 (60 pt = 1 EUR)
 
-Con 18.000 Punti Elmetto/anno → **€1.800 in sconti potenziali**. Con welfare attivo → copertura fino al 100% per ogni acquisto.
+Con 18.000 Punti Elmetto/anno → **€300 in sconti potenziali**. Con welfare attivo → copertura fino al 100% per ogni acquisto.
 
 ### Livelli
 
