@@ -85,6 +85,69 @@ Il ricarico del 30% è fisso su tutto il catalogo. Non ci sono prezzi "scontati"
 
 Il margine minimo (3.8%) si verifica solo nel caso peggiore: sconto 20% pieno senza welfare. In pratica la media sarà più alta perché non tutti i lavoratori avranno 2.000 Punti Elmetto da spendere su un singolo acquisto.
 
+### Promozioni e sconti
+
+Il 30% di ricarico è calcolato sul **costo effettivo di Vigilo**, non sul listino del fornitore. Questo significa che se il fornitore concede uno sconto, il prezzo al pubblico scende ma il margine di Vigilo resta sempre il 30%.
+
+```
+Prezzo normale:
+  Costo fornitore:        €100.00
+  Ricarico 30%:          + €30.00
+  Prezzo Vigilo:          €130.00   ← margine €30
+
+Fornitore concede -20%:
+  Costo fornitore:         €80.00
+  Ricarico 30%:          + €24.00
+  Prezzo Vigilo:          €104.00   ← margine €24 (sempre 30%)
+```
+
+**Principio chiave**: Vigilo non erode MAI il proprio margine. Il 30% è intoccabile. Qualsiasi sconto arriva a monte (fornitore) o a valle (Punti Elmetto del lavoratore).
+
+#### Tipologie di promozione
+
+| Tipo promozione              | Come funziona                                                                        | Chi paga lo sconto     |
+|------------------------------|--------------------------------------------------------------------------------------|------------------------|
+| **Sconto fornitore**         | Il fornitore riduce il costo a Vigilo. Il prezzo al pubblico scende, margine 30%     | Fornitore              |
+| **Prodotto della settimana** | Vigilo evidenzia prodotti con sconto fornitore attivo. Visibilità in home app        | Fornitore              |
+| **Flash sale**               | Offerta a tempo (24-48h) su prodotti con sconto fornitore negoziato                  | Fornitore              |
+| **Tema stagionale**          | Selezione prodotti per stagione (estate, Natale, back-to-school) con sconti fornitori | Fornitore              |
+| **Punti Elmetto doppi**      | Evento promozionale: azioni di sicurezza danno punti doppi per una settimana         | Vigilo (costo punti)   |
+| **Bonus primo acquisto**     | Sconto extra (es. 5%) sul primo ordine ecommerce del lavoratore                     | Vigilo (margine ridotto una tantum) |
+
+#### Regole promozioni
+
+| Regola                       | Dettaglio                                                                                       |
+|------------------------------|-------------------------------------------------------------------------------------------------|
+| **Margine minimo**           | Sempre 30% sul costo effettivo Vigilo. Nessuna eccezione                                       |
+| **Vigilo non sconta mai**    | Il prezzo Vigilo = costo + 30%. Lo sconto visibile al lavoratore viene dal fornitore            |
+| **Punti Elmetto separati**   | Lo sconto Punti Elmetto (max 20%) si applica DOPO il prezzo Vigilo già calcolato               |
+| **Cumulo**                   | Sconto fornitore + sconto Elmetto sono cumulabili. Il lavoratore vede il prezzo già ribassato e può applicare i suoi punti sopra |
+| **Trasparenza**              | Il lavoratore vede il prezzo barrato solo se c'è uno sconto fornitore attivo                   |
+| **Nessun prezzo gonfiato**   | Vietato alzare il prezzo prima di una promozione per mostrare uno sconto falso                 |
+
+#### Esempio promozione con sconto fornitore + Punti Elmetto
+
+```
+Cuffie Bluetooth — promozione settimanale
+  Costo fornitore (listino):  €50.00
+  Sconto fornitore (-30%):    €35.00   ← costo effettivo Vigilo
+  Ricarico 30%:              + €10.50
+  Prezzo Vigilo promozionale: €45.50   ← (era €65.00 a prezzo pieno)
+
+  Il lavoratore vede:
+    Prezzo originale: €65.00 (barrato)
+    Prezzo promo:     €45.50
+
+  Applica 500 Punti Elmetto (-10%):
+    Sconto Elmetto:   - €4.55
+    Prezzo finale:     €40.95
+    + Spedizione:     + €5.90
+    ─────────────────────────
+    Totale:            €46.85
+
+  Margine Vigilo: €10.50 (30% su €35) ✓
+```
+
 ---
 
 ## Spedizione
