@@ -322,7 +322,7 @@ Ogni lavoratore ha un unico wallet: **Punti Elmetto** (classe `ElmettoWallet`). 
 |-------------------------|----------------------------------------------------------------------------------|
 | **Wallet**              | Punti Elmetto — unico saldo per tutti i lavoratori                               |
 | **Generazione**         | Ogni azione genera Punti Elmetto (~1.500/mese, ~18.000/anno)                    |
-| **Conversione**         | 10 Punti Elmetto = 1 EUR → valore facciale annuo: ~€1.800                       |
+| **Conversione**         | 60 Punti Elmetto = 1 EUR → valore facciale annuo: ~€300                          |
 | **Senza welfare**       | Sconto massimo 20% sul prezzo prodotto, il lavoratore paga il resto              |
 | **Con welfare attivo**  | Sconto fino al 100%: i Punti Elmetto coprono fino al 20%, la parte eccedente la copre l'azienda (fatturata mensilmente) |
 
@@ -347,21 +347,21 @@ Implementato in `lib/features/punti/domain/models/dual_wallet.dart`:
 
 ```
 Input:
-  totalEur            = prezzo prodotto (es. €130)
-  puntiElmetto        = saldo punti del lavoratore (es. 2850)
+  totalEur            = prezzo prodotto (es. €45)
+  puntiElmetto        = saldo punti del lavoratore (es. 1800)
   welfareActive       = boolean (welfare aziendale attivo?)
 
 Costanti:
-  elmettoPerEur            = 10      (10 pt = 1 EUR)
+  elmettoPerEur            = 60      (60 pt = 1 EUR)
   maxDiscountNoWelfare     = 20%
   maxDiscountWithWelfare   = 100%
 
 Calcolo:
-  1. elmettoValueEur    = puntiElmetto / 10       → valore EUR dei punti
+  1. elmettoValueEur    = puntiElmetto / 60       → valore EUR dei punti
   2. maxDiscountPercent  = welfareActive ? 100% : 20%
   3. maxDiscount         = totalEur × maxDiscountPercent / 100
   4. elmettoDiscountEur  = min(elmettoValueEur, maxDiscount)
-  5. elmettoPointsUsed   = round(elmettoDiscountEur × 10)
+  5. elmettoPointsUsed   = round(elmettoDiscountEur × 60)
   6. workerPaysEur       = totalEur − elmettoDiscountEur
   7. baseDiscount        = totalEur × 20 / 100     → la quota che Vigilo assorbe
   8. companyPaysEur      = (welfareActive && elmettoDiscountEur > baseDiscount)
@@ -385,11 +385,11 @@ Al checkout il lavoratore vede un unico saldo Punti Elmetto. L'algoritmo sopra v
 ```
 SCENARIO A — Senza welfare (welfareActive = false)
 ───────────────────────────────────────────────────
-Prodotto: Borraccia termica €30, lavoratore ha 2.850 pt (€285)
+Prodotto: Borraccia termica €30, lavoratore ha 1.800 pt (€30)
 
   maxDiscount = 30 × 20% = €6
-  elmettoDiscountEur = min(285, 6) = €6    ← cap al 20%
-  elmettoPointsUsed = 6 × 10 = 60 pt
+  elmettoDiscountEur = min(30, 6) = €6     ← cap al 20%
+  elmettoPointsUsed = 6 × 60 = 360 pt
   workerPaysEur = 30 − 6 = €24
   companyPaysEur = €0
 
@@ -399,11 +399,11 @@ Prodotto: Borraccia termica €30, lavoratore ha 2.850 pt (€285)
 
 SCENARIO B — Con welfare, punti sufficienti (welfareActive = true)
 ──────────────────────────────────────────────────────────────────
-Prodotto: Borraccia termica €30, lavoratore ha 2.850 pt (€285)
+Prodotto: Borraccia termica €30, lavoratore ha 1.800 pt (€30)
 
   maxDiscount = 30 × 100% = €30
-  elmettoDiscountEur = min(285, 30) = €30  ← copertura totale
-  elmettoPointsUsed = 30 × 10 = 300 pt
+  elmettoDiscountEur = min(30, 30) = €30   ← copertura totale
+  elmettoPointsUsed = 30 × 60 = 1800 pt
   workerPaysEur = 30 − 30 = €0            ← gratis!
   baseDiscount = 30 × 20% = €6
   companyPaysEur = 30 − 6 = €24           ← fatturato all'azienda
@@ -415,17 +415,17 @@ Prodotto: Borraccia termica €30, lavoratore ha 2.850 pt (€285)
 
 SCENARIO C — Con welfare, pochi punti (welfareActive = true)
 ────────────────────────────────────────────────────────────
-Prodotto: Borraccia termica €30, lavoratore ha 150 pt (€15)
+Prodotto: Borraccia termica €30, lavoratore ha 600 pt (€10)
 
   maxDiscount = 30 × 100% = €30
-  elmettoDiscountEur = min(15, 30) = €15   ← limitato dai punti
-  elmettoPointsUsed = 15 × 10 = 150 pt
-  workerPaysEur = 30 − 15 = €15           ← paga il resto
+  elmettoDiscountEur = min(10, 30) = €10   ← limitato dai punti
+  elmettoPointsUsed = 10 × 60 = 600 pt
+  workerPaysEur = 30 − 10 = €20           ← paga il resto
   baseDiscount = 30 × 20% = €6
-  companyPaysEur = 15 − 6 = €9            ← fatturato all'azienda
+  companyPaysEur = 10 − 6 = €4            ← fatturato all'azienda
 
-  → Lavoratore paga €15 + spedizione
-  → Azienda paga €9 (fattura mensile)
+  → Lavoratore paga €20 + spedizione
+  → Azienda paga €4 (fattura mensile)
   → Vigilo incassa €30 totali
 
 
@@ -443,29 +443,29 @@ Prodotto: Borraccia termica €30, lavoratore ha 0 pt
 
 ### Tabella conversione Punti Elmetto
 
-**Conversione: 10 Punti Elmetto = 1 EUR. Valore di 1 punto: €0.10**
+**Conversione: 60 Punti Elmetto = 1 EUR. Valore di 1 punto: €0.0167**
 
-| Punti spesi | Valore EUR | Su prodotto €130 | Sconto % | Senza welfare | Con welfare |
+| Punti spesi | Valore EUR | Su prodotto €45 | Sconto % | Senza welfare | Con welfare |
 |---:|---:|---:|---:|---|---|
-| 0 | €0 | €0 | 0% | Paga €130 | Paga €130 (no sconto = no welfare) |
-| 65 | €6.50 | €6.50 | 5% | Paga €123.50 | Paga €0, azienda €117.50 |
-| 130 | €13 | €13 | 10% | Paga €117 | Paga €0, azienda €104 |
-| 260 | €26 | €26 | 20% | Paga €104 (cap) | Paga €0, azienda €104 |
-| 650 | €65 | €26 (cap 20%) | 20% | Paga €104 (cap) | Paga €0, azienda €104 |
-| 1300 | €130 | €26 (cap 20%) | 20% | Paga €104 (cap) | Paga €0, azienda €104 |
+| 0 | €0 | €0 | 0% | Paga €45 | Paga €45 (no sconto = no welfare) |
+| 135 | €2.25 | €2.25 | 5% | Paga €42.75 | Paga €0, azienda €36 |
+| 270 | €4.50 | €4.50 | 10% | Paga €40.50 | Paga €0, azienda €36 |
+| 540 | €9 | €9 | 20% | Paga €36 (cap) | Paga €0, azienda €36 |
+| 1350 | €22.50 | €9 (cap 20%) | 20% | Paga €36 (cap) | Paga €0, azienda €36 |
+| 2700 | €45 | €9 (cap 20%) | 20% | Paga €36 (cap) | Paga €0, azienda €36 |
 
-**Senza welfare**: lo sconto è capped al 20% del prezzo. Con 260+ pt su un prodotto da €130, lo sconto resta €26.
+**Senza welfare**: lo sconto è capped al 20% del prezzo. Con 540+ pt su un prodotto da €45, lo sconto resta €9.
 
-**Con welfare**: il cap sale al 100%. Con 1300 pt (€130) lo sconto copre tutto. Ma i punti usati sono limitati dal prezzo — su un prodotto da €130, non servono più di 1300 pt.
+**Con welfare**: il cap sale al 100%. Con 2700 pt (€45) lo sconto copre tutto. Ma i punti usati sono limitati dal prezzo — su un prodotto da €45, non servono più di 2700 pt.
 
-Con 1.500 Punti Elmetto/mese = 18.000/anno → valore facciale annuo: **€1.800 in sconti potenziali**
+Con 1.500 Punti Elmetto/mese = 18.000/anno → valore facciale annuo: **€300 in sconti potenziali**
 
 ### Confronto welfare attivo vs non attivo (anno, lavoratore attivo)
 
 | Stato welfare     | Elmetto/anno | Valore sconti Elmetto/anno | Copertura welfare azienda | Valore totale potenziale/anno |
 |-------------------|--------------|----------------------------|---------------------------|-------------------------------|
-| **Non attivo**    | 18.000       | €1.800 (max 20% per acquisto) | €0                     | €1.800 in sconti              |
-| **Attivo**        | 18.000       | €1.800 (max 20% per acquisto) | Fino a 80% per acquisto | €1.800 sconti + welfare illimitato |
+| **Non attivo**    | 18.000       | €300 (max 20% per acquisto) | €0                       | €300 in sconti                |
+| **Attivo**        | 18.000       | €300 (max 20% per acquisto) | Fino a 80% per acquisto  | €300 sconti + welfare illimitato |
 
 ### Costo per l'azienda con welfare attivo
 
@@ -519,8 +519,8 @@ Il lavoratore vede un solo wallet. La card è semplice:
 │  Prezzo: €30.00                     │
 │                                     │
 │  ── I tuoi Punti Elmetto ─────────  │
-│  Saldo: 2.850 punti (€285)         │
-│  Usa: [●━━━━━━━━━━━] 60 punti      │
+│  Saldo: 1.800 punti (€30)          │
+│  Usa: [●━━━━━━━━━━━] 360 punti     │
 │  Sconto: -20% (-€6.00)             │
 │                                     │
 │  ─────────────────────────────────  │
@@ -547,8 +547,8 @@ Il lavoratore vede il proprio wallet Punti Elmetto con il badge "Welfare attivo"
 │  Prezzo: €30.00                     │
 │                                     │
 │  ── I tuoi Punti Elmetto ─────────  │
-│  Saldo: 2.850 punti (€285)         │
-│  Usa: [●━━━━━━━━━━━] 60 punti      │
+│  Saldo: 1.800 punti (€30)          │
+│  Usa: [●━━━━━━━━━━━] 360 punti     │
 │  Sconto base: -20% (-€6.00)        │
 │                                     │
 │  ── Welfare aziendale [ATTIVO] ───  │
@@ -616,8 +616,8 @@ Il lavoratore ha pochi punti, la card diventa motivazionale:
 │  Prezzo: €85.00                     │
 │                                     │
 │  ── I tuoi Punti Elmetto ─────────  │
-│  Saldo: 12 punti (€1.20)           │
-│  ⚡ Ancora 18 punti per il primo    │
+│  Saldo: 12 punti (€0.20)           │
+│  ⚡ Ancora 243 punti per il primo   │
 │     sconto! (5% = -€4.25)          │
 │                                     │
 │  ─────────────────────────────────  │

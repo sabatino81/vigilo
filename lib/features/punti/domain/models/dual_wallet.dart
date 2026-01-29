@@ -30,9 +30,9 @@ class ElmettoWallet {
   // CONVERSIONE ELMETTO
   // ============================================
 
-  /// Tasso di conversione: 10 Punti Elmetto = 1 EUR
-  /// Valore facciale annuo: ~18.000 pts = ~€1.800
-  static const int elmettoPerEur = 10;
+  /// Tasso di conversione: 60 Punti Elmetto = 1 EUR
+  /// Valore facciale annuo: ~18.000 pts = ~€300
+  static const int elmettoPerEur = 60;
 
   /// Sconto massimo SENZA welfare (20%)
   static const int maxDiscountNoWelfare = 20;
@@ -89,7 +89,7 @@ class ElmettoWallet {
   static ElmettoWallet mockWallet({bool welfare = true}) {
     final now = DateTime.now();
     return ElmettoWallet(
-      puntiElmetto: 2850,
+      puntiElmetto: 1800,
       welfareActive: welfare,
       companyName: welfare ? 'Costruzioni Rossi S.r.l.' : null,
       transactions: [
@@ -123,15 +123,15 @@ class ElmettoWallet {
         ),
         PointsTransaction(
           id: 'e5',
-          amount: 160,
-          description: 'Sconto acquisto Spaccio (-€16)',
+          amount: 360,
+          description: 'Sconto acquisto Spaccio (-€6)',
           createdAt: now.subtract(const Duration(days: 4)),
           type: TransactionType.spent,
         ),
         PointsTransaction(
           id: 'e6',
-          amount: 750,
-          description: 'Acquisto welfare Spaccio (-€75)',
+          amount: 540,
+          description: 'Acquisto welfare Spaccio (-€9)',
           createdAt: now.subtract(const Duration(days: 6)),
           type: TransactionType.spent,
         ),
