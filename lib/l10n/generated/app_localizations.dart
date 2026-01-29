@@ -905,7 +905,7 @@ abstract class AppLocalizations {
   /// No description provided for @socialWallTitle.
   ///
   /// In en, this message translates to:
-  /// **'SITE SOCIAL WALL'**
+  /// **'SOCIAL WALL'**
   String get socialWallTitle;
 
   /// No description provided for @topPost.
@@ -1001,7 +1001,7 @@ abstract class AppLocalizations {
   /// No description provided for @ppeProtected.
   ///
   /// In en, this message translates to:
-  /// **'PPE ACTIVE'**
+  /// **'REQUIRED PPE'**
   String get ppeProtected;
 
   /// No description provided for @welcomeBoots.
@@ -1025,7 +1025,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeFeature2.
   ///
   /// In en, this message translates to:
-  /// **'Verify PPE are active'**
+  /// **'Declare PPE worn at check-in'**
   String get welcomeFeature2;
 
   /// No description provided for @welcomeFeature3.
@@ -2909,7 +2909,7 @@ abstract class AppLocalizations {
   /// No description provided for @pointsActionAccess.
   ///
   /// In en, this message translates to:
-  /// **'Site access'**
+  /// **'Shift check-in'**
   String get pointsActionAccess;
 
   /// No description provided for @pointsActionSurvey.
@@ -3061,6 +3061,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Absolutely'**
   String get vowRating5;
+
+  /// No description provided for @checkinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'SHIFT CHECK-IN'**
+  String get checkinTitle;
+
+  /// No description provided for @checkinSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PPE Self-declaration'**
+  String get checkinSubtitle;
+
+  /// No description provided for @checkinDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get checkinDone;
+
+  /// No description provided for @checkinTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'To do'**
+  String get checkinTodo;
+
+  /// No description provided for @checkinCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in completed'**
+  String get checkinCompleted;
+
+  /// No description provided for @checkinDpiRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'PPE required for your role'**
+  String get checkinDpiRequired;
+
+  /// No description provided for @checkinConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'CONFIRM CHECK-IN'**
+  String get checkinConfirm;
+
+  /// No description provided for @checkinSelectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all PPE items'**
+  String get checkinSelectAll;
+
+  /// No description provided for @checkinPointsAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift check-in'**
+  String get checkinPointsAction;
 }
 
 class _AppLocalizationsDelegate

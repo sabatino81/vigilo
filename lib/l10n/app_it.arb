@@ -155,7 +155,7 @@
   "writeHere": "Scrivi qui...",
   "submitSurvey": "Invia sondaggio",
 
-  "socialWallTitle": "BACHECA CANTIERE",
+  "socialWallTitle": "BACHECA",
   "topPost": "Post più votato: \"{post}\"",
   "createPost": "Crea un post",
   "viewAllPosts": "Vedi tutti i post",
@@ -174,11 +174,11 @@
   "viewAllRequests": "Vedi tutte le richieste",
 
   "welcomeGuideTitle": "LA TUA SICUREZZA A PORTATA DI MANO",
-  "ppeProtected": "DPI ATTIVI",
+  "ppeProtected": "DPI PREVISTI",
   "welcomeBoots": "Scarponi",
   "welcomeVest": "Giubbino",
   "welcomeFeature1": "Controlla il tuo Safety Score",
-  "welcomeFeature2": "Verifica se i DPI sono attivi",
+  "welcomeFeature2": "Dichiara i DPI indossati al check-in",
   "welcomeFeature3": "Segnala un pericolo con SOS",
   "welcomeFeature4": "Completa le attività del giorno",
   "openQuickGuide": "Apri la guida rapida",
@@ -633,7 +633,7 @@
   "pointsActionCheckin": "Check-in benessere",
   "pointsActionReport": "Segnalazione sicurezza",
   "pointsActionQuiz": "Quiz completato",
-  "pointsActionAccess": "Accesso cantiere",
+  "pointsActionAccess": "Check-in turno",
   "pointsActionSurvey": "Sondaggio sicurezza",
 
   "wellnessNoteHint": "Note (opzionale)...",
@@ -663,5 +663,15 @@
   "vowRating2": "Poco",
   "vowRating3": "Abbastanza",
   "vowRating4": "Molto",
-  "vowRating5": "Assolutamente"
+  "vowRating5": "Assolutamente",
+
+  "checkinTitle": "CHECK-IN TURNO",
+  "checkinSubtitle": "Autodichiarazione DPI - D.Lgs. 81/2008",
+  "checkinDone": "Fatto",
+  "checkinTodo": "Da fare",
+  "checkinCompleted": "Check-in completato",
+  "checkinDpiRequired": "DPI richiesti per il tuo ruolo",
+  "checkinConfirm": "CONFERMA CHECK-IN",
+  "checkinSelectAll": "Seleziona tutti i DPI",
+  "checkinPointsAction": "Check-in turno"
 }

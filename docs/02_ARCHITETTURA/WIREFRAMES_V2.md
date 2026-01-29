@@ -122,21 +122,23 @@
 |  < >  [gear]                                    [bell] [user]|
 |                                                             |
 |  Buongiorno, Mario!                                        |
-|  Cantiere Milano Nord                                      |
+|  EdilPro S.r.l.                                            |
 |-------------------------------------------------------------|
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  ACCESSO CANTIERE                             [v] OK   | |
+|  |  CHECK-IN TURNO                           [Da fare]   | |
+|  |  Autodichiarazione DPI - D.Lgs. 81/2008               | |
 |  |                                                         | |
-|  |  DPI Rilevati:                                          | |
-|  |  [v] Casco    [v] Giubbino    [v] Scarponi             | |
+|  |  DPI richiesti per il tuo ruolo         2/4            | |
+|  |  [==============..............] 50%                    | |
 |  |                                                         | |
-|  |  Documenti:                                             | |
-|  |  [v] Formaz. generale    [v] Formaz. specifica          | |
-|  |  [v] Visita medica       [v] Idoneita                   | |
+|  |  [ ] Casco protettivo                                  | |
+|  |  [v] Scarpe antinfortunistiche                         | |
+|  |  [v] Guanti protettivi                                 | |
+|  |  [ ] Giubbino alta visibilita                          | |
 |  |                                                         | |
 |  |  +---------------------------------------------------+ | |
-|  |  |              ENTRA IN CANTIERE                     | | |
+|  |  |          Seleziona tutti i DPI                     | | |
 |  |  +---------------------------------------------------+ | |
 |  +-------------------------------------------------------+ |
 |                                                             |
@@ -223,7 +225,7 @@
 |  < >  [gear]                                    [bell] [user]|
 |                                                             |
 |  Team                                                      |
-|  Cantiere Milano Nord                                      |
+|  EdilPro S.r.l.                                            |
 |-------------------------------------------------------------|
 |                                                             |
 |  +-------------------------------------------------------+ |
@@ -1552,7 +1554,7 @@
 |  |  Mario Rossi                                           | |
 |  |  Operaio specializzato                                 | |
 |  |  EdilPro S.r.l.                                        | |
-|  |  Cantiere Milano Nord                                  | |
+|  |  EdilPro S.r.l.                                        | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |

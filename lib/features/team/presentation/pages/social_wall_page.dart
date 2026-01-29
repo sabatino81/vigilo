@@ -25,7 +25,7 @@ class _SocialWallPageState extends State<SocialWallPage> {
         backgroundColor: isDark ? const Color(0xFF1A1A1A) : Colors.grey[50],
         appBar: AppBar(
           title: Text(
-            l10n?.socialWallTitle ?? 'BACHECA CANTIERE',
+            l10n?.socialWallTitle ?? 'BACHECA',
             style: theme.textTheme.titleLarge,
           ),
           actions: [

@@ -155,7 +155,7 @@
   "writeHere": "Write here...",
   "submitSurvey": "Submit survey",
 
-  "socialWallTitle": "SITE SOCIAL WALL",
+  "socialWallTitle": "SOCIAL WALL",
   "topPost": "Top post: \"{post}\"",
   "createPost": "Create a post",
   "viewAllPosts": "View all posts",
@@ -174,11 +174,11 @@
   "viewAllRequests": "View all requests",
 
   "welcomeGuideTitle": "YOUR SAFETY AT YOUR FINGERTIPS",
-  "ppeProtected": "PPE ACTIVE",
+  "ppeProtected": "REQUIRED PPE",
   "welcomeBoots": "Safety boots",
   "welcomeVest": "Safety vest",
   "welcomeFeature1": "Check your Safety Score",
-  "welcomeFeature2": "Verify PPE are active",
+  "welcomeFeature2": "Declare PPE worn at check-in",
   "welcomeFeature3": "Report danger with SOS",
   "welcomeFeature4": "Complete daily tasks",
   "openQuickGuide": "Open quick guide",
@@ -633,7 +633,7 @@
   "pointsActionCheckin": "Wellness check-in",
   "pointsActionReport": "Safety report",
   "pointsActionQuiz": "Quiz completed",
-  "pointsActionAccess": "Site access",
+  "pointsActionAccess": "Shift check-in",
   "pointsActionSurvey": "Safety survey",
 
   "wellnessNoteHint": "Notes (optional)...",
@@ -663,5 +663,15 @@
   "vowRating2": "A little",
   "vowRating3": "Somewhat",
   "vowRating4": "Very much",
-  "vowRating5": "Absolutely"
+  "vowRating5": "Absolutely",
+
+  "checkinTitle": "SHIFT CHECK-IN",
+  "checkinSubtitle": "PPE Self-declaration",
+  "checkinDone": "Done",
+  "checkinTodo": "To do",
+  "checkinCompleted": "Check-in completed",
+  "checkinDpiRequired": "PPE required for your role",
+  "checkinConfirm": "CONFIRM CHECK-IN",
+  "checkinSelectAll": "Select all PPE items",
+  "checkinPointsAction": "Shift check-in"
 }

@@ -424,7 +424,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get submitSurvey => 'Invia sondaggio';
 
   @override
-  String get socialWallTitle => 'BACHECA CANTIERE';
+  String get socialWallTitle => 'BACHECA';
 
   @override
   String topPost(Object post) {
@@ -474,7 +474,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get welcomeGuideTitle => 'LA TUA SICUREZZA A PORTATA DI MANO';
 
   @override
-  String get ppeProtected => 'DPI ATTIVI';
+  String get ppeProtected => 'DPI PREVISTI';
 
   @override
   String get welcomeBoots => 'Scarponi';
@@ -486,7 +486,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get welcomeFeature1 => 'Controlla il tuo Safety Score';
 
   @override
-  String get welcomeFeature2 => 'Verifica se i DPI sono attivi';
+  String get welcomeFeature2 => 'Dichiara i DPI indossati al check-in';
 
   @override
   String get welcomeFeature3 => 'Segnala un pericolo con SOS';
@@ -1529,7 +1529,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get pointsActionQuiz => 'Quiz completato';
 
   @override
-  String get pointsActionAccess => 'Accesso cantiere';
+  String get pointsActionAccess => 'Check-in turno';
 
   @override
   String get pointsActionSurvey => 'Sondaggio sicurezza';
@@ -1607,4 +1607,31 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get vowRating5 => 'Assolutamente';
+
+  @override
+  String get checkinTitle => 'CHECK-IN TURNO';
+
+  @override
+  String get checkinSubtitle => 'Autodichiarazione DPI - D.Lgs. 81/2008';
+
+  @override
+  String get checkinDone => 'Fatto';
+
+  @override
+  String get checkinTodo => 'Da fare';
+
+  @override
+  String get checkinCompleted => 'Check-in completato';
+
+  @override
+  String get checkinDpiRequired => 'DPI richiesti per il tuo ruolo';
+
+  @override
+  String get checkinConfirm => 'CONFERMA CHECK-IN';
+
+  @override
+  String get checkinSelectAll => 'Seleziona tutti i DPI';
+
+  @override
+  String get checkinPointsAction => 'Check-in turno';
 }

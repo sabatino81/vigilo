@@ -55,7 +55,7 @@ class SocialWallCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    l10n?.socialWallTitle ?? 'BACHECA CANTIERE',
+                    l10n?.socialWallTitle ?? 'BACHECA',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w800,

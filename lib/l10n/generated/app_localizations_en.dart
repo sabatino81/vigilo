@@ -423,7 +423,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get submitSurvey => 'Submit survey';
 
   @override
-  String get socialWallTitle => 'SITE SOCIAL WALL';
+  String get socialWallTitle => 'SOCIAL WALL';
 
   @override
   String topPost(Object post) {
@@ -473,7 +473,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeGuideTitle => 'YOUR SAFETY AT YOUR FINGERTIPS';
 
   @override
-  String get ppeProtected => 'PPE ACTIVE';
+  String get ppeProtected => 'REQUIRED PPE';
 
   @override
   String get welcomeBoots => 'Safety boots';
@@ -485,7 +485,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeFeature1 => 'Check your Safety Score';
 
   @override
-  String get welcomeFeature2 => 'Verify PPE are active';
+  String get welcomeFeature2 => 'Declare PPE worn at check-in';
 
   @override
   String get welcomeFeature3 => 'Report danger with SOS';
@@ -1526,7 +1526,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pointsActionQuiz => 'Quiz completed';
 
   @override
-  String get pointsActionAccess => 'Site access';
+  String get pointsActionAccess => 'Shift check-in';
 
   @override
   String get pointsActionSurvey => 'Safety survey';
@@ -1604,4 +1604,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vowRating5 => 'Absolutely';
+
+  @override
+  String get checkinTitle => 'SHIFT CHECK-IN';
+
+  @override
+  String get checkinSubtitle => 'PPE Self-declaration';
+
+  @override
+  String get checkinDone => 'Done';
+
+  @override
+  String get checkinTodo => 'To do';
+
+  @override
+  String get checkinCompleted => 'Check-in completed';
+
+  @override
+  String get checkinDpiRequired => 'PPE required for your role';
+
+  @override
+  String get checkinConfirm => 'CONFIRM CHECK-IN';
+
+  @override
+  String get checkinSelectAll => 'Select all PPE items';
+
+  @override
+  String get checkinPointsAction => 'Shift check-in';
 }
