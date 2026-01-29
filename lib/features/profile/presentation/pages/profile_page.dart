@@ -204,7 +204,7 @@ class _WalletCompactCard extends StatelessWidget {
           Expanded(
             child: _WalletMiniBox(
               icon: Icons.construction_rounded,
-              label: 'Elmetto',
+              label: 'Punti Elmetto',
               value: '${profile.puntiElmetto} pt',
               color: AppTheme.ambra,
               isDark: isDark,
@@ -217,14 +217,15 @@ class _WalletCompactCard extends StatelessWidget {
                 ? Colors.white.withValues(alpha: 0.1)
                 : Colors.black.withValues(alpha: 0.06),
           ),
-          // Welfare
+          // Welfare status
           Expanded(
             child: _WalletMiniBox(
               icon: Icons.favorite_rounded,
               label: 'Welfare',
-              value:
-                  '${profile.welfareBalanceEur.toStringAsFixed(0)} EUR',
-              color: AppTheme.teal,
+              value: profile.welfareActive ? 'ATTIVO' : 'Non attivo',
+              color: profile.welfareActive
+                  ? AppTheme.teal
+                  : AppTheme.neutral,
               isDark: isDark,
             ),
           ),

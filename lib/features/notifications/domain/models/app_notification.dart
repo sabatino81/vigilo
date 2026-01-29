@@ -145,9 +145,9 @@ class AppNotification {
       ),
       AppNotification(
         id: 'n7',
-        title: 'Budget welfare aggiornato',
-        body: 'Il tuo budget welfare mensile e stato '
-            'accreditato: 150 EUR.',
+        title: 'Welfare aziendale attivo',
+        body: 'La tua azienda ha attivato il welfare. '
+            'Sconto fino al 100% sullo Spaccio Aziendale!',
         category: NotificationCategory.system,
         createdAt: now.subtract(const Duration(days: 3)),
         isRead: true,

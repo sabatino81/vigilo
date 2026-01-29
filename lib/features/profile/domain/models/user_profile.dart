@@ -132,7 +132,7 @@ class UserProfile {
     required this.streakDays,
     required this.reportsCount,
     required this.puntiElmetto,
-    required this.welfareBalanceEur,
+    required this.welfareActive,
     required this.companyName,
   });
 
@@ -144,7 +144,7 @@ class UserProfile {
   final int streakDays;
   final int reportsCount;
   final int puntiElmetto;
-  final double welfareBalanceEur;
+  final bool welfareActive;
   final String companyName;
 
   /// Mock profile
@@ -157,8 +157,8 @@ class UserProfile {
       safetyScore: 87,
       streakDays: 14,
       reportsCount: 8,
-      puntiElmetto: 1500,
-      welfareBalanceEur: 103,
+      puntiElmetto: 1800,
+      welfareActive: true,
       companyName: 'Costruzioni Rossi S.r.l.',
     );
   }
