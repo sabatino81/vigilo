@@ -59,33 +59,99 @@ Prezzo Vigilo (al pubblico):  €130.00
 
 Il ricarico del 30% è fisso su tutto il catalogo dello Spaccio Aziendale. Non ci sono prezzi "scontati" o "in offerta" da parte di Vigilo — il prezzo è unico. L'unico sconto possibile arriva dai Punti Elmetto del lavoratore.
 
+### Algoritmo checkout (`ElmettoWallet.calculateCheckout`)
+
+```
+Input:
+  totalEur            = prezzo prodotto (es. €130)
+  puntiElmetto        = saldo punti del lavoratore (es. 2850)
+  welfareActive       = boolean (welfare aziendale attivo?)
+
+Costanti:
+  elmettoPerEur       = 10          (10 pt = 1 EUR)
+  maxDiscountNoWelfare = 20%
+  maxDiscountWithWelfare = 100%
+
+Calcolo:
+  1. elmettoValueEur    = puntiElmetto / 10       → valore EUR dei punti
+  2. maxDiscountPercent  = welfareActive ? 100% : 20%
+  3. maxDiscount         = totalEur × maxDiscountPercent / 100
+  4. elmettoDiscountEur  = min(elmettoValueEur, maxDiscount)
+  5. elmettoPointsUsed   = round(elmettoDiscountEur × 10)
+  6. workerPaysEur       = totalEur − elmettoDiscountEur
+  7. baseDiscount        = totalEur × 20 / 100     → la quota che Vigilo assorbe
+  8. companyPaysEur      = (welfareActive && elmettoDiscountEur > baseDiscount)
+                            ? elmettoDiscountEur − baseDiscount
+                            : 0
+  9. isFullyFree         = workerPaysEur ≤ 0
+ 10. isBnplAvailable     = workerPaysEur ≥ 50
+```
+
+**Logica chiave**: lo sconto Punti Elmetto si applica in un'unica passata (fino al cap %). La quota che eccede il 20% base viene fatturata all'azienda come welfare. Vigilo assorbe sempre e solo fino al 20% del prezzo dal suo margine.
+
 ### Scenari di acquisto
 
-**Conversione Elmetto: 10 punti = 1 EUR. Sconto max per acquisto: 20%. Valore facciale annuo: ~€1.800.**
+**Conversione: 10 pt = 1 EUR. Valore facciale annuo: ~18.000 pt = ~€1.800.**
 
-| Scenario                                | Prezzo base | Sconto Elmetto | Welfare | Lavoratore paga | Azienda paga | Margine Vigilo |
-|-----------------------------------------|-------------|----------------|---------|-----------------|--------------|----------------|
-| **Nessun punto usato**                  | €130        | 0%             | €0      | €130            | €0           | €30 (23%)      |
-| **Sconto 5% (130 Punti Elmetto = €13)**| €130        | -5%            | €0      | €123.50         | €0           | €23.50 (18%)   |
-| **Sconto 10% (130 Punti Elmetto = €13)** | €130      | -10%           | €0      | €117            | €0           | €17 (13%)      |
-| **Sconto 20% max (260 Punti Elmetto = €26)** | €130 | -20%           | €0      | €104            | €0           | €4 (3%)        |
-| **Welfare attivo (sconto 20% + azienda copre resto)** | €130 | -20%        | -€104   | €0              | €104         | €30 (23%)      |
-| **Welfare attivo (sconto 10% + azienda copre resto)** | €130 | -10%        | -€117   | €0              | €117         | €30 (23%)      |
-| **Welfare attivo (no punti, azienda copre tutto)**     | €130 | 0%          | -€130   | €0              | €130         | €30 (23%)      |
+Tutti gli scenari su prodotto base €130 (costo fornitore €100, ricarico 30%), lavoratore con 2.850 pt (€285):
 
-**Regola di applicazione**: prima si applica lo sconto Punti Elmetto (fino al 20%), poi se il welfare è attivo l'azienda copre il restante (fino al 100%). Lo sconto Elmetto è il minore tra il valore EUR dei punti spesi e il 20% del prezzo.
+| # | Scenario | welfareActive | Sconto Elmetto | Punti usati | Lavoratore paga | Azienda paga | Margine Vigilo |
+|---|----------|:---:|---:|---:|---:|---:|---:|
+| 1 | **Nessun punto usato** | no | €0 (0%) | 0 | €130 | €0 | €30 (23%) |
+| 2 | **Sconto 5%** | no | €6.50 | 65 | €123.50 | €0 | €23.50 (18%) |
+| 3 | **Sconto 10%** | no | €13 | 130 | €117 | €0 | €17 (13%) |
+| 4 | **Sconto 20% (max senza welfare)** | no | €26 | 260 | €104 | €0 | €4 (3%) |
+| 5 | **Welfare + punti sufficienti (100%)** | si | €130 | 1300 | €0 | €104 | €30 (23%) |
+| 6 | **Welfare + pochi punti (es. 500 pt)** | si | €50 | 500 | €80 | €24 | €30 (23%) |
+| 7 | **Welfare + zero punti** | si | €0 | 0 | €130 | €0 | €30 (23%) |
 
-### Margine per scenario (su costo fornitore €100)
+**Dettaglio scenario 5** (welfare attivo, punti sufficienti):
+```
+totalEur = €130, puntiElmetto = 2850 (€285), welfareActive = true
+maxDiscount = 130 × 100% = €130
+elmettoDiscountEur = min(285, 130) = €130     ← sconto totale applicato
+elmettoPointsUsed = 130 × 10 = 1300 pt
+workerPaysEur = 130 − 130 = €0               ← gratis per il lavoratore!
+baseDiscount = 130 × 20% = €26               ← quota che Vigilo assorbe
+companyPaysEur = 130 − 26 = €104             ← fatturato all'azienda
+```
+Vigilo incassa: €104 (azienda) + €26 (assorbito dal margine) = €130 → margine €30 intatto.
 
-| Scenario                     | Incasso totale Vigilo | Costo fornitore | Margine lordo | Margine % |
-|------------------------------|----------------------|-----------------|---------------|-----------|
-| Prezzo pieno                 | €130                 | €100            | €30           | 23.1%     |
-| Sconto 10% Elmetto          | €117                 | €100            | €17           | 14.5%     |
-| Sconto 20% Elmetto (max)    | €104                 | €100            | €4            | 3.8%      |
-| Welfare attivo (100%)        | €130                 | €100            | €30           | 23.1%     |
-| Welfare attivo + sconto 10% | €130                 | €100            | €30           | 23.1%     |
+**Dettaglio scenario 6** (welfare attivo, pochi punti):
+```
+totalEur = €130, puntiElmetto = 500 (€50), welfareActive = true
+maxDiscount = 130 × 100% = €130
+elmettoDiscountEur = min(50, 130) = €50       ← sconto limitato dai punti
+elmettoPointsUsed = 50 × 10 = 500 pt
+workerPaysEur = 130 − 50 = €80               ← il lavoratore paga il resto
+baseDiscount = 130 × 20% = €26
+companyPaysEur = 50 − 26 = €24               ← fatturato all'azienda
+```
+Il lavoratore paga €80 + spedizione perché non ha abbastanza punti per coprire tutto.
 
-Il margine minimo (3.8%) si verifica solo nel caso peggiore: sconto 20% pieno senza welfare. In pratica la media sarà più alta perché il 20% è un cap: su un prodotto da €130, servono 260 Punti Elmetto (€26) per raggiungere lo sconto massimo. Un lavoratore attivo accumula ~1.500 punti/mese (€150), sufficienti per ~5-6 acquisti al mese con sconto pieno.
+**Dettaglio scenario 7** (welfare attivo, zero punti):
+```
+totalEur = €130, puntiElmetto = 0 (€0), welfareActive = true
+maxDiscount = 130 × 100% = €130
+elmettoDiscountEur = min(0, 130) = €0         ← nessuno sconto
+workerPaysEur = 130 − 0 = €130               ← prezzo pieno
+companyPaysEur = 0 (elmettoDiscountEur ≤ baseDiscount)
+```
+Senza punti il welfare non scatta: l'azienda paga solo la quota che eccede il 20% di sconto applicato. Se lo sconto è 0, l'azienda paga 0.
+
+### Margine per scenario (su costo fornitore €100, prezzo Vigilo €130)
+
+| Scenario | Incasso Vigilo | Di cui da azienda | Costo fornitore | Margine lordo | Margine % |
+|----------|---:|---:|---:|---:|---:|
+| Prezzo pieno (no punti) | €130 | €0 | €100 | €30 | 23.1% |
+| Sconto 10% Elmetto, no welfare | €117 | €0 | €100 | €17 | 14.5% |
+| Sconto 20% Elmetto (max), no welfare | €104 | €0 | €100 | €4 | 3.8% |
+| Welfare attivo, sconto 100% | €130 | €104 | €100 | €30 | 23.1% |
+| Welfare attivo, sconto 50% (pochi punti) | €130 | €39 | €100 | €30 | 23.1% |
+
+**Nota**: con welfare attivo Vigilo incassa sempre il prezzo pieno (€130) — la quota che il lavoratore non paga viene fatturata all'azienda. Il margine rimane €30 (23.1%) indipendentemente dalla % di sconto. Senza welfare il margine minimo è 3.8% (sconto max 20%).
+
+Un lavoratore attivo accumula ~1.500 pt/mese (€150), sufficienti per ~5-6 acquisti al mese con sconto pieno del 20%.
 
 ### Promozioni e sconti
 
@@ -203,24 +269,32 @@ Il lavoratore può dilazionare la parte a suo carico (prezzo dopo sconto Elmetto
 
 ### Esempio BNPL
 
+Il BNPL si applica solo su `workerPaysEur` (la parte a carico del lavoratore dopo lo sconto Elmetto). La soglia minima è €50.
+
 ```
 Prodotto: Smartphone accessibile (senza welfare attivo)
-Prezzo Vigilo:              €260.00
-Sconto Elmetto (10%):       -€26.00  (260 Punti Elmetto)
+Prezzo Vigilo (totalEur):   €260.00
+calculateCheckout:
+  maxDiscount = 260 × 20% = €52
+  elmettoDiscountEur = min(€285, €52) = €52  (lavoratore ha 2850 pt = €285)
+  elmettoPointsUsed = 52 × 10 = 520 pt
+  workerPaysEur = 260 − 52 = €208
+  companyPaysEur = €0 (no welfare)
+  isBnplAvailable = €208 ≥ 50 → true ✓
 ─────────────────────────────────────
-Da pagare (lavoratore):     €234.00
+Da pagare (lavoratore):     €208.00
 Spedizione:                 + €7.90
 ─────────────────────────────────────
-Totale da pagare:           €241.90
+Totale lavoratore:          €215.90
 
 Paga con Scalapay 3 rate:
-  Rata 1 (oggi):     €80.63
-  Rata 2 (30 giorni): €80.63
-  Rata 3 (60 giorni): €80.63
+  Rata 1 (oggi):     €71.97
+  Rata 2 (30 giorni): €71.97
+  Rata 3 (60 giorni): €71.97
   + interessi BNPL:   ~€5-8
 
-Vigilo incassa: €241.90 subito da Scalapay
-Fee merchant:    €241.90 × 2% = €4.84
+Vigilo incassa: €215.90 subito da Scalapay + €52 assorbiti dal margine
+Fee merchant:    €215.90 × 2% = €4.32
 ```
 
 ### Fatturazione welfare
@@ -246,8 +320,8 @@ Lavoratore ordina nell'app
     ▼
 Vigilo riceve ordine
     │
-    ├─ Pagamento verificato (carta/PayPal/BNPL)
-    │  oppure welfare verificato (budget disponibile)
+    ├─ Checkout verificato (calculateCheckout + pagamento lavoratore)
+    │  Se welfareActive: quota azienda registrata per fatturazione
     │
     ▼
 Vigilo inoltra ordine al fornitore
@@ -553,23 +627,45 @@ Tabella products (Supabase)
 
 **Frequenza sync**: giornaliera per stock/prezzi, settimanale per nuovi prodotti. Real-time via webhook dove supportato dal fornitore.
 
-### Flusso checkout — ordine con wallet Punti Elmetto
+### Flusso checkout — ordine con wallet unico Punti Elmetto
 
 ```
 Lavoratore preme "Acquista"
     │
     ▼
-RPC checkout_order (transazione atomica)
+RPC checkout_order (transazione atomica PostgreSQL)
     │
     ├─ 1. Verifica stock prodotto (query fornitore o cache locale)
-    ├─ 2. Calcola sconto Elmetto (max 20%, 10pts=1€)
-    ├─ 3. Se welfareActive: calcola quota welfare (prezzo - sconto Elmetto)
-    ├─ 4. Verifica Punti Elmetto (se usati): saldo >= punti richiesti
-    ├─ 5. Scala Punti Elmetto dal wallet (se usati)
-    ├─ 6. Calcola totale: prezzo - sconto_elmetto - quota_welfare + spedizione
-    ├─ 7. Processa pagamento residuo (Stripe/PayPal/BNPL) se > 0
-    ├─ 8. Crea record ordine con stato "in_elaborazione"
-    ├─ 9. Crea record pagamento con dettaglio wallet + welfare + carta
+    │
+    ├─ 2. Esegui algoritmo calculateCheckout:
+    │     a. maxDiscountPercent = welfareActive ? 100% : 20%
+    │     b. maxDiscount = totalEur × maxDiscountPercent / 100
+    │     c. elmettoDiscountEur = min(elmettoValueEur, maxDiscount)
+    │     d. elmettoPointsUsed = round(elmettoDiscountEur × 10)
+    │     e. workerPaysEur = totalEur − elmettoDiscountEur
+    │     f. baseDiscount = totalEur × 20 / 100
+    │     g. companyPaysEur = (welfareActive && elmettoDiscountEur > baseDiscount)
+    │                          ? elmettoDiscountEur − baseDiscount : 0
+    │
+    ├─ 3. Verifica saldo: puntiElmetto >= elmettoPointsUsed
+    ├─ 4. Scala elmettoPointsUsed dal wallet del lavoratore
+    │
+    ├─ 5. Se workerPaysEur > 0:
+    │     └─ Processa pagamento (Stripe/PayPal/BNPL)
+    │        + spedizione (sempre a carico lavoratore)
+    │
+    ├─ 6. Se companyPaysEur > 0:
+    │     └─ Registra quota welfare per fatturazione mensile azienda
+    │
+    ├─ 7. Crea record ordine con:
+    │     ├─ total_amount = totalEur
+    │     ├─ elmetto_discount = elmettoDiscountEur
+    │     ├─ elmetto_points_used = elmettoPointsUsed
+    │     ├─ welfare_amount = companyPaysEur
+    │     ├─ worker_paid = workerPaysEur + shipping
+    │     └─ status = "in_elaborazione"
+    │
+    ├─ 8. Crea record pagamento con dettaglio
     │
     ▼
 Se pagamento OK:
@@ -579,12 +675,12 @@ Se pagamento OK:
     └─ Push notification al lavoratore
 
 Se pagamento KO:
-    ├─ Rollback: punti restituiti ai wallet
+    ├─ Rollback: punti restituiti al wallet
     ├─ Ordine → stato "annullato"
     └─ Push notification errore
 ```
 
-**Punto chiave**: tutto il checkout è una singola transazione PostgreSQL. Se qualsiasi passo fallisce, i punti non vengono scalati e il pagamento non viene processato.
+**Punto chiave**: tutto il checkout è una singola transazione PostgreSQL. Se qualsiasi passo fallisce, i punti non vengono scalati e il pagamento non viene processato. L'algoritmo è lo stesso implementato in `ElmettoWallet.calculateCheckout()` (`lib/features/punti/domain/models/dual_wallet.dart`).
 
 ### Flusso fulfillment — inoltro al fornitore
 
@@ -676,9 +772,10 @@ orders
     ├─ status (enum: in_elaborazione, inoltrato, spedito, in_consegna,
     │          consegnato, reso_richiesto, reso_completato, annullato)
     ├─ total_amount (decimal)          ← totale finale pagato
-    ├─ welfare_amount (decimal)        ← parte coperta dal welfare aziendale (se welfareActive)
-    ├─ elmetto_discount_pct (decimal)  ← % sconto Elmetto applicato
-    ├─ elmetto_points_used (integer)   ← punti spesi (10 pts = 1 EUR)
+    ├─ elmetto_discount_eur (decimal)  ← sconto Elmetto in EUR (= elmettoPointsUsed / 10)
+    ├─ elmetto_points_used (integer)   ← punti Elmetto spesi (10 pts = 1 EUR)
+    ├─ welfare_amount (decimal)        ← companyPaysEur: quota fatturata all'azienda (eccedenza oltre 20%)
+    ├─ worker_paid_eur (decimal)       ← workerPaysEur: importo pagato dal lavoratore (esclusa spedizione)
     ├─ shipping_cost (decimal)
     ├─ payment_method (enum)
     ├─ supplier_order_id (text|null)
