@@ -266,16 +266,84 @@ Lavoratore riceve il prodotto
         └─ Richiesta feedback: "Come valuti il prodotto?" (1-5 stelle)
 ```
 
-### Gestione fornitori
+### Strategia sourcing — nessun middleware, API dirette
 
-| Aspetto                      | Dettaglio                                                                                       |
+Nessuna piattaforma intermediaria (AutoDS, Syncee, Spocket, Oberlo). Vigilo si integra **direttamente via API REST** con i fornitori dropshipping. Le piattaforme tipo AutoDS sono wrapper di queste stesse API pensati per Shopify — non servono se hai un backend custom.
+
+#### Fornitori selezionati
+
+| Fornitore              | Ruolo                        | API              | Costo piattaforma    | Catalogo                                  | Spedizione EU           |
+|------------------------|------------------------------|------------------|----------------------|-------------------------------------------|-------------------------|
+| **CJDropshipping**     | Fornitore primario           | REST 2.0 pubblica | Gratis               | Enorme: tech, gadget, casa, consumabili   | 2-5 gg (magazzino EU) o 7-15 gg (Cina) |
+| **BigBuy**             | Fornitore EU premium         | REST JSON         | ~€69/anno            | 400.000+ prodotti, magazzino EU 30.000 m² | 24/48h (magazzino EU)   |
+| **Tillo**              | Voucher digitali             | REST              | Gratis (fee su vendita) | Gift card multi-brand                  | Istantanea (digitale)   |
+| **Epipoli**            | Voucher digitali (Italia)    | REST              | Gratis (fee su vendita) | Gift card mercato italiano             | Istantanea (digitale)   |
+
+#### Perché CJDropshipping + BigBuy
+
+| Aspetto                      | CJDropshipping                                    | BigBuy                                            |
+|------------------------------|---------------------------------------------------|---------------------------------------------------|
+| **Forza**                    | Prezzi bassi, catalogo enorme, zero abbonamento   | Magazzino EU, spedizione 24/48h, qualità alta     |
+| **API**                      | REST 2.0, documentazione pubblica, client Python/PHP | REST JSON, guida PDF, supporto tecnico         |
+| **Categorie ideali**         | Tecnologia, gadget, accessori, consumabili         | Casa/giardino, abbigliamento, sport, arredo       |
+| **Ordine minimo**            | Nessuno                                            | Nessuno                                           |
+| **Dropshipping anonimo**     | Si                                                 | Si                                                |
+| **Tracking**                 | API + webhook                                      | API + webhook                                     |
+| **Doc API**                  | developers.cjdropshipping.com                      | bigbuy.eu/en/api_bigbuy.html                      |
+
+#### Piattaforme escluse e motivazione
+
+| Piattaforma        | Motivo esclusione                                                              |
+|--------------------|--------------------------------------------------------------------------------|
+| **AutoDS**         | API gated (su approvazione), orientato Shopify/eBay, abbonamento $27-97/mese   |
+| **Spocket**        | Nessuna API pubblica, solo plugin Shopify/WooCommerce/BigCommerce              |
+| **Syncee**         | API limitata, pensato per Shopify                                              |
+| **Oberlo**         | Ora parte di Shopify, zero API esterna                                         |
+| **Flxpoint**       | Enterprise: $399-1.299/mese + onboarding $2.400. Fuori budget per Vigilo       |
+| **Wholesale2B**    | API disponibile ($50-100/mese) ma focus US/Canada, debole su EU                |
+
+#### Integrazione API per fornitore
+
+```
+CJDropshipping API 2.0
+    Endpoint: POST https://developers.cjdropshipping.com/api2.0/
+    Auth: CJ-Access-Token (header)
+    Operazioni:
+        ├─ GET /product/list          → catalogo prodotti
+        ├─ GET /product/stock         → verifica stock
+        ├─ POST /order/create         → crea ordine dropshipping
+        ├─ GET /order/tracking        → stato spedizione
+        └─ Webhook: tracking update   → push su stato ordine
+
+BigBuy API REST
+    Endpoint: https://api.bigbuy.eu/rest/
+    Auth: Bearer token
+    Operazioni:
+        ├─ GET /catalog/products      → catalogo prodotti
+        ├─ GET /catalog/stock         → verifica stock
+        ├─ POST /order                → crea ordine dropshipping
+        ├─ GET /tracking/{orderId}    → stato spedizione
+        └─ Webhook: order status      → aggiornamenti ordine
+
+Tillo / Epipoli API (voucher)
+    Auth: API key
+    Operazioni:
+        ├─ GET /brands                → lista voucher disponibili
+        ├─ POST /order                → acquista codice voucher
+        └─ Response: codice istantaneo → mostrato in app
+```
+
+#### Regole di selezione fornitori
+
+| Regola                       | Dettaglio                                                                                       |
 |------------------------------|-------------------------------------------------------------------------------------------------|
-| **Tipo fornitori**           | Piattaforme dropshipping B2B (es. BigBuy, BDroppy, Brandsdistribution, Syncee)                 |
-| **Integrazione**             | API dove disponibile, ordine manuale in fase iniziale                                          |
-| **Selezione fornitori**      | Rating >4 stelle, tasso reso <5%, spedizione Italia <5 giorni                                  |
-| **Contratti**                | Nessun minimo d'ordine, pagamento per ordine, nessun impegno stock                            |
+| **Rating minimo**            | >4 stelle su piattaforme di review                                                              |
+| **Tasso reso**               | <5% sugli ordini                                                                                |
+| **Spedizione Italia**        | <5 giorni lavorativi (magazzino EU obbligatorio per categorie premium)                          |
+| **Ordine minimo**            | Zero — nessun impegno stock                                                                     |
 | **Backup fornitore**         | Almeno 2 fornitori per le categorie principali per evitare stock-out                           |
-| **Margine negoziazione**     | Start con listino standard, negoziare sconti volume dopo 500+ ordini/mese                     |
+| **Negoziazione**             | Start con listino standard, negoziare sconti volume dopo 500+ ordini/mese                      |
+| **Dropshipping anonimo**     | Obbligatorio — il lavoratore non deve vedere il nome del fornitore                             |
 
 ### Voucher digitali
 
@@ -284,8 +352,8 @@ Lavoratore riceve il prodotto
 | **Consegna**                 | Istantanea via email/app (codice voucher)                                                      |
 | **Logistica**                | Zero — nessuna spedizione fisica                                                                |
 | **Margine**                  | Basso (5-10%) ma zero costi operativi                                                          |
-| **Fornitori**                | Piattaforme gift card B2B (es. Tillo, Reloadly, Epipoli)                                      |
-| **Utilizzo strategico**      | Prodotto di lancio: validare il modello senza logistica fisica                                 |
+| **Fornitori**                | Tillo (multi-brand internazionale), Epipoli (leader mercato italiano)                          |
+| **Utilizzo strategico**      | Prodotto di lancio (fase 1): validare il modello senza logistica fisica                        |
 
 ---
 
@@ -431,6 +499,271 @@ Lavoratore riceve il prodotto
 | **Fornitori**                | Negoziazione sconti volume, contratti diretti con brand             |
 | **Logistica**                | Valutare magazzino 3PL per top seller (>50 ordini/mese)            |
 | **Obiettivo**                | Margine medio >20%, repeat purchase >40%, espansione EU             |
+
+---
+
+## Architettura tecnica — Supabase custom (no Shopify)
+
+### Decisione architetturale
+
+Nessuna piattaforma ecommerce esterna (Shopify, WooCommerce, Medusa). L'ecommerce è costruito interamente su Supabase per le seguenti ragioni:
+
+| Criterio                     | Piattaforma esterna                            | Supabase custom                                |
+|------------------------------|------------------------------------------------|------------------------------------------------|
+| **Dual wallet**              | Plugin custom da sviluppare                    | Logica nativa nel checkout RPC                 |
+| **Welfare + fatturazione**   | Non supportato, integrazione esterna           | Tabelle e RPC native                           |
+| **30% markup dinamico**      | Configurazione per-prodotto manuale            | Calcolato automatico su costo fornitore        |
+| **Database**                 | Doppio DB (piattaforma + Supabase)             | DB unico, zero sincronizzazione                |
+| **Costi**                    | €29-299/mese + 2% fee transazione              | Zero costi aggiuntivi (già su Supabase)        |
+| **Controllo**                | Limitato dal framework della piattaforma       | Totale                                         |
+| **Frontend**                 | Adattatore API headless per Flutter            | Supabase SDK diretto da Flutter                |
+
+### Perché non serve Shopify per il dropshipping
+
+I fornitori dropshipping selezionati (CJDropshipping, BigBuy) offrono **API REST dirette** indipendenti da Shopify. Piattaforme tipo AutoDS/Spocket sono solo wrapper — Vigilo chiama le API direttamente dalle Edge Functions.
+
+| Fornitore              | Tipo integrazione | Catalogo          | Ordini              | Tracking            |
+|------------------------|-------------------|-------------------|---------------------|---------------------|
+| **CJDropshipping**     | API REST 2.0      | GET product/list  | POST order/create   | GET + webhook       |
+| **BigBuy**             | API REST JSON      | GET catalog       | POST order          | GET + webhook       |
+| **Tillo** (voucher)    | API REST           | GET brands        | POST order          | Istantaneo (codice) |
+| **Epipoli** (voucher)  | API REST           | GET lista         | POST order          | Istantaneo (codice) |
+
+### Flusso catalogo — import prodotti
+
+```
+Fornitore (API REST)
+    │
+    ▼
+Edge Function (cron giornaliero)
+    │
+    ├─ Scarica feed prodotti (JSON/CSV)
+    ├─ Mappa campi: nome, descrizione, immagini, prezzo fornitore, stock
+    ├─ Calcola prezzo Vigilo = costo × 1.30
+    ├─ Upsert su tabella products
+    │
+    ▼
+Tabella products (Supabase)
+    │
+    ├─ Prodotti nuovi → visibili nel catalogo app
+    ├─ Prodotti aggiornati → prezzo/stock sincronizzati
+    └─ Prodotti out-of-stock → nascosti dal catalogo (non cancellati)
+```
+
+**Frequenza sync**: giornaliera per stock/prezzi, settimanale per nuovi prodotti. Real-time via webhook dove supportato dal fornitore.
+
+### Flusso checkout — ordine con dual wallet
+
+```
+Lavoratore preme "Acquista"
+    │
+    ▼
+RPC checkout_order (transazione atomica)
+    │
+    ├─ 1. Verifica stock prodotto (query fornitore o cache locale)
+    ├─ 2. Calcola prezzo: prezzo_vigilo - welfare - sconto_elmetto + spedizione
+    ├─ 3. Verifica budget welfare (se usato): saldo >= importo richiesto
+    ├─ 4. Verifica Punti Elmetto (se usati): saldo >= punti richiesti
+    ├─ 5. Scala Punti Welfare dal wallet (se usati)
+    ├─ 6. Scala Punti Elmetto dal wallet (se usati)
+    ├─ 7. Processa pagamento residuo (Stripe/PayPal/BNPL)
+    ├─ 8. Crea record ordine con stato "in_elaborazione"
+    ├─ 9. Crea record pagamento con dettaglio wallet + carta
+    │
+    ▼
+Se pagamento OK:
+    ├─ Edge Function → POST ordine al fornitore (API)
+    ├─ Riceve conferma + tracking ID
+    ├─ Aggiorna ordine → stato "inoltrato_fornitore"
+    └─ Push notification al lavoratore
+
+Se pagamento KO:
+    ├─ Rollback: punti restituiti ai wallet
+    ├─ Ordine → stato "annullato"
+    └─ Push notification errore
+```
+
+**Punto chiave**: tutto il checkout è una singola transazione PostgreSQL. Se qualsiasi passo fallisce, i punti non vengono scalati e il pagamento non viene processato.
+
+### Flusso fulfillment — inoltro al fornitore
+
+```
+Ordine confermato
+    │
+    ▼
+Edge Function: forward_to_supplier
+    │
+    ├─ Legge supplier_id dal prodotto
+    ├─ Chiama API fornitore con:
+    │   - Prodotto (SKU fornitore)
+    │   - Quantità
+    │   - Indirizzo spedizione (lavoratore)
+    │   - Metodo spedizione scelto
+    │
+    ▼
+Risposta fornitore
+    │
+    ├─ OK → salva order_id fornitore + tracking_url
+    │       aggiorna stato → "inoltrato_fornitore"
+    │
+    └─ ERRORE → retry automatico (max 3 tentativi)
+                se fallisce → alert operatore + stato "errore_inoltro"
+```
+
+### Flusso tracking — aggiornamenti spedizione
+
+```
+Opzione A: Webhook (fornitori che lo supportano)
+    Fornitore → POST webhook → Edge Function → aggiorna ordine + push
+
+Opzione B: Polling (fornitori senza webhook)
+    Cron ogni 4 ore → Edge Function → GET tracking API → aggiorna ordine + push
+```
+
+### Flusso voucher digitali (fase 1)
+
+```
+Lavoratore acquista voucher
+    │
+    ▼
+RPC checkout_order (stessa logica)
+    │
+    ▼
+Edge Function: acquire_voucher
+    │
+    ├─ POST API fornitore voucher (Tillo/Epipoli)
+    ├─ Riceve codice voucher istantaneamente
+    ├─ Salva codice in tabella vouchers (crittografato)
+    ├─ Aggiorna ordine → stato "consegnato" (istantaneo)
+    └─ Push notification: "Il tuo voucher è pronto!"
+        └─ Lavoratore vede codice nell'app
+```
+
+**Nessuna logistica**, nessun tracking, nessuna attesa. Per questo i voucher sono il prodotto di lancio ideale.
+
+### Schema database (tabelle core)
+
+```
+products
+    ├─ id (uuid, PK)
+    ├─ supplier_id (FK → suppliers)
+    ├─ supplier_sku (text)
+    ├─ name, description, images[] (jsonb)
+    ├─ category (enum)
+    ├─ supplier_cost (decimal)         ← prezzo fornitore
+    ├─ vigilo_price (decimal)          ← supplier_cost × 1.30 (calcolato)
+    ├─ original_price (decimal|null)   ← prezzo pre-promo (se in promozione)
+    ├─ stock_available (boolean)
+    ├─ is_visible (boolean)
+    ├─ is_voucher (boolean)
+    └─ updated_at (timestamp)
+
+suppliers
+    ├─ id (uuid, PK)
+    ├─ name (text)
+    ├─ api_type (enum: cjdropshipping, bigbuy, tillo, epipoli, manual)
+    ├─ api_base_url (text)             ← es. https://developers.cjdropshipping.com/api2.0/
+    ├─ api_credentials (jsonb, encrypted)
+    ├─ supports_webhook (boolean)
+    ├─ shipping_days_eu (integer)      ← giorni medi spedizione EU
+    └─ active (boolean)
+
+orders
+    ├─ id (uuid, PK)
+    ├─ worker_id (FK → auth.users)
+    ├─ company_id (FK → companies)
+    ├─ status (enum: in_elaborazione, inoltrato, spedito, in_consegna,
+    │          consegnato, reso_richiesto, reso_completato, annullato)
+    ├─ total_amount (decimal)          ← totale finale pagato
+    ├─ welfare_amount (decimal)        ← parte coperta da Punti Welfare
+    ├─ elmetto_discount_pct (decimal)  ← % sconto Elmetto applicato
+    ├─ elmetto_points_used (integer)   ← punti spesi
+    ├─ shipping_cost (decimal)
+    ├─ payment_method (enum)
+    ├─ supplier_order_id (text|null)
+    ├─ tracking_url (text|null)
+    └─ created_at, updated_at
+
+order_items
+    ├─ id (uuid, PK)
+    ├─ order_id (FK → orders)
+    ├─ product_id (FK → products)
+    ├─ quantity (integer)
+    ├─ unit_price (decimal)            ← prezzo Vigilo al momento dell'acquisto
+    └─ supplier_cost (decimal)         ← costo fornitore al momento dell'acquisto
+
+payments
+    ├─ id (uuid, PK)
+    ├─ order_id (FK → orders)
+    ├─ method (enum: stripe, paypal, scalapay, klarna, welfare_invoice)
+    ├─ amount (decimal)
+    ├─ status (enum: pending, completed, failed, refunded)
+    ├─ external_id (text)              ← ID Stripe/PayPal/Scalapay
+    └─ created_at
+
+vouchers
+    ├─ id (uuid, PK)
+    ├─ order_id (FK → orders)
+    ├─ code (text, encrypted)          ← codice voucher
+    ├─ provider (enum: tillo, epipoli, reloadly)
+    ├─ redeemed (boolean)
+    └─ expires_at (timestamp|null)
+
+shipments
+    ├─ id (uuid, PK)
+    ├─ order_id (FK → orders)
+    ├─ carrier (text)
+    ├─ tracking_code (text)
+    ├─ tracking_url (text)
+    ├─ status (enum: in_preparazione, spedito, in_transito, in_consegna, consegnato)
+    └─ updated_at
+```
+
+### Edge Functions necessarie
+
+| Edge Function              | Trigger                    | Descrizione                                           |
+|----------------------------|----------------------------|-------------------------------------------------------|
+| **sync_catalog**           | Cron giornaliero           | Import/aggiorna prodotti da API fornitori             |
+| **checkout_order**         | RPC da app Flutter         | Checkout atomico: wallet + pagamento + creazione ordine |
+| **forward_to_supplier**    | Dopo checkout OK           | Inoltra ordine al fornitore via API                   |
+| **acquire_voucher**        | Dopo checkout OK (voucher) | Acquista codice voucher da API fornitore              |
+| **update_tracking**        | Webhook o cron 4h          | Aggiorna stato spedizione da fornitore                |
+| **process_refund**         | Richiesta reso approvata   | Rimborso punti + pagamento, notifica fornitore        |
+| **generate_welfare_invoice** | Cron mensile (1° del mese) | Genera fattura aggregata per azienda                |
+
+### Integrazioni esterne
+
+```
+Flutter App (Supabase SDK)
+    │
+    ├─ Supabase Auth            → login/registrazione
+    ├─ Supabase Database        → catalogo, ordini, wallet
+    ├─ Supabase RPC             → checkout atomico
+    ├─ Supabase Edge Functions  → fulfillment, sync, tracking
+    │
+    ├─ Stripe SDK               → pagamenti carta (client-side + server-side)
+    ├─ PayPal SDK               → pagamenti PayPal
+    ├─ Scalapay SDK             → BNPL 3/6 rate
+    │
+    ├─ CJDropshipping API 2.0   → catalogo + ordini + tracking (tech, gadget, consumabili)
+    ├─ BigBuy API REST          → catalogo + ordini + tracking (casa, abbigliamento, sport)
+    ├─ Tillo API                → voucher digitali (multi-brand internazionale)
+    ├─ Epipoli API              → voucher digitali (mercato italiano)
+    │
+    └─ Push Notifications       → Firebase Cloud Messaging (FCM)
+```
+
+### Vantaggi dell'approccio Supabase custom
+
+| Vantaggio                    | Dettaglio                                                                    |
+|------------------------------|------------------------------------------------------------------------------|
+| **Zero fee piattaforma**     | Nessun canone mensile Shopify, nessuna fee transazione 2%                    |
+| **DB unico**                 | Wallet, ordini, utenti, scoring — tutto nello stesso PostgreSQL              |
+| **Checkout atomico**         | Una transazione: scala punti + paga + crea ordine. Impossibile con Shopify   |
+| **RLS nativo**               | Row Level Security: ogni lavoratore vede solo i suoi ordini                  |
+| **Edge Functions**           | Logica server-side (fulfillment, sync) nello stesso ecosistema               |
+| **Scalabilità**              | PostgreSQL scala verticalmente; per volumi alti, read replicas               |
+| **Costo prevedibile**        | Piano Supabase Pro (€25/mese) copre tutto. Con Shopify: €29-299 + 2% GMV    |
 
 ---
 
