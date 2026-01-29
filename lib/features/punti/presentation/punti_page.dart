@@ -9,7 +9,6 @@ import 'package:vigilo/features/punti/domain/models/leaderboard_entry.dart';
 import 'package:vigilo/features/punti/domain/models/points_stats.dart';
 import 'package:vigilo/features/punti/domain/models/points_transaction.dart';
 import 'package:vigilo/features/punti/domain/models/reward.dart';
-import 'package:vigilo/features/punti/domain/models/wallet_type.dart';
 import 'package:vigilo/features/punti/presentation/pages/rewards_catalog_sheet.dart';
 import 'package:vigilo/features/punti/presentation/pages/spin_wheel_page.dart';
 import 'package:vigilo/features/punti/presentation/widgets/dual_wallet_card.dart';
@@ -28,10 +27,10 @@ class PuntiPage extends StatefulWidget {
 
 class _PuntiPageState extends State<PuntiPage> {
   // Mock data - in produzione verrebbe da un repository/provider
-  DualWallet _dualWallet = DualWallet.mockWallet();
+  ElmettoWallet _wallet = ElmettoWallet.mockWallet();
   bool _hasSpinAvailable = true;
 
-  int get _totalPoints => _dualWallet.puntiElmetto;
+  int get _totalPoints => _wallet.puntiElmetto;
 
   // Mock data usando i metodi statici dei modelli
   final List<Reward> _rewards = Reward.mockRewards();
@@ -65,23 +64,22 @@ class _PuntiPageState extends State<PuntiPage> {
     if (wonPoints != null && wonPoints > 0) {
       setState(() {
         _hasSpinAvailable = false;
-        // Aggiorna dual wallet con nuovi punti e transazione
+        // Aggiorna wallet con nuovi punti e transazione
         final newTransaction = PointsTransaction(
           id: DateTime.now().millisecondsSinceEpoch.toString(),
           description: 'Bonus Gira la Ruota',
           amount: wonPoints,
           type: TransactionType.bonus,
           createdAt: DateTime.now(),
-          walletType: WalletType.elmetto,
         );
-        _dualWallet = DualWallet(
-          puntiElmetto: _dualWallet.puntiElmetto + wonPoints,
-          welfarePlan: _dualWallet.welfarePlan,
-          elmettoTransactions: [
+        _wallet = ElmettoWallet(
+          puntiElmetto: _wallet.puntiElmetto + wonPoints,
+          welfareActive: _wallet.welfareActive,
+          companyName: _wallet.companyName,
+          transactions: [
             newTransaction,
-            ..._dualWallet.elmettoTransactions,
+            ..._wallet.transactions,
           ],
-          welfareTransactions: _dualWallet.welfareTransactions,
         );
         // Aggiorna stats
         _stats = PointsStats(
@@ -115,7 +113,7 @@ class _PuntiPageState extends State<PuntiPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Dual Wallet Card
-              DualWalletCard(wallet: _dualWallet),
+              DualWalletCard(wallet: _wallet),
               const SizedBox(height: 16),
 
               // Shop entry point

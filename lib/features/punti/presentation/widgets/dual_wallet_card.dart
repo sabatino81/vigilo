@@ -3,34 +3,24 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
 import 'package:vigilo/features/punti/domain/models/points_level.dart';
 import 'package:vigilo/features/punti/domain/models/points_transaction.dart';
-import 'package:vigilo/features/punti/domain/models/wallet_type.dart';
-import 'package:vigilo/features/punti/domain/models/welfare_plan.dart';
 
-/// Card wallet duale: Punti Elmetto + Punti Welfare
-class DualWalletCard extends StatefulWidget {
+/// Card wallet unico Punti Elmetto (con badge welfare se attivo)
+class DualWalletCard extends StatelessWidget {
   const DualWalletCard({
     required this.wallet,
     this.onViewAllTransactions,
     super.key,
   });
 
-  final DualWallet wallet;
+  final ElmettoWallet wallet;
   final VoidCallback? onViewAllTransactions;
-
-  @override
-  State<DualWalletCard> createState() => _DualWalletCardState();
-}
-
-class _DualWalletCardState extends State<DualWalletCard> {
-  WalletType _selectedTab = WalletType.elmetto;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final level = PointsLevel.fromPoints(widget.wallet.puntiElmetto);
-    final progress =
-        PointsLevel.progressToNextLevel(widget.wallet.puntiElmetto);
+    final level = PointsLevel.fromPoints(wallet.puntiElmetto);
+    final progress = PointsLevel.progressToNextLevel(wallet.puntiElmetto);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -50,12 +40,12 @@ class _DualWalletCardState extends State<DualWalletCard> {
         ),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: AppTheme.primary.withValues(alpha: 0.3),
+          color: AppTheme.ambra.withValues(alpha: 0.3),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppTheme.primary.withValues(alpha: isDark ? 0.2 : 0.15),
+            color: AppTheme.ambra.withValues(alpha: isDark ? 0.2 : 0.15),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -70,58 +60,103 @@ class _DualWalletCardState extends State<DualWalletCard> {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.primary.withValues(alpha: 0.15),
+                  color: AppTheme.ambra.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
-                  Icons.account_balance_wallet_rounded,
-                  color: AppTheme.primary,
+                  Icons.construction_rounded,
+                  color: AppTheme.ambra,
                   size: 24,
                 ),
               ),
               const SizedBox(width: 12),
-              const Text(
-                'WALLET',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1,
+              const Expanded(
+                child: Text(
+                  'PUNTI ELMETTO',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1,
+                  ),
                 ),
               ),
+              if (wallet.welfareActive)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppTheme.secondary.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.verified_rounded,
+                        size: 14,
+                        color: AppTheme.secondary,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        'WELFARE',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          color: AppTheme.secondary,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
           const SizedBox(height: 16),
 
-          // Due saldi affiancati
+          // Saldo unico grande
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Expanded(
-                child: _BalanceSection(
-                  walletType: WalletType.elmetto,
-                  value: '${widget.wallet.puntiElmetto}',
-                  unit: 'pt',
-                  subtitle:
-                      '= ${widget.wallet.elmettoValueEur.toStringAsFixed(0)}'
-                      ' EUR',
-                  isDark: isDark,
+              Text(
+                '${wallet.puntiElmetto}',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w900,
+                  color: isDark ? Colors.white : Colors.black87,
+                  height: 1,
+                ),
+              ),
+              const SizedBox(width: 6),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Text(
+                  'pt',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: isDark ? Colors.white54 : Colors.black45,
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
-              Expanded(
-                child: _BalanceSection(
-                  walletType: WalletType.welfare,
-                  value: widget.wallet.welfarePlan.remainingEur
-                      .toStringAsFixed(0),
-                  unit: 'EUR',
-                  subtitle: widget.wallet.welfarePlan.tier.label,
-                  isDark: isDark,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6),
+                child: Text(
+                  '= ${wallet.elmettoValueEur.toStringAsFixed(0)} EUR',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: AppTheme.ambra,
+                  ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
 
-          // Info conversione
+          // Info conversione + cap sconto
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 12,
@@ -143,9 +178,11 @@ class _DualWalletCardState extends State<DualWalletCard> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    '${DualWallet.elmettoPerEur} Elmetto = 1 EUR'
-                    '  |  Max ${DualWallet.maxElmettoDiscountPercent}%'
-                    ' sconto',
+                    wallet.welfareActive
+                        ? '${ElmettoWallet.elmettoPerEur} pt = 1 EUR  |  '
+                            'Sconto fino al 100% (welfare attivo)'
+                        : '${ElmettoWallet.elmettoPerEur} pt = 1 EUR  |  '
+                            'Max ${ElmettoWallet.maxDiscountNoWelfare}% sconto',
                     style: TextStyle(
                       fontSize: 11,
                       color: isDark ? Colors.white38 : Colors.black38,
@@ -155,6 +192,40 @@ class _DualWalletCardState extends State<DualWalletCard> {
               ],
             ),
           ),
+
+          if (wallet.welfareActive && wallet.companyName != null) ...[
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
+              decoration: BoxDecoration(
+                color: AppTheme.secondary.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.business_rounded,
+                    size: 14,
+                    color: AppTheme.secondary,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Welfare attivato da ${wallet.companyName}',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: AppTheme.secondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
           const SizedBox(height: 12),
 
           // Livello Elmetto
@@ -219,37 +290,21 @@ class _DualWalletCardState extends State<DualWalletCard> {
           ),
           const SizedBox(height: 16),
 
-          // Budget welfare progress
-          _WelfareBudgetBar(
-            plan: widget.wallet.welfarePlan,
-            isDark: isDark,
-          ),
-          const SizedBox(height: 16),
-
-          // Tab switch Elmetto/Welfare
+          // Header transazioni
           Row(
             children: [
-              _TabButton(
-                label: 'Elmetto',
-                icon: WalletType.elmetto.icon,
-                color: WalletType.elmetto.color,
-                isSelected: _selectedTab == WalletType.elmetto,
-                onTap: () =>
-                    setState(() => _selectedTab = WalletType.elmetto),
-              ),
-              const SizedBox(width: 8),
-              _TabButton(
-                label: 'Welfare',
-                icon: WalletType.welfare.icon,
-                color: WalletType.welfare.color,
-                isSelected: _selectedTab == WalletType.welfare,
-                onTap: () =>
-                    setState(() => _selectedTab = WalletType.welfare),
+              Text(
+                'Ultime transazioni',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? Colors.white70 : Colors.black54,
+                ),
               ),
               const Spacer(),
-              if (widget.onViewAllTransactions != null)
+              if (onViewAllTransactions != null)
                 GestureDetector(
-                  onTap: widget.onViewAllTransactions,
+                  onTap: onViewAllTransactions,
                   child: const Text(
                     'Vedi tutti',
                     style: TextStyle(
@@ -264,242 +319,13 @@ class _DualWalletCardState extends State<DualWalletCard> {
           const SizedBox(height: 8),
 
           // Lista transazioni
-          ..._currentTransactions.take(4).map(
+          ...wallet.transactions.take(5).map(
                 (tx) => _TransactionTile(
                   transaction: tx,
                   isDark: isDark,
                 ),
               ),
         ],
-      ),
-    );
-  }
-
-  List<PointsTransaction> get _currentTransactions {
-    return _selectedTab == WalletType.elmetto
-        ? widget.wallet.elmettoTransactions
-        : widget.wallet.welfareTransactions;
-  }
-}
-
-// ============================================
-// PRIVATE WIDGETS
-// ============================================
-
-class _BalanceSection extends StatelessWidget {
-  const _BalanceSection({
-    required this.walletType,
-    required this.value,
-    required this.unit,
-    required this.subtitle,
-    required this.isDark,
-  });
-
-  final WalletType walletType;
-  final String value;
-  final String unit;
-  final String subtitle;
-  final bool isDark;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = isDark ? walletType.colorDark : walletType.color;
-
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: color.withValues(alpha: 0.2),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(walletType.icon, color: color, size: 16),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  walletType.shortLabel,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: color,
-                    letterSpacing: 0.5,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900,
-                  color: isDark ? Colors.white : Colors.black87,
-                  height: 1,
-                ),
-              ),
-              const SizedBox(width: 4),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 3),
-                child: Text(
-                  unit,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: isDark ? Colors.white54 : Colors.black45,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 11,
-              color: isDark ? Colors.white38 : Colors.black38,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WelfareBudgetBar extends StatelessWidget {
-  const _WelfareBudgetBar({
-    required this.plan,
-    required this.isDark,
-  });
-
-  final WelfarePlan plan;
-  final bool isDark;
-
-  @override
-  Widget build(BuildContext context) {
-    final usagePercent = plan.usagePercent.clamp(0.0, 1.0);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(
-              Icons.favorite_rounded,
-              size: 14,
-              color: isDark ? AppTheme.tealDark : AppTheme.teal,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              'Budget Welfare mensile',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white70 : Colors.black54,
-              ),
-            ),
-            const Spacer(),
-            Text(
-              '${plan.usedEur.toStringAsFixed(0)}'
-              ' / ${plan.monthlyBudgetEur.toStringAsFixed(0)} EUR',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white54 : Colors.black45,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: usagePercent,
-            backgroundColor: isDark
-                ? Colors.white.withValues(alpha: 0.1)
-                : Colors.black.withValues(alpha: 0.1),
-            valueColor: AlwaysStoppedAnimation<Color>(
-              isDark ? AppTheme.tealDark : AppTheme.teal,
-            ),
-            minHeight: 6,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _TabButton extends StatelessWidget {
-  const _TabButton({
-    required this.label,
-    required this.icon,
-    required this.color,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final String label;
-  final IconData icon;
-  final Color color;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-          vertical: 6,
-        ),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? color.withValues(alpha: 0.15)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: isSelected
-                ? color.withValues(alpha: 0.3)
-                : Colors.transparent,
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 14,
-              color: isSelected
-                  ? color
-                  : Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white38
-                      : Colors.black38,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                color: isSelected
-                    ? color
-                    : Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white38
-                        : Colors.black38,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

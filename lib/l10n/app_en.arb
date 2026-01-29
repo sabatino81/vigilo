@@ -429,19 +429,16 @@
     "placeholders": { "hours": {}, "minutes": {} }
   },
 
-  "walletTitle": "WALLET",
+  "walletTitle": "HELMET POINTS",
   "walletElmetto": "Helmet Points",
-  "walletWelfare": "Welfare Points",
-  "walletElmettoShort": "Helmet",
-  "walletWelfareShort": "Welfare",
-  "walletConversionInfo": "{rate} Helmet = 1 EUR  |  Max {percent}% discount",
+  "walletConversionInfo": "{rate} pt = 1 EUR  |  Max {percent}% discount",
   "@walletConversionInfo": {
     "placeholders": { "rate": {}, "percent": {} }
   },
-  "walletBudgetMonthly": "Monthly Welfare Budget",
-  "walletBudgetUsed": "{used} / {total} EUR",
-  "@walletBudgetUsed": {
-    "placeholders": { "used": {}, "total": {} }
+  "walletWelfareActive": "Welfare active (up to 100% discount)",
+  "walletWelfareCompany": "Welfare activated by {company}",
+  "@walletWelfareCompany": {
+    "placeholders": { "company": {} }
   },
   "walletLevel": "Level {level}",
   "@walletLevel": {
@@ -456,17 +453,6 @@
   "walletElmettoValue": "= {value} EUR",
   "@walletElmettoValue": {
     "placeholders": { "value": {} }
-  },
-  "welfarePlanSmall": "Plan S",
-  "welfarePlanMedium": "Plan M",
-  "welfarePlanLarge": "Plan L",
-  "welfarePlanBudget": "{amount} EUR/month",
-  "@welfarePlanBudget": {
-    "placeholders": { "amount": {} }
-  },
-  "welfareRemaining": "{amount} EUR remaining",
-  "@welfareRemaining": {
-    "placeholders": { "amount": {} }
   },
 
   "shopTitle": "Company Store",

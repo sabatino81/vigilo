@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
 
-/// Widget riutilizzabile per il breakdown prezzo con dual wallet
+/// Widget riutilizzabile per il breakdown prezzo con wallet unico
 class PriceBreakdownWidget extends StatelessWidget {
   const PriceBreakdownWidget({
     required this.breakdown,
@@ -50,19 +50,7 @@ class PriceBreakdownWidget extends StatelessWidget {
             isDark: isDark,
           ),
 
-          // Welfare
-          if (breakdown.welfareUsedEur > 0)
-            _PriceLine(
-              label: 'Welfare',
-              value:
-                  '-${breakdown.welfareUsedEur.toStringAsFixed(2)} EUR',
-              valueColor: AppTheme.teal,
-              icon: Icons.favorite_rounded,
-              iconColor: AppTheme.teal,
-              isDark: isDark,
-            ),
-
-          // Elmetto discount
+          // Sconto Punti Elmetto
           if (breakdown.elmettoDiscountEur > 0)
             _PriceLine(
               label: 'Sconto Elmetto '
@@ -76,6 +64,18 @@ class PriceBreakdownWidget extends StatelessWidget {
               isDark: isDark,
             ),
 
+          // Quota a carico azienda (welfare)
+          if (breakdown.companyPaysEur > 0)
+            _PriceLine(
+              label: 'A carico azienda (welfare)',
+              value:
+                  '-${breakdown.companyPaysEur.toStringAsFixed(2)} EUR',
+              valueColor: AppTheme.teal,
+              icon: Icons.business_rounded,
+              iconColor: AppTheme.teal,
+              isDark: isDark,
+            ),
+
           const Divider(height: 20),
 
           // Totale da pagare
@@ -85,7 +85,7 @@ class PriceBreakdownWidget extends StatelessWidget {
                 : 'Da pagare',
             value: breakdown.isFullyFree
                 ? 'GRATIS'
-                : '${breakdown.cashToPayEur.toStringAsFixed(2)} EUR',
+                : '${breakdown.workerPaysEur.toStringAsFixed(2)} EUR',
             valueColor: breakdown.isFullyFree
                 ? AppTheme.secondary
                 : null,
@@ -127,7 +127,7 @@ class PriceBreakdownWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${(breakdown.cashToPayEur / 3).toStringAsFixed(2)}'
+                    '${(breakdown.workerPaysEur / 3).toStringAsFixed(2)}'
                     ' EUR/mese',
                     style: TextStyle(
                       fontSize: 11,

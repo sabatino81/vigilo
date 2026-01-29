@@ -26,7 +26,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   bool _useBnpl = false;
 
   double get _grandTotal =>
-      widget.breakdown.cashToPayEur + widget.shippingEur;
+      widget.breakdown.workerPaysEur + widget.shippingEur;
 
   void _confirmOrder() {
     HapticFeedback.heavyImpact();

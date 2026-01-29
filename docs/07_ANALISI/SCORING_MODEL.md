@@ -314,83 +314,61 @@ Arrotondamento a **~1.500 punti/mese** considerando variabilità e azioni occasi
 
 ## Conversione punti → valore economico
 
-### Principio: due wallet separati
+### Principio: wallet unico Punti Elmetto
 
-Ogni lavoratore ha due wallet distinti nel proprio profilo:
+Ogni lavoratore ha un unico wallet: **Punti Elmetto** (classe `ElmettoWallet`). Il welfare aziendale non è un secondo wallet ma un **flag booleano** (`welfareActive`) che modifica il comportamento al checkout.
 
-| Wallet                  | Generazione                                              | Utilizzo                              | Visibilità                              |
-|-------------------------|----------------------------------------------------------|---------------------------------------|-----------------------------------------|
-| **Punti Elmetto**        | Sempre attivo. Ogni azione genera Punti Elmetto           | Sconti % sullo Spaccio Aziendale. Paga lui | Tutti i lavoratori                 |
-| **Punti Welfare**       | Solo se l'azienda ha un piano welfare attivo             | Riscatto prodotti gratis. Paga l'azienda | Solo lavoratori con welfare attivo     |
+| Aspetto                 | Dettaglio                                                                        |
+|-------------------------|----------------------------------------------------------------------------------|
+| **Wallet**              | Punti Elmetto — unico saldo per tutti i lavoratori                               |
+| **Generazione**         | Ogni azione genera Punti Elmetto (~1.500/mese, ~18.000/anno)                    |
+| **Conversione**         | 10 Punti Elmetto = 1 EUR → valore facciale annuo: ~€1.800                       |
+| **Senza welfare**       | Sconto massimo 20% sul prezzo prodotto, il lavoratore paga il resto              |
+| **Con welfare attivo**  | Sconto fino al 100%: i Punti Elmetto coprono fino al 20%, la parte eccedente la copre l'azienda (fatturata mensilmente) |
 
-Le due tipologie di punti si accumulano **in parallelo**: una singola azione genera punti in entrambi i wallet contemporaneamente. I Punti Elmetto sono sempre uguali per tutti (~1.500/mese). I punti welfare dipendono dal piano scelto dall'azienda.
+### Come funziona il welfare
 
-### Come funziona la generazione parallela
+Il welfare non è un piano a tier (S/M/L) e non genera punti separati. È semplicemente un flag on/off per azienda:
 
 ```
-Lavoratore fa check-in benessere
-    ├─ Wallet Elmetto:  +5 Punti Elmetto (sempre, per tutti)
-    └─ Wallet Welfare: +N punti welfare (solo se piano attivo)
-                        N varia in base al piano aziendale
+welfareActive = false (default)
+    └─ Il lavoratore usa Punti Elmetto per sconti fino al 20%
+       └─ Paga la differenza di tasca propria
+
+welfareActive = true (attivato dall'azienda)
+    └─ Il lavoratore usa Punti Elmetto per sconti fino al 20% (base)
+       └─ La parte eccedente il 20% viene coperta dall'azienda
+          └─ L'azienda riceve fattura mensile per la quota welfare
 ```
-
-### Piani welfare aziendali
-
-L'azienda sceglie un piano che determina il **tasso di generazione** dei punti welfare. Il valore di 1 punto welfare è fisso (~€0.017), cambia la **quantità** generata per azione:
-
-| Piano             | Budget/dip/mese | Punti welfare generati/mese | Valore riscattabile/mese | Moltiplicatore welfare |
-|-------------------|-----------------|----------------------------|--------------------------|------------------------|
-| **Nessun piano**  | €0              | 0 (wallet non visibile)    | €0                       | —                      |
-| **Welfare S**     | €5              | ~300                       | ~€5                      | 0.20x                  |
-| **Welfare M**     | €10             | ~600                       | ~€10                     | 0.40x                  |
-| **Welfare L**     | €20             | ~1.200                     | ~€20                     | 0.80x                  |
-
-Il **moltiplicatore welfare** indica il rapporto rispetto ai Punti Elmetto: con il piano L, ogni azione genera 0.80x punti welfare rispetto ai Punti Elmetto (es. check-in = 5 Punti Elmetto + 4 punti welfare).
-
-### Esempio generazione per azione
-
-| Azione                   | Punti Elmetto (sempre) | Welfare S (+0.20x) | Welfare M (+0.40x) | Welfare L (+0.80x) |
-|--------------------------|-----------------------|---------------------|---------------------|---------------------|
-| Check-in benessere       | 5                     | 1                   | 2                   | 4                   |
-| Feedback fine turno      | 10                    | 2                   | 4                   | 8                   |
-| Micro-training           | 15                    | 3                   | 6                   | 12                  |
-| Quiz settimanale         | 25                    | 5                   | 10                  | 20                  |
-| Segnalazione rischio     | 35                    | 7                   | 14                  | 28                  |
-| Sfida team               | 75                    | 15                  | 30                  | 60                  |
 
 ### Flusso checkout — Spaccio Aziendale
 
-Al checkout il lavoratore vede i due saldi e sceglie come pagare:
+Al checkout il lavoratore vede un unico saldo Punti Elmetto:
 
 ```
-LAVORATORE SENZA WELFARE
+LAVORATORE SENZA WELFARE (welfareActive = false)
 ─────────────────────────────────────────────────
 Wallet:  [Punti Elmetto: 2.850 (= €285)]
 Prodotto: Borraccia termica €30
 
-    └─ Usa 60 Punti Elmetto (€6) → sconto 20% (max)
+    └─ Usa Punti Elmetto → sconto max 20% (-€6.00)
         └─ Lavoratore paga €24
             └─ Vigilo incassa €24
 
 
-LAVORATORE CON WELFARE (piano M)
+LAVORATORE CON WELFARE (welfareActive = true)
 ─────────────────────────────────────────────────
-Wallet:  [Punti Elmetto: 2.850 (= €285)]  [Punti Welfare: 480]
+Wallet:  [Punti Elmetto: 2.850 (= €285)]
 Prodotto: Borraccia termica €30
 
-    Opzione A — Usa Punti Elmetto
-    └─ Usa 60 Punti Elmetto (€6) → sconto 20% (max)
-        └─ Lavoratore paga €24
-
-    Opzione B — Usa punti welfare
-    └─ Usa 480 punti welfare → riscatto parziale €8
-        └─ Lavoratore paga €22, azienda paga €8
-
-    Opzione C — Mix Elmetto + welfare
-    └─ Usa 480 punti welfare (€8) + 44 Punti Elmetto (€4.40 = 20% di €22)
-        └─ Prezzo: €30 - €8 welfare = €22 - 20% sconto = €17.60
-            └─ Lavoratore paga €17.60, azienda paga €8
+    └─ Sconto base Punti Elmetto: 20% (-€6.00) → a carico del lavoratore
+    └─ Welfare aziendale copre il resto: 80% (-€24.00) → a carico dell'azienda
+        └─ Lavoratore paga €0
+            └─ Azienda paga €24 (fatturata a fine mese)
+            └─ Vigilo incassa €30 totali
 ```
+
+**Nota**: il lavoratore con welfare attivo può scegliere di NON usare il welfare su un acquisto specifico e pagare solo con sconto Punti Elmetto + pagamento diretto.
 
 ### Tabella sconto — Punti Elmetto
 
@@ -403,7 +381,9 @@ Prodotto: Borraccia termica €30
 | 160                 | €16        | 15% (su acquisti fino a €107)| Il lavoratore |
 | 240+                | €24+       | 20% (max, qualsiasi importo) | Il lavoratore |
 
-**Regola**: lo sconto Elmetto è il minore tra il valore EUR dei punti spesi e il 20% del prezzo (dopo deduzione welfare). Questo cap al 20% protegge il margine del 30% di markup, garantendo a Vigilo almeno il ~10% di margine su ogni vendita.
+**Regola senza welfare**: lo sconto Elmetto è il minore tra il valore EUR dei punti spesi e il 20% del prezzo. Questo cap al 20% protegge il margine del 30% di markup, garantendo a Vigilo almeno il ~10% di margine su ogni vendita.
+
+**Regola con welfare attivo**: lo sconto Elmetto (fino al 20%) rappresenta la quota base. L'azienda copre la differenza tra lo sconto Elmetto e il 100% del prezzo. Vigilo fattura mensilmente all'azienda la quota welfare.
 
 **Valore di 1 Punto Elmetto**: €0.10 (10 centesimi)
 
@@ -411,48 +391,27 @@ Con 1.500 Punti Elmetto/mese = 18.000/anno → valore facciale annuo: **€1.800
 
 > **Nota**: le vecchie fasce 30% e 40% sono state eliminate perché superavano il markup del 30%, generando perdite economiche per Vigilo.
 
-### Tabella riscatto — Punti Welfare
+### Confronto welfare attivo vs non attivo (anno, lavoratore attivo)
 
-| Punti welfare spesi | Valore riscattabile    | Chi paga              |
-|---------------------|------------------------|-----------------------|
-| 100                 | ~€1.70                 | L'azienda (welfare)   |
-| 300                 | ~€5.00                 | L'azienda (welfare)   |
-| 600                 | ~€10.00                | L'azienda (welfare)   |
-| 1.200               | ~€20.00                | L'azienda (welfare)   |
-| 3.000               | ~€50.00                | L'azienda (welfare)   |
+| Stato welfare     | Elmetto/anno | Valore sconti Elmetto/anno | Copertura welfare azienda | Valore totale potenziale/anno |
+|-------------------|--------------|----------------------------|---------------------------|-------------------------------|
+| **Non attivo**    | 18.000       | €1.800 (max 20% per acquisto) | €0                     | €1.800 in sconti              |
+| **Attivo**        | 18.000       | €1.800 (max 20% per acquisto) | Fino a 80% per acquisto | €1.800 sconti + welfare illimitato |
 
-**Valore fisso di 1 punto welfare**: ~€0.017 (1.7 centesimi) — uguale per tutti i piani
+### Costo per l'azienda con welfare attivo
 
-### Confronto per piano welfare (anno, lavoratore attivo)
+Il costo per l'azienda dipende da quanto i dipendenti acquistano sullo Spaccio Aziendale. L'azienda paga la quota eccedente il 20% di sconto base Punti Elmetto, fino al 100% del prezzo prodotto. Il budget welfare è **deducibile** per l'azienda e **detassato** per il lavoratore (entro i limiti del TUIR Art. 51 comma 2).
 
-| Piano             | Elmetto/anno | Valore Elmetto/anno | Punti welfare/anno | Valore welfare/anno | Valore totale/anno |
-|-------------------|-------------------|---------------------|--------------------|---------------------|--------------------|
-| **Nessun piano**  | 18.000            | €1.800              | 0                  | €0                  | €1.800             |
-| **Welfare S**     | 18.000            | €1.800              | ~3.600             | ~€60                | €1.860             |
-| **Welfare M**     | 18.000            | €1.800              | ~7.200             | ~€120               | €1.920             |
-| **Welfare L**     | 18.000            | €1.800              | ~14.400            | ~€240               | €2.040             |
-
-### Costo per l'azienda
-
-| Piano             | Costo/dip/mese | Costo/dip/anno | Costo 100 dipendenti/anno |
-|-------------------|----------------|----------------|---------------------------|
-| **Nessun piano**  | €0             | €0             | €0                        |
-| **Welfare S**     | €5             | €60            | €6.000                    |
-| **Welfare M**     | €10            | €120           | €12.000                   |
-| **Welfare L**     | €20            | €240           | €24.000                   |
-
-Il budget welfare è **deducibile** per l'azienda e **detassato** per il lavoratore (entro i limiti del TUIR Art. 51 comma 2).
-
-### Vantaggi del sistema a due wallet
+### Vantaggi del wallet unico Punti Elmetto
 
 | Aspetto                    | Beneficio                                                                         |
 |----------------------------|-----------------------------------------------------------------------------------|
-| **Chiarezza per il lavoratore** | Due saldi distinti: "i miei Punti Elmetto" vs "il mio welfare". Zero ambiguità |
-| **Controllo per l'azienda**    | Il piano determina esattamente il costo. Budget prevedibile, nessuna sorpresa  |
-| **Resilienza**                 | Se l'azienda disattiva il welfare, i Punti Elmetto restano intatti             |
-| **UX pulita**                  | Senza welfare il lavoratore vede un solo wallet. Nessun elemento confuso       |
-| **Mix al checkout**            | Il lavoratore può combinare Elmetto + welfare per massimizzare il vantaggio    |
-| **Scalabilità**                | L'azienda può cambiare piano in qualsiasi momento senza toccare i Punti Elmetto |
+| **Semplicità per il lavoratore** | Un solo saldo da guardare. Nessuna confusione tra saldi multipli            |
+| **Welfare trasparente**        | Il welfare è un "superpotere" del wallet: con welfare attivo lo sconto arriva fino al 100% |
+| **Controllo per l'azienda**    | L'azienda vede esattamente quanto spende in welfare dalla fattura mensile   |
+| **Resilienza**                 | Se l'azienda disattiva il welfare, i Punti Elmetto restano intatti e danno comunque fino al 20% |
+| **UX pulita**                  | Un solo wallet, un solo saldo. Il badge "welfare attivo" appare solo se pertinente |
+| **Scalabilità**                | L'azienda attiva/disattiva il welfare con un toggle, senza gestire piani o tier |
 
 ---
 
@@ -467,13 +426,13 @@ Elementi comuni a tutte le card:
 | Elemento                     | Posizione          | Descrizione                                                         |
 |------------------------------|--------------------|---------------------------------------------------------------------|
 | Immagine prodotto            | Top                | Foto principale, swipeable per gallery                              |
-| Badge stato                  | Overlay su immagine | "GRATIS PER TE" (verde) se welfare copre tutto, "SCONTATO" (blu)   |
+| Badge stato                  | Overlay su immagine | "GRATIS PER TE" (verde) se welfare attivo e copre tutto, "SCONTATO" (blu) |
 | Nome prodotto                | Sotto immagine     | Titolo breve (max 2 righe)                                         |
 | Categoria                    | Sotto nome         | Tag: Sicurezza, Benessere, Tech, Abbigliamento, ecc.               |
 | Prezzo pieno                 | Evidenziato        | Prezzo originale del prodotto                                       |
 | Prezzo finale "Tu paghi"     | Grande, in evidenza | Il prezzo reale dopo welfare + sconto. Aggiornato in tempo reale   |
 | Riepilogo vantaggi           | Sotto prezzo       | Breakdown: welfare applicato + sconto applicato                     |
-| Controlli punti              | Interattivi        | Toggle welfare ON/OFF + slider Punti Elmetto                         |
+| Controlli punti              | Interattivi        | Slider Punti Elmetto + toggle welfare (se welfareActive per l'azienda) |
 | Tasto azione                 | Bottom, fisso      | "Acquista — €XX" oppure "Riscatta gratis"                          |
 
 ### Scenario 1 — Lavoratore SENZA welfare
@@ -504,9 +463,9 @@ Il lavoratore vede un solo wallet. La card è semplice:
 
 Lo slider permette di scegliere quanti Punti Elmetto usare (da 0 al massimo disponibile). Il prezzo finale si aggiorna in tempo reale.
 
-### Scenario 2 — Lavoratore CON welfare (mix punti)
+### Scenario 2 — Lavoratore CON welfare attivo
 
-Il lavoratore vede due wallet e può combinare:
+Il lavoratore vede il proprio wallet Punti Elmetto con il badge "Welfare attivo". Lo sconto Elmetto (fino al 20%) è la quota base, l'azienda copre il resto:
 
 ```
 ┌─────────────────────────────────────┐
@@ -518,32 +477,31 @@ Il lavoratore vede due wallet e può combinare:
 │                                     │
 │  Prezzo: €30.00                     │
 │                                     │
-│  ── Welfare aziendale ────────────  │
-│  Saldo: 480 punti welfare           │
-│  Usa welfare: [ON]  → -€8.00       │
-│                                     │
 │  ── I tuoi Punti Elmetto ─────────  │
 │  Saldo: 2.850 punti (€285)         │
-│  Usa: [●━━━━━━━━━━━] 44 punti      │
-│  Sconto: -20% (-€4.40)             │
+│  Usa: [●━━━━━━━━━━━] 60 punti      │
+│  Sconto base: -20% (-€6.00)        │
+│                                     │
+│  ── Welfare aziendale [ATTIVO] ───  │
+│  Usa welfare: [ON]                  │
+│  L'azienda copre il resto: -€24.00 │
 │                                     │
 │  ─────────────────────────────────  │
 │  Prezzo:                €30.00      │
-│  Welfare:               -€8.00     │
-│  Subtotale:             €22.00      │
-│  Sconto (20%):          -€4.40     │
+│  Sconto Elmetto (20%):  -€6.00     │
+│  Welfare azienda:       -€24.00    │
 │  ─────────────────────────────────  │
-│  Tu paghi:              €17.60      │
+│  Tu paghi:               €0.00     │
 │                                     │
-│  [      Acquista — €17.60         ] │
+│  [      Riscatta gratis           ] │
 └─────────────────────────────────────┘
 ```
 
-**Ordine di applicazione**: prima si sottrae il welfare (€), poi si calcola lo sconto (%) sul restante. Questo è più intuitivo: "tolgo il regalo dell'azienda, poi applico il mio sconto personale".
+**Ordine di applicazione**: prima si applica lo sconto Punti Elmetto (fino al 20%), poi il welfare copre la parte eccedente (fino al 100%). L'azienda viene fatturata mensilmente per la quota welfare.
 
-### Scenario 3 — Prodotto completamente riscattabile gratis
+### Scenario 3 — Prodotto gratis con welfare attivo
 
-Quando i punti welfare coprono l'intero prezzo, la card cambia aspetto:
+Quando il welfare è attivo, qualsiasi prodotto può essere ottenuto gratis (sconto Elmetto 20% + welfare copre il restante 80%):
 
 ```
 ┌─────────────────────────────────────┐
@@ -555,13 +513,16 @@ Quando i punti welfare coprono l'intero prezzo, la card cambia aspetto:
 │                                     │
 │  Prezzo: €15.00                     │
 │                                     │
-│  ── Welfare aziendale ────────────  │
-│  Saldo: 900 punti welfare           │
-│  Usa welfare: [ON]  → copre tutto!  │
+│  ── I tuoi Punti Elmetto ─────────  │
+│  Sconto base: -20% (-€3.00)        │
+│                                     │
+│  ── Welfare aziendale [ATTIVO] ───  │
+│  L'azienda copre: -€12.00          │
 │                                     │
 │  ─────────────────────────────────  │
 │  Prezzo:                €15.00      │
-│  Welfare:              -€15.00     │
+│  Sconto Elmetto (20%):  -€3.00     │
+│  Welfare azienda:       -€12.00    │
 │  ─────────────────────────────────  │
 │  Tu paghi:          €0.00 GRATIS    │
 │                                     │
@@ -605,23 +566,22 @@ Oltre alla card dettaglio, la **lista/griglia prodotti** mostra informazioni rap
 
 | Elemento                     | Dove                     | Logica                                                              |
 |------------------------------|--------------------------|--------------------------------------------------------------------|
-| Badge "GRATIS PER TE"       | Overlay card in griglia  | Il prodotto è interamente riscattabile con i punti welfare attuali |
+| Badge "GRATIS PER TE"       | Overlay card in griglia  | Welfare attivo: sconto Elmetto + welfare copre il 100%             |
 | Badge "SCONTATO"            | Overlay card in griglia  | Il lavoratore ha abbastanza Punti Elmetto per almeno -5%           |
 | Prezzo barrato + prezzo reale | Sotto nome in griglia   | Mostra €30.00 ~~barrato~~ → €24.00                                |
-| Filtro "Riscattabili gratis" | Barra filtri top        | Mostra solo prodotti che il welfare copre interamente              |
+| Filtro "Riscattabili gratis" | Barra filtri top        | Mostra solo se welfare attivo (tutti i prodotti sono riscattabili) |
 | Filtro "Con il mio sconto"  | Barra filtri top         | Mostra prodotti dove i punti danno almeno 10% sconto              |
 | Ordinamento "Per te"        | Default                  | Ordina per vantaggio massimo ottenibile (gratis prima, poi sconto) |
 | Risparmio totale anno        | Header sezione           | "Quest'anno hai risparmiato €XX.XX" — rinforzo positivo           |
 
-### Regola di visibilità wallet
+### Regola di visibilità welfare
 
-| Stato azienda           | Wallet Elmetto | Wallet Welfare | Toggle welfare nella card |
-|-------------------------|---------------|----------------|---------------------------|
-| Welfare non attivo      | Visibile      | Nascosto       | Nascosto                  |
-| Welfare S/M/L attivo    | Visibile      | Visibile       | Visibile                  |
-| Welfare disattivato     | Visibile      | Nascosto (saldo congelato, punti non persi) | Nascosto |
+| Stato azienda              | Wallet Punti Elmetto | Badge welfare | Toggle welfare nella card |
+|----------------------------|---------------------|---------------|---------------------------|
+| `welfareActive = false`    | Visibile            | Nascosto      | Nascosto                  |
+| `welfareActive = true`     | Visibile            | "Welfare attivo" visibile | Visibile (ON/OFF per acquisto) |
 
-Se l'azienda disattiva il welfare, i punti welfare accumulati vengono **congelati** (non persi). Se il welfare viene riattivato, tornano disponibili.
+Il wallet è sempre unico (Punti Elmetto). Il welfare è solo un flag che abilita la copertura aziendale al checkout.
 
 ---
 

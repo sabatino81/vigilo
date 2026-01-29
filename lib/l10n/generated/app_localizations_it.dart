@@ -1122,31 +1122,22 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get walletTitle => 'WALLET';
+  String get walletTitle => 'PUNTI ELMETTO';
 
   @override
   String get walletElmetto => 'Punti Elmetto';
 
   @override
-  String get walletWelfare => 'Punti Welfare';
-
-  @override
-  String get walletElmettoShort => 'Elmetto';
-
-  @override
-  String get walletWelfareShort => 'Welfare';
-
-  @override
   String walletConversionInfo(Object rate, Object percent) {
-    return '$rate Elmetto = 1 EUR  |  Max $percent% sconto';
+    return '$rate pt = 1 EUR  |  Max $percent% sconto';
   }
 
   @override
-  String get walletBudgetMonthly => 'Budget Welfare mensile';
+  String get walletWelfareActive => 'Welfare attivo (sconto fino al 100%)';
 
   @override
-  String walletBudgetUsed(Object used, Object total) {
-    return '$used / $total EUR';
+  String walletWelfareCompany(Object company) {
+    return 'Welfare attivato da $company';
   }
 
   @override
@@ -1168,25 +1159,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String walletElmettoValue(Object value) {
     return '= $value EUR';
-  }
-
-  @override
-  String get welfarePlanSmall => 'Piano S';
-
-  @override
-  String get welfarePlanMedium => 'Piano M';
-
-  @override
-  String get welfarePlanLarge => 'Piano L';
-
-  @override
-  String welfarePlanBudget(Object amount) {
-    return '$amount EUR/mese';
-  }
-
-  @override
-  String welfareRemaining(Object amount) {
-    return '$amount EUR rimanenti';
   }
 
   @override

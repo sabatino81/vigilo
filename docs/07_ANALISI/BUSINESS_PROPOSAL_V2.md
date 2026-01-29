@@ -8,7 +8,7 @@
 
 **Vigilo** è una piattaforma gratuita che trasforma la sicurezza sul lavoro in un'esperienza coinvolgente per qualsiasi tipologia di lavoratore — dall'operaio edile all'impiegato di magazzino, dall'operatore di fabbrica al tecnico sul campo.
 
-I lavoratori usano l'app per segnalare rischi, completare formazione, partecipare a sfide di sicurezza e accumulare **Punti Elmetto**. I Punti Elmetto si spendono sullo **Spaccio Aziendale** — il negozio interno riservato ai dipendenti — dove Vigilo vende direttamente prodotti a prezzo scontato. Le aziende che attivano il **welfare aziendale** generano anche **Punti Welfare** che permettono ai dipendenti di ottenere prodotti gratuitamente.
+I lavoratori usano l'app per segnalare rischi, completare formazione, partecipare a sfide di sicurezza e accumulare **Punti Elmetto**. I Punti Elmetto si spendono sullo **Spaccio Aziendale** — il negozio interno riservato ai dipendenti — dove Vigilo vende direttamente prodotti a prezzo scontato (fino al 20%). Le aziende che attivano il **welfare aziendale** (`welfareActive`) permettono ai dipendenti di ottenere prodotti con copertura fino al 100%: lo sconto Punti Elmetto copre la quota base, l'azienda copre il resto.
 
 **Modello:**
 - Piattaforma gratuita per aziende e lavoratori
@@ -69,13 +69,13 @@ Nomina colleghi meritevoli ──┘    └──── Alert e notifiche real-t
   │  ECOMMERCE       │           │  DECISIONI           │
   │  VIGILO          │           │  DATA-DRIVEN         │
   │                  │           │                      │
-  │  Base:              │           │  Dove intervenire    │
-  │  Punti Elmetto =   │           │  Chi formare         │
-  │    sconti          │           │  Cosa migliorare     │
+  │  Punti Elmetto =   │           │  Dove intervenire    │
+  │    sconti fino     │           │  Chi formare         │
+  │    al 20%          │           │  Cosa migliorare     │
   │                    │           │  Come allocare budget │
-  │  Welfare:          │           │                      │
-  │  Punti Welfare =   │           │                      │
-  │    prodotti gratis │           │                      │
+  │  Con welfare:      │           │                      │
+  │  sconto fino al   │           │                      │
+  │    100%            │           │                      │
   └──────────────────┘           └─────────────────────┘
 ```
 
@@ -93,7 +93,7 @@ Funzionalità core disponibili per ogni lavoratore iscritto:
 | **Check-in** | Stato benessere a inizio turno, feedback fine turno (VOW survey) | 5-10 per check-in |
 | **Team** | Social wall cantiere/reparto, nomination Safety Star, classifica sicurezza | 5-15 per interazione |
 | **KPI** | Dashboard personale: safety score, storico segnalazioni, certificati, livello Punti Elmetto | — |
-| **Ecommerce** | Catalogo prodotti, carrello, checkout con Punti Elmetto (sconto) e Punti Welfare (gratis) | — |
+| **Ecommerce** | Catalogo prodotti, carrello, checkout con Punti Elmetto (sconto fino a 20%, fino a 100% con welfare attivo) | — |
 
 #### 2. DASHBOARD AZIENDA (gratuita)
 
@@ -115,7 +115,7 @@ La dashboard è il vero gancio per l'upsell welfare: l'azienda vede i dati, capi
 
 | Modulo | Descrizione | Pricing indicativo | Target |
 |--------|-------------|-------------------|--------|
-| **Welfare Aziendale** | I dipendenti accumulano anche Punti Welfare (in parallelo ai Punti Elmetto). Vigilo gestisce budget, catalogo dedicato, reportistica fiscale. Piani S/M/L (€5/€10/€20 per dip/mese) | Fee 15% su budget welfare erogato | Aziende con >50 dipendenti |
+| **Welfare Aziendale** | Flag `welfareActive` per azienda: i dipendenti ottengono copertura fino al 100% (sconto Punti Elmetto + quota azienda). Vigilo gestisce fatturazione mensile e reportistica fiscale | Fee 15% su welfare erogato | Aziende con >50 dipendenti |
 | **Monitoraggio IoT** | Integrazione sensori: salute (HRV, stress, fatica), DPI smart, geolocalizzazione indoor/outdoor | €5-15/sensore/mese | Aziende con rischi fisici elevati |
 | **Analytics Avanzati** | Report predittivi, correlazioni rischio-incidente, benchmarking settoriale, AI insights | €200-500/mese | Aziende medio-grandi |
 
@@ -125,14 +125,14 @@ La dashboard è il vero gancio per l'upsell welfare: l'azienda vede i dati, capi
 
 ### Il motore economico
 
-Vigilo vende direttamente prodotti ai lavoratori attraverso lo **Spaccio Aziendale** integrato nell'app — un negozio interno riservato ai dipendenti. I **Punti Elmetto** funzionano come valuta di sconto, i **Punti Welfare** come valuta di riscatto gratuito. Lo Spaccio Aziendale è il punto di conversione tra engagement e revenue.
+Vigilo vende direttamente prodotti ai lavoratori attraverso lo **Spaccio Aziendale** integrato nell'app — un negozio interno riservato ai dipendenti. I **Punti Elmetto** funzionano come valuta di sconto (fino al 20%). Con il **welfare attivo**, l'azienda copre la parte eccedente lo sconto Punti Elmetto, fino al 100% del prezzo. Lo Spaccio Aziendale è il punto di conversione tra engagement e revenue.
 
 ### Due modalità d'acquisto
 
-| Modalità | Wallet | Come funziona | Esempio |
-|----------|--------|---------------|---------|
-| **Base** (tutti i lavoratori) | Punti Elmetto | Il lavoratore accumula Punti Elmetto → li usa per sconti % sui prodotti → paga la differenza | 500 Punti Elmetto = 10% sconto su borraccia €25 → paga €22.50 |
-| **Welfare** (aziende aderenti) | Punti Elmetto + Punti Welfare | In parallelo ai Punti Elmetto, il lavoratore accumula anche Punti Welfare → li usa per riscattare prodotti gratis → l'azienda paga | 600 Punti Welfare = borraccia €10 gratis (Vigilo fattura all'azienda) |
+| Modalità | Come funziona | Esempio |
+|----------|---------------|---------|
+| **Base** (tutti i lavoratori) | Il lavoratore accumula Punti Elmetto → li usa per sconti fino al 20% → paga la differenza | 500 Punti Elmetto = 10% sconto su borraccia €25 → paga €22.50 |
+| **Con welfare attivo** (aziende aderenti) | Lo sconto Punti Elmetto copre fino al 20%, l'azienda copre il restante → prodotto gratis o quasi | Borraccia €25: sconto 20% (-€5) + welfare azienda (-€20) = gratis |
 
 ### Catalogo prodotti
 
@@ -158,27 +158,27 @@ Vigilo vende direttamente prodotti ai lavoratori attraverso lo **Spaccio Azienda
 ### Flusso economico
 
 ```
-MODALITÀ BASE                           MODALITÀ WELFARE
-──────────────                           ────────────────
+MODALITÀ BASE                           MODALITÀ CON WELFARE ATTIVO
+──────────────                           ───────────────────────────
 
 Lavoratore                               Azienda
     │                                        │
-    │ Accumula Punti Elmetto                  │ Attiva piano welfare (S/M/L)
-    │ con comportamenti sicuri                │ genera anche Punti Welfare
+    │ Accumula Punti Elmetto                  │ Attiva welfare (welfareActive = true)
+    │ con comportamenti sicuri                │
     │                                        │
     ▼                                        ▼
 Ecommerce Vigilo                         Ecommerce Vigilo
     │                                        │
     │ Sceglie prodotto                        │ Dipendente sceglie prodotto
-    │ Applica Punti Elmetto (sconto)          │ Usa Punti Welfare (riscatto gratis)
-    │ Paga differenza                         │ Non paga nulla
-    │ (carta/PayPal)                          │
+    │ Applica Punti Elmetto (max 20%)         │ Sconto Elmetto (max 20%) + azienda
+    │ Paga differenza                         │   copre il resto (fino a 100%)
+    │ (carta/PayPal)                          │ Lavoratore paga €0 (o quasi)
     │                                        │
     ▼                                        ▼
 Vigilo                                   Vigilo
     │                                        │
     │ Incassa prezzo scontato                 │ Fattura all'azienda:
-    │ Margine: 30% medio                      │ costo prodotto + fee 15%
+    │ Margine: 30% medio                      │ quota welfare + fee 15%
     │ sul prezzo pieno                        │
     ▼                                        ▼
 Fornitore/3PL                            Fornitore/3PL
@@ -191,7 +191,7 @@ Fornitore/3PL                            Fornitore/3PL
 | Fonte | Come guadagna Vigilo | Margine | Volume atteso |
 |-------|---------------------|---------|---------------|
 | **Vendita base** | Margine tra prezzo vendita (scontato) e costo acquisto | 20-35% su venduto | 30% dei lavoratori acquista, €50/anno |
-| **Vendita welfare** | Margine prodotto + fee 15% sul budget welfare gestito | 30% prodotto + 15% fee | 70% dei lavoratori welfare riscatta, €150/anno |
+| **Vendita welfare** | Margine prodotto + fee 15% sulla quota welfare fatturata all'azienda | 30% prodotto + 15% fee | 70% dei lavoratori con welfare attivo acquista, €150/anno |
 | **IoT** | Noleggio sensori + piattaforma monitoraggio | 50-60% margine su canone | 5-10% delle aziende |
 | **Analytics** | Abbonamento mensile per report avanzati | 80%+ (software puro) | 10-15% delle aziende medie/grandi |
 
@@ -199,14 +199,15 @@ Fornitore/3PL                            Fornitore/3PL
 
 ## Gamification: il motore dell'engagement
 
-### Sistema a due wallet
+### Wallet unico Punti Elmetto
 
-Ogni lavoratore ha due wallet separati. Ogni azione genera punti in entrambi contemporaneamente:
+Ogni lavoratore ha un unico wallet: **Punti Elmetto** (classe `ElmettoWallet`). Il welfare aziendale non è un secondo wallet ma un flag booleano (`welfareActive`) che aumenta la copertura al checkout:
 
-| Wallet               | Generazione                                                     | Utilizzo                                     |
-|----------------------|-----------------------------------------------------------------|----------------------------------------------|
-| **Punti Elmetto**    | Sempre attivo. Ogni azione genera Punti Elmetto (~1.500/mese)  | Sconti % sullo Spaccio Aziendale. Paga il lavoratore  |
-| **Punti Welfare**    | Solo se l'azienda ha un piano welfare attivo (S/M/L)           | Riscatto prodotti gratis. Paga l'azienda      |
+| Aspetto                | Dettaglio                                                                    |
+|------------------------|------------------------------------------------------------------------------|
+| **Wallet**             | Punti Elmetto — unico saldo, ~1.500/mese, ~18.000/anno                     |
+| **Senza welfare**      | Sconto fino al 20% sul prezzo, il lavoratore paga il resto                  |
+| **Con welfare attivo** | Sconto Elmetto (fino al 20%) + azienda copre il resto (fino al 100%)       |
 
 ### Punti Elmetto — accumulo
 
@@ -226,30 +227,29 @@ Ogni lavoratore ha due wallet separati. Ogni azione genera punti in entrambi con
 
 Un lavoratore attivo accumula circa **1.500 Punti Elmetto/mese = 18.000/anno**.
 
-### Punti Welfare — generazione parallela per piano
+### Welfare aziendale
 
-L'azienda sceglie un piano che determina quanti Punti Welfare genera ogni azione in parallelo ai Punti Elmetto:
+Il welfare non è un piano a tier (S/M/L) e non genera punti separati. È un flag booleano on/off per azienda (`welfareActive`):
 
-| Piano            | Budget/dip/mese | Punti Welfare/mese | Valore riscattabile/mese |
-|------------------|-----------------|---------------------|--------------------------|
-| **Nessun piano** | €0              | 0 (wallet nascosto) | €0                       |
-| **Welfare S**    | €5              | ~300                | ~€5                      |
-| **Welfare M**    | €10             | ~600                | ~€10                     |
-| **Welfare L**    | €20             | ~1.200              | ~€20                     |
+- **`welfareActive = false`**: il lavoratore usa Punti Elmetto per sconti fino al 20%, paga il resto
+- **`welfareActive = true`**: sconto Punti Elmetto (fino al 20%) + l'azienda copre la differenza fino al 100%
 
-### Conversione punti → valore
+L'azienda riceve fattura mensile aggregata per tutte le quote welfare erogate ai propri dipendenti.
 
-| Punti Elmetto spesi | Sconto applicato | Esempio su prodotto €30 |
-|----------------------|------------------|-------------------------|
-| 200                  | 5%               | Paga €28.50             |
-| 500                  | 10%              | Paga €27.00             |
-| 1.000                | 20%              | Paga €24.00             |
-| 2.000                | 30%              | Paga €21.00             |
-| 5.000                | 40%              | Paga €18.00             |
+### Conversione Punti Elmetto → valore
 
-**1 Punto Elmetto** = ~€0.003 | **1 Punto Welfare** = ~€0.017 (valore fisso, tutti i piani)
+**Conversione: 10 Punti Elmetto = 1 EUR. Sconto max senza welfare: 20%.**
 
-Con 18.000 Punti Elmetto/anno → **€36-54 in sconti**. Con piano Welfare L → **€240 in prodotti gratis** in aggiunta.
+| Punti Elmetto spesi | Valore EUR | Sconto applicato | Esempio su prodotto €30 |
+|----------------------|------------|------------------|-------------------------|
+| 30                   | €3         | 5%               | Paga €28.50 (senza welfare) |
+| 80                   | €8         | 10%              | Paga €27.00 (senza welfare) |
+| 160                  | €16        | 15%              | Paga €25.50 (senza welfare) |
+| 240+                 | €24+       | 20% (max)        | Paga €24.00 (senza welfare) |
+
+**1 Punto Elmetto** = €0.10
+
+Con 18.000 Punti Elmetto/anno → **€1.800 in sconti potenziali**. Con welfare attivo → copertura fino al 100% per ogni acquisto.
 
 ### Livelli
 
@@ -332,7 +332,7 @@ Quando l'azienda attiva il modulo IoT, i Punti Elmetto si possono guadagnare anc
 | Durante turno | Segnala un rischio o near-miss           | 30-50         |
 | Pausa         | Controlla classifica e sfide team        | —             |
 | Fine turno    | Feedback VOW (com'è andato il turno?)    | 10            |
-| Sera          | Sfoglia lo Spaccio Aziendale, usa Punti Elmetto o Welfare | — |
+| Sera          | Sfoglia lo Spaccio Aziendale, usa Punti Elmetto per sconti | — |
 
 **Punti Elmetto giornalieri medi: 50-80** → circa 1.500/mese per un lavoratore attivo.
 
@@ -381,7 +381,7 @@ Vigilo funziona per qualsiasi settore dove esistono lavoratori e rischi. L'app �
 
 #### Luca — Operaio logistica, 32 anni
 - **Bisogno**: nessuno (non cerca una app per la sicurezza)
-- **Motivazione reale**: vuole i Punti Elmetto per comprare cose scontate e i Punti Welfare per prodotti gratis
+- **Motivazione reale**: vuole i Punti Elmetto per comprare cose scontate (e gratis se l'azienda ha welfare attivo)
 - **Comportamento**: fa check-in e micro-training ogni giorno per i punti, segnala rischi quando li vede
 - **Risultato**: l'azienda raccoglie dati di sicurezza, Luca ottiene prodotti → win-win
 
@@ -583,7 +583,7 @@ L'Anno 1 genera solo €22K di revenue (Spaccio base). Per sostenere l'operativi
 
 ### Fase 3 — Welfare & Growth
 
-- [ ] Modulo welfare aziendale (Punti Welfare, piani S/M/L, catalogo dedicato)
+- [ ] Modulo welfare aziendale (flag `welfareActive`, copertura fino al 100%, fatturazione)
 - [ ] Fatturazione welfare verso aziende (integrazione contabile)
 - [ ] Report compliance esportabili (PDF per audit D.Lgs. 81)
 - [ ] Contenuti formativi settoriali (edilizia, manifattura, logistica, ecc.)

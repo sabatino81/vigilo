@@ -2207,7 +2207,7 @@ abstract class AppLocalizations {
   /// No description provided for @walletTitle.
   ///
   /// In en, this message translates to:
-  /// **'WALLET'**
+  /// **'HELMET POINTS'**
   String get walletTitle;
 
   /// No description provided for @walletElmetto.
@@ -2216,41 +2216,23 @@ abstract class AppLocalizations {
   /// **'Helmet Points'**
   String get walletElmetto;
 
-  /// No description provided for @walletWelfare.
-  ///
-  /// In en, this message translates to:
-  /// **'Welfare Points'**
-  String get walletWelfare;
-
-  /// No description provided for @walletElmettoShort.
-  ///
-  /// In en, this message translates to:
-  /// **'Helmet'**
-  String get walletElmettoShort;
-
-  /// No description provided for @walletWelfareShort.
-  ///
-  /// In en, this message translates to:
-  /// **'Welfare'**
-  String get walletWelfareShort;
-
   /// No description provided for @walletConversionInfo.
   ///
   /// In en, this message translates to:
-  /// **'{rate} Helmet = 1 EUR  |  Max {percent}% discount'**
+  /// **'{rate} pt = 1 EUR  |  Max {percent}% discount'**
   String walletConversionInfo(Object rate, Object percent);
 
-  /// No description provided for @walletBudgetMonthly.
+  /// No description provided for @walletWelfareActive.
   ///
   /// In en, this message translates to:
-  /// **'Monthly Welfare Budget'**
-  String get walletBudgetMonthly;
+  /// **'Welfare active (up to 100% discount)'**
+  String get walletWelfareActive;
 
-  /// No description provided for @walletBudgetUsed.
+  /// No description provided for @walletWelfareCompany.
   ///
   /// In en, this message translates to:
-  /// **'{used} / {total} EUR'**
-  String walletBudgetUsed(Object used, Object total);
+  /// **'Welfare activated by {company}'**
+  String walletWelfareCompany(Object company);
 
   /// No description provided for @walletLevel.
   ///
@@ -2281,36 +2263,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'= {value} EUR'**
   String walletElmettoValue(Object value);
-
-  /// No description provided for @welfarePlanSmall.
-  ///
-  /// In en, this message translates to:
-  /// **'Plan S'**
-  String get welfarePlanSmall;
-
-  /// No description provided for @welfarePlanMedium.
-  ///
-  /// In en, this message translates to:
-  /// **'Plan M'**
-  String get welfarePlanMedium;
-
-  /// No description provided for @welfarePlanLarge.
-  ///
-  /// In en, this message translates to:
-  /// **'Plan L'**
-  String get welfarePlanLarge;
-
-  /// No description provided for @welfarePlanBudget.
-  ///
-  /// In en, this message translates to:
-  /// **'{amount} EUR/month'**
-  String welfarePlanBudget(Object amount);
-
-  /// No description provided for @welfareRemaining.
-  ///
-  /// In en, this message translates to:
-  /// **'{amount} EUR remaining'**
-  String welfareRemaining(Object amount);
 
   /// No description provided for @shopTitle.
   ///

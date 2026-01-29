@@ -94,7 +94,7 @@ class Order {
     required this.orderCode,
     required this.items,
     required this.totalEur,
-    required this.welfareUsedEur,
+    required this.companyPaysEur,
     required this.elmettoPointsUsed,
     required this.elmettoDiscountEur,
     required this.finalPriceEur,
@@ -110,7 +110,7 @@ class Order {
   final String orderCode;
   final List<CartItem> items;
   final double totalEur;
-  final double welfareUsedEur;
+  final double companyPaysEur;
   final int elmettoPointsUsed;
   final double elmettoDiscountEur;
   final double finalPriceEur;
@@ -137,7 +137,7 @@ class Order {
           CartItem(product: products[5], quantity: 1),
         ],
         totalEur: 34.00,
-        welfareUsedEur: 20.00,
+        companyPaysEur: 20.00,
         elmettoPointsUsed: 280,
         elmettoDiscountEur: 2.80,
         finalPriceEur: 11.20,
@@ -154,7 +154,7 @@ class Order {
           CartItem(product: products[10]),
         ],
         totalEur: 25.00,
-        welfareUsedEur: 25.00,
+        companyPaysEur: 25.00,
         elmettoPointsUsed: 0,
         elmettoDiscountEur: 0,
         finalPriceEur: 0,
@@ -170,7 +170,7 @@ class Order {
           CartItem(product: products[7]),
         ],
         totalEur: 87.50,
-        welfareUsedEur: 50.00,
+        companyPaysEur: 50.00,
         elmettoPointsUsed: 750,
         elmettoDiscountEur: 7.50,
         finalPriceEur: 30.00,

@@ -429,19 +429,16 @@
     "placeholders": { "hours": {}, "minutes": {} }
   },
 
-  "walletTitle": "WALLET",
+  "walletTitle": "PUNTI ELMETTO",
   "walletElmetto": "Punti Elmetto",
-  "walletWelfare": "Punti Welfare",
-  "walletElmettoShort": "Elmetto",
-  "walletWelfareShort": "Welfare",
-  "walletConversionInfo": "{rate} Elmetto = 1 EUR  |  Max {percent}% sconto",
+  "walletConversionInfo": "{rate} pt = 1 EUR  |  Max {percent}% sconto",
   "@walletConversionInfo": {
     "placeholders": { "rate": {}, "percent": {} }
   },
-  "walletBudgetMonthly": "Budget Welfare mensile",
-  "walletBudgetUsed": "{used} / {total} EUR",
-  "@walletBudgetUsed": {
-    "placeholders": { "used": {}, "total": {} }
+  "walletWelfareActive": "Welfare attivo (sconto fino al 100%)",
+  "walletWelfareCompany": "Welfare attivato da {company}",
+  "@walletWelfareCompany": {
+    "placeholders": { "company": {} }
   },
   "walletLevel": "Livello {level}",
   "@walletLevel": {
@@ -456,17 +453,6 @@
   "walletElmettoValue": "= {value} EUR",
   "@walletElmettoValue": {
     "placeholders": { "value": {} }
-  },
-  "welfarePlanSmall": "Piano S",
-  "welfarePlanMedium": "Piano M",
-  "welfarePlanLarge": "Piano L",
-  "welfarePlanBudget": "{amount} EUR/mese",
-  "@welfarePlanBudget": {
-    "placeholders": { "amount": {} }
-  },
-  "welfareRemaining": "{amount} EUR rimanenti",
-  "@welfareRemaining": {
-    "placeholders": { "amount": {} }
   },
 
   "shopTitle": "Spaccio Aziendale",

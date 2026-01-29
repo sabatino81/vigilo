@@ -1119,31 +1119,22 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get walletTitle => 'WALLET';
+  String get walletTitle => 'HELMET POINTS';
 
   @override
   String get walletElmetto => 'Helmet Points';
 
   @override
-  String get walletWelfare => 'Welfare Points';
-
-  @override
-  String get walletElmettoShort => 'Helmet';
-
-  @override
-  String get walletWelfareShort => 'Welfare';
-
-  @override
   String walletConversionInfo(Object rate, Object percent) {
-    return '$rate Helmet = 1 EUR  |  Max $percent% discount';
+    return '$rate pt = 1 EUR  |  Max $percent% discount';
   }
 
   @override
-  String get walletBudgetMonthly => 'Monthly Welfare Budget';
+  String get walletWelfareActive => 'Welfare active (up to 100% discount)';
 
   @override
-  String walletBudgetUsed(Object used, Object total) {
-    return '$used / $total EUR';
+  String walletWelfareCompany(Object company) {
+    return 'Welfare activated by $company';
   }
 
   @override
@@ -1165,25 +1156,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String walletElmettoValue(Object value) {
     return '= $value EUR';
-  }
-
-  @override
-  String get welfarePlanSmall => 'Plan S';
-
-  @override
-  String get welfarePlanMedium => 'Plan M';
-
-  @override
-  String get welfarePlanLarge => 'Plan L';
-
-  @override
-  String welfarePlanBudget(Object amount) {
-    return '$amount EUR/month';
-  }
-
-  @override
-  String welfareRemaining(Object amount) {
-    return '$amount EUR remaining';
   }
 
   @override

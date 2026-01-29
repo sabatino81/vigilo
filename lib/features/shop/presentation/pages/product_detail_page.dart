@@ -20,7 +20,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _quantity = 1;
-  final DualWallet _wallet = DualWallet.mockWallet();
+  final ElmettoWallet _wallet = ElmettoWallet.mockWallet();
 
   double get _totalPrice => widget.product.displayPrice * _quantity;
 

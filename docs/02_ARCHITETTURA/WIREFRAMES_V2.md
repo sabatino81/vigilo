@@ -1,6 +1,6 @@
 # Vigilo - Wireframe V2
 
-> Schermate aggiornate con dual wallet (Punti Elmetto + Punti Welfare), Spaccio Aziendale (ecommerce dropshipping), scoring model e nuove funzionalita
+> Schermate aggiornate con wallet unico Punti Elmetto (+ welfare aziendale on/off), Spaccio Aziendale (ecommerce dropshipping), scoring model e nuove funzionalita
 
 ---
 
@@ -11,7 +11,7 @@
 3. [Home](#home)
 4. [Team](#team)
 5. [SOS](#sos)
-6. [Punti — Dual Wallet](#punti--dual-wallet)
+6. [Punti — Wallet Punti Elmetto](#punti--wallet-punti-elmetto)
 7. [Spaccio Aziendale — Catalogo](#spaccio-aziendale--catalogo)
 8. [Spaccio Aziendale — Card Prodotto](#spaccio-aziendale--card-prodotto)
 9. [Spaccio Aziendale — Checkout](#spaccio-aziendale--checkout)
@@ -148,14 +148,14 @@
 |  |  +5 rispetto a ieri                                    | |
 |  +-------------------------------------------------------+ |
 |                                                             |
-|  +---------------------------+  +-------------------------+ |
-|  |  PUNTI ELMETTO            |  |  PUNTI WELFARE          | |
-|  |                           |  |                         | |
-|  |       1.200               |  |       480               | |
-|  |       punti               |  |       punti             | |
-|  |                           |  |  Piano M attivo         | |
-|  |  Vai al negozio >         |  |  Riscatta gratis >      | |
-|  +---------------------------+  +-------------------------+ |
+|  +-------------------------------------------------------+ |
+|  |  PUNTI ELMETTO                              1.200 pt  | |
+|  |                                                         | |
+|  |  Valore: E120.00 in sconti                             | |
+|  |  Welfare aziendale: [ATTIVO]                           | |
+|  |                                                         | |
+|  |  Vai al negozio >                                      | |
+|  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
 |  |  STREAK GIORNALIERO                           12 gg    | |
@@ -206,7 +206,7 @@
 ```
 
 **Novita V2:**
-- **Card dual wallet** con Punti Elmetto + Punti Welfare affiancati
+- **Card wallet unico** Punti Elmetto con badge welfare attivo/non attivo
 - **Card streak** con progress giornaliero e bonus crescente
 - **TODO giornalieri** mostrano punti guadagnabili per ogni azione
 - Rimossa card Social Wall dalla home (spostata in Team)
@@ -488,9 +488,9 @@
 
 ---
 
-## Punti — Dual Wallet
+## Punti — Wallet Punti Elmetto
 
-### Punti Page (V2 — Dual Wallet)
+### Punti Page (V2 — Wallet Unico)
 
 ```
 +-------------------------------------------------------------+
@@ -500,19 +500,17 @@
 |-------------------------------------------------------------|
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  I TUOI WALLET                                         | |
+|  |  IL TUO WALLET                                         | |
 |  |                                                         | |
-|  |  +-------------------------+ +------------------------+ | |
-|  |  |  PUNTI ELMETTO          | | PUNTI WELFARE          | | |
-|  |  |                         | |                        | | |
-|  |  |       1.200             | |       480              | | |
-|  |  |       punti             | |       punti            | | |
-|  |  |                         | |                        | | |
-|  |  |  Valore: ~E3.60        | |  Valore: ~E8.16       | | |
-|  |  |  in sconti             | |  in prodotti gratis    | | |
-|  |  |                         | |                        | | |
-|  |  |  Sempre attivo          | |  Piano M aziendale     | | |
-|  |  +-------------------------+ +------------------------+ | |
+|  |  +---------------------------------------------------+ | |
+|  |  |  PUNTI ELMETTO                                    | | |
+|  |  |                                                    | | |
+|  |  |       1.200 punti                                  | | |
+|  |  |       Valore: E120.00 in sconti                    | | |
+|  |  |                                                    | | |
+|  |  |  Welfare aziendale: [ATTIVO]                       | | |
+|  |  |  Con welfare: sconto fino al 100%                  | | |
+|  |  +---------------------------------------------------+ | |
 |  |                                                         | |
 |  |  Quest'anno hai risparmiato: E42.30                    | |
 |  +-------------------------------------------------------+ |
@@ -529,33 +527,33 @@
 |  +-------------------------------------------------------+ |
 |  |  ULTIME TRANSAZIONI                                    | |
 |  |                                                         | |
-|  |  +15  Micro-training completato          Oggi  [elm]   | |
-|  |   +3  Welfare parallelo                  Oggi  [wlf]   | |
-|  |   +5  Check-in benessere                 Oggi  [elm]   | |
-|  |   +1  Welfare parallelo                  Oggi  [wlf]   | |
-|  |  +10  Survey VOW                         Ieri  [elm]   | |
-|  |   +2  Welfare parallelo                  Ieri  [wlf]   | |
-|  | -500  Riscatto cuffie bluetooth        3gg fa  [elm]   | |
+|  |  +15  Micro-training completato          Oggi          | |
+|  |   +5  Check-in benessere                 Oggi          | |
+|  |  +10  Survey VOW                         Ieri          | |
+|  | -500  Sconto cuffie bluetooth (20%)    3gg fa          | |
+|  |        Welfare: -E32.00 (azienda)      3gg fa          | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
 |  |  COME GUADAGNO PUNTI                                   | |
 |  |                                                         | |
-|  |  Azione               Elmetto   Welfare (Piano M)      | |
-|  |  -------               -------   ----------------      | |
-|  |  Check-in benessere       5         2                   | |
-|  |  Feedback VOW            10         4                   | |
-|  |  Micro-training          15         6                   | |
-|  |  Quiz settimanale        25        10                   | |
-|  |  Segnalazione rischio   35        14                   | |
-|  |  Sfida team             75        30                   | |
+|  |  Azione                     Punti Elmetto               | |
+|  |  -------                    --------------              | |
+|  |  Check-in benessere              5                      | |
+|  |  Feedback VOW                   10                      | |
+|  |  Micro-training                 15                      | |
+|  |  Quiz settimanale               25                      | |
+|  |  Segnalazione rischio           35                      | |
+|  |  Sfida team                     75                      | |
+|  |                                                         | |
+|  |  10 punti = 1 EUR | Max 20% sconto (100% con welfare)  | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
 |  |  STATISTICHE                                           | |
 |  |                                                         | |
-|  |  Ultimi 7 giorni:     +180 Elm.  +72 Wlf.             | |
-|  |  Ultimi 30 giorni:    +720 Elm.  +288 Wlf.            | |
+|  |  Ultimi 7 giorni:     +180 punti                       | |
+|  |  Ultimi 30 giorni:    +720 punti                       | |
 |  |                                                         | |
 |  |  +---------------------------------------------------+ | |
 |  |  |  L   M   M   G   V   S   D                        | | |
@@ -588,12 +586,12 @@
 ```
 
 **Novita V2:**
-- Due wallet affiancati (Elmetto + Welfare) con valore in EUR
-- Transazioni mostrano quale wallet (tag [elm] / [wlf])
-- Tabella "Come guadagno punti" con parallelo Elmetto/Welfare
-- Statistiche separate per wallet
-- Classifica solo su Punti Elmetto (il welfare non e competitivo)
-- Wallet Welfare nascosto se azienda non ha piano attivo
+- Wallet unico Punti Elmetto con badge welfare attivo/non attivo
+- Transazioni mostrano punti e eventuali quote welfare azienda
+- Tabella "Come guadagno punti" con soli Punti Elmetto
+- Conversione e cap sconto ben visibili (10pt = 1EUR, max 20%, 100% con welfare)
+- Classifica su Punti Elmetto
+- Badge welfare nascosto se azienda non ha welfareActive
 
 ---
 
@@ -627,7 +625,7 @@
 |  | (default)   | | (welfare copre)  | | (Elmetto >10%)  |  |
 |  +-------------+ +------------------+ +-----------------+  |
 |                                                             |
-|  I tuoi wallet:  Elmetto: 1.200  |  Welfare: 480           |
+|  Punti Elmetto: 1.200 (E120)  |  Welfare: [ATTIVO]       |
 |                                                             |
 |  124 prodotti                                               |
 |                                                             |
@@ -726,7 +724,7 @@
 +-------------------------------------------------------------+
 ```
 
-### Scenario 2 — Con welfare (mix punti)
+### Scenario 2 — Con welfare attivo
 
 ```
 +-------------------------------------------------------------+
@@ -736,7 +734,7 @@
 |  |                                                         | |
 |  |              [IMMAGINE PRODOTTO]                        | |
 |  |              < swipe gallery >                          | |
-|  |                                                         | |
+|  |                                    GRATIS PER TE        | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  Borraccia Termica Pro                                     |
@@ -744,33 +742,33 @@
 |                                                             |
 |  Prezzo: E30.00                                            |
 |                                                             |
-|  -- Welfare aziendale ----------------------------------   |
-|  Saldo: 480 punti welfare                                  |
-|  Usa welfare: [ON]   -> -E8.00                             |
-|                                                             |
 |  -- I tuoi Punti Elmetto ---------------------------       |
 |  Saldo: 1.200 punti                                       |
-|  Usa: [o=========.........] 500 punti                      |
-|  Sconto: -10% (-E2.20)                                    |
+|  Usa: [o=================] 60 punti                        |
+|  Sconto base: -20% (-E6.00)                               |
+|                                                             |
+|  -- Welfare aziendale [ATTIVO] ----------------------      |
+|  Usa welfare: [ON]                                         |
+|  L'azienda copre il resto: -E24.00                         |
 |                                                             |
 |  -------------------------------------------------         |
 |  Prezzo:                               E30.00              |
-|  Welfare:                              -E8.00              |
-|  Subtotale:                            E22.00              |
-|  Sconto Elmetto (10%):                 -E2.20              |
+|  Sconto Elmetto (20%):                 -E6.00              |
+|  Welfare azienda:                     -E24.00              |
 |  -------------------------------------------------         |
-|  Tu paghi:                             E19.80              |
+|  Tu paghi:                              E0.00              |
 |                                                             |
 |  Spedizione: E5.90 (standard 3-7 gg)                      |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |            Acquista — E25.70                           | |
+|  |         Riscatta gratis — spedizione E5.90             | |
 |  +-------------------------------------------------------+ |
+|  (tasto verde)                                              |
 |                                                             |
 +-------------------------------------------------------------+
 ```
 
-### Scenario 3 — Gratis (welfare copre tutto)
+### Scenario 3 — Gratis (welfare copre tutto, prodotto piccolo)
 
 ```
 +-------------------------------------------------------------+
@@ -788,13 +786,16 @@
 |                                                             |
 |  Prezzo: E15.00                                            |
 |                                                             |
-|  -- Welfare aziendale ----------------------------------   |
-|  Saldo: 480 punti welfare                                  |
-|  Usa welfare: [ON]   -> copre tutto!                       |
+|  -- I tuoi Punti Elmetto ---------------------------       |
+|  Sconto base: -20% (-E3.00)                               |
+|                                                             |
+|  -- Welfare aziendale [ATTIVO] ----------------------      |
+|  L'azienda copre: -E12.00                                  |
 |                                                             |
 |  -------------------------------------------------         |
 |  Prezzo:                               E15.00              |
-|  Welfare:                             -E15.00              |
+|  Sconto Elmetto (20%):                 -E3.00              |
+|  Welfare azienda:                     -E12.00              |
 |  -------------------------------------------------         |
 |  Tu paghi:                        E0.00 GRATIS             |
 |                                                             |
@@ -912,21 +913,19 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  PUNTI WELFARE                                         | |
+|  |  PUNTI ELMETTO                                         | |
 |  |                                                         | |
-|  |  Saldo disponibile: 480 punti (E8.16)                  | |
+|  |  Saldo disponibile: 1.200 punti (E120)                 | |
 |  |                                                         | |
-|  |  Usa welfare: [ON]                                     | |
-|  |  Valore applicato:                      -E8.16         | |
+|  |  Usa: [o===========........] 900 punti                  | |
+|  |  Sconto applicato (20%):                -E9.00         | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  PUNTI ELMETTO                                         | |
+|  |  WELFARE AZIENDALE                         [ATTIVO]    | |
 |  |                                                         | |
-|  |  Saldo disponibile: 1.200 punti                        | |
-|  |                                                         | |
-|  |  Usa: [o===========........] 800 punti                  | |
-|  |  Sconto applicato (15%):                -E5.53         | |
+|  |  Usa welfare: [ON]                                     | |
+|  |  L'azienda copre:                      -E36.00         | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
@@ -956,27 +955,26 @@
 |  |  RIEPILOGO FINALE                                      | |
 |  |                                                         | |
 |  |  Prodotti:                              E45.00         | |
-|  |  Welfare:                               -E8.16         | |
-|  |  Subtotale:                             E36.84         | |
-|  |  Sconto Elmetto (15%):                  -E5.53         | |
+|  |  Sconto Elmetto (20%):                  -E9.00         | |
+|  |  Welfare azienda:                      -E36.00         | |
 |  |  Spedizione:                            +E5.90         | |
 |  |  -----------------------------------------------       | |
-|  |  TOTALE:                                E37.21         | |
+|  |  TOTALE:                                 E5.90         | |
 |  |                                                         | |
-|  |  L'azienda paga E8.16 (welfare)                        | |
+|  |  L'azienda paga E36.00 (welfare)                       | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |              CONFERMA ORDINE — E37.21                  | |
+|  |       CONFERMA ORDINE — E5.90 (solo spedizione)       | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------+
 ```
 
 **Note:**
-- Ordine applicazione: prima welfare (EUR), poi Elmetto (%) sul resto
-- BNPL (Scalapay) visibile solo se totale >E50
-- Spedizione sempre presente, anche con riscatto gratis
+- Ordine applicazione: prima sconto Punti Elmetto (%, max 20%), poi welfare copre il resto se attivo
+- BNPL (Scalapay) visibile solo se totale a carico lavoratore >E50
+- Spedizione sempre presente, anche con riscatto gratis (welfare non copre spedizione)
 - L'importo welfare pagato dall'azienda e mostrato in fondo
 
 ---
@@ -998,7 +996,7 @@
 |  |  [img] Borraccia Termica Pro                           | |
 |  |  [img] Guanti Sicurezza Pro                            | |
 |  |                                                         | |
-|  |  Totale: E37.21 (+ E8.16 welfare)                      | |
+|  |  Totale: E5.90 (+ E36.00 welfare azienda)              | |
 |  |                                                         | |
 |  |  Stato: [green] SPEDITO                                | |
 |  |         Tracking: BRT 12345678                         | |
@@ -1075,12 +1073,12 @@
 |  |  [img] Guanti Sicurezza Pro     x1      E15.00         | |
 |  |                                                         | |
 |  |  Prodotti:                              E45.00         | |
-|  |  Welfare applicato:                     -E8.16         | |
-|  |  Sconto Elmetto (15%):                  -E5.53         | |
+|  |  Sconto Elmetto (20%):                  -E9.00         | |
+|  |  Welfare azienda:                      -E36.00         | |
 |  |  Spedizione:                            +E5.90         | |
 |  |  -----------------------------------------------       | |
-|  |  Pagato da te:                          E37.21         | |
-|  |  Pagato dall'azienda (welfare):          E8.16         | |
+|  |  Pagato da te:                           E5.90         | |
+|  |  Pagato dall'azienda (welfare):         E36.00         | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  Corriere: BRT                                             |
@@ -1153,17 +1151,14 @@
 |  +-------------------------------------------------------+ |
 |  |  DA COMPLETARE OGGI                                    | |
 |  |                                                         | |
-|  |  [ ] Quiz: Sicurezza DPI        10 min   +25 pts Elm.  | |
-|  |                                           +10 pts Wlf.  | |
-|  |  [ ] Video: Procedure emergenza  15 min   +15 pts Elm.  | |
-|  |                                            +6 pts Wlf.  | |
+|  |  [ ] Quiz: Sicurezza DPI        10 min    +25 pts       | |
+|  |  [ ] Video: Procedure emergenza  15 min   +15 pts       | |
 |  |                                                         | |
-|  |  Completa tutto per bonus giornaliero: +20 pts Elm.     | |
+|  |  Completa tutto per bonus giornaliero: +20 pts          | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  MICRO-TRAINING GIORNALIERO             +15 pts Elm.   | |
-|  |                                          +6 pts Wlf.   | |
+|  |  MICRO-TRAINING GIORNALIERO              +15 pts       | |
 |  |                                                         | |
 |  |  "5 regole per sollevare carichi in sicurezza"          | |
 |  |  Video 4:30 min                                        | |
@@ -1203,7 +1198,7 @@
 |  |                                                         | |
 |  |  Quiz superati:       5/6                              | |
 |  |  Certificati attivi:  3                                | |
-|  |  Punti formazione questo mese:  +450 Elm.  +180 Wlf.  | |
+|  |  Punti formazione questo mese:  +450 pts               | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
@@ -1231,10 +1226,10 @@
 ```
 
 **Novita V2:**
-- Punti Elmetto + Welfare mostrati per ogni contenuto
+- Punti Elmetto mostrati per ogni contenuto
 - Micro-training giornaliero in evidenza
 - Rinnovo anticipato certificazioni mostra bonus punti
-- Progresso mostra punti separati (Elm. + Wlf.)
+- Progresso mostra punti totali accumulati
 
 ### Quiz Page
 
@@ -1298,7 +1293,6 @@
 |                                                             |
 |              +-------------------------+                    |
 |              |   +25 PUNTI ELMETTO     |                    |
-|              |   +10 PUNTI WELFARE     |                    |
 |              |   +10 BONUS (score>80%) |                    |
 |              +-------------------------+                    |
 |                                                             |
@@ -1319,7 +1313,7 @@
 ```
 
 **Novita V2:**
-- Risultato mostra Punti Elmetto + Punti Welfare + bonus separati
+- Risultato mostra Punti Elmetto + bonus separati
 
 ---
 
@@ -1425,9 +1419,6 @@
 |              |      +50 PUNTI          |                    |
 |              |      ELMETTO            |                    |
 |              |                         |                    |
-|              |      +20 PUNTI          |                    |
-|              |      WELFARE            |                    |
-|              |                         |                    |
 |              +-------------------------+                    |
 |                                                             |
 |  Stato: Auto-validata                                      |
@@ -1515,7 +1506,6 @@
 |  |  Obiettivo: 7 giorni senza infortuni nel team          | |
 |  |  Durata: 13/01 - 19/01                                | |
 |  |  Premio: +100 Punti Elmetto per membro                 | |
-|  |          +40 Punti Welfare per membro                   | |
 |  |                                                         | |
 |  |  [==========================........] Giorno 5/7       | |
 |  |                                                         | |
@@ -1566,10 +1556,10 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  I MIEI WALLET                                         | |
+|  |  IL MIO WALLET                                         | |
 |  |                                                         | |
 |  |  Punti Elmetto:   1.200     Livello: SILVER            | |
-|  |  Punti Welfare:     480     Piano: M                   | |
+|  |  Welfare:         [ATTIVO]                             | |
 |  |  Risparmiato:    E42.30     quest'anno                 | |
 |  +-------------------------------------------------------+ |
 |                                                             |
@@ -1671,7 +1661,7 @@
 | **Warning** (Arancione)| `#FF6D00`| Avvertenze, PROMO          |
 | **Danger** (Rosso)  | `#D32F2F` | SOS, errori, pericolo         |
 | **Elmetto** (Ambra) | `#FF8F00` | Badge/tag Punti Elmetto       |
-| **Welfare** (Teal)  | `#00897B` | Badge/tag Punti Welfare       |
+| **Welfare** (Teal)  | `#00897B` | Badge "Welfare attivo"        |
 | **Neutral** (Grigio)| `#757575` | Disabilitato                  |
 
 ### Tipografia
@@ -1702,7 +1692,7 @@
 
 | Badge           | Colore fondo | Colore testo | Condizione                          |
 |-----------------|-------------|-------------|--------------------------------------|
-| GRATIS PER TE   | #2E7D32     | white       | Welfare copre 100% prezzo prodotto   |
+| GRATIS PER TE   | #2E7D32     | white       | Welfare attivo: sconto + azienda = 100% |
 | SCONTATO        | #1565C0     | white       | Punti Elmetto sufficienti per >=5%   |
 | PROMO           | #FF6D00     | white       | Sconto fornitore attivo              |
 
@@ -1713,7 +1703,7 @@
 | Navigation | Material Rounded    |
 | Status     | Material Symbols    |
 | Actions    | Material Outlined   |
-| Wallet     | Custom (elmetto/W)  |
+| Wallet     | Custom (elmetto)    |
 
 ---
 
@@ -1722,9 +1712,10 @@
 | Data    | Versione | Modifiche                                                            |
 |---------|----------|----------------------------------------------------------------------|
 | 2025-01 | 1.0      | Wireframe iniziali app Vigilo                                        |
-| 2026-01 | 2.0      | V2: dual wallet, Spaccio Aziendale completo, scoring con punti visibili, |
-|         |          | checkout con welfare+elmetto, tracking ordini, voucher, promozioni,  |
-|         |          | streak dettaglio, sfide team, check-in/survey, notifiche, profilo    |
+| 2026-01 | 2.0      | V2: wallet unico Punti Elmetto + welfare on/off, Spaccio Aziendale completo, |
+|         |          | scoring con punti visibili, checkout con Elmetto+welfare, tracking ordini, |
+|         |          | voucher, promozioni, streak dettaglio, sfide team, check-in/survey,  |
+|         |          | notifiche, profilo                                                   |
 
 ---
 

@@ -16,7 +16,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  final DualWallet _wallet = DualWallet.mockWallet();
+  final ElmettoWallet _wallet = ElmettoWallet.mockWallet();
 
   // Mock cart: 2 prodotti pre-caricati
   late final List<CartItem> _items;

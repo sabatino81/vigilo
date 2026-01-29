@@ -191,11 +191,11 @@ class _PaymentSection extends StatelessWidget {
             value: '${order.totalEur.toStringAsFixed(2)} EUR',
             isDark: isDark,
           ),
-          if (order.welfareUsedEur > 0)
+          if (order.companyPaysEur > 0)
             _Line(
-              label: 'Welfare',
+              label: 'A carico azienda (welfare)',
               value:
-                  '-${order.welfareUsedEur.toStringAsFixed(2)} EUR',
+                  '-${order.companyPaysEur.toStringAsFixed(2)} EUR',
               valueColor: AppTheme.teal,
               isDark: isDark,
             ),

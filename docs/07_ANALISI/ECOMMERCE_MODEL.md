@@ -12,7 +12,7 @@
 | **100% dropshipping**       | Nessun magazzino proprio. Tutti i prodotti spediti dal fornitore direttamente al lavoratore    |
 | **Ricarico fisso 30%**      | Prezzo Vigilo = costo fornitore + 30%. Margine semplice, prevedibile, scalabile               |
 | **Sconto max 20%**          | I Punti Elmetto danno sconto fino al 20% sul prezzo Vigilo. Il margine minimo è sempre positivo |
-| **Welfare fino a 100%**     | I Punti Welfare coprono fino al 100% del prezzo prodotto. L'azienda paga                     |
+| **Welfare fino a 100%**     | Con welfare attivo (`welfareActive = true`), l'azienda copre fino al 100% del prezzo (la parte eccedente lo sconto Punti Elmetto del 20%) |
 | **Spedizione a carico del lavoratore** | Anche con riscatto welfare 100%, il lavoratore paga la spedizione                   |
 | **BNPL con interessi al cliente** | Pagamento dilazionato disponibile, interessi a carico del lavoratore                     |
 
@@ -69,11 +69,11 @@ Il ricarico del 30% è fisso su tutto il catalogo dello Spaccio Aziendale. Non c
 | **Sconto 5% (130 Punti Elmetto = €13)**| €130        | -5%            | €0      | €123.50         | €0           | €23.50 (18%)   |
 | **Sconto 10% (130 Punti Elmetto = €13)** | €130      | -10%           | €0      | €117            | €0           | €17 (13%)      |
 | **Sconto 20% max (260 Punti Elmetto = €26)** | €130 | -20%           | €0      | €104            | €0           | €4 (3%)        |
-| **Welfare parziale (€50)**             | €130        | 0%             | -€50    | €80             | €50          | €30 (23%)      |
-| **Welfare parziale + sconto 10%**      | €130        | -10%           | -€50    | €72             | €50          | €22 (17%)      |
-| **Welfare 100%**                        | €130        | 0%             | -€130   | €0              | €130         | €30 (23%)      |
+| **Welfare attivo (sconto 20% + azienda copre resto)** | €130 | -20%        | -€104   | €0              | €104         | €30 (23%)      |
+| **Welfare attivo (sconto 10% + azienda copre resto)** | €130 | -10%        | -€117   | €0              | €117         | €30 (23%)      |
+| **Welfare attivo (no punti, azienda copre tutto)**     | €130 | 0%          | -€130   | €0              | €130         | €30 (23%)      |
 
-**Regola di applicazione**: prima si sottrae il welfare (€), poi si calcola lo sconto Elmetto (%) sul restante. Lo sconto Elmetto è il minore tra il valore EUR dei punti spesi e il 20% del prezzo residuo.
+**Regola di applicazione**: prima si applica lo sconto Punti Elmetto (fino al 20%), poi se il welfare è attivo l'azienda copre il restante (fino al 100%). Lo sconto Elmetto è il minore tra il valore EUR dei punti spesi e il 20% del prezzo.
 
 ### Margine per scenario (su costo fornitore €100)
 
@@ -82,8 +82,8 @@ Il ricarico del 30% è fisso su tutto il catalogo dello Spaccio Aziendale. Non c
 | Prezzo pieno                 | €130                 | €100            | €30           | 23.1%     |
 | Sconto 10% Elmetto          | €117                 | €100            | €17           | 14.5%     |
 | Sconto 20% Elmetto (max)    | €104                 | €100            | €4            | 3.8%      |
-| Welfare 100%                 | €130                 | €100            | €30           | 23.1%     |
-| Welfare parziale + sconto   | €122                 | €100            | €22           | 18.0%     |
+| Welfare attivo (100%)        | €130                 | €100            | €30           | 23.1%     |
+| Welfare attivo + sconto 10% | €130                 | €100            | €30           | 23.1%     |
 
 Il margine minimo (3.8%) si verifica solo nel caso peggiore: sconto 20% pieno senza welfare. In pratica la media sarà più alta perché il 20% è un cap: su un prodotto da €130, servono 260 Punti Elmetto (€26) per raggiungere lo sconto massimo. Un lavoratore attivo accumula ~1.500 punti/mese (€150), sufficienti per ~5-6 acquisti al mese con sconto pieno.
 
@@ -204,24 +204,23 @@ Il lavoratore può dilazionare la parte a suo carico (prezzo dopo sconto Elmetto
 ### Esempio BNPL
 
 ```
-Prodotto: Smartphone accessibile
+Prodotto: Smartphone accessibile (senza welfare attivo)
 Prezzo Vigilo:              €260.00
-Welfare applicato:          -€80.00  (Punti Welfare)
-Sconto Elmetto (10% su €180): -€18.00  (180 Punti Elmetto)
+Sconto Elmetto (10%):       -€26.00  (260 Punti Elmetto)
 ─────────────────────────────────────
-Da pagare (lavoratore):     €162.00
+Da pagare (lavoratore):     €234.00
 Spedizione:                 + €7.90
 ─────────────────────────────────────
-Totale da pagare:           €169.90
+Totale da pagare:           €241.90
 
 Paga con Scalapay 3 rate:
-  Rata 1 (oggi):     €58.50
-  Rata 2 (30 giorni): €58.50
-  Rata 3 (60 giorni): €58.50
+  Rata 1 (oggi):     €80.63
+  Rata 2 (30 giorni): €80.63
+  Rata 3 (60 giorni): €80.63
   + interessi BNPL:   ~€5-8
 
-Vigilo incassa: €169.90 subito da Scalapay
-Fee merchant:    €169.90 × 2% = €3.40
+Vigilo incassa: €241.90 subito da Scalapay
+Fee merchant:    €241.90 × 2% = €4.84
 ```
 
 ### Fatturazione welfare
@@ -229,11 +228,11 @@ Fee merchant:    €169.90 × 2% = €3.40
 | Aspetto                      | Dettaglio                                                                                       |
 |------------------------------|-------------------------------------------------------------------------------------------------|
 | **Frequenza**                | Fattura mensile aggregata per azienda                                                           |
-| **Dettaglio**                | Elenco riscatti per dipendente: prodotto, data, valore welfare applicato                       |
+| **Dettaglio**                | Elenco riscatti per dipendente: prodotto, data, quota welfare coperta dall'azienda              |
 | **Fee Vigilo**               | Inclusa nel prezzo prodotto (il 30% di ricarico). Nessuna fee aggiuntiva sul welfare           |
 | **Deducibilità**             | Fattura conforme per deduzione TUIR Art. 51 comma 2 (fringe benefit/welfare)                   |
 | **Pagamento**                | Bonifico 30 giorni data fattura                                                                 |
-| **Limiti mensili**           | Definiti dal piano welfare scelto (S: €5/dip, M: €10/dip, L: €20/dip)                         |
+| **Limiti mensili**           | Nessun piano a tier. Welfare è on/off (`welfareActive`). L'azienda paga la quota eccedente lo sconto Punti Elmetto |
 
 ---
 
@@ -405,8 +404,8 @@ Tillo / Epipoli API (voucher)
 | **Solo Punti Elmetto**       | Punti Elmetto restituiti al wallet                                                             |
 | **Solo pagamento (carta)**   | Rimborso su carta/PayPal                                                                       |
 | **Mix Elmetto + carta**      | Punti Elmetto restituiti + rimborso differenza su carta                                        |
-| **Solo Punti Welfare**       | Punti Welfare restituiti al wallet. Budget welfare aziendale riaddebitato                      |
-| **Mix Welfare + Elmetto + carta** | Tutti i punti restituiti + rimborso carta per la parte pagata                            |
+| **Welfare (azienda ha pagato)** | Nota di credito all'azienda per la quota welfare. Punti Elmetto restituiti              |
+| **Mix Elmetto + welfare + carta** | Punti Elmetto restituiti + nota credito welfare azienda + rimborso carta               |
 | **BNPL (rate)**              | Rimborso gestito dalla piattaforma BNPL (rate residue annullate)                               |
 
 ---
@@ -442,7 +441,7 @@ Tillo / Epipoli API (voucher)
 | **GMV**                      | Gross Merchandise Value — valore totale venduto          | Crescita mensile    |
 | **AOV**                      | Average Order Value — valore medio ordine                | €30-50              |
 | **Conversion rate**          | % utenti app che acquistano almeno 1 volta               | >15% entro 6 mesi  |
-| **% ordini welfare**         | Quota ordini pagati con Punti Welfare                    | >40%                |
+| **% ordini welfare**         | Quota ordini con copertura welfare aziendale              | >40%                |
 | **% ordini BNPL**            | Quota ordini con pagamento dilazionato                   | 10-20%              |
 | **Margine lordo medio**      | Media ponderata margine su tutti gli ordini              | >15%                |
 | **Tasso di reso**            | % ordini resi sul totale                                 | <5%                 |
@@ -489,7 +488,7 @@ Tillo / Epipoli API (voucher)
 | Aspetto                      | Dettaglio                                                           |
 |------------------------------|---------------------------------------------------------------------|
 | **Catalogo**                 | Stesso catalogo, nessuna restrizione per welfare                    |
-| **Welfare**                  | Riscatto con Punti Welfare attivo, fatturazione mensile aziende     |
+| **Welfare**                  | Flag `welfareActive` per azienda, copertura fino al 100%, fatturazione mensile |
 | **Obiettivo**                | Attivare il revenue stream welfare, scalare budget aziendali        |
 | **Pagamento**                | Tutti i metodi + fattura mensile B2B per welfare                    |
 
@@ -512,7 +511,7 @@ Nessuna piattaforma ecommerce esterna (Shopify, WooCommerce, Medusa). Lo Spaccio
 
 | Criterio                     | Piattaforma esterna                            | Supabase custom                                |
 |------------------------------|------------------------------------------------|------------------------------------------------|
-| **Dual wallet**              | Plugin custom da sviluppare                    | Logica nativa nel checkout RPC                 |
+| **Wallet Punti Elmetto**     | Plugin custom da sviluppare                    | Logica nativa nel checkout RPC                 |
 | **Welfare + fatturazione**   | Non supportato, integrazione esterna           | Tabelle e RPC native                           |
 | **30% markup dinamico**      | Configurazione per-prodotto manuale            | Calcolato automatico su costo fornitore        |
 | **Database**                 | Doppio DB (piattaforma + Supabase)             | DB unico, zero sincronizzazione                |
@@ -554,7 +553,7 @@ Tabella products (Supabase)
 
 **Frequenza sync**: giornaliera per stock/prezzi, settimanale per nuovi prodotti. Real-time via webhook dove supportato dal fornitore.
 
-### Flusso checkout — ordine con dual wallet
+### Flusso checkout — ordine con wallet Punti Elmetto
 
 ```
 Lavoratore preme "Acquista"
@@ -563,14 +562,14 @@ Lavoratore preme "Acquista"
 RPC checkout_order (transazione atomica)
     │
     ├─ 1. Verifica stock prodotto (query fornitore o cache locale)
-    ├─ 2. Calcola prezzo: prezzo_vigilo - welfare - sconto_elmetto (max 20%, 10pts=1€) + spedizione
-    ├─ 3. Verifica budget welfare (se usato): saldo >= importo richiesto
+    ├─ 2. Calcola sconto Elmetto (max 20%, 10pts=1€)
+    ├─ 3. Se welfareActive: calcola quota welfare (prezzo - sconto Elmetto)
     ├─ 4. Verifica Punti Elmetto (se usati): saldo >= punti richiesti
-    ├─ 5. Scala Punti Welfare dal wallet (se usati)
-    ├─ 6. Scala Punti Elmetto dal wallet (se usati)
-    ├─ 7. Processa pagamento residuo (Stripe/PayPal/BNPL)
+    ├─ 5. Scala Punti Elmetto dal wallet (se usati)
+    ├─ 6. Calcola totale: prezzo - sconto_elmetto - quota_welfare + spedizione
+    ├─ 7. Processa pagamento residuo (Stripe/PayPal/BNPL) se > 0
     ├─ 8. Crea record ordine con stato "in_elaborazione"
-    ├─ 9. Crea record pagamento con dettaglio wallet + carta
+    ├─ 9. Crea record pagamento con dettaglio wallet + welfare + carta
     │
     ▼
 Se pagamento OK:
@@ -677,7 +676,7 @@ orders
     ├─ status (enum: in_elaborazione, inoltrato, spedito, in_consegna,
     │          consegnato, reso_richiesto, reso_completato, annullato)
     ├─ total_amount (decimal)          ← totale finale pagato
-    ├─ welfare_amount (decimal)        ← parte coperta da Punti Welfare
+    ├─ welfare_amount (decimal)        ← parte coperta dal welfare aziendale (se welfareActive)
     ├─ elmetto_discount_pct (decimal)  ← % sconto Elmetto applicato
     ├─ elmetto_points_used (integer)   ← punti spesi (10 pts = 1 EUR)
     ├─ shipping_cost (decimal)
@@ -761,7 +760,7 @@ Flutter App (Supabase SDK)
 |------------------------------|------------------------------------------------------------------------------|
 | **Zero fee piattaforma**     | Nessun canone mensile Shopify, nessuna fee transazione 2%                    |
 | **DB unico**                 | Wallet, ordini, utenti, scoring — tutto nello stesso PostgreSQL              |
-| **Checkout atomico**         | Una transazione: scala punti + paga + crea ordine. Impossibile con Shopify   |
+| **Checkout atomico**         | Una transazione: scala Punti Elmetto + calcola welfare + paga + crea ordine. Impossibile con Shopify |
 | **RLS nativo**               | Row Level Security: ogni lavoratore vede solo i suoi ordini                  |
 | **Edge Functions**           | Logica server-side (fulfillment, sync) nello stesso ecosistema               |
 | **Scalabilità**              | PostgreSQL scala verticalmente; per volumi alti, read replicas               |

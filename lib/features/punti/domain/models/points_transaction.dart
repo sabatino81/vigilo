@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vigilo/features/punti/domain/models/wallet_type.dart';
 
 /// Tipo di transazione punti
 enum TransactionType {
@@ -46,7 +45,6 @@ class PointsTransaction {
     required this.createdAt,
     required this.type,
     this.rewardId,
-    this.walletType,
   });
 
   final String id;
@@ -55,7 +53,6 @@ class PointsTransaction {
   final DateTime createdAt;
   final TransactionType type;
   final String? rewardId;
-  final WalletType? walletType;
 
   /// Formatta l'importo con segno
   String get formattedAmount {
