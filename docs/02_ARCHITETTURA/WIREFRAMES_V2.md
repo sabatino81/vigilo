@@ -1,0 +1,1731 @@
+# Vigilo - Wireframe V2
+
+> Schermate aggiornate con dual wallet (Punti Elmetto + Punti Welfare), ecommerce dropshipping, scoring model e nuove funzionalita
+
+---
+
+## Indice
+
+1. [Navigazione Principale](#navigazione-principale)
+2. [Splash e Login](#splash-e-login)
+3. [Home](#home)
+4. [Team](#team)
+5. [SOS](#sos)
+6. [Punti — Dual Wallet](#punti--dual-wallet)
+7. [Ecommerce — Catalogo](#ecommerce--catalogo)
+8. [Ecommerce — Card Prodotto](#ecommerce--card-prodotto)
+9. [Ecommerce — Checkout](#ecommerce--checkout)
+10. [Ecommerce — Ordini e Tracking](#ecommerce--ordini-e-tracking)
+11. [Impara](#impara)
+12. [Scoring — Check-in e Survey](#scoring--check-in-e-survey)
+13. [Scoring — Segnalazione Rischio](#scoring--segnalazione-rischio)
+14. [Scoring — Streak e Sfide](#scoring--streak-e-sfide)
+15. [Profilo e Settings](#profilo-e-settings)
+16. [Notifiche](#notifiche)
+17. [Appendice: Componenti UI](#appendice-componenti-ui)
+
+---
+
+## Navigazione Principale
+
+### Bottom Navigation Bar
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|                    [CONTENUTO PAGINA]                        |
+|                                                             |
++-------------------------------------------------------------+
+|                                                             |
+|   +------+  +------+  +--------+  +------+  +------+       |
+|   | Home |  | Team |  |  SOS   |  | Punti|  |Impara|       |
+|   |      |  |      |  |        |  |      |  |      |       |
+|   +------+  +------+  +--------+  +------+  +------+       |
+|                           ^                                 |
+|                      Pulsante                               |
+|                      circolare                              |
+|                      arancione                              |
++-------------------------------------------------------------+
+```
+
+**Note:**
+- 5 tab con icone e label
+- Tab SOS con pulsante circolare arancione distintivo
+- Icone filled quando selezionate, outlined quando non attive
+- Border radius 28px sulla barra
+
+---
+
+## Splash e Login
+
+### Splash Screen
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|                                                             |
+|                                                             |
+|                                                             |
+|                    +-------------------+                    |
+|                    |                   |                    |
+|                    |   VIGILO          |                    |
+|                    |   Sicurezza       |                    |
+|                    |   sul lavoro      |                    |
+|                    |                   |                    |
+|                    +-------------------+                    |
+|                                                             |
+|                         o o o                               |
+|                    Loading indicator                        |
+|                                                             |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Login Page
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|                       +---------+                           |
+|                       | VIGILO  |                           |
+|                       +---------+                           |
+|                                                             |
+|                  Sicurezza sul lavoro                       |
+|                                                             |
+|    +---------------------------------------------------+   |
+|    |  Email                                             |   |
+|    |  mario.rossi@azienda.it                           |   |
+|    +---------------------------------------------------+   |
+|                                                             |
+|    +---------------------------------------------------+   |
+|    |  Password                                    [eye] |   |
+|    |  ************                                     |   |
+|    +---------------------------------------------------+   |
+|                                                             |
+|    +---------------------------------------------------+   |
+|    |                    ACCEDI                           |   |
+|    +---------------------------------------------------+   |
+|                                                             |
+|                  Password dimenticata?                      |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Home
+
+### Home Page (V2)
+
+```
++-------------------------------------------------------------+
+|  < >  [gear]                                    [bell] [user]|
+|                                                             |
+|  Buongiorno, Mario!                                        |
+|  Cantiere Milano Nord                                      |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  ACCESSO CANTIERE                             [v] OK   | |
+|  |                                                         | |
+|  |  DPI Rilevati:                                          | |
+|  |  [v] Casco    [v] Giubbino    [v] Scarponi             | |
+|  |                                                         | |
+|  |  Documenti:                                             | |
+|  |  [v] Formaz. generale    [v] Formaz. specifica          | |
+|  |  [v] Visita medica       [v] Idoneita                   | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |              ENTRA IN CANTIERE                     | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SAFETY SCORE                                     85   | |
+|  |                                                         | |
+|  |  [==============================........]              | |
+|  |                                                         | |
+|  |  +5 rispetto a ieri                                    | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +---------------------------+  +-------------------------+ |
+|  |  PUNTI ELMETTO            |  |  PUNTI WELFARE          | |
+|  |                           |  |                         | |
+|  |       1.200               |  |       480               | |
+|  |       punti               |  |       punti             | |
+|  |                           |  |  Piano M attivo         | |
+|  |  Vai al negozio >         |  |  Riscatta gratis >      | |
+|  +---------------------------+  +-------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  STREAK GIORNALIERO                           12 gg    | |
+|  |                                                         | |
+|  |  [============........] Giorno 12/30                    | |
+|  |  Bonus attuale: +15 punti/azione                       | |
+|  |  Prossimo livello: giorno 15 (+20 punti)               | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SFIDA TEAM                                    5 gg    | |
+|  |                                                         | |
+|  |  "Settimana Zero Infortuni"                            | |
+|  |  Progress: [================....] 78%                   | |
+|  |                                                         | |
+|  |  Hot Streak: 5 giorni consecutivi!                      | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  TODO GIORNALIERI                              3/5     | |
+|  |                                                         | |
+|  |  [v] Check-in benessere                   +5 pts       | |
+|  |  [v] Micro-training                      +15 pts       | |
+|  |  [v] Briefing sicurezza                                | |
+|  |  [ ] Compilare VOW survey                +10 pts       | |
+|  |  [ ] Check-out fine turno                               | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SMART BREAK                                           | |
+|  |                                                         | |
+|  |  Prossima pausa tra: 45 min                            | |
+|  |  Zone ombra vicine: Area C, Baracca 2                  | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  I MIEI KPI                                            | |
+|  |                                                         | |
+|  |  FI (Fatica)     [green] 32    Nella norma             | |
+|  |  ASI (Stress)    [green] 28    Nella norma             | |
+|  |  Ore lavorate    6.5h          Oggi                    | |
+|  |  Segnalazioni    3             Questo mese             | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------|
+|   Home    Team    SOS    Punti    Impara                    |
++-------------------------------------------------------------+
+```
+
+**Novita V2:**
+- **Card dual wallet** con Punti Elmetto + Punti Welfare affiancati
+- **Card streak** con progress giornaliero e bonus crescente
+- **TODO giornalieri** mostrano punti guadagnabili per ogni azione
+- Rimossa card Social Wall dalla home (spostata in Team)
+- Rimossa card DPI Status (integrata in Accesso Cantiere)
+
+---
+
+## Team
+
+### Team Page (V2)
+
+```
++-------------------------------------------------------------+
+|  < >  [gear]                                    [bell] [user]|
+|                                                             |
+|  Team                                                      |
+|  Cantiere Milano Nord                                      |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  TEAM ALFA                                             | |
+|  |                                                         | |
+|  |  [green] 12 Online    [grey] 3 Offline    Safety: 87%  | |
+|  |                                                         | |
+|  |  ooooooooooooo ooo                                      | |
+|  |  (avatar membri)                                        | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  COME TI SENTI OGGI?                         +5 pts   | |
+|  |                                                         | |
+|  |  +----------+ +----------+ +-----------+               | |
+|  |  |   :)     | |   :|     | |   :(      |               | |
+|  |  |  Bene    | |Cosi-cosi | | Stressato |               | |
+|  |  +----------+ +----------+ +-----------+               | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SOCIAL WALL                              Vedi tutti   | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | [avatar] Marco B.             2h fa                | | |
+|  |  | "Completato briefing area B senza problemi!"       | | |
+|  |  | [foto]                                             | | |
+|  |  | [heart] 12   [comment] 3          +5 pts per post  | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | [avatar] Anna R.              5h fa                | | |
+|  |  | "Nuova segnaletica installata zona C"              | | |
+|  |  | [foto]                                             | | |
+|  |  | [heart] 8    [comment] 1          +5 pts per post  | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |              SCRIVI UN POST (+5 pts)               | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  CLASSIFICA TEAM                          Vedi tutti   | |
+|  |                                                         | |
+|  |  1. Marco B.    2,450 pts  [================]          | |
+|  |  2. Anna R.     2,120 pts  [==============]            | |
+|  |  3. Luca P.     1,980 pts  [=============]             | |
+|  |  4. TU (Mario)  1,850 pts  [============]              | |
+|  |  5. Giuseppe M.  1,720 pts  [===========]              | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SAFETY STAR DELLA SETTIMANA                           | |
+|  |                                                         | |
+|  |         +--------+                                      | |
+|  |         | Marco  |                                      | |
+|  |         +--------+                                      | |
+|  |      Marco Bianchi                                      | |
+|  |                                                         | |
+|  |  "Ha segnalato 3 near-miss questa settimana"           | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |          NOMINA UN COLLEGA (+15 pts)               | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  HAI DETTO -> ABBIAMO FATTO                           | |
+|  |                                                         | |
+|  |  [v] "Illuminazione Area B scarsa"                     | |
+|  |      -> Installati 4 fari LED (12/01)                  | |
+|  |                                                         | |
+|  |  [v] "Percorso pedonale non segnalato"                 | |
+|  |      -> Aggiunta segnaletica orizzontale (10/01)       | |
+|  |                                                         | |
+|  |  [~] "Bagni chimici insufficienti"                     | |
+|  |      -> In corso: ordine 2 unita aggiuntive            | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SURVEY VOW                                +10 pts    | |
+|  |                                                         | |
+|  |  Hai completato il survey di oggi?                     | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |            COMPILA SURVEY                          | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------|
+|   Home    Team    SOS    Punti    Impara                    |
++-------------------------------------------------------------+
+```
+
+**Novita V2:**
+- Social wall integrato con punti visibili per ogni azione
+- Pulsante nomination mostra punti (+15)
+- Check-in benessere mostra punti (+5)
+
+---
+
+## SOS
+
+### SOS Page
+
+```
++-------------------------------------------------------------+
+|  < >  [gear]                                    [bell] [user]|
+|                                                             |
+|                      SICUREZZA                              |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |                 AIUTO EMERGENZA                         | |
+|  |                                                         | |
+|  |              +---------------------+                    | |
+|  |              |                     |                    | |
+|  |              |        SOS          |                    | |
+|  |              |                     |                    | |
+|  |              |    TIENI PREMUTO    |                    | |
+|  |              |      3 SECONDI      |                    | |
+|  |              |                     |                    | |
+|  |              +---------------------+                    | |
+|  |                   (pulsante rosso)                      | |
+|  |                                                         | |
+|  |  Verranno avvisati automaticamente:                     | |
+|  |  - Capocantiere  - RSPP  - 118  - Familiare            | |
+|  |                                                         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SEGNALAZIONI RAPIDE                                   | |
+|  |                                                         | |
+|  |  +----------+ +----------+ +-----------+               | |
+|  |  |  [red]   | | [orange] | |  [blue]   |               | |
+|  |  | Pericolo | | Near Miss| | Infortunio|               | |
+|  |  | Imminente| |          | |   Lieve   |               | |
+|  |  |  +50 pts | |  +40 pts | |  +30 pts  |               | |
+|  |  +----------+ +----------+ +-----------+               | |
+|  |                                                         | |
+|  |  +----------+                                           | |
+|  |  |  [green] |                                           | |
+|  |  |Suggerim. |                                           | |
+|  |  |  +30 pts |                                           | |
+|  |  +----------+                                           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  CONTATTI EMERGENZA                                    | |
+|  |                                                         | |
+|  |  Capocantiere (turno)                      [Chiama]    | |
+|  |     Marco Rossi - 333 1234567                          | |
+|  |                                                         | |
+|  |  Centrale Operativa                        [Chiama]    | |
+|  |     H24 - 800 123456                                   | |
+|  |                                                         | |
+|  |  RSPP Aziendale                            [Chiama]    | |
+|  |     Ing. Bianchi - 335 9876543                         | |
+|  |                                                         | |
+|  |  118 Emergenze                             [Chiama]    | |
+|  |     Numero di emergenza                                | |
+|  |                                                         | |
+|  |  Contatto Familiare                        [Chiama]    | |
+|  |     Maria (moglie) - 339 5551234                       | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  STORICO SEGNALAZIONI                    Vedi tutte    | |
+|  |                                                         | |
+|  |  [orange] Near Miss - Area ponteggi  12/01  [v] Chiusa | |
+|  |  [green]  Suggerimento - Illuminaz.  10/01  [v] Chiusa | |
+|  |  [red]    Pericolo - Cavo scoperto   08/01  [v] Chiusa | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------|
+|   Home    Team    SOS    Punti    Impara                    |
++-------------------------------------------------------------+
+```
+
+**Novita V2:**
+- Punti visibili per ogni tipo di segnalazione (+30/+40/+50)
+- SOS emergenza resta a 0 punti (non si incentiva)
+
+### SOS - Countdown Attivazione
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|                                                             |
+|                                                             |
+|                    +---------------------+                  |
+|                    |                     |                  |
+|                    |    +-----------+    |                  |
+|                    |    |           |    |                  |
+|                    |    |     2     |    |                  |
+|                    |    |           |    |                  |
+|                    |    +-----------+    |                  |
+|                    |                     |                  |
+|                    |   [========.....]   |                  |
+|                    |   (progress ring)   |                  |
+|                    |                     |                  |
+|                    |  RILASCIA PER       |                  |
+|                    |    ANNULLARE        |                  |
+|                    |                     |                  |
+|                    +---------------------+                  |
+|                                                             |
+|                    Vibrazione progressiva                   |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### SOS - Form Segnalazione
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                        -----                           | |
+|  |                                                         | |
+|  |  [red] Segnalazione Pericolo Imminente      +50 pts   | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | Descrivi il pericolo...                            | | |
+|  |  |                                                    | | |
+|  |  | Ho notato un cavo elettrico scoperto vicino        | | |
+|  |  | all'area di scarico materiali.                     | | |
+|  |  |                                                    | | |
+|  |  |                                          127/500   | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  Aggiungi foto                                         | |
+|  |  +---------+ +---------+ +---------+                  | |
+|  |  |    +    | |  foto1  | |         |                  | |
+|  |  |  Scatta | |         | |         |                  | |
+|  |  +---------+ +---------+ +---------+                  | |
+|  |                                                         | |
+|  |  Foto + descrizione >50 char = auto-validazione!       | |
+|  |                                                         | |
+|  |  Posizione                                             | |
+|  |  +---------------------------------------------------+ | |
+|  |  | Area B - Zona scarico (rilevata automaticamente)   | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | [ ] Voglio essere ricontattato                     | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |               INVIA SEGNALAZIONE                   | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+**Novita V2:**
+- Punti mostrati nel titolo (+50 pts)
+- Nota auto-validazione (foto + descrizione >50 char)
+
+---
+
+## Punti — Dual Wallet
+
+### Punti Page (V2 — Dual Wallet)
+
+```
++-------------------------------------------------------------+
+|  < >  [gear]                                    [bell] [user]|
+|                                                             |
+|  Punti                                                     |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  I TUOI WALLET                                         | |
+|  |                                                         | |
+|  |  +-------------------------+ +------------------------+ | |
+|  |  |  PUNTI ELMETTO          | | PUNTI WELFARE          | | |
+|  |  |                         | |                        | | |
+|  |  |       1.200             | |       480              | | |
+|  |  |       punti             | |       punti            | | |
+|  |  |                         | |                        | | |
+|  |  |  Valore: ~E3.60        | |  Valore: ~E8.16       | | |
+|  |  |  in sconti             | |  in prodotti gratis    | | |
+|  |  |                         | |                        | | |
+|  |  |  Sempre attivo          | |  Piano M aziendale     | | |
+|  |  +-------------------------+ +------------------------+ | |
+|  |                                                         | |
+|  |  Quest'anno hai risparmiato: E42.30                    | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  LIVELLO                                               | |
+|  |                                                         | |
+|  |  SILVER                                                | |
+|  |  [================............] 1.200/2.000 per Gold   | |
+|  |                                                         | |
+|  |  Bronze < SILVER < Gold < Platinum < Diamond           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  ULTIME TRANSAZIONI                                    | |
+|  |                                                         | |
+|  |  +15  Micro-training completato          Oggi  [elm]   | |
+|  |   +3  Welfare parallelo                  Oggi  [wlf]   | |
+|  |   +5  Check-in benessere                 Oggi  [elm]   | |
+|  |   +1  Welfare parallelo                  Oggi  [wlf]   | |
+|  |  +10  Survey VOW                         Ieri  [elm]   | |
+|  |   +2  Welfare parallelo                  Ieri  [wlf]   | |
+|  | -500  Riscatto cuffie bluetooth        3gg fa  [elm]   | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  COME GUADAGNO PUNTI                                   | |
+|  |                                                         | |
+|  |  Azione               Elmetto   Welfare (Piano M)      | |
+|  |  -------               -------   ----------------      | |
+|  |  Check-in benessere       5         2                   | |
+|  |  Feedback VOW            10         4                   | |
+|  |  Micro-training          15         6                   | |
+|  |  Quiz settimanale        25        10                   | |
+|  |  Segnalazione rischio   35        14                   | |
+|  |  Sfida team             75        30                   | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  STATISTICHE                                           | |
+|  |                                                         | |
+|  |  Ultimi 7 giorni:     +180 Elm.  +72 Wlf.             | |
+|  |  Ultimi 30 giorni:    +720 Elm.  +288 Wlf.            | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |  L   M   M   G   V   S   D                        | | |
+|  |  |  =   =   =   =   =   .   .                        | | |
+|  |  | 45  32  28  40  35  --  --                         | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  CLASSIFICA PUNTI ELMETTO               Vedi tutti     | |
+|  |                                                         | |
+|  |  1. Marco B.      2,450 pts                            | |
+|  |  2. Anna R.       2,120 pts                            | |
+|  |  3. Luca P.       1,980 pts                            | |
+|  |  -> 4. TU         1,850 pts   +2 posizioni             | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +---------------------------+  +-------------------------+ |
+|  |  VAI AL NEGOZIO           |  |  RUOTA FORTUNATA        | |
+|  |                           |  |                         | |
+|  |  Spendi i tuoi            |  |  1 giro gratuito       | |
+|  |  punti!                   |  |  disponibile oggi!      | |
+|  |                           |  |                         | |
+|  |  [Sfoglia catalogo]       |  |  [Gira la ruota!]       | |
+|  +---------------------------+  +-------------------------+ |
+|                                                             |
++-------------------------------------------------------------|
+|   Home    Team    SOS    Punti    Impara                    |
++-------------------------------------------------------------+
+```
+
+**Novita V2:**
+- Due wallet affiancati (Elmetto + Welfare) con valore in EUR
+- Transazioni mostrano quale wallet (tag [elm] / [wlf])
+- Tabella "Come guadagno punti" con parallelo Elmetto/Welfare
+- Statistiche separate per wallet
+- Classifica solo su Punti Elmetto (il welfare non e competitivo)
+- Wallet Welfare nascosto se azienda non ha piano attivo
+
+---
+
+## Ecommerce — Catalogo
+
+### Catalogo Prodotti (Lista)
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                     [cart] (2) |
+|                                                             |
+|  Negozio Vigilo                                            |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  | [search] Cerca prodotti...                              | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Filtri:                                                    |
+|  +------+ +------+ +--------+ +------+ +------+ +------+  |
+|  | Tutti| | Casa | |Abbigl. | | Tech | |Consum| | Sport|  |
+|  +------+ +------+ +--------+ +------+ +------+ +------+  |
+|                                                             |
+|  +------+ +------+                                         |
+|  |Voucher| |Gift  |                                         |
+|  +------+ +------+                                         |
+|                                                             |
+|  Ordina per:                                                |
+|  +-------------+ +------------------+ +-----------------+  |
+|  | Per te      | | Gratis per te    | | Con mio sconto  |  |
+|  | (default)   | | (welfare copre)  | | (Elmetto >10%)  |  |
+|  +-------------+ +------------------+ +-----------------+  |
+|                                                             |
+|  I tuoi wallet:  Elmetto: 1.200  |  Welfare: 480           |
+|                                                             |
+|  124 prodotti                                               |
+|                                                             |
+|  +---------------------------+ +---------------------------+|
+|  | [immagine prodotto]       | | [immagine prodotto]       ||
+|  | +---------+               | |                           ||
+|  | |GRATIS   |               | | +---------+               ||
+|  | |PER TE   |               | | |SCONTATO |               ||
+|  | +---------+               | | +---------+               ||
+|  |                           | |                           ||
+|  | Guanti Sicurezza Pro      | | Borraccia Termica Pro     ||
+|  | Sicurezza                 | | Benessere                 ||
+|  |                           | |                           ||
+|  | E15.00  Tu paghi: GRATIS  | | E30.00  Tu paghi: E24.00 ||
+|  |         (solo spedizione) | |         (sconto 20%)     ||
+|  +---------------------------+ +---------------------------+|
+|                                                             |
+|  +---------------------------+ +---------------------------+|
+|  | [immagine prodotto]       | | [immagine prodotto]       ||
+|  |                           | | +---------+               ||
+|  |                           | | | PROMO   |               ||
+|  |                           | | +---------+               ||
+|  |                           | |                           ||
+|  | Zaino Tecnico Waterproof  | | Cuffie Bluetooth          ||
+|  | Abbigliamento             | | Tecnologia                ||
+|  |                           | |                           ||
+|  | E85.00                    | | E65.00  E45.50 (-30%)     ||
+|  |                           | | Sconto fornitore!         ||
+|  +---------------------------+ +---------------------------+|
+|                                                             |
+|  +---------------------------+ +---------------------------+|
+|  | [immagine prodotto]       | | [immagine prodotto]       ||
+|  |                           | |                           ||
+|  | Voucher Amazon E25        | | Kit Integratori Sport     ||
+|  | Voucher                   | | Consumabili               ||
+|  |                           | |                           ||
+|  | E25.00                    | | E22.00                    ||
+|  | Consegna digitale         | |                           ||
+|  +---------------------------+ +---------------------------+|
+|                                                             |
++-------------------------------------------------------------+
+```
+
+**Note:**
+- Badge "GRATIS PER TE" (verde) se welfare copre tutto il prezzo
+- Badge "SCONTATO" (blu) se ha abbastanza Punti Elmetto per almeno 5%
+- Badge "PROMO" (arancione) se sconto fornitore attivo
+- Prezzo barrato solo se sconto fornitore attivo
+- Filtri per categoria + filtri smart (gratis per te, con mio sconto)
+- Saldo wallet visibile in header catalogo
+- Ordinamento "Per te" = ordina per vantaggio massimo ottenibile
+
+---
+
+## Ecommerce — Card Prodotto
+
+### Scenario 1 — Senza welfare
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                     [cart] (2) |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |              [IMMAGINE PRODOTTO]                        | |
+|  |              < swipe gallery >                          | |
+|  |                                         SCONTATO        | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Borraccia Termica Pro                                     |
+|  Categoria: Benessere                                      |
+|                                                             |
+|  Prezzo: E30.00                                            |
+|                                                             |
+|  -- I tuoi Punti Elmetto ---------------------------       |
+|  Saldo: 1.200 punti                                       |
+|  Usa: [o=================] 1.000 punti                     |
+|  Sconto: -20% (-E6.00)                                    |
+|                                                             |
+|  -------------------------------------------------         |
+|  Tu paghi:                             E24.00              |
+|                                                             |
+|  Spedizione: E5.90 (standard 3-7 gg)                      |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |            Acquista — E29.90                           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Descrizione:                                              |
+|  Borraccia in acciaio inox 750ml, doppia parete,           |
+|  mantiene caldo 12h e freddo 24h. Ideale per cantiere.     |
+|                                                             |
+|  Spedizione: 3-7 giorni lavorativi                         |
+|  Reso: 14 giorni dalla consegna                            |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Scenario 2 — Con welfare (mix punti)
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                     [cart] (2) |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |              [IMMAGINE PRODOTTO]                        | |
+|  |              < swipe gallery >                          | |
+|  |                                                         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Borraccia Termica Pro                                     |
+|  Categoria: Benessere                                      |
+|                                                             |
+|  Prezzo: E30.00                                            |
+|                                                             |
+|  -- Welfare aziendale ----------------------------------   |
+|  Saldo: 480 punti welfare                                  |
+|  Usa welfare: [ON]   -> -E8.00                             |
+|                                                             |
+|  -- I tuoi Punti Elmetto ---------------------------       |
+|  Saldo: 1.200 punti                                       |
+|  Usa: [o=========.........] 500 punti                      |
+|  Sconto: -10% (-E2.20)                                    |
+|                                                             |
+|  -------------------------------------------------         |
+|  Prezzo:                               E30.00              |
+|  Welfare:                              -E8.00              |
+|  Subtotale:                            E22.00              |
+|  Sconto Elmetto (10%):                 -E2.20              |
+|  -------------------------------------------------         |
+|  Tu paghi:                             E19.80              |
+|                                                             |
+|  Spedizione: E5.90 (standard 3-7 gg)                      |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |            Acquista — E25.70                           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Scenario 3 — Gratis (welfare copre tutto)
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                     [cart] (2) |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |              [IMMAGINE PRODOTTO]                        | |
+|  |              < swipe gallery >                          | |
+|  |                                    GRATIS PER TE        | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Guanti Sicurezza Pro                                      |
+|  Categoria: Sicurezza                                      |
+|                                                             |
+|  Prezzo: E15.00                                            |
+|                                                             |
+|  -- Welfare aziendale ----------------------------------   |
+|  Saldo: 480 punti welfare                                  |
+|  Usa welfare: [ON]   -> copre tutto!                       |
+|                                                             |
+|  -------------------------------------------------         |
+|  Prezzo:                               E15.00              |
+|  Welfare:                             -E15.00              |
+|  -------------------------------------------------         |
+|  Tu paghi:                        E0.00 GRATIS             |
+|                                                             |
+|  Spedizione: E5.90 (anche se gratis, la spedizione        |
+|              resta a carico tuo)                           |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |         Riscatta gratis — spedizione E5.90             | |
+|  +-------------------------------------------------------+ |
+|  (tasto verde)                                              |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Scenario 4 — Punti insufficienti (motivazionale)
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                     [cart] (2) |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |              [IMMAGINE PRODOTTO]                        | |
+|  |              < swipe gallery >                          | |
+|  |                                                         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Zaino Tecnico Waterproof                                  |
+|  Categoria: Abbigliamento                                  |
+|                                                             |
+|  Prezzo: E85.00                                            |
+|                                                             |
+|  -- I tuoi Punti Elmetto ---------------------------       |
+|  Saldo: 120 punti                                          |
+|  Ancora 80 punti per il primo sconto! (5% = -E4.25)       |
+|                                                             |
+|  Completa 2 quiz per raggiungerlo!                         |
+|                                                             |
+|  -------------------------------------------------         |
+|  Tu paghi:                             E85.00              |
+|                                                             |
+|  Spedizione: E7.90 (standard 3-7 gg)                      |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |            Acquista — E92.90                           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Oppure paga in 3 rate con Scalapay:                       |
+|  +-------------------------------------------------------+ |
+|  |     3 rate da E31.30/mese (+ interessi)               | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Scenario 5 — Prodotto in promozione (sconto fornitore)
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                     [cart] (2) |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |              [IMMAGINE PRODOTTO]                        | |
+|  |              < swipe gallery >                          | |
+|  |                                         PROMO           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Cuffie Bluetooth Sport                                    |
+|  Categoria: Tecnologia                                     |
+|                                                             |
+|  Prezzo originale: --E65.00--                              |
+|  Prezzo promo:      E45.50    (-30%)                       |
+|                                                             |
+|  -- I tuoi Punti Elmetto ---------------------------       |
+|  Saldo: 1.200 punti                                       |
+|  Usa: [o=========.........] 500 punti                      |
+|  Sconto: -10% (-E4.55)                                    |
+|                                                             |
+|  -------------------------------------------------         |
+|  Prezzo promo:                         E45.50              |
+|  Sconto Elmetto (10%):                 -E4.55              |
+|  -------------------------------------------------         |
+|  Tu paghi:                             E40.95              |
+|                                                             |
+|  Spedizione: E5.90 (standard 3-7 gg)                      |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |            Acquista — E46.85                           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Ecommerce — Checkout
+
+### Checkout Page
+
+```
++-------------------------------------------------------------+
+|  <- Carrello                                                |
+|                                                             |
+|  Checkout                                                  |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  RIEPILOGO ORDINE                                      | |
+|  |                                                         | |
+|  |  [img] Borraccia Termica Pro    x1      E30.00         | |
+|  |  [img] Guanti Sicurezza Pro     x1      E15.00         | |
+|  |                                                         | |
+|  |  Subtotale:                             E45.00         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  PUNTI WELFARE                                         | |
+|  |                                                         | |
+|  |  Saldo disponibile: 480 punti (E8.16)                  | |
+|  |                                                         | |
+|  |  Usa welfare: [ON]                                     | |
+|  |  Valore applicato:                      -E8.16         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  PUNTI ELMETTO                                         | |
+|  |                                                         | |
+|  |  Saldo disponibile: 1.200 punti                        | |
+|  |                                                         | |
+|  |  Usa: [o===========........] 800 punti                  | |
+|  |  Sconto applicato (15%):                -E5.53         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SPEDIZIONE                                            | |
+|  |                                                         | |
+|  |  ( ) Standard (3-7 gg)                   E5.90         | |
+|  |  ( ) Express (1-3 gg)                    E9.90         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  INDIRIZZO DI CONSEGNA                                 | |
+|  |                                                         | |
+|  |  Mario Rossi                                           | |
+|  |  Via Roma 123, 20100 Milano (MI)                       | |
+|  |                                          [Modifica]    | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  METODO DI PAGAMENTO                                   | |
+|  |                                                         | |
+|  |  (o) Carta di credito/debito (Stripe)                  | |
+|  |  ( ) PayPal                                            | |
+|  |  ( ) Scalapay — 3 rate da E10.77 (+ interessi)        | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  RIEPILOGO FINALE                                      | |
+|  |                                                         | |
+|  |  Prodotti:                              E45.00         | |
+|  |  Welfare:                               -E8.16         | |
+|  |  Subtotale:                             E36.84         | |
+|  |  Sconto Elmetto (15%):                  -E5.53         | |
+|  |  Spedizione:                            +E5.90         | |
+|  |  -----------------------------------------------       | |
+|  |  TOTALE:                                E37.21         | |
+|  |                                                         | |
+|  |  L'azienda paga E8.16 (welfare)                        | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |              CONFERMA ORDINE — E37.21                  | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+**Note:**
+- Ordine applicazione: prima welfare (EUR), poi Elmetto (%) sul resto
+- BNPL (Scalapay) visibile solo se totale >E50
+- Spedizione sempre presente, anche con riscatto gratis
+- L'importo welfare pagato dall'azienda e mostrato in fondo
+
+---
+
+## Ecommerce — Ordini e Tracking
+
+### I miei ordini
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                                |
+|                                                             |
+|  I miei ordini                                             |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  Ordine #VIG-2026-0042             15/01/2026          | |
+|  |                                                         | |
+|  |  [img] Borraccia Termica Pro                           | |
+|  |  [img] Guanti Sicurezza Pro                            | |
+|  |                                                         | |
+|  |  Totale: E37.21 (+ E8.16 welfare)                      | |
+|  |                                                         | |
+|  |  Stato: [green] SPEDITO                                | |
+|  |         Tracking: BRT 12345678                         | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |              TRACCIA SPEDIZIONE                    | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  Ordine #VIG-2026-0038             10/01/2026          | |
+|  |                                                         | |
+|  |  [img] Voucher Amazon E25                              | |
+|  |                                                         | |
+|  |  Totale: E25.00                                        | |
+|  |                                                         | |
+|  |  Stato: [green] CONSEGNATO                             | |
+|  |         Codice: AXYZ-1234-5678                         | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |              VEDI CODICE VOUCHER                   | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  Ordine #VIG-2026-0035             05/01/2026          | |
+|  |                                                         | |
+|  |  [img] Cuffie Bluetooth Sport                          | |
+|  |                                                         | |
+|  |  Totale: E46.85                                        | |
+|  |                                                         | |
+|  |  Stato: [green] CONSEGNATO                             | |
+|  |         Come valuti il prodotto?                       | |
+|  |         [1] [2] [3] [4] [5] stelle                    | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Dettaglio Tracking
+
+```
++-------------------------------------------------------------+
+|  <- I miei ordini                                           |
+|                                                             |
+|  Ordine #VIG-2026-0042                                     |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  STATO SPEDIZIONE                                      | |
+|  |                                                         | |
+|  |  [v]--[v]--[v]--(o)--( )                               | |
+|  |   |    |    |    |    |                                 | |
+|  |  Conf. Prep. Sped. Trans. Cons.                        | |
+|  |                                                         | |
+|  |  In transito — Arrivo stimato: 18/01                   | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  DETTAGLIO TRACKING                                    | |
+|  |                                                         | |
+|  |  17/01  14:30  In transito - Hub Milano                | |
+|  |  16/01  22:00  Partito da magazzino fornitore          | |
+|  |  16/01  10:00  Pacco ritirato dal corriere             | |
+|  |  15/01  18:00  Ordine inoltrato al fornitore           | |
+|  |  15/01  17:45  Pagamento confermato                    | |
+|  |  15/01  17:44  Ordine creato                           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  DETTAGLIO ORDINE                                      | |
+|  |                                                         | |
+|  |  [img] Borraccia Termica Pro    x1      E30.00         | |
+|  |  [img] Guanti Sicurezza Pro     x1      E15.00         | |
+|  |                                                         | |
+|  |  Prodotti:                              E45.00         | |
+|  |  Welfare applicato:                     -E8.16         | |
+|  |  Sconto Elmetto (15%):                  -E5.53         | |
+|  |  Spedizione:                            +E5.90         | |
+|  |  -----------------------------------------------       | |
+|  |  Pagato da te:                          E37.21         | |
+|  |  Pagato dall'azienda (welfare):          E8.16         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Corriere: BRT                                             |
+|  Tracking: 12345678                                        |
+|  +-------------------------------------------------------+ |
+|  |         APRI TRACKING SUL SITO BRT                    | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Hai un problema con l'ordine?                             |
+|  +-------------------------------------------------------+ |
+|  |         CONTATTA SUPPORTO                             | |
+|  +-------------------------------------------------------+ |
+|  +-------------------------------------------------------+ |
+|  |         RICHIEDI RESO                                 | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Voucher Riscattato
+
+```
++-------------------------------------------------------------+
+|  <- I miei ordini                                           |
+|                                                             |
+|  Voucher Amazon                                            |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |              [LOGO AMAZON]                              | |
+|  |                                                         | |
+|  |              VOUCHER E25.00                             | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |                                                    | | |
+|  |  |           AXYZ-1234-5678-ABCD                      | | |
+|  |  |                                                    | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  [Copia codice]        [Condividi]                     | |
+|  |                                                         | |
+|  |  Valido fino al: 31/12/2026                            | |
+|  |  Utilizzabile su: amazon.it                            | |
+|  |                                                         | |
+|  |  Stato: Non ancora utilizzato                          | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Acquistato il: 10/01/2026                                 |
+|  Pagato: E25.00 (carta)                                    |
+|  Punti Elmetto usati: 500 (-10% = -E2.50)                 |
+|  Totale pagato: E22.50                                     |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Impara
+
+### Impara Page (V2)
+
+```
++-------------------------------------------------------------+
+|  < >  [gear]                                    [bell] [user]|
+|                                                             |
+|  Impara                                                    |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  DA COMPLETARE OGGI                                    | |
+|  |                                                         | |
+|  |  [ ] Quiz: Sicurezza DPI        10 min   +25 pts Elm.  | |
+|  |                                           +10 pts Wlf.  | |
+|  |  [ ] Video: Procedure emergenza  15 min   +15 pts Elm.  | |
+|  |                                            +6 pts Wlf.  | |
+|  |                                                         | |
+|  |  Completa tutto per bonus giornaliero: +20 pts Elm.     | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  MICRO-TRAINING GIORNALIERO             +15 pts Elm.   | |
+|  |                                          +6 pts Wlf.   | |
+|  |                                                         | |
+|  |  "5 regole per sollevare carichi in sicurezza"          | |
+|  |  Video 4:30 min                                        | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |              GUARDA ORA                            | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  LIBRERIA CONTENUTI                      Vedi tutti    | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | Uso corretto imbracatura                           | | |
+|  |  | Video - 12 min - DPI - Obbligatorio                | | |
+|  |  | [============........] 60%          [>] Continua   | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | Manuale sicurezza cantiere                         | | |
+|  |  | PDF - 25 pagine - Procedure                        | | |
+|  |  | [====================] 100%         [v] Completato | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | Quiz primo soccorso                    +25 pts Elm.| | |
+|  |  | Quiz - 15 domande - Emergenze                      | | |
+|  |  | Non iniziato                          [>] Inizia   | | |
+|  |  +---------------------------------------------------+ | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  IL MIO PROGRESSO                                      | |
+|  |                                                         | |
+|  |  Corsi completati:    8/12                             | |
+|  |  [========================........] 67%                | |
+|  |                                                         | |
+|  |  Quiz superati:       5/6                              | |
+|  |  Certificati attivi:  3                                | |
+|  |  Punti formazione questo mese:  +450 Elm.  +180 Wlf.  | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  CONSIGLIATI PER TE                                    | |
+|  |                                                         | |
+|  |  Aggiornamento D.Lgs. 81/2008                         | |
+|  |  Scade tra 30 giorni - Obbligatorio        +50 pts    | |
+|  |                                                         | |
+|  |  Nuove procedure Area B                               | |
+|  |  Nuovo contenuto - Consigliato             +15 pts    | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  I MIEI CERTIFICATI                      Vedi tutti    | |
+|  |                                                         | |
+|  |  [v] Formazione Generale           Scade: 12/2028     | |
+|  |  [v] Formazione Specifica          Scade: 06/2026     | |
+|  |  [!] Primo Soccorso                Scade: 02/2026     | |
+|  |      Rinnova adesso (+30 pts Elm. bonus anticipo!)     | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------|
+|   Home    Team    SOS    Punti    Impara                    |
++-------------------------------------------------------------+
+```
+
+**Novita V2:**
+- Punti Elmetto + Welfare mostrati per ogni contenuto
+- Micro-training giornaliero in evidenza
+- Rinnovo anticipato certificazioni mostra bonus punti
+- Progresso mostra punti separati (Elm. + Wlf.)
+
+### Quiz Page
+
+```
++-------------------------------------------------------------+
+|  X Esci                                    Domanda 5/15    |
+|                                                             |
+|  [============================..................] 33%        |
+|                                                             |
+|-------------------------------------------------------------|
+|                                                             |
+|  Quiz: Primo Soccorso                          +25 pts     |
+|                                                             |
+|  Domanda 5:                                                |
+|                                                             |
+|  In caso di arresto cardiaco, qual e la sequenza           |
+|  corretta delle operazioni da eseguire?                    |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  A) Chiamare il 118, iniziare RCP, usare DAE          | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  B) Usare DAE, chiamare 118, iniziare RCP  [selected] | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  C) Iniziare RCP, chiamare 118, usare DAE             | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  D) Chiamare familiari, iniziare RCP, usare DAE       | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|                                                             |
+|  +---------------+                  +-------------------+  |
+|  |   <- INDIETRO |                  |     AVANTI ->     |  |
+|  +---------------+                  +-------------------+  |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Quiz - Risultato
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|                                                             |
+|                    QUIZ COMPLETATO!                         |
+|                                                             |
+|              +-------------------------+                    |
+|              |                         |                    |
+|              |          85%            |                    |
+|              |                         |                    |
+|              |     13/15 corrette      |                    |
+|              |                         |                    |
+|              +-------------------------+                    |
+|                                                             |
+|                    SUPERATO!                                |
+|                  (minimo richiesto: 70%)                    |
+|                                                             |
+|              +-------------------------+                    |
+|              |   +25 PUNTI ELMETTO     |                    |
+|              |   +10 PUNTI WELFARE     |                    |
+|              |   +10 BONUS (score>80%) |                    |
+|              +-------------------------+                    |
+|                                                             |
+|  Riepilogo:                                                |
+|  - Risposte corrette: 13                                   |
+|  - Risposte errate: 2                                      |
+|  - Tempo impiegato: 8 min 32 sec                           |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                TORNA ALLA LIBRERIA                     | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |              RIVEDI RISPOSTE ERRATE                    | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+**Novita V2:**
+- Risultato mostra Punti Elmetto + Punti Welfare + bonus separati
+
+---
+
+## Scoring — Check-in e Survey
+
+### Check-in Benessere
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                        -----                           | |
+|  |                                                         | |
+|  |  Come ti senti oggi?                         +5 pts   | |
+|  |                                                         | |
+|  |  +----------+ +----------+ +----------+               | |
+|  |  |          | |          | |          |               | |
+|  |  |   :D     | |   :)     | |   :|     |               | |
+|  |  |  Ottimo  | |  Bene    | |Cosi-cosi |               | |
+|  |  |          | |          | |          |               | |
+|  |  +----------+ +----------+ +----------+               | |
+|  |                                                         | |
+|  |  +----------+ +----------+                             | |
+|  |  |          | |          |                             | |
+|  |  |   :(     | |   >:(    |                             | |
+|  |  | Non bene | |Pessimo   |                             | |
+|  |  |          | |          |                             | |
+|  |  +----------+ +----------+                             | |
+|  |                                                         | |
+|  |  Note (opzionale):                                     | |
+|  |  +---------------------------------------------------+ | |
+|  |  | Oggi fa molto caldo, fatica a concentrarmi...      | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  |              INVIA CHECK-IN                        | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  Max 1 check-in al giorno. Dati anonimi e aggregati.   | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Survey VOW (Fine Turno)
+
+```
++-------------------------------------------------------------+
+|  X Chiudi                                        3/5       |
+|                                                             |
+|  Survey Fine Turno                              +10 pts    |
+|  [============............] Domanda 3 di 5                 |
+|-------------------------------------------------------------|
+|                                                             |
+|  Ti sei sentito sicuro oggi?                               |
+|                                                             |
+|  +----+ +----+ +----+ +----+ +----+                       |
+|  | 1  | | 2  | | 3  | | 4  | | 5  |                       |
+|  |Per | |    | |    | |    | |Molto|                       |
+|  |niente|    | |    | |    | |    |                       |
+|  +----+ +----+ +----+ +----+ +----+                       |
+|                                                             |
+|                                                             |
+|  Hai avuto abbastanza pause?                               |
+|                                                             |
+|  +----+ +----+ +----+ +----+ +----+                       |
+|  | 1  | | 2  | | 3  | | 4  | | 5  |                       |
+|  +----+ +----+ +----+ +----+ +----+                       |
+|                                                             |
+|                                                             |
+|  C'e stato qualcosa di pericoloso?                         |
+|                                                             |
+|  ( ) No, tutto bene                                        |
+|  ( ) Si, ma gestito                                        |
+|  ( ) Si, non gestito (segnala!)                            |
+|                                                             |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                    AVANTI ->                           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Disponibile solo nelle ultime 2h turno + 1h dopo.         |
+|  Le risposte sono anonime.                                 |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Scoring — Segnalazione Rischio
+
+### Conferma Segnalazione Inviata
+
+```
++-------------------------------------------------------------+
+|                                                             |
+|                                                             |
+|                                                             |
+|                    SEGNALAZIONE INVIATA!                    |
+|                                                             |
+|              +-------------------------+                    |
+|              |                         |                    |
+|              |      +50 PUNTI          |                    |
+|              |      ELMETTO            |                    |
+|              |                         |                    |
+|              |      +20 PUNTI          |                    |
+|              |      WELFARE            |                    |
+|              |                         |                    |
+|              +-------------------------+                    |
+|                                                             |
+|  Stato: Auto-validata                                      |
+|  (foto + descrizione >50 caratteri)                        |
+|                                                             |
+|  Il tuo trust level: AFFIDABILE                            |
+|  Segnalazioni validate: 12/13 (92%)                        |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                TORNA ALLA HOME                         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |              NUOVA SEGNALAZIONE                        | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Scoring — Streak e Sfide
+
+### Streak Dettaglio
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                                |
+|                                                             |
+|  Il tuo Streak                                             |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |  GIORNO 12 CONSECUTIVO!                                | |
+|  |                                                         | |
+|  |  Bonus attuale: +15 punti/azione                       | |
+|  |                                                         | |
+|  |  +---------------------------------------------------+ | |
+|  |  | Livello      | Giorni  | Bonus   | Stato           | | |
+|  |  |--------------|---------|---------|---------------| | |
+|  |  | Starter      | 1-7     | +5/az   | [v] Completato| | |
+|  |  | Costante     | 8-14    | +10/az  | [v] Completato| | |
+|  |  | Dedicato     | 15-21   | +15/az  | <- QUI (gg 12)| | |
+|  |  | Esperto      | 22-29   | +20/az  | [locked]      | | |
+|  |  | Campione     | 30+     | +25/az  | [locked]      | | |
+|  |  +---------------------------------------------------+ | |
+|  |                                                         | |
+|  |  Prossimo livello tra 3 giorni!                         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  CALENDARIO STREAK                                     | |
+|  |                                                         | |
+|  |  Gen 2026                                              | |
+|  |  L   M   M   G   V   S   D                            | |
+|  |           1   2   3   4   5                            | |
+|  |  [v] [v] [v] [v] [v] [-] [-]                          | |
+|  |  [v] [v] [v] [v] [v] [-] [-]                          | |
+|  |  [v] [v] [o] .   .   .   .                            | |
+|  |                                                         | |
+|  |  [v] = azione completata                               | |
+|  |  [o] = oggi (in corso)                                 | |
+|  |  [-] = weekend (non conta)                             | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  Requisito: almeno 1 azione sostanziale al giorno          |
+|  (non solo like). Reset a 0 se salti un giorno lavorativo. |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+### Sfida Team Dettaglio
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                                |
+|                                                             |
+|  Sfida Team                                                |
+|-------------------------------------------------------------|
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  "SETTIMANA ZERO INFORTUNI"                            | |
+|  |                                                         | |
+|  |  Obiettivo: 7 giorni senza infortuni nel team          | |
+|  |  Durata: 13/01 - 19/01                                | |
+|  |  Premio: +100 Punti Elmetto per membro                 | |
+|  |          +40 Punti Welfare per membro                   | |
+|  |                                                         | |
+|  |  [==========================........] Giorno 5/7       | |
+|  |                                                         | |
+|  |  Team Alfa - 15 membri                                 | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  CLASSIFICA CONTRIBUTI                                 | |
+|  |                                                         | |
+|  |  1. Marco B.      5 check-in, 2 segnalazioni          | |
+|  |  2. Anna R.       5 check-in, 1 segnalazione          | |
+|  |  3. TU (Mario)    4 check-in, 1 segnalazione          | |
+|  |  4. Luca P.       3 check-in                          | |
+|  |  ...                                                   | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SFIDE PASSATE                                         | |
+|  |                                                         | |
+|  |  [v] "100% Check-in"   06-12/01   VINTA!  +75 pts     | |
+|  |  [x] "Quiz perfetto"   30-05/01   Persa   58%         | |
+|  |  [v] "Social week"     23-29/12   VINTA!  +50 pts     | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Profilo e Settings
+
+### Profilo Utente
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                                    [edit]      |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |                                                         | |
+|  |         +--------+                                      | |
+|  |         | Avatar |                                      | |
+|  |         +--------+                                      | |
+|  |                                                         | |
+|  |  Mario Rossi                                           | |
+|  |  Operaio specializzato                                 | |
+|  |  EdilPro S.r.l.                                        | |
+|  |  Cantiere Milano Nord                                  | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  I MIEI WALLET                                         | |
+|  |                                                         | |
+|  |  Punti Elmetto:   1.200     Livello: SILVER            | |
+|  |  Punti Welfare:     480     Piano: M                   | |
+|  |  Risparmiato:    E42.30     quest'anno                 | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SAFETY STATS                                          | |
+|  |                                                         | |
+|  |  Safety Score:      85/100                             | |
+|  |  Segnalazioni:      13  (92% validate)                | |
+|  |  Trust level:       AFFIDABILE                         | |
+|  |  Streak attuale:    12 giorni                          | |
+|  |  Streak record:     23 giorni                          | |
+|  |  Sfide vinte:       8/12                               | |
+|  |  Nomination ricevute: 5                                | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  CERTIFICAZIONI                                        | |
+|  |                                                         | |
+|  |  [v] Formazione Generale            12/2028            | |
+|  |  [v] Formazione Specifica           06/2026            | |
+|  |  [!] Primo Soccorso                 02/2026            | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  IMPOSTAZIONI                                          | |
+|  |                                                         | |
+|  |  Notifiche push                            [ON]        | |
+|  |  Lingua                                    Italiano    | |
+|  |  Tema                                      Auto        | |
+|  |  Indirizzo spedizione                      [>]         | |
+|  |  Contatti emergenza                        [>]         | |
+|  |  Privacy e dati                            [>]         | |
+|  |  Esci                                      [>]         | |
+|  +-------------------------------------------------------+ |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Notifiche
+
+### Centro Notifiche
+
+```
++-------------------------------------------------------------+
+|  <- Indietro                              Segna tutte lette |
+|                                                             |
+|  Notifiche                                                 |
+|-------------------------------------------------------------|
+|                                                             |
+|  OGGI                                                      |
+|                                                             |
+|  [o] Il tuo ordine e stato spedito!          14:30         |
+|      Borraccia Termica - Traccia qui                       |
+|                                                             |
+|  [o] +15 Punti Elmetto guadagnati!           10:15         |
+|      Micro-training completato                             |
+|                                                             |
+|  [o] Sfida "Zero Infortuni" - Giorno 5!     09:00         |
+|      Ancora 2 giorni per vincere +100 pts                  |
+|                                                             |
+|  IERI                                                      |
+|                                                             |
+|  [ ] Marco ti ha nominato Safety Star!       16:30         |
+|      +25 Punti Elmetto ricevuti                            |
+|                                                             |
+|  [ ] Segnalazione validata                   11:00         |
+|      "Cavo scoperto Area B" - +50 pts Elm.                 |
+|                                                             |
+|  [ ] Nuovo prodotto nel negozio!             09:00         |
+|      Cuffie Bluetooth in promozione -30%                   |
+|                                                             |
+|  QUESTA SETTIMANA                                          |
+|                                                             |
+|  [ ] Quiz settimanale disponibile            Lun 09:00     |
+|      Argomento: DPI - Guadagna +25 pts                     |
+|                                                             |
+|  [ ] Certificato in scadenza!                Lun 08:00     |
+|      Primo Soccorso scade il 28/02. Rinnova!               |
+|                                                             |
+|  [ ] Consegnato! Come valuti il prodotto?    Dom 14:00     |
+|      Cuffie Bluetooth Sport                                |
+|                                                             |
++-------------------------------------------------------------+
+```
+
+---
+
+## Appendice: Componenti UI
+
+### Palette Colori
+
+| Colore              | Hex       | Uso                           |
+|---------------------|-----------|-------------------------------|
+| **Primary** (Giallo)| `#FFB800` | Attenzione, azioni principali |
+| **Secondary** (Verde)| `#2E7D32`| Sicurezza, conferme, GRATIS   |
+| **Tertiary** (Blu)  | `#1565C0` | Informazioni, SCONTATO        |
+| **Warning** (Arancione)| `#FF6D00`| Avvertenze, PROMO          |
+| **Danger** (Rosso)  | `#D32F2F` | SOS, errori, pericolo         |
+| **Elmetto** (Ambra) | `#FF8F00` | Badge/tag Punti Elmetto       |
+| **Welfare** (Teal)  | `#00897B` | Badge/tag Punti Welfare       |
+| **Neutral** (Grigio)| `#757575` | Disabilitato                  |
+
+### Tipografia
+
+| Elemento       | Font Size | Weight   |
+|----------------|-----------|----------|
+| Titolo pagina  | 24sp      | Bold     |
+| Titolo card    | 18sp      | SemiBold |
+| Prezzo grande  | 22sp      | Bold     |
+| Prezzo barrato | 16sp      | Regular  |
+| Body           | 14sp      | Regular  |
+| Caption        | 12sp      | Regular  |
+| Button         | 14sp      | Medium   |
+| Badge          | 11sp      | SemiBold |
+
+### Spaziature
+
+| Elemento            | Valore |
+|---------------------|--------|
+| Padding pagina      | 16dp   |
+| Gap tra cards       | 16dp   |
+| Padding interno card| 16dp   |
+| Border radius card  | 16dp   |
+| Border radius button| 8dp    |
+| Border radius badge | 8dp    |
+
+### Badge prodotto
+
+| Badge           | Colore fondo | Colore testo | Condizione                          |
+|-----------------|-------------|-------------|--------------------------------------|
+| GRATIS PER TE   | #2E7D32     | white       | Welfare copre 100% prezzo prodotto   |
+| SCONTATO        | #1565C0     | white       | Punti Elmetto sufficienti per >=5%   |
+| PROMO           | #FF6D00     | white       | Sconto fornitore attivo              |
+
+### Icone
+
+| Categoria  | Stile               |
+|------------|---------------------|
+| Navigation | Material Rounded    |
+| Status     | Material Symbols    |
+| Actions    | Material Outlined   |
+| Wallet     | Custom (elmetto/W)  |
+
+---
+
+## Changelog
+
+| Data    | Versione | Modifiche                                                            |
+|---------|----------|----------------------------------------------------------------------|
+| 2025-01 | 1.0      | Wireframe iniziali app Vigilo                                        |
+| 2026-01 | 2.0      | V2: dual wallet, ecommerce completo, scoring con punti visibili,     |
+|         |          | checkout con welfare+elmetto, tracking ordini, voucher, promozioni,  |
+|         |          | streak dettaglio, sfide team, check-in/survey, notifiche, profilo    |
+
+---
+
+*Documento di riferimento per lo sviluppo UI Vigilo V2*
