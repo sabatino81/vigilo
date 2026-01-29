@@ -2,17 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
+import 'package:vigilo/features/shop/presentation/pages/shop_page.dart';
 import 'package:vigilo/features/punti/domain/models/leaderboard_entry.dart';
 import 'package:vigilo/features/punti/domain/models/points_stats.dart';
 import 'package:vigilo/features/punti/domain/models/points_transaction.dart';
 import 'package:vigilo/features/punti/domain/models/reward.dart';
+import 'package:vigilo/features/punti/domain/models/wallet_type.dart';
 import 'package:vigilo/features/punti/presentation/pages/rewards_catalog_sheet.dart';
 import 'package:vigilo/features/punti/presentation/pages/spin_wheel_page.dart';
+import 'package:vigilo/features/punti/presentation/widgets/dual_wallet_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/instant_win_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/leaderboard_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/points_stats_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/rewards_catalog_preview.dart';
-import 'package:vigilo/features/punti/presentation/widgets/wallet_card.dart';
 
 /// Pagina principale Punti
 class PuntiPage extends StatefulWidget {
@@ -24,11 +28,12 @@ class PuntiPage extends StatefulWidget {
 
 class _PuntiPageState extends State<PuntiPage> {
   // Mock data - in produzione verrebbe da un repository/provider
-  int _totalPoints = 1320;
+  DualWallet _dualWallet = DualWallet.mockWallet();
   bool _hasSpinAvailable = true;
 
+  int get _totalPoints => _dualWallet.puntiElmetto;
+
   // Mock data usando i metodi statici dei modelli
-  List<PointsTransaction> _transactions = PointsTransaction.mockTransactions();
   final List<Reward> _rewards = Reward.mockRewards();
   final List<LeaderboardEntry> _leaderboard =
       LeaderboardEntry.mockLeaderboard();
@@ -59,19 +64,25 @@ class _PuntiPageState extends State<PuntiPage> {
 
     if (wonPoints != null && wonPoints > 0) {
       setState(() {
-        _totalPoints += wonPoints;
         _hasSpinAvailable = false;
-        // Aggiungi transazione
-        _transactions = [
-          PointsTransaction(
-            id: DateTime.now().millisecondsSinceEpoch.toString(),
-            description: 'Bonus Gira la Ruota',
-            amount: wonPoints,
-            type: TransactionType.bonus,
-            createdAt: DateTime.now(),
-          ),
-          ..._transactions,
-        ];
+        // Aggiorna dual wallet con nuovi punti e transazione
+        final newTransaction = PointsTransaction(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          description: 'Bonus Gira la Ruota',
+          amount: wonPoints,
+          type: TransactionType.bonus,
+          createdAt: DateTime.now(),
+          walletType: WalletType.elmetto,
+        );
+        _dualWallet = DualWallet(
+          puntiElmetto: _dualWallet.puntiElmetto + wonPoints,
+          welfarePlan: _dualWallet.welfarePlan,
+          elmettoTransactions: [
+            newTransaction,
+            ..._dualWallet.elmettoTransactions,
+          ],
+          welfareTransactions: _dualWallet.welfareTransactions,
+        );
         // Aggiorna stats
         _stats = PointsStats(
           totalPoints: _totalPoints,
@@ -103,10 +114,17 @@ class _PuntiPageState extends State<PuntiPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Wallet Card
-              WalletCard(
-                totalPoints: _totalPoints,
-                transactions: _transactions,
+              // Dual Wallet Card
+              DualWalletCard(wallet: _dualWallet),
+              const SizedBox(height: 16),
+
+              // Shop entry point
+              _ShopEntryCard(
+                onTap: () => Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const ShopPage(),
+                  ),
+                ),
               ),
               const SizedBox(height: 16),
 
@@ -134,6 +152,88 @@ class _PuntiPageState extends State<PuntiPage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ShopEntryCard extends StatelessWidget {
+  const _ShopEntryCard({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    AppTheme.ambra.withValues(alpha: 0.15),
+                    AppTheme.teal.withValues(alpha: 0.15),
+                  ]
+                : [
+                    AppTheme.ambra.withValues(alpha: 0.1),
+                    AppTheme.teal.withValues(alpha: 0.1),
+                  ],
+          ),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: AppTheme.ambra.withValues(alpha: 0.2),
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppTheme.ambra.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.storefront_rounded,
+                color: AppTheme.ambra,
+                size: 24,
+              ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Spaccio Aziendale',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      color: isDark ? Colors.white : Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Il tuo negozio riservato: sconti e prodotti gratis',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isDark ? Colors.white54 : Colors.black45,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 16,
+              color: isDark ? Colors.white38 : Colors.black26,
+            ),
+          ],
         ),
       ),
     );

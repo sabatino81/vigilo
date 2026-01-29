@@ -1,6 +1,6 @@
 # Vigilo - Wireframe V2
 
-> Schermate aggiornate con dual wallet (Punti Elmetto + Punti Welfare), ecommerce dropshipping, scoring model e nuove funzionalita
+> Schermate aggiornate con dual wallet (Punti Elmetto + Punti Welfare), Spaccio Aziendale (ecommerce dropshipping), scoring model e nuove funzionalita
 
 ---
 
@@ -12,10 +12,10 @@
 4. [Team](#team)
 5. [SOS](#sos)
 6. [Punti — Dual Wallet](#punti--dual-wallet)
-7. [Ecommerce — Catalogo](#ecommerce--catalogo)
-8. [Ecommerce — Card Prodotto](#ecommerce--card-prodotto)
-9. [Ecommerce — Checkout](#ecommerce--checkout)
-10. [Ecommerce — Ordini e Tracking](#ecommerce--ordini-e-tracking)
+7. [Spaccio Aziendale — Catalogo](#spaccio-aziendale--catalogo)
+8. [Spaccio Aziendale — Card Prodotto](#spaccio-aziendale--card-prodotto)
+9. [Spaccio Aziendale — Checkout](#spaccio-aziendale--checkout)
+10. [Spaccio Aziendale — Ordini e Tracking](#spaccio-aziendale--ordini-e-tracking)
 11. [Impara](#impara)
 12. [Scoring — Check-in e Survey](#scoring--check-in-e-survey)
 13. [Scoring — Segnalazione Rischio](#scoring--segnalazione-rischio)
@@ -597,7 +597,7 @@
 
 ---
 
-## Ecommerce — Catalogo
+## Spaccio Aziendale — Catalogo
 
 ### Catalogo Prodotti (Lista)
 
@@ -682,7 +682,7 @@
 
 ---
 
-## Ecommerce — Card Prodotto
+## Spaccio Aziendale — Card Prodotto
 
 ### Scenario 1 — Senza welfare
 
@@ -891,7 +891,7 @@
 
 ---
 
-## Ecommerce — Checkout
+## Spaccio Aziendale — Checkout
 
 ### Checkout Page
 
@@ -981,7 +981,7 @@
 
 ---
 
-## Ecommerce — Ordini e Tracking
+## Spaccio Aziendale — Ordini e Tracking
 
 ### I miei ordini
 
@@ -1722,7 +1722,7 @@
 | Data    | Versione | Modifiche                                                            |
 |---------|----------|----------------------------------------------------------------------|
 | 2025-01 | 1.0      | Wireframe iniziali app Vigilo                                        |
-| 2026-01 | 2.0      | V2: dual wallet, ecommerce completo, scoring con punti visibili,     |
+| 2026-01 | 2.0      | V2: dual wallet, Spaccio Aziendale completo, scoring con punti visibili, |
 |         |          | checkout con welfare+elmetto, tracking ordini, voucher, promozioni,  |
 |         |          | streak dettaglio, sfide team, check-in/survey, notifiche, profilo    |
 

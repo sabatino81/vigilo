@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/sos/domain/models/report_type.dart';
+import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
 /// Bottom sheet per creare una nuova segnalazione
 class ReportFormSheet extends StatefulWidget {
@@ -57,6 +58,15 @@ class _ReportFormSheetState extends State<ReportFormSheet> {
         '${DateTime.now().millisecondsSinceEpoch % 100000}';
 
     setState(() => _isSubmitting = false);
+
+    // Feedback punti guadagnati
+    if (mounted) {
+      PointsEarnedSnackbar.show(
+        context,
+        points: 30,
+        action: 'Segnalazione sicurezza',
+      );
+    }
 
     // Mostra conferma
     await _showSuccessDialog(reportCode);

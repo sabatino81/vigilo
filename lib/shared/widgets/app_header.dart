@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/notifications/presentation/pages/notifications_page.dart';
+import 'package:vigilo/features/profile/presentation/pages/profile_page.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 import 'package:vigilo/providers/locale_provider.dart';
 import 'package:vigilo/providers/theme_provider.dart';
@@ -24,27 +26,37 @@ class AppHeader extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          // Avatar with gradient border
-          Container(
-            padding: const EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  AppTheme.primary,
-                  AppTheme.secondary,
-                ],
+          // Avatar with gradient border -> navigate to profile
+          GestureDetector(
+            onTap: () {
+              HapticFeedback.lightImpact();
+              Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (_) => const ProfilePage(),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    AppTheme.primary,
+                    AppTheme.secondary,
+                  ],
+                ),
               ),
-            ),
-            child: CircleAvatar(
-              radius: 22,
-              backgroundColor: theme.colorScheme.surface,
-              child: const Icon(
-                Icons.person_rounded,
-                color: AppTheme.primary,
-                size: 26,
+              child: CircleAvatar(
+                radius: 22,
+                backgroundColor: theme.colorScheme.surface,
+                child: const Icon(
+                  Icons.person_rounded,
+                  color: AppTheme.primary,
+                  size: 26,
+                ),
               ),
             ),
           ),
@@ -72,11 +84,17 @@ class AppHeader extends ConsumerWidget {
               ],
             ),
           ),
-          // Notification button with glassmorphism
+          // Notification button -> navigate to notifications
           _GlassIconButton(
             icon: Icons.notifications_outlined,
             badgeCount: 3,
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (_) => const NotificationsPage(),
+                ),
+              );
+            },
             isDark: isDark,
           ),
           const SizedBox(width: 8),

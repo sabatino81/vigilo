@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
 /// Card per la verifica dell'accesso al cantiere secondo D.Lgs. 81/2008
 /// Mostra stato accesso, DPI rilevati, e documenti obbligatori
@@ -196,12 +197,10 @@ class SiteAccessCard extends ConsumerWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // TODO: Avviare procedura accesso cantiere
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Procedura accesso cantiere avviata...'),
-                      duration: Duration(seconds: 2),
-                    ),
+                  PointsEarnedSnackbar.show(
+                    context,
+                    points: 5,
+                    action: 'Accesso cantiere',
                   );
                 },
                 style: ElevatedButton.styleFrom(

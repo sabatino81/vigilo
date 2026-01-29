@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/team/presentation/pages/vow_survey_page.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 
 class VowSurveyCard extends StatefulWidget {
@@ -207,6 +208,11 @@ class _VowSurveyCardState extends State<VowSurveyCard> {
             child: FilledButton.icon(
               onPressed: () {
                 HapticFeedback.lightImpact();
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute(
+                    builder: (_) => const VowSurveyPage(),
+                  ),
+                );
               },
               icon: const Icon(Icons.send_rounded, size: 20),
               label: Text(l10n?.submitSurvey ?? 'Invia sondaggio'),

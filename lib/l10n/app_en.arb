@@ -427,5 +427,255 @@
   "imparaDurationHours": "{hours}h {minutes}m",
   "@imparaDurationHours": {
     "placeholders": { "hours": {}, "minutes": {} }
-  }
+  },
+
+  "walletTitle": "WALLET",
+  "walletElmetto": "Helmet Points",
+  "walletWelfare": "Welfare Points",
+  "walletElmettoShort": "Helmet",
+  "walletWelfareShort": "Welfare",
+  "walletConversionInfo": "{rate} Helmet = 1 EUR  |  Max {percent}% discount",
+  "@walletConversionInfo": {
+    "placeholders": { "rate": {}, "percent": {} }
+  },
+  "walletBudgetMonthly": "Monthly Welfare Budget",
+  "walletBudgetUsed": "{used} / {total} EUR",
+  "@walletBudgetUsed": {
+    "placeholders": { "used": {}, "total": {} }
+  },
+  "walletLevel": "Level {level}",
+  "@walletLevel": {
+    "placeholders": { "level": {} }
+  },
+  "walletNextLevel": "Next: {level} ({points} pt)",
+  "@walletNextLevel": {
+    "placeholders": { "level": {}, "points": {} }
+  },
+  "walletRecentMoves": "Recent transactions",
+  "walletViewAll": "View all",
+  "walletElmettoValue": "= {value} EUR",
+  "@walletElmettoValue": {
+    "placeholders": { "value": {} }
+  },
+  "welfarePlanSmall": "Plan S",
+  "welfarePlanMedium": "Plan M",
+  "welfarePlanLarge": "Plan L",
+  "welfarePlanBudget": "{amount} EUR/month",
+  "@welfarePlanBudget": {
+    "placeholders": { "amount": {} }
+  },
+  "welfareRemaining": "{amount} EUR remaining",
+  "@welfareRemaining": {
+    "placeholders": { "amount": {} }
+  },
+
+  "shopTitle": "Company Store",
+  "shopVigiloTitle": "Company Store",
+  "shopVigiloSubtitle": "Your exclusive store: discounts and free products with your points",
+  "shopSearchHint": "Search products...",
+  "shopCategoryAll": "All",
+  "shopProductCount": "{count} products",
+  "@shopProductCount": {
+    "placeholders": { "count": {} }
+  },
+  "shopMarkupInfo": "30% markup included",
+  "shopNoProducts": "No products found",
+  "shopCategoryCasa": "Home",
+  "shopCategoryAbbigliamento": "Clothing",
+  "shopCategoryTech": "Tech",
+  "shopCategoryConsumabili": "Consumables",
+  "shopCategorySport": "Sport",
+  "shopCategoryVoucher": "Vouchers",
+  "shopBadgeGratis": "FREE",
+  "shopBadgeScontato": "DISCOUNTED",
+  "shopBadgePromo": "PROMO",
+  "shopSupplier": "Supplier: {name}",
+  "@shopSupplier": {
+    "placeholders": { "name": {} }
+  },
+  "shopQuantity": "Quantity",
+  "shopAddToCart": "Add to cart",
+  "shopAddFree": "Add for free",
+  "shopAddedToCart": "Added to cart: {name} x{qty}",
+  "@shopAddedToCart": {
+    "placeholders": { "name": {}, "qty": {} }
+  },
+  "shopGoToCart": "Go to cart",
+  "cartTitle": "Cart ({count})",
+  "@cartTitle": {
+    "placeholders": { "count": {} }
+  },
+  "cartEmpty": "Cart is empty",
+  "cartShipping": "Shipping: {amount} EUR (always paid by worker)",
+  "@cartShipping": {
+    "placeholders": { "amount": {} }
+  },
+  "cartCheckout": "Proceed to checkout",
+  "checkoutTitle": "Checkout",
+  "checkoutItems": "Items ({count})",
+  "@checkoutItems": {
+    "placeholders": { "count": {} }
+  },
+  "checkoutAddress": "Delivery address",
+  "checkoutPaymentSummary": "Payment summary",
+  "checkoutSubtotal": "Subtotal",
+  "checkoutWelfare": "Welfare",
+  "checkoutElmettoDiscount": "Helmet discount ({points} pt)",
+  "@checkoutElmettoDiscount": {
+    "placeholders": { "points": {} }
+  },
+  "checkoutToPay": "To pay",
+  "checkoutFree": "FREE",
+  "checkoutTotal": "TOTAL",
+  "checkoutBnplLabel": "Pay in 3 installments with Scalapay",
+  "checkoutBnplRate": "{amount} EUR/month - interest paid by you",
+  "@checkoutBnplRate": {
+    "placeholders": { "amount": {} }
+  },
+  "checkoutConfirm": "Confirm and pay",
+  "checkoutConfirmFree": "Confirm free order",
+  "checkoutSuccess": "Order confirmed!",
+  "checkoutSuccessFree": "Your order is confirmed. Fully covered by welfare!",
+  "checkoutSuccessBnpl": "You will pay in 3 installments of {amount} EUR/month with Scalapay.",
+  "@checkoutSuccessBnpl": {
+    "placeholders": { "amount": {} }
+  },
+  "checkoutSuccessCharged": "Total charged: {amount} EUR",
+  "@checkoutSuccessCharged": {
+    "placeholders": { "amount": {} }
+  },
+  "checkoutBackToShop": "Back to Store",
+  "shopShipping": "Shipping",
+
+  "profileTitle": "Profile",
+  "profileSafetyStats": "Safety Statistics",
+  "profileSafetyScore": "Safety Score",
+  "profileStreak": "Streak",
+  "profileReports": "Reports",
+  "profileTrustLevel": "Trust Level",
+  "profileTrustBase": "Base",
+  "profileTrustVerified": "Verified",
+  "profileTrustTrusted": "Trusted",
+  "profileTrustExpert": "Expert",
+  "profileWorkerOperaio": "Worker",
+  "profileWorkerCaposquadra": "Team Lead",
+  "profileWorkerPreposto": "Supervisor",
+  "profileWorkerRspp": "Safety Officer",
+  "profileSettings": "Settings",
+  "profileLanguage": "Language",
+  "profileTheme": "Theme",
+  "profileNotifications": "Notifications",
+  "profileBiometric": "Biometrics",
+  "profileLogout": "Log out",
+  "profileActive": "Active",
+
+  "notificationsTitle": "Notifications",
+  "notificationsAll": "All",
+  "notificationsCategorySafety": "Safety",
+  "notificationsCategoryPoints": "Points",
+  "notificationsCategoryTeam": "Team",
+  "notificationsCategorySystem": "System",
+  "notificationsEmpty": "No notifications",
+  "notificationsToday": "Today",
+  "notificationsYesterday": "Yesterday",
+  "notificationsThisWeek": "This week",
+  "notificationsEarlier": "Earlier",
+  "notificationsMinAgo": "{min} min ago",
+  "@notificationsMinAgo": {
+    "placeholders": { "min": {} }
+  },
+  "notificationsHoursAgo": "{hours}h ago",
+  "@notificationsHoursAgo": {
+    "placeholders": { "hours": {} }
+  },
+  "notificationsDaysAgo": "{days}d ago",
+  "@notificationsDaysAgo": {
+    "placeholders": { "days": {} }
+  },
+
+  "streakTitle": "Streak",
+  "streakDays": "{count} days",
+  "@streakDays": {
+    "placeholders": { "count": {} }
+  },
+  "streakMultiplier": "Multiplier x{value}",
+  "@streakMultiplier": {
+    "placeholders": { "value": {} }
+  },
+  "streakDaysToNext": "{days} days to {level}",
+  "@streakDaysToNext": {
+    "placeholders": { "days": {}, "level": {} }
+  },
+  "streakCalendar": "Month calendar",
+  "streakLevels": "Streak Levels",
+  "streakBestRecord": "Personal record",
+  "streakLevelFiammella": "Spark",
+  "streakLevelFuocherello": "Flame",
+  "streakLevelFalo": "Bonfire",
+  "streakLevelIncendio": "Blaze",
+  "streakLevelInferno": "Inferno",
+  "streakDaysMin": "{days}+ days  |  x{multiplier}",
+  "@streakDaysMin": {
+    "placeholders": { "days": {}, "multiplier": {} }
+  },
+
+  "challengeTitle": "Team Challenge",
+  "challengeTeamContributions": "Team Contributions",
+  "challengeHistory": "Challenge History",
+  "challengeTimeRemaining": "{value} remaining",
+  "@challengeTimeRemaining": {
+    "placeholders": { "value": {} }
+  },
+  "challengeExpired": "Expired",
+  "challengeBonus": "Bonus: +{points} pt",
+  "@challengeBonus": {
+    "placeholders": { "points": {} }
+  },
+  "challengePoints": "{current} / {target} points",
+  "@challengePoints": {
+    "placeholders": { "current": {}, "target": {} }
+  },
+
+  "pointsEarnedSnackbar": "+{points} Helmet Points",
+  "@pointsEarnedSnackbar": {
+    "placeholders": { "points": {} }
+  },
+  "pointsEarnedAction": "+{points} Helmet Points - {action}",
+  "@pointsEarnedAction": {
+    "placeholders": { "points": {}, "action": {} }
+  },
+  "pointsActionCheckin": "Wellness check-in",
+  "pointsActionReport": "Safety report",
+  "pointsActionQuiz": "Quiz completed",
+  "pointsActionAccess": "Site access",
+  "pointsActionSurvey": "Safety survey",
+
+  "wellnessNoteHint": "Notes (optional)...",
+  "wellnessSubmit": "Send check-in",
+  "wellnessSubmitted": "Check-in sent! +10 points",
+  "wellnessMoodGreat": "Great",
+  "wellnessMoodGood": "Good",
+  "wellnessMoodOkay": "So-so",
+  "wellnessMoodStressed": "Stressed",
+  "wellnessMoodBad": "Bad",
+
+  "vowSurveyPageTitle": "Voice of Worker",
+  "vowSurveyQuestion": "Question {current} of {total}",
+  "@vowSurveyQuestion": {
+    "placeholders": { "current": {}, "total": {} }
+  },
+  "vowSurveyAnonymous": "Anonymous",
+  "vowSurveyBack": "Back",
+  "vowSurveyNext": "Next",
+  "vowSurveySubmit": "Submit survey",
+  "vowSurveySubmitted": "Survey Submitted!",
+  "vowSurveyThanks": "Thanks for your anonymous contribution",
+  "vowSurveyAverage": "Average score",
+  "vowSurveySummary": "Summary",
+  "vowSurveyBackToTeam": "Back to Team",
+  "vowRating1": "Not at all",
+  "vowRating2": "A little",
+  "vowRating3": "Somewhat",
+  "vowRating4": "Very much",
+  "vowRating5": "Absolutely"
 }

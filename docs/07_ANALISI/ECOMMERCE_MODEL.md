@@ -1,6 +1,6 @@
-# Vigilo - Modello Ecommerce
+# Vigilo - Spaccio Aziendale (Modello Ecommerce)
 
-> Architettura, catalogo, pricing, logistica e flussi operativi del marketplace integrato
+> Architettura, catalogo, pricing, logistica e flussi operativi dello Spaccio Aziendale integrato
 
 ---
 
@@ -8,7 +8,7 @@
 
 | Principio                    | Descrizione                                                                                    |
 |------------------------------|------------------------------------------------------------------------------------------------|
-| **Catalogo unico**          | Stesso catalogo per tutti i lavoratori, tutte le aziende, tutti i settori. Nessuna personalizzazione per azienda |
+| **Catalogo unico**          | Stesso catalogo per tutti i lavoratori nello Spaccio Aziendale, tutte le aziende, tutti i settori. Nessuna personalizzazione per azienda |
 | **100% dropshipping**       | Nessun magazzino proprio. Tutti i prodotti spediti dal fornitore direttamente al lavoratore    |
 | **Ricarico fisso 30%**      | Prezzo Vigilo = costo fornitore + 30%. Margine semplice, prevedibile, scalabile               |
 | **Sconto max 20%**          | I Punti Elmetto danno sconto fino al 20% sul prezzo Vigilo. Il margine minimo è sempre positivo |
@@ -22,7 +22,7 @@
 
 ### Categorie
 
-Catalogo generalista, non verticale sulla sicurezza. L'obiettivo è che il lavoratore trovi prodotti utili per la vita quotidiana, non solo per il lavoro:
+Catalogo generalista, non verticale sulla sicurezza. Lo Spaccio Aziendale offre prodotti utili per la vita quotidiana, non solo per il lavoro — come un vero spaccio aziendale riservato ai dipendenti:
 
 | Categoria                    | Esempi                                                              | Range prezzo     |
 |------------------------------|---------------------------------------------------------------------|------------------|
@@ -38,7 +38,7 @@ Catalogo generalista, non verticale sulla sicurezza. L'obiettivo è che il lavor
 | Aspetto                      | Regola                                                                                          |
 |------------------------------|-------------------------------------------------------------------------------------------------|
 | **Personalizzazione**        | Zero. Catalogo uguale per tutti. Nessun catalogo per azienda                                   |
-| **Ampiezza**                 | Massima. Più prodotti = più motivi per aprire l'app e spendere punti                           |
+| **Ampiezza**                 | Massima. Più prodotti nello Spaccio = più motivi per aprire l'app e spendere punti             |
 | **Profondità**               | Media. Non serve avere 50 varianti dello stesso prodotto                                        |
 | **Aggiornamento**            | Rotazione mensile dei prodotti in evidenza. Novità e stagionalità                               |
 | **Prodotti esclusi**         | Alcolici, tabacco, armi, farmaci, contenuti adulti                                              |
@@ -57,21 +57,23 @@ Ricarico Vigilo (30%):       + €30.00
 Prezzo Vigilo (al pubblico):  €130.00
 ```
 
-Il ricarico del 30% è fisso su tutto il catalogo. Non ci sono prezzi "scontati" o "in offerta" da parte di Vigilo — il prezzo è unico. L'unico sconto possibile arriva dai Punti Elmetto del lavoratore.
+Il ricarico del 30% è fisso su tutto il catalogo dello Spaccio Aziendale. Non ci sono prezzi "scontati" o "in offerta" da parte di Vigilo — il prezzo è unico. L'unico sconto possibile arriva dai Punti Elmetto del lavoratore.
 
 ### Scenari di acquisto
+
+**Conversione Elmetto: 10 punti = 1 EUR. Sconto max per acquisto: 20%. Valore facciale annuo: ~€1.800.**
 
 | Scenario                                | Prezzo base | Sconto Elmetto | Welfare | Lavoratore paga | Azienda paga | Margine Vigilo |
 |-----------------------------------------|-------------|----------------|---------|-----------------|--------------|----------------|
 | **Nessun punto usato**                  | €130        | 0%             | €0      | €130            | €0           | €30 (23%)      |
-| **Sconto 5% (200 Punti Elmetto)**      | €130        | -5%            | €0      | €123.50         | €0           | €23.50 (18%)   |
-| **Sconto 10% (500 Punti Elmetto)**     | €130        | -10%           | €0      | €117            | €0           | €17 (13%)      |
-| **Sconto 20% max (2.000 Punti Elmetto)** | €130     | -20%           | €0      | €104            | €0           | €4 (3%)        |
+| **Sconto 5% (130 Punti Elmetto = €13)**| €130        | -5%            | €0      | €123.50         | €0           | €23.50 (18%)   |
+| **Sconto 10% (130 Punti Elmetto = €13)** | €130      | -10%           | €0      | €117            | €0           | €17 (13%)      |
+| **Sconto 20% max (260 Punti Elmetto = €26)** | €130 | -20%           | €0      | €104            | €0           | €4 (3%)        |
 | **Welfare parziale (€50)**             | €130        | 0%             | -€50    | €80             | €50          | €30 (23%)      |
 | **Welfare parziale + sconto 10%**      | €130        | -10%           | -€50    | €72             | €50          | €22 (17%)      |
 | **Welfare 100%**                        | €130        | 0%             | -€130   | €0              | €130         | €30 (23%)      |
 
-**Regola di applicazione**: prima si sottrae il welfare (€), poi si calcola lo sconto Elmetto (%) sul restante.
+**Regola di applicazione**: prima si sottrae il welfare (€), poi si calcola lo sconto Elmetto (%) sul restante. Lo sconto Elmetto è il minore tra il valore EUR dei punti spesi e il 20% del prezzo residuo.
 
 ### Margine per scenario (su costo fornitore €100)
 
@@ -83,7 +85,7 @@ Il ricarico del 30% è fisso su tutto il catalogo. Non ci sono prezzi "scontati"
 | Welfare 100%                 | €130                 | €100            | €30           | 23.1%     |
 | Welfare parziale + sconto   | €122                 | €100            | €22           | 18.0%     |
 
-Il margine minimo (3.8%) si verifica solo nel caso peggiore: sconto 20% pieno senza welfare. In pratica la media sarà più alta perché non tutti i lavoratori avranno 2.000 Punti Elmetto da spendere su un singolo acquisto.
+Il margine minimo (3.8%) si verifica solo nel caso peggiore: sconto 20% pieno senza welfare. In pratica la media sarà più alta perché il 20% è un cap: su un prodotto da €130, servono 260 Punti Elmetto (€26) per raggiungere lo sconto massimo. Un lavoratore attivo accumula ~1.500 punti/mese (€150), sufficienti per ~5-6 acquisti al mese con sconto pieno.
 
 ### Promozioni e sconti
 
@@ -138,7 +140,7 @@ Cuffie Bluetooth — promozione settimanale
     Prezzo originale: €65.00 (barrato)
     Prezzo promo:     €45.50
 
-  Applica 500 Punti Elmetto (-10%):
+  Applica 46 Punti Elmetto (€4.55 = 10%):
     Sconto Elmetto:   - €4.55
     Prezzo finale:     €40.95
     + Spedizione:     + €5.90
@@ -205,7 +207,7 @@ Il lavoratore può dilazionare la parte a suo carico (prezzo dopo sconto Elmetto
 Prodotto: Smartphone accessibile
 Prezzo Vigilo:              €260.00
 Welfare applicato:          -€80.00  (Punti Welfare)
-Sconto Elmetto (10%):       -€18.00
+Sconto Elmetto (10% su €180): -€18.00  (180 Punti Elmetto)
 ─────────────────────────────────────
 Da pagare (lavoratore):     €162.00
 Spedizione:                 + €7.90
@@ -460,7 +462,7 @@ Tillo / Epipoli API (voucher)
 
 ---
 
-## Roadmap ecommerce
+## Roadmap Spaccio Aziendale
 
 ### Fase 1 — Voucher digitali (lancio)
 
@@ -502,11 +504,11 @@ Tillo / Epipoli API (voucher)
 
 ---
 
-## Architettura tecnica — Supabase custom (no Shopify)
+## Architettura tecnica — Spaccio Aziendale su Supabase custom (no Shopify)
 
 ### Decisione architetturale
 
-Nessuna piattaforma ecommerce esterna (Shopify, WooCommerce, Medusa). L'ecommerce è costruito interamente su Supabase per le seguenti ragioni:
+Nessuna piattaforma ecommerce esterna (Shopify, WooCommerce, Medusa). Lo Spaccio Aziendale è costruito interamente su Supabase per le seguenti ragioni:
 
 | Criterio                     | Piattaforma esterna                            | Supabase custom                                |
 |------------------------------|------------------------------------------------|------------------------------------------------|
@@ -561,7 +563,7 @@ Lavoratore preme "Acquista"
 RPC checkout_order (transazione atomica)
     │
     ├─ 1. Verifica stock prodotto (query fornitore o cache locale)
-    ├─ 2. Calcola prezzo: prezzo_vigilo - welfare - sconto_elmetto + spedizione
+    ├─ 2. Calcola prezzo: prezzo_vigilo - welfare - sconto_elmetto (max 20%, 10pts=1€) + spedizione
     ├─ 3. Verifica budget welfare (se usato): saldo >= importo richiesto
     ├─ 4. Verifica Punti Elmetto (se usati): saldo >= punti richiesti
     ├─ 5. Scala Punti Welfare dal wallet (se usati)
@@ -677,7 +679,7 @@ orders
     ├─ total_amount (decimal)          ← totale finale pagato
     ├─ welfare_amount (decimal)        ← parte coperta da Punti Welfare
     ├─ elmetto_discount_pct (decimal)  ← % sconto Elmetto applicato
-    ├─ elmetto_points_used (integer)   ← punti spesi
+    ├─ elmetto_points_used (integer)   ← punti spesi (10 pts = 1 EUR)
     ├─ shipping_cost (decimal)
     ├─ payment_method (enum)
     ├─ supplier_order_id (text|null)
@@ -767,4 +769,4 @@ Flutter App (Supabase SDK)
 
 ---
 
-*Documento di riferimento per lo sviluppo dell'ecommerce Vigilo V2*
+*Documento di riferimento per lo sviluppo dello Spaccio Aziendale Vigilo V2*

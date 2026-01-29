@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/impara/domain/models/quiz.dart';
+import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
 /// Pagina risultato quiz
 class QuizResultPage extends StatelessWidget {
@@ -18,6 +19,19 @@ class QuizResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+
+    // Show points feedback after frame renders
+    if (result.earnedPoints > 0) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
+          PointsEarnedSnackbar.show(
+            context,
+            points: result.earnedPoints,
+            action: 'Quiz completato',
+          );
+        }
+      });
+    }
 
     return Scaffold(
       body: SafeArea(

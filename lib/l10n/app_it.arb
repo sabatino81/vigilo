@@ -427,5 +427,255 @@
   "imparaDurationHours": "{hours}h {minutes}m",
   "@imparaDurationHours": {
     "placeholders": { "hours": {}, "minutes": {} }
-  }
+  },
+
+  "walletTitle": "WALLET",
+  "walletElmetto": "Punti Elmetto",
+  "walletWelfare": "Punti Welfare",
+  "walletElmettoShort": "Elmetto",
+  "walletWelfareShort": "Welfare",
+  "walletConversionInfo": "{rate} Elmetto = 1 EUR  |  Max {percent}% sconto",
+  "@walletConversionInfo": {
+    "placeholders": { "rate": {}, "percent": {} }
+  },
+  "walletBudgetMonthly": "Budget Welfare mensile",
+  "walletBudgetUsed": "{used} / {total} EUR",
+  "@walletBudgetUsed": {
+    "placeholders": { "used": {}, "total": {} }
+  },
+  "walletLevel": "Livello {level}",
+  "@walletLevel": {
+    "placeholders": { "level": {} }
+  },
+  "walletNextLevel": "Prossimo: {level} ({points} pt)",
+  "@walletNextLevel": {
+    "placeholders": { "level": {}, "points": {} }
+  },
+  "walletRecentMoves": "Movimenti recenti",
+  "walletViewAll": "Vedi tutti",
+  "walletElmettoValue": "= {value} EUR",
+  "@walletElmettoValue": {
+    "placeholders": { "value": {} }
+  },
+  "welfarePlanSmall": "Piano S",
+  "welfarePlanMedium": "Piano M",
+  "welfarePlanLarge": "Piano L",
+  "welfarePlanBudget": "{amount} EUR/mese",
+  "@welfarePlanBudget": {
+    "placeholders": { "amount": {} }
+  },
+  "welfareRemaining": "{amount} EUR rimanenti",
+  "@welfareRemaining": {
+    "placeholders": { "amount": {} }
+  },
+
+  "shopTitle": "Spaccio Aziendale",
+  "shopVigiloTitle": "Spaccio Aziendale",
+  "shopVigiloSubtitle": "Il tuo negozio riservato: sconti e prodotti gratis con i punti",
+  "shopSearchHint": "Cerca prodotti...",
+  "shopCategoryAll": "Tutti",
+  "shopProductCount": "{count} prodotti",
+  "@shopProductCount": {
+    "placeholders": { "count": {} }
+  },
+  "shopMarkupInfo": "Markup 30% incluso",
+  "shopNoProducts": "Nessun prodotto trovato",
+  "shopCategoryCasa": "Casa",
+  "shopCategoryAbbigliamento": "Abbigliamento",
+  "shopCategoryTech": "Tech",
+  "shopCategoryConsumabili": "Consumabili",
+  "shopCategorySport": "Sport",
+  "shopCategoryVoucher": "Voucher",
+  "shopBadgeGratis": "GRATIS",
+  "shopBadgeScontato": "SCONTATO",
+  "shopBadgePromo": "PROMO",
+  "shopSupplier": "Fornitore: {name}",
+  "@shopSupplier": {
+    "placeholders": { "name": {} }
+  },
+  "shopQuantity": "Quantita",
+  "shopAddToCart": "Aggiungi al carrello",
+  "shopAddFree": "Aggiungi gratis",
+  "shopAddedToCart": "Aggiunto al carrello: {name} x{qty}",
+  "@shopAddedToCart": {
+    "placeholders": { "name": {}, "qty": {} }
+  },
+  "shopGoToCart": "Vai al carrello",
+  "cartTitle": "Carrello ({count})",
+  "@cartTitle": {
+    "placeholders": { "count": {} }
+  },
+  "cartEmpty": "Il carrello e vuoto",
+  "cartShipping": "Spedizione: {amount} EUR (sempre a carico del lavoratore)",
+  "@cartShipping": {
+    "placeholders": { "amount": {} }
+  },
+  "cartCheckout": "Procedi al checkout",
+  "checkoutTitle": "Checkout",
+  "checkoutItems": "Articoli ({count})",
+  "@checkoutItems": {
+    "placeholders": { "count": {} }
+  },
+  "checkoutAddress": "Indirizzo di consegna",
+  "checkoutPaymentSummary": "Riepilogo pagamento",
+  "checkoutSubtotal": "Subtotale",
+  "checkoutWelfare": "Welfare",
+  "checkoutElmettoDiscount": "Sconto Elmetto ({points} pt)",
+  "@checkoutElmettoDiscount": {
+    "placeholders": { "points": {} }
+  },
+  "checkoutToPay": "Da pagare",
+  "checkoutFree": "GRATIS",
+  "checkoutTotal": "TOTALE",
+  "checkoutBnplLabel": "Paga in 3 rate con Scalapay",
+  "checkoutBnplRate": "{amount} EUR/mese - interessi a carico tuo",
+  "@checkoutBnplRate": {
+    "placeholders": { "amount": {} }
+  },
+  "checkoutConfirm": "Conferma e paga",
+  "checkoutConfirmFree": "Conferma ordine gratuito",
+  "checkoutSuccess": "Ordine confermato!",
+  "checkoutSuccessFree": "Il tuo ordine e stato confermato. Coperto interamente dal welfare!",
+  "checkoutSuccessBnpl": "Pagherai in 3 rate da {amount} EUR/mese con Scalapay.",
+  "@checkoutSuccessBnpl": {
+    "placeholders": { "amount": {} }
+  },
+  "checkoutSuccessCharged": "Totale addebitato: {amount} EUR",
+  "@checkoutSuccessCharged": {
+    "placeholders": { "amount": {} }
+  },
+  "checkoutBackToShop": "Torna allo Spaccio",
+  "shopShipping": "Spedizione",
+
+  "profileTitle": "Profilo",
+  "profileSafetyStats": "Statistiche Sicurezza",
+  "profileSafetyScore": "Safety Score",
+  "profileStreak": "Streak",
+  "profileReports": "Segnalazioni",
+  "profileTrustLevel": "Livello Fiducia",
+  "profileTrustBase": "Base",
+  "profileTrustVerified": "Verificato",
+  "profileTrustTrusted": "Affidabile",
+  "profileTrustExpert": "Esperto",
+  "profileWorkerOperaio": "Operaio",
+  "profileWorkerCaposquadra": "Caposquadra",
+  "profileWorkerPreposto": "Preposto",
+  "profileWorkerRspp": "RSPP",
+  "profileSettings": "Impostazioni",
+  "profileLanguage": "Lingua",
+  "profileTheme": "Tema",
+  "profileNotifications": "Notifiche",
+  "profileBiometric": "Biometria",
+  "profileLogout": "Esci",
+  "profileActive": "Attivo",
+
+  "notificationsTitle": "Notifiche",
+  "notificationsAll": "Tutte",
+  "notificationsCategorySafety": "Sicurezza",
+  "notificationsCategoryPoints": "Punti",
+  "notificationsCategoryTeam": "Team",
+  "notificationsCategorySystem": "Sistema",
+  "notificationsEmpty": "Nessuna notifica",
+  "notificationsToday": "Oggi",
+  "notificationsYesterday": "Ieri",
+  "notificationsThisWeek": "Questa settimana",
+  "notificationsEarlier": "Precedenti",
+  "notificationsMinAgo": "{min} min fa",
+  "@notificationsMinAgo": {
+    "placeholders": { "min": {} }
+  },
+  "notificationsHoursAgo": "{hours}h fa",
+  "@notificationsHoursAgo": {
+    "placeholders": { "hours": {} }
+  },
+  "notificationsDaysAgo": "{days}g fa",
+  "@notificationsDaysAgo": {
+    "placeholders": { "days": {} }
+  },
+
+  "streakTitle": "Streak",
+  "streakDays": "{count} giorni",
+  "@streakDays": {
+    "placeholders": { "count": {} }
+  },
+  "streakMultiplier": "Moltiplicatore x{value}",
+  "@streakMultiplier": {
+    "placeholders": { "value": {} }
+  },
+  "streakDaysToNext": "{days} giorni al {level}",
+  "@streakDaysToNext": {
+    "placeholders": { "days": {}, "level": {} }
+  },
+  "streakCalendar": "Calendario del mese",
+  "streakLevels": "Livelli Streak",
+  "streakBestRecord": "Record personale",
+  "streakLevelFiammella": "Fiammella",
+  "streakLevelFuocherello": "Fuocherello",
+  "streakLevelFalo": "Falo",
+  "streakLevelIncendio": "Incendio",
+  "streakLevelInferno": "Inferno",
+  "streakDaysMin": "{days}+ giorni  |  x{multiplier}",
+  "@streakDaysMin": {
+    "placeholders": { "days": {}, "multiplier": {} }
+  },
+
+  "challengeTitle": "Sfida Team",
+  "challengeTeamContributions": "Contributi Team",
+  "challengeHistory": "Storico Sfide",
+  "challengeTimeRemaining": "{value} rimanenti",
+  "@challengeTimeRemaining": {
+    "placeholders": { "value": {} }
+  },
+  "challengeExpired": "Scaduta",
+  "challengeBonus": "Bonus: +{points} pt",
+  "@challengeBonus": {
+    "placeholders": { "points": {} }
+  },
+  "challengePoints": "{current} / {target} punti",
+  "@challengePoints": {
+    "placeholders": { "current": {}, "target": {} }
+  },
+
+  "pointsEarnedSnackbar": "+{points} Punti Elmetto",
+  "@pointsEarnedSnackbar": {
+    "placeholders": { "points": {} }
+  },
+  "pointsEarnedAction": "+{points} Punti Elmetto - {action}",
+  "@pointsEarnedAction": {
+    "placeholders": { "points": {}, "action": {} }
+  },
+  "pointsActionCheckin": "Check-in benessere",
+  "pointsActionReport": "Segnalazione sicurezza",
+  "pointsActionQuiz": "Quiz completato",
+  "pointsActionAccess": "Accesso cantiere",
+  "pointsActionSurvey": "Sondaggio sicurezza",
+
+  "wellnessNoteHint": "Note (opzionale)...",
+  "wellnessSubmit": "Invia check-in",
+  "wellnessSubmitted": "Check-in inviato! +10 punti",
+  "wellnessMoodGreat": "Ottimo",
+  "wellnessMoodGood": "Bene",
+  "wellnessMoodOkay": "Così così",
+  "wellnessMoodStressed": "Stressato",
+  "wellnessMoodBad": "Male",
+
+  "vowSurveyPageTitle": "Voce del Lavoratore",
+  "vowSurveyQuestion": "Domanda {current} di {total}",
+  "@vowSurveyQuestion": {
+    "placeholders": { "current": {}, "total": {} }
+  },
+  "vowSurveyAnonymous": "Anonimo",
+  "vowSurveyBack": "Indietro",
+  "vowSurveyNext": "Avanti",
+  "vowSurveySubmit": "Invia sondaggio",
+  "vowSurveySubmitted": "Sondaggio Inviato!",
+  "vowSurveyThanks": "Grazie per il tuo contributo anonimo",
+  "vowSurveyAverage": "Media risposte",
+  "vowSurveySummary": "Riepilogo",
+  "vowSurveyBackToTeam": "Torna al Team",
+  "vowRating1": "Per niente",
+  "vowRating2": "Poco",
+  "vowRating3": "Abbastanza",
+  "vowRating4": "Molto",
+  "vowRating5": "Assolutamente"
 }

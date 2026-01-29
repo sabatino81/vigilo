@@ -1,6 +1,6 @@
 # Vigilo - Business Proposal V2
 
-> Piattaforma universale di safety engagement per lavoratori con ecommerce integrato
+> Piattaforma universale di safety engagement per lavoratori con Spaccio Aziendale integrato
 
 ---
 
@@ -8,11 +8,11 @@
 
 **Vigilo** è una piattaforma gratuita che trasforma la sicurezza sul lavoro in un'esperienza coinvolgente per qualsiasi tipologia di lavoratore — dall'operaio edile all'impiegato di magazzino, dall'operatore di fabbrica al tecnico sul campo.
 
-I lavoratori usano l'app per segnalare rischi, completare formazione, partecipare a sfide di sicurezza e accumulare **Punti Elmetto**. I Punti Elmetto si spendono su un **ecommerce interno** dove Vigilo vende direttamente prodotti a prezzo scontato. Le aziende che attivano il **welfare aziendale** generano anche **Punti Welfare** che permettono ai dipendenti di ottenere prodotti gratuitamente.
+I lavoratori usano l'app per segnalare rischi, completare formazione, partecipare a sfide di sicurezza e accumulare **Punti Elmetto**. I Punti Elmetto si spendono sullo **Spaccio Aziendale** — il negozio interno riservato ai dipendenti — dove Vigilo vende direttamente prodotti a prezzo scontato. Le aziende che attivano il **welfare aziendale** generano anche **Punti Welfare** che permettono ai dipendenti di ottenere prodotti gratuitamente.
 
 **Modello:**
 - Piattaforma gratuita per aziende e lavoratori
-- Revenue da vendita diretta prodotti su ecommerce interno
+- Revenue da vendita diretta prodotti sullo Spaccio Aziendale
 - Margine welfare su programmi aziendali
 - IoT e monitoraggio salute come modulo opzionale premium
 
@@ -125,7 +125,7 @@ La dashboard è il vero gancio per l'upsell welfare: l'azienda vede i dati, capi
 
 ### Il motore economico
 
-Vigilo vende direttamente prodotti ai lavoratori attraverso l'ecommerce integrato nell'app. I **Punti Elmetto** funzionano come valuta di sconto, i **Punti Welfare** come valuta di riscatto gratuito. L'ecommerce è il punto di conversione tra engagement e revenue.
+Vigilo vende direttamente prodotti ai lavoratori attraverso lo **Spaccio Aziendale** integrato nell'app — un negozio interno riservato ai dipendenti. I **Punti Elmetto** funzionano come valuta di sconto, i **Punti Welfare** come valuta di riscatto gratuito. Lo Spaccio Aziendale è il punto di conversione tra engagement e revenue.
 
 ### Due modalità d'acquisto
 
@@ -205,7 +205,7 @@ Ogni lavoratore ha due wallet separati. Ogni azione genera punti in entrambi con
 
 | Wallet               | Generazione                                                     | Utilizzo                                     |
 |----------------------|-----------------------------------------------------------------|----------------------------------------------|
-| **Punti Elmetto**    | Sempre attivo. Ogni azione genera Punti Elmetto (~1.500/mese)  | Sconti % sull'ecommerce. Paga il lavoratore  |
+| **Punti Elmetto**    | Sempre attivo. Ogni azione genera Punti Elmetto (~1.500/mese)  | Sconti % sullo Spaccio Aziendale. Paga il lavoratore  |
 | **Punti Welfare**    | Solo se l'azienda ha un piano welfare attivo (S/M/L)           | Riscatto prodotti gratis. Paga l'azienda      |
 
 ### Punti Elmetto — accumulo
@@ -253,7 +253,7 @@ Con 18.000 Punti Elmetto/anno → **€36-54 in sconti**. Con piano Welfare L �
 
 ### Livelli
 
-| Livello      | Punti Elmetto cumulativi | Beneficio ecommerce                             |
+| Livello      | Punti Elmetto cumulativi | Beneficio Spaccio Aziendale                     |
 |--------------|--------------------------|--------------------------------------------------|
 | **Bronze**   | 0 - 999                  | Accesso catalogo base                            |
 | **Silver**   | 1.000 - 4.999            | Sconto extra 5% + prodotti esclusivi Silver      |
@@ -261,7 +261,7 @@ Con 18.000 Punti Elmetto/anno → **€36-54 in sconti**. Con piano Welfare L �
 | **Platinum** | 15.000 - 49.999          | Sconto extra 15% + catalogo premium              |
 | **Diamond**  | 50.000+                  | Sconto extra 20% + catalogo VIP + early access   |
 
-I livelli sono cumulativi e permanenti. Non si perdono Punti Elmetto livello spendendo sull'ecommerce: il saldo spendibile e il livello sono contatori separati.
+I livelli sono cumulativi e permanenti. Non si perdono Punti Elmetto livello spendendo sullo Spaccio Aziendale: il saldo spendibile e il livello sono contatori separati.
 
 ### Sfide e challenge
 
@@ -319,7 +319,7 @@ Quando l'azienda attiva il modulo IoT, i Punti Elmetto si possono guadagnare anc
 1. Scarica app → inserisce codice azienda
 2. Welcome guide: 4 step (profilo, DPI, primo quiz, primo check-in)
 3. Guadagna 150 Punti Elmetto onboarding
-4. Vede subito il catalogo ecommerce e il saldo Punti Elmetto
+4. Vede subito lo Spaccio Aziendale e il saldo Punti Elmetto
 5. Dopo 1 settimana: primo accesso a sfide team
 ```
 
@@ -332,7 +332,7 @@ Quando l'azienda attiva il modulo IoT, i Punti Elmetto si possono guadagnare anc
 | Durante turno | Segnala un rischio o near-miss           | 30-50         |
 | Pausa         | Controlla classifica e sfide team        | —             |
 | Fine turno    | Feedback VOW (com'è andato il turno?)    | 10            |
-| Sera          | Sfoglia catalogo ecommerce, usa Punti Elmetto o Welfare | — |
+| Sera          | Sfoglia lo Spaccio Aziendale, usa Punti Elmetto o Welfare | — |
 
 **Punti Elmetto giornalieri medi: 50-80** → circa 1.500/mese per un lavoratore attivo.
 
@@ -360,8 +360,8 @@ Vigilo funziona per qualsiasi settore dove esistono lavoratori e rischi. L'app �
 
 | Segmento | N. aziende Italia | Proposta Vigilo | Upsell atteso |
 |----------|-------------------|-----------------|---------------|
-| **Micro** (1-9 dip.) | ~3.7M | App gratuita, ecommerce base | Solo ecommerce |
-| **Piccola** (10-49 dip.) | ~200K | App + dashboard, ecommerce | Ecommerce + welfare (20%) |
+| **Micro** (1-9 dip.) | ~3.7M | App gratuita, Spaccio Aziendale base | Solo Spaccio |
+| **Piccola** (10-49 dip.) | ~200K | App + dashboard, Spaccio Aziendale | Spaccio + welfare (20%) |
 | **Media** (50-249 dip.) | ~25K | App + dashboard + welfare | Welfare (50%) + analytics (20%) |
 | **Grande** (250+ dip.) | ~4K | Full platform | Welfare (80%) + IoT (30%) + analytics (60%) |
 
@@ -371,13 +371,13 @@ Vigilo funziona per qualsiasi settore dove esistono lavoratori e rischi. L'app �
 - **Bisogno**: migliorare engagement sulla sicurezza, i corsi in aula non funzionano
 - **Budget**: ha budget welfare da allocare, cerca nuovi benefit per i dipendenti
 - **Decisione**: prova Vigilo gratis → vede engagement sulla dashboard → attiva welfare dopo 2 mesi
-- **Revenue per Vigilo**: 120 dip. × €150/anno welfare = €18.000/anno fatturato welfare + ecommerce base
+- **Revenue per Vigilo**: 120 dip. × €150/anno welfare = €18.000/anno fatturato welfare + Spaccio base
 
 #### Giuseppe — RSPP esterno, segue 15 PMI edili (~300 lavoratori)
 - **Bisogno**: digitalizzare segnalazioni, tracciare formazione, dati per DVR
 - **Budget**: non ha budget, consiglia soluzioni ai clienti
 - **Decisione**: propone Vigilo alle sue 15 aziende perché è gratis e gli semplifica il lavoro
-- **Revenue per Vigilo**: 300 lav. × €50/anno ecommerce base = €15.000/anno + potenziale welfare
+- **Revenue per Vigilo**: 300 lav. × €50/anno Spaccio base = €15.000/anno + potenziale welfare
 
 #### Luca — Operaio logistica, 32 anni
 - **Bisogno**: nessuno (non cerca una app per la sicurezza)
@@ -394,7 +394,7 @@ Vigilo funziona per qualsiasi settore dove esistono lavoratori e rischi. L'app �
 | Soluzione | Cosa fa | Prezzo | Limite |
 |-----------|---------|--------|--------|
 | **SafetyCulture (iAuditor)** | Checklist e audit digitali | Da €19/utente/mese | Solo audit, nessun engagement lavoratore |
-| **Safetysnapper** | App segnalazioni sicurezza | Abbonamento aziendale | No gamification, no ecommerce |
+| **Safetysnapper** | App segnalazioni sicurezza | Abbonamento aziendale | No gamification, no Spaccio Aziendale |
 | **Piattaforme e-learning (Docebo, Moodle)** | LMS formazione | €3-15/utente/mese | Solo formazione, no safety specifico |
 | **Programmi welfare (Edenred, Sodexo)** | Buoni pasto, voucher welfare | Fee aziendale | Zero collegamento con sicurezza |
 | **Excel + carta** | Segnalazioni manuali | Gratis | Nessun dato strutturato, zero engagement |
@@ -422,7 +422,7 @@ Nessun competitor unisce tutte e tre le dimensioni:
 
 **Vigilo è l'unico che:**
 - È gratuito per azienda e lavoratore
-- Collega sicurezza → engagement → ecommerce in un unico flusso
+- Collega sicurezza → engagement → Spaccio Aziendale in un unico flusso
 - Produce dati di sicurezza come effetto collaterale dell'engagement
 - Offre incentivi tangibili (prodotti reali, non badge)
 
@@ -437,7 +437,7 @@ L'azienda attiva Vigilo gratis. I lavoratori scaricano l'app, iniziano ad accumu
 
 - Canale principale: digital marketing verso HR/RSPP + referral RSPP esterni
 - Obiettivo: 200 aziende, 5.000 lavoratori
-- Revenue: solo ecommerce base (margine su vendite)
+- Revenue: solo Spaccio Aziendale base (margine su vendite)
 - Focus: validare engagement e tasso di acquisto
 
 **Phase 2 — ENGAGE (mesi 7-18)**
@@ -445,15 +445,15 @@ I lavoratori con Punti Elmetto iniziano ad acquistare. L'azienda vede i dati sul
 
 - Canale: upsell interno (dashboard → welfare) + partnership associazioni
 - Obiettivo: 800 aziende, 30.000 lavoratori, 100 aziende welfare
-- Revenue: ecommerce base + primi welfare
-- Focus: validare conversion rate welfare e unit economics ecommerce
+- Revenue: Spaccio base + primi welfare
+- Focus: validare conversion rate welfare e unit economics Spaccio
 
 **Phase 3 — EXPAND (mesi 19-36)**
 Welfare come motore principale. IoT per verticali ad alto rischio. Analytics per enterprise.
 
 - Canale: sales team dedicato per medie/grandi + partner channel
 - Obiettivo: 2.000 aziende, 100.000 lavoratori, 400 aziende welfare
-- Revenue: welfare + ecommerce + premium
+- Revenue: welfare + Spaccio + premium
 - Focus: scalare, ottimizzare margini, espansione internazionale
 
 ### Canali di acquisizione
@@ -506,7 +506,7 @@ Welfare come motore principale. IoT per verticali ad alto rischio. Analytics per
 
 | Voce | Importo | % Revenue |
 |------|---------|-----------|
-| COGS prodotti ecommerce (70% del GMV) | €7.56M | — |
+| COGS prodotti Spaccio (70% del GMV) | €7.56M | — |
 | Logistica e spedizioni | €540K | 10% |
 | Piattaforma (cloud, infra) | €300K | 6% |
 | Team (dev, ops, marketing, sales) | €1.2M | 22% |
@@ -539,15 +539,15 @@ Welfare come motore principale. IoT per verticali ad alto rischio. Analytics per
 |---------|-------------|---------|-------------|
 | **Basso engagement lavoratori** | Media | Alto | Punti Elmetto generosi all'inizio, onboarding gamificato, premi tangibili dal giorno 1 |
 | **Aziende non attivano welfare** | Media | Alto | Dashboard gratuita come gancio, case study ROI, trial welfare 3 mesi |
-| **Margini ecommerce compressi** | Media | Medio | Focus su categorie ad alto margine (DPI, workwear), contratti diretti fornitori |
+| **Margini Spaccio compressi** | Media | Medio | Focus su categorie ad alto margine (DPI, workwear), contratti diretti fornitori |
 | **Segnalazioni false per punti** | Bassa | Medio | Validazione manuale sopra soglia, algoritmo anti-abuse, Punti Elmetto solo se verificata |
 | **Competitor copia il modello** | Bassa | Medio | Network effect (dati + utenti), time-to-market, relazione con associazioni |
 | **Privacy e GDPR** | Bassa | Alto | Privacy-by-design, dati aggregati per dashboard, opt-in esplicito |
-| **Difficoltà logistica ecommerce** | Media | Medio | Dropshipping per 80% catalogo, 3PL per top seller, start con voucher digitali |
+| **Difficoltà logistica Spaccio** | Media | Medio | Dropshipping per 80% catalogo, 3PL per top seller, start con voucher digitali |
 
 ### Piano di sostenibilità Anno 1
 
-L'Anno 1 genera solo €22K di revenue (ecommerce base). Per sostenere l'operatività:
+L'Anno 1 genera solo €22K di revenue (Spaccio base). Per sostenere l'operatività:
 
 | Opzione | Dettaglio |
 |---------|-----------|
@@ -622,7 +622,7 @@ Vigilo V2 è un modello circolare:
 2. **Il lavoratore è motivato** → Punti Elmetto reali, prodotti reali
 3. **I dati arrivano come effetto collaterale** → l'azienda scopre il valore
 4. **Il welfare amplifica tutto** → l'azienda investe, il lavoratore riceve di più, Vigilo fattura
-5. **L'ecommerce è il revenue engine** → margine su ogni transazione
+5. **Lo Spaccio Aziendale è il revenue engine** → margine su ogni transazione
 
 **Formula: Sicurezza gratuita → Engagement → Punti Elmetto + Welfare → Acquisti → Revenue → Reinvestimento**
 

@@ -2203,6 +2203,912 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{hours}h {minutes}m'**
   String imparaDurationHours(Object hours, Object minutes);
+
+  /// No description provided for @walletTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'WALLET'**
+  String get walletTitle;
+
+  /// No description provided for @walletElmetto.
+  ///
+  /// In en, this message translates to:
+  /// **'Helmet Points'**
+  String get walletElmetto;
+
+  /// No description provided for @walletWelfare.
+  ///
+  /// In en, this message translates to:
+  /// **'Welfare Points'**
+  String get walletWelfare;
+
+  /// No description provided for @walletElmettoShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Helmet'**
+  String get walletElmettoShort;
+
+  /// No description provided for @walletWelfareShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Welfare'**
+  String get walletWelfareShort;
+
+  /// No description provided for @walletConversionInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'{rate} Helmet = 1 EUR  |  Max {percent}% discount'**
+  String walletConversionInfo(Object rate, Object percent);
+
+  /// No description provided for @walletBudgetMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Welfare Budget'**
+  String get walletBudgetMonthly;
+
+  /// No description provided for @walletBudgetUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'{used} / {total} EUR'**
+  String walletBudgetUsed(Object used, Object total);
+
+  /// No description provided for @walletLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level}'**
+  String walletLevel(Object level);
+
+  /// No description provided for @walletNextLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {level} ({points} pt)'**
+  String walletNextLevel(Object level, Object points);
+
+  /// No description provided for @walletRecentMoves.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent transactions'**
+  String get walletRecentMoves;
+
+  /// No description provided for @walletViewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View all'**
+  String get walletViewAll;
+
+  /// No description provided for @walletElmettoValue.
+  ///
+  /// In en, this message translates to:
+  /// **'= {value} EUR'**
+  String walletElmettoValue(Object value);
+
+  /// No description provided for @welfarePlanSmall.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan S'**
+  String get welfarePlanSmall;
+
+  /// No description provided for @welfarePlanMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan M'**
+  String get welfarePlanMedium;
+
+  /// No description provided for @welfarePlanLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan L'**
+  String get welfarePlanLarge;
+
+  /// No description provided for @welfarePlanBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} EUR/month'**
+  String welfarePlanBudget(Object amount);
+
+  /// No description provided for @welfareRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} EUR remaining'**
+  String welfareRemaining(Object amount);
+
+  /// No description provided for @shopTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Store'**
+  String get shopTitle;
+
+  /// No description provided for @shopVigiloTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Store'**
+  String get shopVigiloTitle;
+
+  /// No description provided for @shopVigiloSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your exclusive store: discounts and free products with your points'**
+  String get shopVigiloSubtitle;
+
+  /// No description provided for @shopSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search products...'**
+  String get shopSearchHint;
+
+  /// No description provided for @shopCategoryAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get shopCategoryAll;
+
+  /// No description provided for @shopProductCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} products'**
+  String shopProductCount(Object count);
+
+  /// No description provided for @shopMarkupInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'30% markup included'**
+  String get shopMarkupInfo;
+
+  /// No description provided for @shopNoProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found'**
+  String get shopNoProducts;
+
+  /// No description provided for @shopCategoryCasa.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get shopCategoryCasa;
+
+  /// No description provided for @shopCategoryAbbigliamento.
+  ///
+  /// In en, this message translates to:
+  /// **'Clothing'**
+  String get shopCategoryAbbigliamento;
+
+  /// No description provided for @shopCategoryTech.
+  ///
+  /// In en, this message translates to:
+  /// **'Tech'**
+  String get shopCategoryTech;
+
+  /// No description provided for @shopCategoryConsumabili.
+  ///
+  /// In en, this message translates to:
+  /// **'Consumables'**
+  String get shopCategoryConsumabili;
+
+  /// No description provided for @shopCategorySport.
+  ///
+  /// In en, this message translates to:
+  /// **'Sport'**
+  String get shopCategorySport;
+
+  /// No description provided for @shopCategoryVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Vouchers'**
+  String get shopCategoryVoucher;
+
+  /// No description provided for @shopBadgeGratis.
+  ///
+  /// In en, this message translates to:
+  /// **'FREE'**
+  String get shopBadgeGratis;
+
+  /// No description provided for @shopBadgeScontato.
+  ///
+  /// In en, this message translates to:
+  /// **'DISCOUNTED'**
+  String get shopBadgeScontato;
+
+  /// No description provided for @shopBadgePromo.
+  ///
+  /// In en, this message translates to:
+  /// **'PROMO'**
+  String get shopBadgePromo;
+
+  /// No description provided for @shopSupplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplier: {name}'**
+  String shopSupplier(Object name);
+
+  /// No description provided for @shopQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get shopQuantity;
+
+  /// No description provided for @shopAddToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to cart'**
+  String get shopAddToCart;
+
+  /// No description provided for @shopAddFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Add for free'**
+  String get shopAddFree;
+
+  /// No description provided for @shopAddedToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to cart: {name} x{qty}'**
+  String shopAddedToCart(Object name, Object qty);
+
+  /// No description provided for @shopGoToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to cart'**
+  String get shopGoToCart;
+
+  /// No description provided for @cartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cart ({count})'**
+  String cartTitle(Object count);
+
+  /// No description provided for @cartEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Cart is empty'**
+  String get cartEmpty;
+
+  /// No description provided for @cartShipping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipping: {amount} EUR (always paid by worker)'**
+  String cartShipping(Object amount);
+
+  /// No description provided for @cartCheckout.
+  ///
+  /// In en, this message translates to:
+  /// **'Proceed to checkout'**
+  String get cartCheckout;
+
+  /// No description provided for @checkoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout'**
+  String get checkoutTitle;
+
+  /// No description provided for @checkoutItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Items ({count})'**
+  String checkoutItems(Object count);
+
+  /// No description provided for @checkoutAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery address'**
+  String get checkoutAddress;
+
+  /// No description provided for @checkoutPaymentSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment summary'**
+  String get checkoutPaymentSummary;
+
+  /// No description provided for @checkoutSubtotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get checkoutSubtotal;
+
+  /// No description provided for @checkoutWelfare.
+  ///
+  /// In en, this message translates to:
+  /// **'Welfare'**
+  String get checkoutWelfare;
+
+  /// No description provided for @checkoutElmettoDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Helmet discount ({points} pt)'**
+  String checkoutElmettoDiscount(Object points);
+
+  /// No description provided for @checkoutToPay.
+  ///
+  /// In en, this message translates to:
+  /// **'To pay'**
+  String get checkoutToPay;
+
+  /// No description provided for @checkoutFree.
+  ///
+  /// In en, this message translates to:
+  /// **'FREE'**
+  String get checkoutFree;
+
+  /// No description provided for @checkoutTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'TOTAL'**
+  String get checkoutTotal;
+
+  /// No description provided for @checkoutBnplLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay in 3 installments with Scalapay'**
+  String get checkoutBnplLabel;
+
+  /// No description provided for @checkoutBnplRate.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} EUR/month - interest paid by you'**
+  String checkoutBnplRate(Object amount);
+
+  /// No description provided for @checkoutConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm and pay'**
+  String get checkoutConfirm;
+
+  /// No description provided for @checkoutConfirmFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm free order'**
+  String get checkoutConfirmFree;
+
+  /// No description provided for @checkoutSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Order confirmed!'**
+  String get checkoutSuccess;
+
+  /// No description provided for @checkoutSuccessFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Your order is confirmed. Fully covered by welfare!'**
+  String get checkoutSuccessFree;
+
+  /// No description provided for @checkoutSuccessBnpl.
+  ///
+  /// In en, this message translates to:
+  /// **'You will pay in 3 installments of {amount} EUR/month with Scalapay.'**
+  String checkoutSuccessBnpl(Object amount);
+
+  /// No description provided for @checkoutSuccessCharged.
+  ///
+  /// In en, this message translates to:
+  /// **'Total charged: {amount} EUR'**
+  String checkoutSuccessCharged(Object amount);
+
+  /// No description provided for @checkoutBackToShop.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Store'**
+  String get checkoutBackToShop;
+
+  /// No description provided for @shopShipping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shipping'**
+  String get shopShipping;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTitle;
+
+  /// No description provided for @profileSafetyStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety Statistics'**
+  String get profileSafetyStats;
+
+  /// No description provided for @profileSafetyScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety Score'**
+  String get profileSafetyScore;
+
+  /// No description provided for @profileStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get profileStreak;
+
+  /// No description provided for @profileReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get profileReports;
+
+  /// No description provided for @profileTrustLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust Level'**
+  String get profileTrustLevel;
+
+  /// No description provided for @profileTrustBase.
+  ///
+  /// In en, this message translates to:
+  /// **'Base'**
+  String get profileTrustBase;
+
+  /// No description provided for @profileTrustVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get profileTrustVerified;
+
+  /// No description provided for @profileTrustTrusted.
+  ///
+  /// In en, this message translates to:
+  /// **'Trusted'**
+  String get profileTrustTrusted;
+
+  /// No description provided for @profileTrustExpert.
+  ///
+  /// In en, this message translates to:
+  /// **'Expert'**
+  String get profileTrustExpert;
+
+  /// No description provided for @profileWorkerOperaio.
+  ///
+  /// In en, this message translates to:
+  /// **'Worker'**
+  String get profileWorkerOperaio;
+
+  /// No description provided for @profileWorkerCaposquadra.
+  ///
+  /// In en, this message translates to:
+  /// **'Team Lead'**
+  String get profileWorkerCaposquadra;
+
+  /// No description provided for @profileWorkerPreposto.
+  ///
+  /// In en, this message translates to:
+  /// **'Supervisor'**
+  String get profileWorkerPreposto;
+
+  /// No description provided for @profileWorkerRspp.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety Officer'**
+  String get profileWorkerRspp;
+
+  /// No description provided for @profileSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get profileSettings;
+
+  /// No description provided for @profileLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get profileLanguage;
+
+  /// No description provided for @profileTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get profileTheme;
+
+  /// No description provided for @profileNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get profileNotifications;
+
+  /// No description provided for @profileBiometric.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometrics'**
+  String get profileBiometric;
+
+  /// No description provided for @profileLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get profileLogout;
+
+  /// No description provided for @profileActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get profileActive;
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTitle;
+
+  /// No description provided for @notificationsAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get notificationsAll;
+
+  /// No description provided for @notificationsCategorySafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety'**
+  String get notificationsCategorySafety;
+
+  /// No description provided for @notificationsCategoryPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get notificationsCategoryPoints;
+
+  /// No description provided for @notificationsCategoryTeam.
+  ///
+  /// In en, this message translates to:
+  /// **'Team'**
+  String get notificationsCategoryTeam;
+
+  /// No description provided for @notificationsCategorySystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get notificationsCategorySystem;
+
+  /// No description provided for @notificationsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get notificationsEmpty;
+
+  /// No description provided for @notificationsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get notificationsToday;
+
+  /// No description provided for @notificationsYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get notificationsYesterday;
+
+  /// No description provided for @notificationsThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get notificationsThisWeek;
+
+  /// No description provided for @notificationsEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier'**
+  String get notificationsEarlier;
+
+  /// No description provided for @notificationsMinAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{min} min ago'**
+  String notificationsMinAgo(Object min);
+
+  /// No description provided for @notificationsHoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h ago'**
+  String notificationsHoursAgo(Object hours);
+
+  /// No description provided for @notificationsDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{days}d ago'**
+  String notificationsDaysAgo(Object days);
+
+  /// No description provided for @streakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get streakTitle;
+
+  /// No description provided for @streakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days'**
+  String streakDays(Object count);
+
+  /// No description provided for @streakMultiplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiplier x{value}'**
+  String streakMultiplier(Object value);
+
+  /// No description provided for @streakDaysToNext.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days to {level}'**
+  String streakDaysToNext(Object days, Object level);
+
+  /// No description provided for @streakCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Month calendar'**
+  String get streakCalendar;
+
+  /// No description provided for @streakLevels.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Levels'**
+  String get streakLevels;
+
+  /// No description provided for @streakBestRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal record'**
+  String get streakBestRecord;
+
+  /// No description provided for @streakLevelFiammella.
+  ///
+  /// In en, this message translates to:
+  /// **'Spark'**
+  String get streakLevelFiammella;
+
+  /// No description provided for @streakLevelFuocherello.
+  ///
+  /// In en, this message translates to:
+  /// **'Flame'**
+  String get streakLevelFuocherello;
+
+  /// No description provided for @streakLevelFalo.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonfire'**
+  String get streakLevelFalo;
+
+  /// No description provided for @streakLevelIncendio.
+  ///
+  /// In en, this message translates to:
+  /// **'Blaze'**
+  String get streakLevelIncendio;
+
+  /// No description provided for @streakLevelInferno.
+  ///
+  /// In en, this message translates to:
+  /// **'Inferno'**
+  String get streakLevelInferno;
+
+  /// No description provided for @streakDaysMin.
+  ///
+  /// In en, this message translates to:
+  /// **'{days}+ days  |  x{multiplier}'**
+  String streakDaysMin(Object days, Object multiplier);
+
+  /// No description provided for @challengeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Team Challenge'**
+  String get challengeTitle;
+
+  /// No description provided for @challengeTeamContributions.
+  ///
+  /// In en, this message translates to:
+  /// **'Team Contributions'**
+  String get challengeTeamContributions;
+
+  /// No description provided for @challengeHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenge History'**
+  String get challengeHistory;
+
+  /// No description provided for @challengeTimeRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} remaining'**
+  String challengeTimeRemaining(Object value);
+
+  /// No description provided for @challengeExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get challengeExpired;
+
+  /// No description provided for @challengeBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonus: +{points} pt'**
+  String challengeBonus(Object points);
+
+  /// No description provided for @challengePoints.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} / {target} points'**
+  String challengePoints(Object current, Object target);
+
+  /// No description provided for @pointsEarnedSnackbar.
+  ///
+  /// In en, this message translates to:
+  /// **'+{points} Helmet Points'**
+  String pointsEarnedSnackbar(Object points);
+
+  /// No description provided for @pointsEarnedAction.
+  ///
+  /// In en, this message translates to:
+  /// **'+{points} Helmet Points - {action}'**
+  String pointsEarnedAction(Object points, Object action);
+
+  /// No description provided for @pointsActionCheckin.
+  ///
+  /// In en, this message translates to:
+  /// **'Wellness check-in'**
+  String get pointsActionCheckin;
+
+  /// No description provided for @pointsActionReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety report'**
+  String get pointsActionReport;
+
+  /// No description provided for @pointsActionQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz completed'**
+  String get pointsActionQuiz;
+
+  /// No description provided for @pointsActionAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Site access'**
+  String get pointsActionAccess;
+
+  /// No description provided for @pointsActionSurvey.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety survey'**
+  String get pointsActionSurvey;
+
+  /// No description provided for @wellnessNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes (optional)...'**
+  String get wellnessNoteHint;
+
+  /// No description provided for @wellnessSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Send check-in'**
+  String get wellnessSubmit;
+
+  /// No description provided for @wellnessSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in sent! +10 points'**
+  String get wellnessSubmitted;
+
+  /// No description provided for @wellnessMoodGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great'**
+  String get wellnessMoodGreat;
+
+  /// No description provided for @wellnessMoodGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get wellnessMoodGood;
+
+  /// No description provided for @wellnessMoodOkay.
+  ///
+  /// In en, this message translates to:
+  /// **'So-so'**
+  String get wellnessMoodOkay;
+
+  /// No description provided for @wellnessMoodStressed.
+  ///
+  /// In en, this message translates to:
+  /// **'Stressed'**
+  String get wellnessMoodStressed;
+
+  /// No description provided for @wellnessMoodBad.
+  ///
+  /// In en, this message translates to:
+  /// **'Bad'**
+  String get wellnessMoodBad;
+
+  /// No description provided for @vowSurveyPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice of Worker'**
+  String get vowSurveyPageTitle;
+
+  /// No description provided for @vowSurveyQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String vowSurveyQuestion(Object current, Object total);
+
+  /// No description provided for @vowSurveyAnonymous.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous'**
+  String get vowSurveyAnonymous;
+
+  /// No description provided for @vowSurveyBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get vowSurveyBack;
+
+  /// No description provided for @vowSurveyNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get vowSurveyNext;
+
+  /// No description provided for @vowSurveySubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit survey'**
+  String get vowSurveySubmit;
+
+  /// No description provided for @vowSurveySubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Survey Submitted!'**
+  String get vowSurveySubmitted;
+
+  /// No description provided for @vowSurveyThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for your anonymous contribution'**
+  String get vowSurveyThanks;
+
+  /// No description provided for @vowSurveyAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Average score'**
+  String get vowSurveyAverage;
+
+  /// No description provided for @vowSurveySummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get vowSurveySummary;
+
+  /// No description provided for @vowSurveyBackToTeam.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Team'**
+  String get vowSurveyBackToTeam;
+
+  /// No description provided for @vowRating1.
+  ///
+  /// In en, this message translates to:
+  /// **'Not at all'**
+  String get vowRating1;
+
+  /// No description provided for @vowRating2.
+  ///
+  /// In en, this message translates to:
+  /// **'A little'**
+  String get vowRating2;
+
+  /// No description provided for @vowRating3.
+  ///
+  /// In en, this message translates to:
+  /// **'Somewhat'**
+  String get vowRating3;
+
+  /// No description provided for @vowRating4.
+  ///
+  /// In en, this message translates to:
+  /// **'Very much'**
+  String get vowRating4;
+
+  /// No description provided for @vowRating5.
+  ///
+  /// In en, this message translates to:
+  /// **'Absolutely'**
+  String get vowRating5;
 }
 
 class _AppLocalizationsDelegate

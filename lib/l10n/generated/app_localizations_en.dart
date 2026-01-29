@@ -1117,4 +1117,519 @@ class AppLocalizationsEn extends AppLocalizations {
   String imparaDurationHours(Object hours, Object minutes) {
     return '${hours}h ${minutes}m';
   }
+
+  @override
+  String get walletTitle => 'WALLET';
+
+  @override
+  String get walletElmetto => 'Helmet Points';
+
+  @override
+  String get walletWelfare => 'Welfare Points';
+
+  @override
+  String get walletElmettoShort => 'Helmet';
+
+  @override
+  String get walletWelfareShort => 'Welfare';
+
+  @override
+  String walletConversionInfo(Object rate, Object percent) {
+    return '$rate Helmet = 1 EUR  |  Max $percent% discount';
+  }
+
+  @override
+  String get walletBudgetMonthly => 'Monthly Welfare Budget';
+
+  @override
+  String walletBudgetUsed(Object used, Object total) {
+    return '$used / $total EUR';
+  }
+
+  @override
+  String walletLevel(Object level) {
+    return 'Level $level';
+  }
+
+  @override
+  String walletNextLevel(Object level, Object points) {
+    return 'Next: $level ($points pt)';
+  }
+
+  @override
+  String get walletRecentMoves => 'Recent transactions';
+
+  @override
+  String get walletViewAll => 'View all';
+
+  @override
+  String walletElmettoValue(Object value) {
+    return '= $value EUR';
+  }
+
+  @override
+  String get welfarePlanSmall => 'Plan S';
+
+  @override
+  String get welfarePlanMedium => 'Plan M';
+
+  @override
+  String get welfarePlanLarge => 'Plan L';
+
+  @override
+  String welfarePlanBudget(Object amount) {
+    return '$amount EUR/month';
+  }
+
+  @override
+  String welfareRemaining(Object amount) {
+    return '$amount EUR remaining';
+  }
+
+  @override
+  String get shopTitle => 'Company Store';
+
+  @override
+  String get shopVigiloTitle => 'Company Store';
+
+  @override
+  String get shopVigiloSubtitle =>
+      'Your exclusive store: discounts and free products with your points';
+
+  @override
+  String get shopSearchHint => 'Search products...';
+
+  @override
+  String get shopCategoryAll => 'All';
+
+  @override
+  String shopProductCount(Object count) {
+    return '$count products';
+  }
+
+  @override
+  String get shopMarkupInfo => '30% markup included';
+
+  @override
+  String get shopNoProducts => 'No products found';
+
+  @override
+  String get shopCategoryCasa => 'Home';
+
+  @override
+  String get shopCategoryAbbigliamento => 'Clothing';
+
+  @override
+  String get shopCategoryTech => 'Tech';
+
+  @override
+  String get shopCategoryConsumabili => 'Consumables';
+
+  @override
+  String get shopCategorySport => 'Sport';
+
+  @override
+  String get shopCategoryVoucher => 'Vouchers';
+
+  @override
+  String get shopBadgeGratis => 'FREE';
+
+  @override
+  String get shopBadgeScontato => 'DISCOUNTED';
+
+  @override
+  String get shopBadgePromo => 'PROMO';
+
+  @override
+  String shopSupplier(Object name) {
+    return 'Supplier: $name';
+  }
+
+  @override
+  String get shopQuantity => 'Quantity';
+
+  @override
+  String get shopAddToCart => 'Add to cart';
+
+  @override
+  String get shopAddFree => 'Add for free';
+
+  @override
+  String shopAddedToCart(Object name, Object qty) {
+    return 'Added to cart: $name x$qty';
+  }
+
+  @override
+  String get shopGoToCart => 'Go to cart';
+
+  @override
+  String cartTitle(Object count) {
+    return 'Cart ($count)';
+  }
+
+  @override
+  String get cartEmpty => 'Cart is empty';
+
+  @override
+  String cartShipping(Object amount) {
+    return 'Shipping: $amount EUR (always paid by worker)';
+  }
+
+  @override
+  String get cartCheckout => 'Proceed to checkout';
+
+  @override
+  String get checkoutTitle => 'Checkout';
+
+  @override
+  String checkoutItems(Object count) {
+    return 'Items ($count)';
+  }
+
+  @override
+  String get checkoutAddress => 'Delivery address';
+
+  @override
+  String get checkoutPaymentSummary => 'Payment summary';
+
+  @override
+  String get checkoutSubtotal => 'Subtotal';
+
+  @override
+  String get checkoutWelfare => 'Welfare';
+
+  @override
+  String checkoutElmettoDiscount(Object points) {
+    return 'Helmet discount ($points pt)';
+  }
+
+  @override
+  String get checkoutToPay => 'To pay';
+
+  @override
+  String get checkoutFree => 'FREE';
+
+  @override
+  String get checkoutTotal => 'TOTAL';
+
+  @override
+  String get checkoutBnplLabel => 'Pay in 3 installments with Scalapay';
+
+  @override
+  String checkoutBnplRate(Object amount) {
+    return '$amount EUR/month - interest paid by you';
+  }
+
+  @override
+  String get checkoutConfirm => 'Confirm and pay';
+
+  @override
+  String get checkoutConfirmFree => 'Confirm free order';
+
+  @override
+  String get checkoutSuccess => 'Order confirmed!';
+
+  @override
+  String get checkoutSuccessFree =>
+      'Your order is confirmed. Fully covered by welfare!';
+
+  @override
+  String checkoutSuccessBnpl(Object amount) {
+    return 'You will pay in 3 installments of $amount EUR/month with Scalapay.';
+  }
+
+  @override
+  String checkoutSuccessCharged(Object amount) {
+    return 'Total charged: $amount EUR';
+  }
+
+  @override
+  String get checkoutBackToShop => 'Back to Store';
+
+  @override
+  String get shopShipping => 'Shipping';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get profileSafetyStats => 'Safety Statistics';
+
+  @override
+  String get profileSafetyScore => 'Safety Score';
+
+  @override
+  String get profileStreak => 'Streak';
+
+  @override
+  String get profileReports => 'Reports';
+
+  @override
+  String get profileTrustLevel => 'Trust Level';
+
+  @override
+  String get profileTrustBase => 'Base';
+
+  @override
+  String get profileTrustVerified => 'Verified';
+
+  @override
+  String get profileTrustTrusted => 'Trusted';
+
+  @override
+  String get profileTrustExpert => 'Expert';
+
+  @override
+  String get profileWorkerOperaio => 'Worker';
+
+  @override
+  String get profileWorkerCaposquadra => 'Team Lead';
+
+  @override
+  String get profileWorkerPreposto => 'Supervisor';
+
+  @override
+  String get profileWorkerRspp => 'Safety Officer';
+
+  @override
+  String get profileSettings => 'Settings';
+
+  @override
+  String get profileLanguage => 'Language';
+
+  @override
+  String get profileTheme => 'Theme';
+
+  @override
+  String get profileNotifications => 'Notifications';
+
+  @override
+  String get profileBiometric => 'Biometrics';
+
+  @override
+  String get profileLogout => 'Log out';
+
+  @override
+  String get profileActive => 'Active';
+
+  @override
+  String get notificationsTitle => 'Notifications';
+
+  @override
+  String get notificationsAll => 'All';
+
+  @override
+  String get notificationsCategorySafety => 'Safety';
+
+  @override
+  String get notificationsCategoryPoints => 'Points';
+
+  @override
+  String get notificationsCategoryTeam => 'Team';
+
+  @override
+  String get notificationsCategorySystem => 'System';
+
+  @override
+  String get notificationsEmpty => 'No notifications';
+
+  @override
+  String get notificationsToday => 'Today';
+
+  @override
+  String get notificationsYesterday => 'Yesterday';
+
+  @override
+  String get notificationsThisWeek => 'This week';
+
+  @override
+  String get notificationsEarlier => 'Earlier';
+
+  @override
+  String notificationsMinAgo(Object min) {
+    return '$min min ago';
+  }
+
+  @override
+  String notificationsHoursAgo(Object hours) {
+    return '${hours}h ago';
+  }
+
+  @override
+  String notificationsDaysAgo(Object days) {
+    return '${days}d ago';
+  }
+
+  @override
+  String get streakTitle => 'Streak';
+
+  @override
+  String streakDays(Object count) {
+    return '$count days';
+  }
+
+  @override
+  String streakMultiplier(Object value) {
+    return 'Multiplier x$value';
+  }
+
+  @override
+  String streakDaysToNext(Object days, Object level) {
+    return '$days days to $level';
+  }
+
+  @override
+  String get streakCalendar => 'Month calendar';
+
+  @override
+  String get streakLevels => 'Streak Levels';
+
+  @override
+  String get streakBestRecord => 'Personal record';
+
+  @override
+  String get streakLevelFiammella => 'Spark';
+
+  @override
+  String get streakLevelFuocherello => 'Flame';
+
+  @override
+  String get streakLevelFalo => 'Bonfire';
+
+  @override
+  String get streakLevelIncendio => 'Blaze';
+
+  @override
+  String get streakLevelInferno => 'Inferno';
+
+  @override
+  String streakDaysMin(Object days, Object multiplier) {
+    return '$days+ days  |  x$multiplier';
+  }
+
+  @override
+  String get challengeTitle => 'Team Challenge';
+
+  @override
+  String get challengeTeamContributions => 'Team Contributions';
+
+  @override
+  String get challengeHistory => 'Challenge History';
+
+  @override
+  String challengeTimeRemaining(Object value) {
+    return '$value remaining';
+  }
+
+  @override
+  String get challengeExpired => 'Expired';
+
+  @override
+  String challengeBonus(Object points) {
+    return 'Bonus: +$points pt';
+  }
+
+  @override
+  String challengePoints(Object current, Object target) {
+    return '$current / $target points';
+  }
+
+  @override
+  String pointsEarnedSnackbar(Object points) {
+    return '+$points Helmet Points';
+  }
+
+  @override
+  String pointsEarnedAction(Object points, Object action) {
+    return '+$points Helmet Points - $action';
+  }
+
+  @override
+  String get pointsActionCheckin => 'Wellness check-in';
+
+  @override
+  String get pointsActionReport => 'Safety report';
+
+  @override
+  String get pointsActionQuiz => 'Quiz completed';
+
+  @override
+  String get pointsActionAccess => 'Site access';
+
+  @override
+  String get pointsActionSurvey => 'Safety survey';
+
+  @override
+  String get wellnessNoteHint => 'Notes (optional)...';
+
+  @override
+  String get wellnessSubmit => 'Send check-in';
+
+  @override
+  String get wellnessSubmitted => 'Check-in sent! +10 points';
+
+  @override
+  String get wellnessMoodGreat => 'Great';
+
+  @override
+  String get wellnessMoodGood => 'Good';
+
+  @override
+  String get wellnessMoodOkay => 'So-so';
+
+  @override
+  String get wellnessMoodStressed => 'Stressed';
+
+  @override
+  String get wellnessMoodBad => 'Bad';
+
+  @override
+  String get vowSurveyPageTitle => 'Voice of Worker';
+
+  @override
+  String vowSurveyQuestion(Object current, Object total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get vowSurveyAnonymous => 'Anonymous';
+
+  @override
+  String get vowSurveyBack => 'Back';
+
+  @override
+  String get vowSurveyNext => 'Next';
+
+  @override
+  String get vowSurveySubmit => 'Submit survey';
+
+  @override
+  String get vowSurveySubmitted => 'Survey Submitted!';
+
+  @override
+  String get vowSurveyThanks => 'Thanks for your anonymous contribution';
+
+  @override
+  String get vowSurveyAverage => 'Average score';
+
+  @override
+  String get vowSurveySummary => 'Summary';
+
+  @override
+  String get vowSurveyBackToTeam => 'Back to Team';
+
+  @override
+  String get vowRating1 => 'Not at all';
+
+  @override
+  String get vowRating2 => 'A little';
+
+  @override
+  String get vowRating3 => 'Somewhat';
+
+  @override
+  String get vowRating4 => 'Very much';
+
+  @override
+  String get vowRating5 => 'Absolutely';
 }

@@ -35,6 +35,18 @@ class AppTheme {
   static const Color dangerContainer = Color(0xFFFFCDD2);
   static const Color onDangerContainer = Color(0xFF410002);
 
+  // AMBRA - Punti Elmetto (Engagement Points)
+  static const Color ambra = Color(0xFFFF8F00);
+  static const Color onAmbra = Color(0xFF000000);
+  static const Color ambraContainer = Color(0xFFFFE0B2);
+  static const Color onAmbraContainer = Color(0xFF331400);
+
+  // TEAL - Punti Welfare (Company Welfare)
+  static const Color teal = Color(0xFF00897B);
+  static const Color onTeal = Color(0xFFFFFFFF);
+  static const Color tealContainer = Color(0xFFB2DFDB);
+  static const Color onTealContainer = Color(0xFF00251E);
+
   // NEUTRAL - Grigio (Disabilitato/Secondario)
   static const Color neutral = Color(0xFF757575);
   static const Color onNeutral = Color(0xFFFFFFFF);
@@ -76,6 +88,16 @@ class AppTheme {
   static const Color onDangerDark = Color(0xFF690005);
   static const Color dangerContainerDark = Color(0xFFC62828);
   static const Color onDangerContainerDark = Color(0xFFFFDAD6);
+
+  static const Color ambraDark = Color(0xFFFFB74D);
+  static const Color onAmbraDark = Color(0xFF3A2400);
+  static const Color ambraContainerDark = Color(0xFFE65100);
+  static const Color onAmbraContainerDark = Color(0xFFFFE0B2);
+
+  static const Color tealDark = Color(0xFF4DB6AC);
+  static const Color onTealDark = Color(0xFF003731);
+  static const Color tealContainerDark = Color(0xFF00695C);
+  static const Color onTealContainerDark = Color(0xFFB2DFDB);
 
   static const Color surfaceDark = Color(0xFF1C1B1F);
   static const Color onSurfaceDark = Color(0xFFE6E1E5);

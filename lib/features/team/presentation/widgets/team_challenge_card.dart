@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/streak/presentation/pages/streak_detail_page.dart';
+import 'package:vigilo/features/team_challenge/presentation/pages/challenge_detail_page.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 
 class TeamChallengeCard extends StatelessWidget {
@@ -78,34 +80,43 @@ class TeamChallengeCard extends StatelessWidget {
                   ],
                 ),
               ),
-              // Hot streak badge
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: AppTheme.warning.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      Icons.local_fire_department_rounded,
-                      color: AppTheme.warning,
-                      size: 16,
+              // Hot streak badge — tap to open streak detail
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push<void>(
+                    MaterialPageRoute(
+                      builder: (_) => const StreakDetailPage(),
                     ),
-                    const SizedBox(width: 4),
-                    Text(
-                      '$_hotStreakDays',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppTheme.warning.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.local_fire_department_rounded,
                         color: AppTheme.warning,
+                        size: 16,
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 4),
+                      Text(
+                        '$_hotStreakDays',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                          color: AppTheme.warning,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -255,6 +266,11 @@ class TeamChallengeCard extends StatelessWidget {
             child: FilledButton.icon(
               onPressed: () {
                 HapticFeedback.lightImpact();
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute(
+                    builder: (_) => const ChallengeDetailPage(),
+                  ),
+                );
               },
               icon: const Icon(Icons.arrow_forward_rounded, size: 20),
               label: Text(l10n?.challengeDetails ?? 'Vai ai dettagli sfida'),
