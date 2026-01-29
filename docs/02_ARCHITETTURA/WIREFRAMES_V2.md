@@ -212,7 +212,7 @@
 - **Card streak** con progress giornaliero e bonus crescente
 - **TODO giornalieri** mostrano punti guadagnabili per ogni azione
 - Rimossa card Social Wall dalla home (spostata in Team)
-- Rimossa card DPI Status (integrata in Accesso Cantiere)
+- Rimossa card DPI Status (integrata in Check-in Turno con autodichiarazione)
 
 ---
 
@@ -354,7 +354,7 @@
 |  |                   (pulsante rosso)                      | |
 |  |                                                         | |
 |  |  Verranno avvisati automaticamente:                     | |
-|  |  - Capocantiere  - RSPP  - 118  - Familiare            | |
+|  |  - Preposto turno  - RSPP  - 118  - Familiare            | |
 |  |                                                         | |
 |  +-------------------------------------------------------+ |
 |                                                             |
@@ -378,7 +378,7 @@
 |  +-------------------------------------------------------+ |
 |  |  CONTATTI EMERGENZA                                    | |
 |  |                                                         | |
-|  |  Capocantiere (turno)                      [Chiama]    | |
+|  |  Preposto turno                      [Chiama]    | |
 |  |     Marco Rossi - 333 1234567                          | |
 |  |                                                         | |
 |  |  Centrale Operativa                        [Chiama]    | |
@@ -548,7 +548,7 @@
 |  |  Segnalazione rischio           35                      | |
 |  |  Sfida team                     75                      | |
 |  |                                                         | |
-|  |  10 punti = 1 EUR | Max 20% sconto (100% con welfare)  | |
+|  |  60 punti = 1 EUR | Max 20% sconto (100% con welfare)  | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
@@ -1180,7 +1180,7 @@
 |  |  +---------------------------------------------------+ | |
 |  |                                                         | |
 |  |  +---------------------------------------------------+ | |
-|  |  | Manuale sicurezza cantiere                         | | |
+|  |  | Manuale sicurezza sul lavoro                        | | |
 |  |  | PDF - 25 pagine - Procedure                        | | |
 |  |  | [====================] 100%         [v] Completato | | |
 |  |  +---------------------------------------------------+ | |
@@ -1554,13 +1554,13 @@
 |  |  Mario Rossi                                           | |
 |  |  Operaio specializzato                                 | |
 |  |  EdilPro S.r.l.                                        | |
-|  |  EdilPro S.r.l.                                        | |
+|  |  Reparto: Produzione                                   | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
 |  |  IL MIO WALLET                                         | |
 |  |                                                         | |
-|  |  Punti Elmetto:   1.200     Livello: SILVER            | |
+|  |  Punti Elmetto:   1.800     Livello: SILVER            | |
 |  |  Welfare:         [ATTIVO]                             | |
 |  |  Risparmiato:    E42.30     quest'anno                 | |
 |  +-------------------------------------------------------+ |
@@ -1718,6 +1718,8 @@
 |         |          | scoring con punti visibili, checkout con Elmetto+welfare, tracking ordini, |
 |         |          | voucher, promozioni, streak dettaglio, sfide team, check-in/survey,  |
 |         |          | notifiche, profilo                                                   |
+| 2026-01 | 2.1      | Check-in Turno con autodichiarazione DPI per ruolo, terminologia     |
+|         |          | generica (non cantiere-specifica), conversione 60:1, pulizia orfani  |
 
 ---
 
