@@ -22,10 +22,10 @@ class _MainShellState extends State<MainShell> {
 
   final List<Widget> _pages = const [
     HomePage(),
-    ShopPage(),
-    SosPage(),
     PuntiPage(),
+    SosPage(),
     ImparaPage(),
+    ShopPage(),
   ];
 
   @override
@@ -95,22 +95,22 @@ class _MainShellState extends State<MainShell> {
                   ),
                   _buildNavItem(
                     1,
-                    Icons.storefront_outlined,
-                    Icons.storefront_rounded,
-                    'Spaccio',
-                  ),
-                  _buildSafetyButton(),
-                  _buildNavItem(
-                    3,
                     Icons.star_outline_rounded,
                     Icons.star_rounded,
                     l10n?.navPunti ?? 'Punti',
                   ),
+                  _buildSafetyButton(),
                   _buildNavItem(
-                    4,
+                    3,
                     Icons.school_outlined,
                     Icons.school_rounded,
                     l10n?.navImpara ?? 'Impara',
+                  ),
+                  _buildNavItem(
+                    4,
+                    Icons.storefront_outlined,
+                    Icons.storefront_rounded,
+                    'Spaccio',
                   ),
                 ],
               ),
