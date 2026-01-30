@@ -137,7 +137,7 @@ class Order {
                   id: item['product_id'] as String? ?? '',
                   name: item['product_name'] as String? ?? '',
                   description: '',
-                  category: Product._parseCategory(
+                  category: Product.parseCategory(
                       item['product_category'] as String?),
                   basePrice:
                       (item['unit_price'] as num?)?.toDouble() ?? 0.0,

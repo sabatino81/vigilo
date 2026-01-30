@@ -14,7 +14,7 @@ A production-ready Flutter application with:
 - ✅ **Go Router Navigation** - Type-safe routing
 - ✅ **Multi-language Support** - i18n ready (en, it, es, fr)
 - ✅ **Theme System** - Dynamic light/dark mode
-- ✅ **Local Storage** - Hive for offline data
+- ✅ **Local Storage** - SharedPreferences for settings
 - ✅ **Environment Config** - Dev, Preview, Staging, Production
 
 ---
@@ -185,7 +185,7 @@ flutter test --coverage
 | State Management | Riverpod |
 | Backend | Supabase |
 | Navigation | Go Router |
-| Local Storage | Hive |
+| Local Storage | SharedPreferences |
 | HTTP Client | Dio |
 | Code Generation | Build Runner |
 

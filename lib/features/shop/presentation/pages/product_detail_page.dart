@@ -64,9 +64,12 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     final breakdown = wallet?.calculateCheckout(_totalPrice) ??
         CheckoutBreakdown(
           totalEur: _totalPrice,
-          welfareCoversEur: 0,
           elmettoDiscountEur: 0,
+          elmettoPointsUsed: 0,
           workerPaysEur: _totalPrice,
+          companyPaysEur: 0,
+          welfareActive: false,
+          isFullyFree: false,
         );
 
     return Scaffold(

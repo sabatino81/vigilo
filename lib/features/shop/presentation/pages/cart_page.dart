@@ -47,9 +47,12 @@ class CartPage extends ConsumerWidget {
     final breakdown = wallet?.calculateCheckout(subtotal) ??
         CheckoutBreakdown(
           totalEur: subtotal,
-          welfareCoversEur: 0,
           elmettoDiscountEur: 0,
+          elmettoPointsUsed: 0,
           workerPaysEur: subtotal,
+          companyPaysEur: 0,
+          welfareActive: false,
+          isFullyFree: false,
         );
 
     return Scaffold(

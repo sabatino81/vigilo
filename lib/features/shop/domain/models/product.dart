@@ -59,7 +59,7 @@ class Product {
       id: json['id'] as String,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      category: _parseCategory(json['category'] as String?),
+      category: parseCategory(json['category'] as String?),
       basePrice: (json['base_price'] as num?)?.toDouble() ?? 0.0,
       emoji: json['emoji'] as String? ?? '🎁',
       badge: _parseBadge(json['badge'] as String?),
@@ -68,7 +68,7 @@ class Product {
     );
   }
 
-  static ProductCategory _parseCategory(String? value) {
+  static ProductCategory parseCategory(String? value) {
     if (value == null) return ProductCategory.casa;
     return ProductCategory.values.firstWhere(
       (e) => e.name == value,
