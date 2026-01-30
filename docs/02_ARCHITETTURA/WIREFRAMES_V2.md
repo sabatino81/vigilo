@@ -673,27 +673,24 @@
 |  |  [elmetto]  Con Sconto Elmetto    40.80 EUR           | |
 |  |  (icona     -612 punti            (22px, w900,        | |
 |  |   in box)   (12px, ambra 0.7)      #FFB800)           | |
+|  |  ---------------------------------------------------- | |
+|  |  truck Spedizione                  5.90 EUR           | |
+|  |  cal   Consegna prevista    3-7 giorni lavorativi     | |
+|  |  ~~~~~~~~~~~~~ divider ambra ~~~~~~~~~~~~~~~           | |
+|  |  Totale con spedizione             46.70 EUR          | |
+|  |  (14px, stile scontato)                                | |
+|  |                                                        | |
+|  |  +---------------------------------------------------+| |
+|  |  | [card] Paga in 3 rate con Klarna  16.19 EUR/mese  || |
+|  |  |  * Costo servizio Klarna: 1.87 EUR               || |
+|  |  |  (rata = totale * 1.04 / 3, se totale >= 50 EUR) || |
+|  |  +---------------------------------------------------+| |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
 |  |  info  Descrizione (14px, w700)                        | |
 |  |                                                        | |
 |  |  Testo descrizione prodotto (14px, h1.6)               | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  receipt  Riepilogo pagamento                          | |
-|  |                                                        | |
-|  |  Subtotale                        51.00 EUR            | |
-|  |  [elmetto] Sconto Elmetto (612pt) -10.20 EUR (ambra)  | |
-|  |  [biz] A carico azienda          -40.80 EUR (teal)    | |
-|  |  ~~~~~~~~~~~~~ gradient divider ~~~~~~~~~~~~~~~        | |
-|  |  Da pagare                        0.00 EUR (giallo)   | |
-|  |                                                        | |
-|  |  +---------------------------------------------------+| |
-|  |  | [card] Paga in 3 rate con Scalapay                || |
-|  |  |        8.50 EUR/mese (13px, w800)                 || |
-|  |  +---------------------------------------------------+| |
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------+
@@ -723,9 +720,11 @@
   - Divider gradient ambra
   - Con Sconto Elmetto (14px label, 22px prezzo w900 #FFB800) con icona construction
   - Sotto il label: "-N punti" (12px, ambra 0.7) — punti scalano con quantita
-- Descrizione, Riepilogo: card bianche con bordo sottile, borderRadius 20
-- Riepilogo: divider gradient, totale giallo #FFB800 (18px) o verde "GRATIS"
-- BNPL Scalapay: card con icona credit_card in box, layout a 2 righe
+  - Spedizione 5.90 EUR (icona truck) + Consegna prevista 3-7 gg (icona calendar)
+  - Divider ambra + Totale con spedizione (stile scontato: 14px/16px grigio)
+  - Klarna 3 rate (se totale >= 50 EUR): card rosa, rata = (totale * 1.04) / 3
+  - Pallino + "Costo servizio Klarna: X.XX EUR" (4% del totale, 10px grigio)
+- Descrizione: card bianca con bordo sottile, borderRadius 20
 - Tasti azione FLOTTANTI: barra bottom floating (borderRadius 24, sfondo semi-trasparente,
   shadow, margin 16, SafeArea). Compra Ora (gradient giallo, flash, flex 3, h50) +
   Carrello (gradient verde, cart, flex 2, h50)
@@ -1602,6 +1601,11 @@
 |         |          | moltiplicati per qty. "Con Sconto Elmetto" + info punti. Tasti       |
 |         |          | Compra Ora + Carrello ora in barra flottante bottom (borderRadius    |
 |         |          | 24, semi-trasparente, shadow). Rimossi nomi fornitori dai mock       |
+| 2026-01 | 2.7      | Dettaglio: rimosso riepilogo pagamento separato. Spedizione (5.90    |
+|         |          | EUR), consegna prevista e totale con spedizione dentro card prezzi.  |
+|         |          | Klarna 3 rate (se >= 50 EUR): rata = totale * 1.04 / 3, costo       |
+|         |          | servizio = 4%. Sfondo con gradient + glow radiali (categoria +      |
+|         |          | verde). Rimossi nomi fornitori (BigBuy/CJDropshipping)              |
 
 ---
 
