@@ -63,6 +63,22 @@ class _ShopPageState extends ConsumerState<ShopPage> {
     return Scaffold(
       body: Column(
         children: [
+          // Title
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Spaccio Aziendale',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
+            ),
+          ),
+
           // Search bar
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
