@@ -154,6 +154,22 @@ class Streak {
     return next.minDays - currentDays;
   }
 
+  /// Crea da JSON (risposta RPC get_my_streak).
+  factory Streak.fromJson(Map<String, dynamic> json) {
+    final calDays = json['calendar_days'];
+    final days = <int>[];
+    if (calDays is List) {
+      for (final d in calDays) {
+        if (d is num) days.add(d.toInt());
+      }
+    }
+    return Streak(
+      currentDays: json['current_days'] as int? ?? 0,
+      bestStreak: json['best_streak'] as int? ?? 0,
+      calendarDays: days,
+    );
+  }
+
   /// Mock data
   static Streak mockStreak() {
     final now = DateTime.now();

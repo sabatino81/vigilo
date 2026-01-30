@@ -183,6 +183,34 @@ class ShiftCheckin {
     );
   }
 
+  /// Crea da JSON (risposta RPC get_today_checkin).
+  factory ShiftCheckin.fromJson(
+    Map<String, dynamic> json,
+    WorkerCategory category,
+  ) {
+    final status = json['status'] as String?;
+    final dpiIds = json['checked_dpi_ids'];
+    final checkedIds = <String>{};
+    if (dpiIds is List) {
+      for (final id in dpiIds) {
+        if (id is String) checkedIds.add(id);
+      }
+    }
+    final checkinTimeStr = json['checkin_time'] as String?;
+
+    return ShiftCheckin(
+      workerCategory: category,
+      requiredDpi: DpiRequirement.forCategory(category),
+      checkedDpiIds: checkedIds,
+      status: status == 'completed'
+          ? CheckinStatus.completed
+          : CheckinStatus.pending,
+      checkinTime: checkinTimeStr != null
+          ? DateTime.tryParse(checkinTimeStr)
+          : null,
+    );
+  }
+
   /// Mock: check-in pendente per operaio
   static ShiftCheckin mockPending() {
     final category = WorkerCategory.operaio;
