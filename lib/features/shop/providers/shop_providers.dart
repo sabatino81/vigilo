@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/data/supabase_provider.dart';
 import 'package:vigilo/features/shop/data/order_repository.dart';
@@ -50,11 +51,16 @@ class ProductsNotifier extends AsyncNotifier<List<Product>> {
   Future<List<Product>> _fetch() async {
     try {
       final repo = ref.read(productRepositoryProvider);
-      if (repo == null) return Product.mockProducts();
+      if (repo == null) {
+        debugPrint('[ProductsNotifier] repo is null, using mock');
+        return Product.mockProducts();
+      }
       final products = await repo.getProducts();
+      debugPrint('[ProductsNotifier] fetched ${products.length} products from DB');
       if (products.isEmpty) return Product.mockProducts();
       return products;
-    } on Object {
+    } on Object catch (e) {
+      debugPrint('[ProductsNotifier] error: $e, using mock');
       return Product.mockProducts();
     }
   }

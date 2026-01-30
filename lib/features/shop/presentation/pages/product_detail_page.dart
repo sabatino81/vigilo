@@ -500,28 +500,6 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                       height: 1.2,
                     ),
                   ),
-                  const SizedBox(height: 6),
-
-                  // Fornitore
-                  if (product.supplierName != null)
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.local_shipping_rounded,
-                          size: 14,
-                          color: isDark ? Colors.white38 : Colors.black38,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          product.supplierName!,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: isDark ? Colors.white38 : Colors.black38,
-                          ),
-                        ),
-                      ],
-                    ),
                   const SizedBox(height: 20),
 
                   // Sezione prezzi — card con bordo
