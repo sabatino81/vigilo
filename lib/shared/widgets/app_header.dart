@@ -117,30 +117,57 @@ class _PointsBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final walletAsync = ref.watch(walletProvider);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return walletAsync.when(
-      data: (wallet) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.hardware_rounded,
-            size: 14,
-            color: AppTheme.primary,
+      data: (wallet) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppTheme.ambra.withValues(alpha: isDark ? 0.25 : 0.15),
+              AppTheme.primary.withValues(alpha: isDark ? 0.15 : 0.08),
+            ],
           ),
-          const SizedBox(width: 4),
-          Text(
-            '${wallet.puntiElmetto} pt',
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppTheme.primary,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: AppTheme.ambra.withValues(alpha: isDark ? 0.4 : 0.3),
           ),
-        ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.hardware_rounded,
+              size: 13,
+              color: AppTheme.ambra,
+            ),
+            const SizedBox(width: 5),
+            Text(
+              '${_formatPoints(wallet.puntiElmetto)} pt',
+              style: TextStyle(
+                color: isDark ? AppTheme.primary : AppTheme.ambra,
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                letterSpacing: 0.3,
+              ),
+            ),
+          ],
+        ),
       ),
       loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
     );
+  }
+
+  String _formatPoints(int points) {
+    if (points >= 1000) {
+      final k = points / 1000;
+      return k == k.truncateToDouble()
+          ? '${k.toInt()}K'
+          : '${k.toStringAsFixed(1)}K';
+    }
+    return points.toString();
   }
 }
 
