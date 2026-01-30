@@ -12,7 +12,7 @@
 4. [SOS](#sos)
 5. [Punti — Wallet Punti Elmetto](#punti--wallet-punti-elmetto)
 6. [Spaccio Aziendale — Catalogo](#spaccio-aziendale--catalogo)
-7. [Spaccio Aziendale — Card Prodotto](#spaccio-aziendale--card-prodotto)
+7. [Spaccio Aziendale — Dettaglio Prodotto](#spaccio-aziendale--dettaglio-prodotto)
 8. [Spaccio Aziendale — Checkout](#spaccio-aziendale--checkout)
 9. [Spaccio Aziendale — Ordini e Tracking](#spaccio-aziendale--ordini-e-tracking)
 10. [Impara](#impara)
@@ -632,215 +632,98 @@
 
 ---
 
-## Spaccio Aziendale — Card Prodotto
+## Spaccio Aziendale — Dettaglio Prodotto
 
-### Scenario 1 — Senza welfare
-
-```
-+-------------------------------------------------------------+
-|  <- Indietro                                     [cart] (2) |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |                                                         | |
-|  |              [IMMAGINE PRODOTTO]                        | |
-|  |              < swipe gallery >                          | |
-|  |                                         SCONTATO        | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  Borraccia Termica Pro                                     |
-|  Categoria: Benessere                                      |
-|                                                             |
-|  Prezzo: E30.00                                            |
-|                                                             |
-|  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 1.800 punti (E30)                                 |
-|  Usa: [o=================] 360 punti                       |
-|  Sconto: -20% (-E6.00)                                    |
-|                                                             |
-|  -------------------------------------------------         |
-|  Tu paghi:                             E24.00              |
-|                                                             |
-|  Spedizione: E5.90 (standard 3-7 gg)                      |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |            Acquista — E29.90                           | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  Descrizione:                                              |
-|  Borraccia in acciaio inox 750ml, doppia parete,           |
-|  mantiene caldo 12h e freddo 24h. Ideale per cantiere.     |
-|                                                             |
-|  Spedizione: 3-7 giorni lavorativi                         |
-|  Reso: 14 giorni dalla consegna                            |
-|                                                             |
-+-------------------------------------------------------------+
-```
-
-### Scenario 2 — Con welfare attivo
+### Layout Pagina
 
 ```
 +-------------------------------------------------------------+
-|  <- Indietro                                     [cart] (2) |
+|  [<-]                                  [Benessere pill]     |
+|  (floating,                            (icona+label,        |
+|   shadow)                               colore categoria)   |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |                                                         | |
-|  |              [IMMAGINE PRODOTTO]                        | |
-|  |              < swipe gallery >                          | |
-|  |                                    GRATIS PER TE        | |
+|  |                    HERO EMOJI                          | |
+|  |                                                        | |
+|  |                      emoji                             | |
+|  |                     120px                               | |
+|  |                                                        | |
+|  |  [-15%]                                    [PROMO]     | |
+|  |  (gradient rosso,                   (badge pill, glow) | |
+|  |   pill + glow)                                         | |
 |  +-------------------------------------------------------+ |
+|     sfondo #EEEEEE, borderRadius bottom 32                 |
 |                                                             |
-|  Borraccia Termica Pro                                     |
-|  Categoria: Benessere                                      |
-|                                                             |
-|  Prezzo: E30.00                                            |
-|                                                             |
-|  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 1.800 punti (E30)                                 |
-|  Usa: [o=================] 1.800 punti                     |
-|  Sconto base: -20% (-E6.00)                               |
-|                                                             |
-|  -- Welfare aziendale [ATTIVO] ----------------------      |
-|  Usa welfare: [ON]                                         |
-|  L'azienda copre il resto: -E24.00                         |
-|                                                             |
-|  -------------------------------------------------         |
-|  Prezzo:                               E30.00              |
-|  Sconto Elmetto (20%):                 -E6.00              |
-|  Welfare azienda:                     -E24.00              |
-|  -------------------------------------------------         |
-|  Tu paghi:                              E0.00              |
-|                                                             |
-|  Spedizione: E5.90 (standard 3-7 gg)                      |
+|  Nome Prodotto (24px, w900)                                |
+|  truck Fornitore (13px, w500, grigio)                      |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |         Riscatta gratis — spedizione E5.90             | |
+|  |  CARD PREZZI (bordo giallo #FFB800)                    | |
+|  |                                                        | |
+|  |  Listino: --30.00 EUR--    Scontato: 25.50 EUR         | |
+|  |  (12px, barrato, grigio)   (13px, se promo)            | |
+|  |                                                        | |
+|  |  [elmetto]  Prezzo Elmetto          [-32%]             | |
+|  |  (icona     11px label              (verde, badge      | |
+|  |   in box)   26px, w900, #FFB800      risparmio %)      | |
+|  |             20.40 EUR                                  | |
 |  +-------------------------------------------------------+ |
-|  (tasto verde)                                              |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  info  Descrizione (14px, w700)                        | |
+|  |                                                        | |
+|  |  Testo descrizione prodotto (14px, h1.6)               | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  bag  Quantita (14px, w700)         [-] 1 [+]         | |
+|  |                                  (gradient btn, 38px)  | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  receipt  Riepilogo pagamento                          | |
+|  |                                                        | |
+|  |  Subtotale                        25.50 EUR            | |
+|  |  [elmetto] Sconto Elmetto (360pt) -5.10 EUR (ambra)   | |
+|  |  [biz] A carico azienda          -20.40 EUR (teal)    | |
+|  |  ~~~~~~~~~~~~~ gradient divider ~~~~~~~~~~~~~~~        | |
+|  |  Da pagare                        0.00 EUR (giallo)   | |
+|  |                                                        | |
+|  |  +---------------------------------------------------+| |
+|  |  | [card] Paga in 3 rate con Scalapay                || |
+|  |  |        8.50 EUR/mese (13px, w800)                 || |
+|  |  +---------------------------------------------------+| |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +------------------------------+ +---------------------+  |
+|  | flash  Compra Ora  (16px)    | | cart  Carrello       |  |
+|  | gradient giallo->arancione   | | gradient verde       |  |
+|  | h54, glow shadow             | | h54, glow shadow     |  |
+|  | flex: 3                      | | flex: 2              |  |
+|  +------------------------------+ +---------------------+  |
 |                                                             |
 +-------------------------------------------------------------+
 ```
 
-### Scenario 3 — Gratis (welfare copre tutto, prodotto piccolo)
-
-```
-+-------------------------------------------------------------+
-|  <- Indietro                                     [cart] (2) |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |                                                         | |
-|  |              [IMMAGINE PRODOTTO]                        | |
-|  |              < swipe gallery >                          | |
-|  |                                    GRATIS PER TE        | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  Guanti Sicurezza Pro                                      |
-|  Categoria: Sicurezza                                      |
-|                                                             |
-|  Prezzo: E15.00                                            |
-|                                                             |
-|  -- I tuoi Punti Elmetto ---------------------------       |
-|  Sconto base: -20% (-E3.00)                               |
-|                                                             |
-|  -- Welfare aziendale [ATTIVO] ----------------------      |
-|  L'azienda copre: -E12.00                                  |
-|                                                             |
-|  -------------------------------------------------         |
-|  Prezzo:                               E15.00              |
-|  Sconto Elmetto (20%):                 -E3.00              |
-|  Welfare azienda:                     -E12.00              |
-|  -------------------------------------------------         |
-|  Tu paghi:                        E0.00 GRATIS             |
-|                                                             |
-|  Spedizione: E5.90 (anche se gratis, la spedizione        |
-|              resta a carico tuo)                           |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |         Riscatta gratis — spedizione E5.90             | |
-|  +-------------------------------------------------------+ |
-|  (tasto verde)                                              |
-|                                                             |
-+-------------------------------------------------------------+
-```
-
-### Scenario 4 — Punti insufficienti (motivazionale)
-
-```
-+-------------------------------------------------------------+
-|  <- Indietro                                     [cart] (2) |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |                                                         | |
-|  |              [IMMAGINE PRODOTTO]                        | |
-|  |              < swipe gallery >                          | |
-|  |                                                         | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  Zaino Tecnico Waterproof                                  |
-|  Categoria: Abbigliamento                                  |
-|                                                             |
-|  Prezzo: E85.00                                            |
-|                                                             |
-|  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 120 punti (E2)                                     |
-|  Ancora 135 punti per il primo sconto! (5% = -E4.25)      |
-|                                                             |
-|  Completa 2 quiz per raggiungerlo!                         |
-|                                                             |
-|  -------------------------------------------------         |
-|  Tu paghi:                             E85.00              |
-|                                                             |
-|  Spedizione: E7.90 (standard 3-7 gg)                      |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |            Acquista — E92.90                           | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  Oppure paga in 3 rate con Scalapay:                       |
-|  +-------------------------------------------------------+ |
-|  |     3 rate da E31.30/mese (+ interessi)               | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-+-------------------------------------------------------------+
-```
-
-### Scenario 5 — Prodotto in promozione (sconto fornitore)
-
-```
-+-------------------------------------------------------------+
-|  <- Indietro                                     [cart] (2) |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |                                                         | |
-|  |              [IMMAGINE PRODOTTO]                        | |
-|  |              < swipe gallery >                          | |
-|  |                                         PROMO           | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  Cuffie Bluetooth Sport                                    |
-|  Categoria: Tecnologia                                     |
-|                                                             |
-|  Prezzo originale: --E65.00--                              |
-|  Prezzo promo:      E45.50    (-30%)                       |
-|                                                             |
-|  -- I tuoi Punti Elmetto ---------------------------       |
-|  Saldo: 1.800 punti (E30)                                 |
-|  Usa: [o=========.........] 273 punti                      |
-|  Sconto: -10% (-E4.55)                                    |
-|                                                             |
-|  -------------------------------------------------         |
-|  Prezzo promo:                         E45.50              |
-|  Sconto Elmetto (10%):                 -E4.55              |
-|  -------------------------------------------------         |
-|  Tu paghi:                             E40.95              |
-|                                                             |
-|  Spedizione: E5.90 (standard 3-7 gg)                      |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |            Acquista — E46.85                           | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-+-------------------------------------------------------------+
-```
+**Note:**
+- AppBar trasparente con `extendBodyBehindAppBar: true`
+- Tasto back floating con ombra e borderRadius 12
+- Categoria pill in alto a destra (icona + label, colore della categoria)
+- Hero: full-width 280px, sfondo #EEEEEE, borderRadius bottom 32, shadow
+- Badge sconto % (pill gradient rosso, glow) e badge prodotto (pill, glow) dentro hero
+- Emoji prodotto 120px centrata
+- Card prezzi: bordo giallo #FFB800 (1.5px, alpha 0.4), glow shadow ambra
+  - Listino (barrato) + Scontato (se promo) piccoli in alto
+  - Prezzo Elmetto grande (26px, w900, #FFB800) con icona construction in box
+  - Badge risparmio % verde in alto a destra
+- Descrizione, Quantita, Riepilogo: card bianche con bordo sottile, borderRadius 20
+- Ogni sezione ha icona header (info, bag, receipt)
+- Quantity selector: bottoni +/- con gradient e haptic feedback
+- Riepilogo: divider gradient (trasparente -> colore -> trasparente)
+- Totale "Da pagare" in giallo #FFB800 (18px, w900) o verde "GRATIS"
+- BNPL Scalapay: card con icona credit_card in box, layout a 2 righe
+- Tasti azione: Compra Ora (gradient giallo, icona flash, flex 3) + Carrello (gradient verde, icona cart, flex 2)
+- Background: #F5F5F5 light, #121212 dark
 
 ---
 
@@ -1702,6 +1585,12 @@
 |         |          | scontato, Elmetto -20%), tasti Compra+Carrello gradient, bordo       |
 |         |          | colorato per sconto %, badge pill con glow, sfondo grigio/overlay    |
 |         |          | scuro. Titolo shimmer animato. Infinite scroll (10 per pagina)       |
+| 2026-01 | 2.5      | Dettaglio prodotto: hero emoji full-width (280px, sfondo #EEEEEE,    |
+|         |          | borderRadius 32), AppBar trasparente con back floating + categoria   |
+|         |          | pill, card prezzi con bordo giallo e Prezzo Elmetto 26px + badge     |
+|         |          | risparmio %, sezioni card (descrizione, quantita, riepilogo),        |
+|         |          | tasti gradient Compra Ora + Carrello, riepilogo con divider gradient |
+|         |          | e BNPL Scalapay. Rimossi 5 scenari legacy, wireframe unificato      |
 
 ---
 
