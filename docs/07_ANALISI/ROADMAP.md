@@ -66,7 +66,7 @@
 
 | Item | Priorità | Effort |
 |------|----------|--------|
-| Test coverage < 50% | 🔴 Alta | 2 sprint |
+| ~~Test coverage < 50%~~ | ✅ Risolto | 221 unit test, copertura modelli >80% |
 | Mancano test E2E | 🟡 Media | 1 sprint |
 | Documentazione API incompleta | 🟡 Media | 1 settimana |
 | Accessibilità (a11y) non testata | 🟢 Bassa | 1 sprint |
