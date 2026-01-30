@@ -42,8 +42,12 @@ class ProductsNotifier extends AsyncNotifier<List<Product>> {
   Future<void> refresh() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final repo = ref.read(productRepositoryProvider);
-      return repo.getProducts();
+      try {
+        final repo = ref.read(productRepositoryProvider);
+        return await repo.getProducts();
+      } on Object {
+        return Product.mockProducts();
+      }
     });
   }
 }
@@ -180,8 +184,12 @@ class OrdersNotifier extends AsyncNotifier<List<Order>> {
   Future<void> refresh() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final repo = ref.read(orderRepositoryProvider);
-      return repo.getMyOrders();
+      try {
+        final repo = ref.read(orderRepositoryProvider);
+        return await repo.getMyOrders();
+      } on Object {
+        return Order.mockOrders();
+      }
     });
   }
 }
@@ -209,8 +217,12 @@ class VouchersNotifier extends AsyncNotifier<List<Voucher>> {
   Future<void> refresh() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      final repo = ref.read(orderRepositoryProvider);
-      return repo.getMyVouchers();
+      try {
+        final repo = ref.read(orderRepositoryProvider);
+        return await repo.getMyVouchers();
+      } on Object {
+        return Voucher.mockVouchers();
+      }
     });
   }
 }

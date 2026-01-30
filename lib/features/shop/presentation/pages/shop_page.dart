@@ -55,7 +55,7 @@ class _ShopPageState extends ConsumerState<ShopPage> {
     final allProducts = productsAsync.when(
       data: (p) => p,
       loading: () => <Product>[],
-      error: (_, __) => <Product>[],
+      error: (_, __) => Product.mockProducts(),
     );
 
     final filtered = _filterProducts(allProducts);
