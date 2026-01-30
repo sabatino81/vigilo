@@ -727,7 +727,7 @@
 - Descrizione: card bianca con bordo sottile, borderRadius 20
 - Tasti azione FLOTTANTI: barra bottom floating (borderRadius 24, sfondo semi-trasparente,
   shadow, margin 16, SafeArea). Compra Ora (gradient giallo, flash, flex 3, h50) +
-  Carrello (gradient verde, cart, flex 2, h50)
+  Aggiungi al carrello (gradient verde, cart, flex 3, h50, testo su 2 righe)
 - Background: #F5F5F5 light, #121212 dark
 
 ---
@@ -1540,7 +1540,7 @@
 
 ```
 +-------------------------------------------------------------+
-|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
+|  [avatar] Ciao! / Nome   ⛑ Punti Elmetto  [bell] [cart]     |
 +-------------------------------------------------------------+
 ```
 
@@ -1550,6 +1550,7 @@
 | Nome utente     | Testo informativo                    |
 | ⛑ Punti Elmetto| Chip blu con saldo formattato (1.8K) |
 | Campana [bell]  | Naviga a Notifiche (con badge count) |
+| Carrello [cart] | Naviga al Carrello (sfondo verde, icona bianca, badge count reattivo) |
 
 > **Note:** Il pulsante settings/ingranaggio è stato rimosso dall'header.
 > Lingua, tema e logout sono ora accessibili dalla pagina Profilo.
@@ -1606,6 +1607,9 @@
 |         |          | Klarna 3 rate (se >= 50 EUR): rata = totale * 1.04 / 3, costo       |
 |         |          | servizio = 4%. Sfondo con gradient + glow radiali (categoria +      |
 |         |          | verde). Rimossi nomi fornitori (BigBuy/CJDropshipping)              |
+| 2026-01 | 2.8      | Header: aggiunta icona carrello (sfondo verde, icona bianca) con    |
+|         |          | badge count reattivo, a destra delle notifiche. Dettaglio: tasto    |
+|         |          | "Aggiungi al carrello" su 2 righe, bottoni bilanciati (flex 3+3)   |
 
 ---
 
