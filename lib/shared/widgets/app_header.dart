@@ -98,25 +98,27 @@ class AppHeader extends ConsumerWidget {
             },
             isDark: isDark,
           ),
-          const SizedBox(width: 8),
-          // Cart button -> navigate to cart
-          _GlassIconButton(
-            icon: Icons.shopping_cart_outlined,
-            badgeCount: ref.watch(cartProvider).fold<int>(
-              0,
-              (sum, item) => sum + item.quantity,
+          if (ref.watch(cartProvider).isNotEmpty) ...[
+            const SizedBox(width: 8),
+            // Cart button -> navigate to cart
+            _GlassIconButton(
+              icon: Icons.shopping_cart_outlined,
+              badgeCount: ref.watch(cartProvider).fold<int>(
+                0,
+                (sum, item) => sum + item.quantity,
+              ),
+              backgroundColor: AppTheme.secondary.withValues(alpha: 0.85),
+              iconColor: Colors.white,
+              onTap: () {
+                Navigator.of(context).push<void>(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const CartPage(),
+                  ),
+                );
+              },
+              isDark: isDark,
             ),
-            backgroundColor: AppTheme.secondary.withValues(alpha: 0.85),
-            iconColor: Colors.white,
-            onTap: () {
-              Navigator.of(context).push<void>(
-                MaterialPageRoute<void>(
-                  builder: (_) => const CartPage(),
-                ),
-              );
-            },
-            isDark: isDark,
-          ),
+          ],
         ],
       ),
     );
