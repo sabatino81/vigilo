@@ -11,12 +11,20 @@ import 'package:vigilo/features/shop/domain/models/voucher.dart';
 // Repository providers
 // ============================================================
 
-final productRepositoryProvider = Provider<ProductRepository>((ref) {
-  return ProductRepository(ref.watch(supabaseClientProvider));
+final productRepositoryProvider = Provider<ProductRepository?>((ref) {
+  try {
+    return ProductRepository(ref.watch(supabaseClientProvider));
+  } on Object {
+    return null;
+  }
 });
 
-final orderRepositoryProvider = Provider<OrderRepository>((ref) {
-  return OrderRepository(ref.watch(supabaseClientProvider));
+final orderRepositoryProvider = Provider<OrderRepository?>((ref) {
+  try {
+    return OrderRepository(ref.watch(supabaseClientProvider));
+  } on Object {
+    return null;
+  }
 });
 
 // ============================================================
@@ -31,24 +39,24 @@ final productsProvider =
 class ProductsNotifier extends AsyncNotifier<List<Product>> {
   @override
   Future<List<Product>> build() async {
-    try {
-      final repo = ref.read(productRepositoryProvider);
-      return await repo.getProducts();
-    } on Object {
-      return Product.mockProducts();
-    }
+    return _fetch();
   }
 
   Future<void> refresh() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      try {
-        final repo = ref.read(productRepositoryProvider);
-        return await repo.getProducts();
-      } on Object {
-        return Product.mockProducts();
-      }
-    });
+    state = AsyncValue.data(await _fetch());
+  }
+
+  Future<List<Product>> _fetch() async {
+    try {
+      final repo = ref.read(productRepositoryProvider);
+      if (repo == null) return Product.mockProducts();
+      final products = await repo.getProducts();
+      if (products.isEmpty) return Product.mockProducts();
+      return products;
+    } on Object {
+      return Product.mockProducts();
+    }
   }
 }
 
@@ -125,6 +133,7 @@ class CheckoutNotifier extends AsyncNotifier<Map<String, dynamic>?> {
 
     try {
       final repo = ref.read(orderRepositoryProvider);
+      if (repo == null) return null;
       final result = await repo.calculateCheckout(
         productIds: cart.map((c) => c.product.id).toList(),
         quantities: cart.map((c) => c.quantity).toList(),
@@ -143,6 +152,7 @@ class CheckoutNotifier extends AsyncNotifier<Map<String, dynamic>?> {
 
     try {
       final repo = ref.read(orderRepositoryProvider);
+      if (repo == null) return null;
       final result = await repo.placeOrder(
         productIds: cart.map((c) => c.product.id).toList(),
         quantities: cart.map((c) => c.quantity).toList(),
@@ -173,24 +183,22 @@ final ordersProvider =
 class OrdersNotifier extends AsyncNotifier<List<Order>> {
   @override
   Future<List<Order>> build() async {
-    try {
-      final repo = ref.read(orderRepositoryProvider);
-      return await repo.getMyOrders();
-    } on Object {
-      return Order.mockOrders();
-    }
+    return _fetch();
   }
 
   Future<void> refresh() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      try {
-        final repo = ref.read(orderRepositoryProvider);
-        return await repo.getMyOrders();
-      } on Object {
-        return Order.mockOrders();
-      }
-    });
+    state = AsyncValue.data(await _fetch());
+  }
+
+  Future<List<Order>> _fetch() async {
+    try {
+      final repo = ref.read(orderRepositoryProvider);
+      if (repo == null) return Order.mockOrders();
+      return await repo.getMyOrders();
+    } on Object {
+      return Order.mockOrders();
+    }
   }
 }
 
@@ -206,23 +214,21 @@ final vouchersProvider =
 class VouchersNotifier extends AsyncNotifier<List<Voucher>> {
   @override
   Future<List<Voucher>> build() async {
-    try {
-      final repo = ref.read(orderRepositoryProvider);
-      return await repo.getMyVouchers();
-    } on Object {
-      return Voucher.mockVouchers();
-    }
+    return _fetch();
   }
 
   Future<void> refresh() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      try {
-        final repo = ref.read(orderRepositoryProvider);
-        return await repo.getMyVouchers();
-      } on Object {
-        return Voucher.mockVouchers();
-      }
-    });
+    state = AsyncValue.data(await _fetch());
+  }
+
+  Future<List<Voucher>> _fetch() async {
+    try {
+      final repo = ref.read(orderRepositoryProvider);
+      if (repo == null) return Voucher.mockVouchers();
+      return await repo.getMyVouchers();
+    } on Object {
+      return Voucher.mockVouchers();
+    }
   }
 }
