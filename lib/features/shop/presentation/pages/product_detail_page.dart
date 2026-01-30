@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
+import 'package:vigilo/features/punti/providers/wallet_providers.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
 import 'package:vigilo/features/shop/presentation/widgets/price_breakdown_widget.dart';
+import 'package:vigilo/features/shop/providers/shop_providers.dart';
 
-/// Pagina dettaglio prodotto con breakdown prezzo Elmetto wallet
-class ProductDetailPage extends StatefulWidget {
+/// Pagina dettaglio prodotto — ConsumerStatefulWidget con wallet da Supabase.
+class ProductDetailPage extends ConsumerStatefulWidget {
   const ProductDetailPage({
     required this.product,
     super.key,
@@ -15,19 +18,20 @@ class ProductDetailPage extends StatefulWidget {
   final Product product;
 
   @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
+  ConsumerState<ProductDetailPage> createState() =>
+      _ProductDetailPageState();
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   int _quantity = 1;
-  final ElmettoWallet _wallet = ElmettoWallet.mockWallet();
 
   double get _totalPrice => widget.product.displayPrice * _quantity;
 
-  CheckoutBreakdown get _breakdown => _wallet.calculateCheckout(_totalPrice);
-
   void _addToCart() {
     HapticFeedback.mediumImpact();
+    for (var i = 0; i < _quantity; i++) {
+      ref.read(cartProvider.notifier).addProduct(widget.product);
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
@@ -49,6 +53,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final product = widget.product;
+
+    final walletAsync = ref.watch(walletProvider);
+    final wallet = walletAsync.when(
+      data: (w) => w,
+      loading: () => null,
+      error: (_, __) => null,
+    );
+
+    final breakdown = wallet?.calculateCheckout(_totalPrice) ??
+        CheckoutBreakdown(
+          totalEur: _totalPrice,
+          welfareCoversEur: 0,
+          elmettoDiscountEur: 0,
+          workerPaysEur: _totalPrice,
+        );
 
     return Scaffold(
       appBar: AppBar(
@@ -228,7 +247,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             const SizedBox(height: 20),
 
             // Breakdown prezzo
-            PriceBreakdownWidget(breakdown: _breakdown),
+            PriceBreakdownWidget(breakdown: breakdown),
             const SizedBox(height: 20),
 
             // Pulsante aggiungi
@@ -238,16 +257,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 onPressed: _addToCart,
                 icon: const Icon(Icons.shopping_cart_rounded),
                 label: Text(
-                  _breakdown.isFullyFree
+                  breakdown.isFullyFree
                       ? 'Aggiungi gratis'
                       : 'Aggiungi al carrello',
                 ),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: _breakdown.isFullyFree
+                  backgroundColor: breakdown.isFullyFree
                       ? AppTheme.teal
                       : null,
-                  foregroundColor: _breakdown.isFullyFree
+                  foregroundColor: breakdown.isFullyFree
                       ? AppTheme.onTeal
                       : null,
                 ),

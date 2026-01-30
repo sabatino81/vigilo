@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/notifications/domain/models/app_notification.dart';
+import 'package:vigilo/features/notifications/providers/notification_providers.dart';
 
-/// Centro notifiche raggruppato per data
-class NotificationsPage extends StatefulWidget {
+/// Centro notifiche — ConsumerStatefulWidget con dati da Supabase.
+class NotificationsPage extends ConsumerStatefulWidget {
   const NotificationsPage({super.key});
 
   @override
-  State<NotificationsPage> createState() => _NotificationsPageState();
+  ConsumerState<NotificationsPage> createState() =>
+      _NotificationsPageState();
 }
 
-class _NotificationsPageState extends State<NotificationsPage> {
-  List<AppNotification> _notifications =
-      AppNotification.mockNotifications();
+class _NotificationsPageState extends ConsumerState<NotificationsPage> {
   NotificationCategory? _filter;
 
-  List<AppNotification> get _filtered {
-    if (_filter == null) return _notifications;
-    return _notifications
+  List<AppNotification> _applyFilter(List<AppNotification> notifications) {
+    if (_filter == null) return notifications;
+    return notifications
         .where((n) => n.category == _filter)
         .toList();
-  }
-
-  void _toggleRead(int index) {
-    setState(() {
-      final n = _notifications[index];
-      _notifications[index] = n.copyWith(isRead: !n.isRead);
-    });
   }
 
   String _groupLabel(DateTime date) {
@@ -43,14 +37,21 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final grouped = <String, List<MapEntry<int, AppNotification>>>{};
+    final notificationsAsync = ref.watch(notificationsProvider);
 
-    for (var i = 0; i < _filtered.length; i++) {
-      final n = _filtered[i];
-      final originalIndex = _notifications.indexOf(n);
+    final allNotifications = notificationsAsync.when(
+      data: (n) => n,
+      loading: () => <AppNotification>[],
+      error: (_, __) => <AppNotification>[],
+    );
+
+    final filtered = _applyFilter(allNotifications);
+
+    final grouped = <String, List<AppNotification>>{};
+    for (final n in filtered) {
       final label = _groupLabel(n.createdAt);
       grouped.putIfAbsent(label, () => []);
-      grouped[label]!.add(MapEntry(originalIndex, n));
+      grouped[label]!.add(n);
     }
 
     return Scaffold(
@@ -98,54 +99,82 @@ class _NotificationsPageState extends State<NotificationsPage> {
 
           // Grouped list
           Expanded(
-            child: _filtered.isEmpty
-                ? Center(
-                    child: Text(
-                      'Nessuna notifica',
-                      style: TextStyle(
-                        color:
-                            isDark ? Colors.white54 : Colors.black45,
-                      ),
-                    ),
-                  )
-                : ListView.builder(
-                    padding:
-                        const EdgeInsets.fromLTRB(16, 4, 16, 120),
-                    itemCount: grouped.length,
-                    itemBuilder: (_, groupIdx) {
-                      final label = grouped.keys.elementAt(groupIdx);
-                      final items = grouped[label]!;
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 12,
-                              bottom: 8,
-                            ),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                ref.invalidate(notificationsProvider);
+              },
+              child: filtered.isEmpty
+                  ? ListView(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          child: Center(
                             child: Text(
-                              label,
+                              'Nessuna notifica',
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
                                 color: isDark
                                     ? Colors.white54
                                     : Colors.black45,
                               ),
                             ),
                           ),
-                          ...items.map(
-                            (entry) => _NotificationTile(
-                              notification: entry.value,
-                              isDark: isDark,
-                              onTap: () => _toggleRead(entry.key),
+                        ),
+                      ],
+                    )
+                  : ListView.builder(
+                      physics:
+                          const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.fromLTRB(
+                        16,
+                        4,
+                        16,
+                        120,
+                      ),
+                      itemCount: grouped.length,
+                      itemBuilder: (_, groupIdx) {
+                        final label =
+                            grouped.keys.elementAt(groupIdx);
+                        final items = grouped[label]!;
+
+                        return Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 12,
+                                bottom: 8,
+                              ),
+                              child: Text(
+                                label,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: isDark
+                                      ? Colors.white54
+                                      : Colors.black45,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                            ...items.map(
+                              (notification) => _NotificationTile(
+                                notification: notification,
+                                isDark: isDark,
+                                onTap: () {
+                                  if (!notification.isRead) {
+                                    ref
+                                        .read(notificationsProvider
+                                            .notifier)
+                                        .markRead(notification.id);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+            ),
           ),
         ],
       ),

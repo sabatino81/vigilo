@@ -1,62 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
+import 'package:vigilo/features/punti/providers/wallet_providers.dart';
 import 'package:vigilo/features/shop/domain/models/cart_item.dart';
-import 'package:vigilo/features/shop/domain/models/product.dart';
 import 'package:vigilo/features/shop/presentation/pages/checkout_page.dart';
 import 'package:vigilo/features/shop/presentation/widgets/price_breakdown_widget.dart';
+import 'package:vigilo/features/shop/providers/shop_providers.dart';
 
-/// Pagina carrello
-class CartPage extends StatefulWidget {
+/// Pagina carrello — ConsumerWidget con dati da provider.
+class CartPage extends ConsumerWidget {
   const CartPage({super.key});
 
-  @override
-  State<CartPage> createState() => _CartPageState();
-}
-
-class _CartPageState extends State<CartPage> {
-  final ElmettoWallet _wallet = ElmettoWallet.mockWallet();
-
-  // Mock cart: 2 prodotti pre-caricati
-  late final List<CartItem> _items;
-
-  @override
-  void initState() {
-    super.initState();
-    final products = Product.mockProducts();
-    _items = [
-      CartItem(product: products[5], quantity: 1),
-      CartItem(product: products[9]),
-    ];
-  }
-
-  double get _subtotal =>
-      _items.fold(0.0, (sum, item) => sum + item.subtotal);
-
-  CheckoutBreakdown get _breakdown =>
-      _wallet.calculateCheckout(_subtotal);
-
-  void _updateQuantity(int index, int delta) {
-    setState(() {
-      final item = _items[index];
-      final newQty = (item.quantity + delta).clamp(1, 10);
-      _items[index] = item.copyWith(quantity: newQty);
-    });
-  }
-
-  void _removeItem(int index) {
-    HapticFeedback.lightImpact();
-    setState(() => _items.removeAt(index));
-  }
-
-  void _goToCheckout() {
+  void _goToCheckout(
+    BuildContext context,
+    List<CartItem> items,
+    CheckoutBreakdown breakdown,
+  ) {
     HapticFeedback.mediumImpact();
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(
         builder: (_) => CheckoutPage(
-          items: List.unmodifiable(_items),
-          breakdown: _breakdown,
+          items: List.unmodifiable(items),
+          breakdown: breakdown,
           shippingEur: 5.90,
         ),
       ),
@@ -64,18 +31,36 @@ class _CartPageState extends State<CartPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final items = ref.watch(cartProvider);
+    final walletAsync = ref.watch(walletProvider);
+
+    final wallet = walletAsync.when(
+      data: (w) => w,
+      loading: () => null,
+      error: (_, __) => null,
+    );
+
+    final subtotal = items.fold(0.0, (sum, item) => sum + item.subtotal);
+    final breakdown = wallet?.calculateCheckout(subtotal) ??
+        CheckoutBreakdown(
+          totalEur: subtotal,
+          welfareCoversEur: 0,
+          elmettoDiscountEur: 0,
+          workerPaysEur: subtotal,
+        );
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Carrello (${_items.length})',
+          'Carrello (${items.length})',
           style: const TextStyle(fontWeight: FontWeight.w800),
         ),
         centerTitle: true,
       ),
-      body: _items.isEmpty
+      body: items.isEmpty
           ? Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -101,20 +86,35 @@ class _CartPageState extends State<CartPage> {
               child: Column(
                 children: [
                   // Items
-                  ...List.generate(_items.length, (i) {
-                    final item = _items[i];
+                  ...List.generate(items.length, (i) {
+                    final item = items[i];
                     return _CartItemTile(
                       item: item,
                       isDark: isDark,
-                      onIncrement: () => _updateQuantity(i, 1),
-                      onDecrement: () => _updateQuantity(i, -1),
-                      onRemove: () => _removeItem(i),
+                      onIncrement: () => ref
+                          .read(cartProvider.notifier)
+                          .updateQuantity(
+                            item.product.id,
+                            item.quantity + 1,
+                          ),
+                      onDecrement: () => ref
+                          .read(cartProvider.notifier)
+                          .updateQuantity(
+                            item.product.id,
+                            item.quantity - 1,
+                          ),
+                      onRemove: () {
+                        HapticFeedback.lightImpact();
+                        ref
+                            .read(cartProvider.notifier)
+                            .removeProduct(item.product.id);
+                      },
                     );
                   }),
                   const SizedBox(height: 16),
 
                   // Breakdown
-                  PriceBreakdownWidget(breakdown: _breakdown),
+                  PriceBreakdownWidget(breakdown: breakdown),
                   const SizedBox(height: 8),
 
                   // Shipping note
@@ -157,7 +157,8 @@ class _CartPageState extends State<CartPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: _goToCheckout,
+                      onPressed: () =>
+                          _goToCheckout(context, items, breakdown),
                       icon: const Icon(Icons.payment_rounded),
                       label: const Text('Procedi al checkout'),
                       style: ElevatedButton.styleFrom(

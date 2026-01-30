@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/team/domain/models/social_post.dart';
+import 'package:vigilo/features/team/providers/team_providers.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 
-/// Pagina che mostra tutti i post della bacheca sociale in stile Pinterest
-class SocialWallPage extends StatefulWidget {
+/// Pagina che mostra tutti i post della bacheca sociale — ConsumerWidget.
+class SocialWallPage extends ConsumerWidget {
   const SocialWallPage({super.key});
 
   @override
-  State<SocialWallPage> createState() => _SocialWallPageState();
-}
-
-class _SocialWallPageState extends State<SocialWallPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
+
+    final feedAsync = ref.watch(socialFeedProvider);
+
+    final posts = feedAsync.when(
+      data: (p) => p,
+      loading: () => <SocialPost>[],
+      error: (_, __) => <SocialPost>[],
+    );
 
     return Hero(
       tag: 'social_wall_hero',
@@ -41,17 +46,23 @@ class _SocialWallPageState extends State<SocialWallPage> {
             ),
           ],
         ),
-        body: _PinterestGrid(isDark: isDark),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(socialFeedProvider);
+          },
+          child: _PinterestGrid(isDark: isDark, posts: posts),
+        ),
       ),
     );
   }
 }
 
-/// Griglia in stile Pinterest con due colonne e proporzioni reali con infinite scroll
+/// Griglia in stile Pinterest con due colonne e proporzioni reali
 class _PinterestGrid extends StatefulWidget {
-  const _PinterestGrid({required this.isDark});
+  const _PinterestGrid({required this.isDark, required this.posts});
 
   final bool isDark;
+  final List<SocialPost> posts;
 
   @override
   State<_PinterestGrid> createState() => _PinterestGridState();
@@ -60,13 +71,20 @@ class _PinterestGrid extends StatefulWidget {
 class _PinterestGridState extends State<_PinterestGrid> {
   final _scrollController = ScrollController();
   List<SocialPost> _displayedPosts = [];
-  static const int _duplicateCount = 5; // Duplica i post 5 volte
 
   @override
   void initState() {
     super.initState();
-    _loadInitialPosts();
+    _loadPosts();
     _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void didUpdateWidget(covariant _PinterestGrid oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.posts != widget.posts) {
+      _loadPosts();
+    }
   }
 
   @override
@@ -75,11 +93,11 @@ class _PinterestGridState extends State<_PinterestGrid> {
     super.dispose();
   }
 
-  void _loadInitialPosts() {
-    // Carica i post duplicati 5 volte
+  void _loadPosts() {
+    // Duplica i post per creare un feed più lungo
     final allPosts = <SocialPost>[];
-    for (var i = 0; i < _duplicateCount; i++) {
-      allPosts.addAll(SocialPost.staticPosts);
+    for (var i = 0; i < 5; i++) {
+      allPosts.addAll(widget.posts);
     }
     setState(() {
       _displayedPosts = allPosts;
@@ -87,18 +105,16 @@ class _PinterestGridState extends State<_PinterestGrid> {
   }
 
   void _onScroll() {
-    // Quando si avvicina alla fine, aggiungi altri post
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 500) {
       setState(() {
-        _displayedPosts.addAll(SocialPost.staticPosts);
+        _displayedPosts.addAll(widget.posts);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Dividi i post in due colonne
     final leftColumn = <SocialPost>[];
     final rightColumn = <SocialPost>[];
 
@@ -112,6 +128,7 @@ class _PinterestGridState extends State<_PinterestGrid> {
 
     return SingleChildScrollView(
       controller: _scrollController,
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +405,7 @@ class PostDetailPage extends StatelessWidget {
             AspectRatio(
               aspectRatio: post.aspectRatio,
               child: Image.asset(
-                post.imagePath, // Usa immagine originale HD
+                post.imagePath,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(

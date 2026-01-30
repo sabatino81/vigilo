@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/team/domain/models/vow_survey.dart';
+import 'package:vigilo/features/team/providers/team_providers.dart' show vowRepositoryProvider;
 import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
-/// Pagina survey VOW (Voice of Worker) — 5 domande, scala 1-5
-class VowSurveyPage extends StatefulWidget {
+/// Pagina survey VOW — ConsumerStatefulWidget con submit via provider.
+class VowSurveyPage extends ConsumerStatefulWidget {
   const VowSurveyPage({super.key});
 
   @override
-  State<VowSurveyPage> createState() => _VowSurveyPageState();
+  ConsumerState<VowSurveyPage> createState() => _VowSurveyPageState();
 }
 
-class _VowSurveyPageState extends State<VowSurveyPage> {
+class _VowSurveyPageState extends ConsumerState<VowSurveyPage> {
+  // Le domande VOW non hanno tabella DB — restano mock
   final _questions = VowQuestion.mockQuestions();
   final Map<String, VowAnswer> _answers = {};
   int _currentIndex = 0;
@@ -43,9 +46,24 @@ class _VowSurveyPageState extends State<VowSurveyPage> {
     }
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!_isComplete) return;
     HapticFeedback.mediumImpact();
+
+    // Submit via repository
+    final answersMap = <String, int>{
+      for (final a in _answers.values) a.questionId: a.rating,
+    };
+
+    try {
+      final repo = ref.read(vowRepositoryProvider);
+      await repo.submitSurvey(answers: answersMap);
+    } on Object {
+      // Fallback: continua anche senza server
+    }
+
+    if (!mounted) return;
+
     setState(() => _submitted = true);
     PointsEarnedSnackbar.show(
       context,

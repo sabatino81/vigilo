@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/sos/domain/models/report_type.dart';
+import 'package:vigilo/features/sos/providers/sos_providers.dart';
 import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
-/// Bottom sheet per creare una nuova segnalazione
-class ReportFormSheet extends StatefulWidget {
+/// Bottom sheet per creare una nuova segnalazione — ConsumerStatefulWidget.
+class ReportFormSheet extends ConsumerStatefulWidget {
   const ReportFormSheet({
     required this.reportType,
     super.key,
@@ -26,10 +28,10 @@ class ReportFormSheet extends StatefulWidget {
   }
 
   @override
-  State<ReportFormSheet> createState() => _ReportFormSheetState();
+  ConsumerState<ReportFormSheet> createState() => _ReportFormSheetState();
 }
 
-class _ReportFormSheetState extends State<ReportFormSheet> {
+class _ReportFormSheetState extends ConsumerState<ReportFormSheet> {
   final _formKey = GlobalKey<FormState>();
   final _descriptionController = TextEditingController();
   bool _contactRequested = false;
@@ -47,7 +49,7 @@ class _ReportFormSheetState extends State<ReportFormSheet> {
 
     setState(() => _isSubmitting = true);
 
-    // Simula invio
+    // Simula invio (in futuro: submit via provider)
     await Future<void>.delayed(const Duration(seconds: 1));
 
     if (!mounted) return;
@@ -58,6 +60,9 @@ class _ReportFormSheetState extends State<ReportFormSheet> {
         '${DateTime.now().millisecondsSinceEpoch % 100000}';
 
     setState(() => _isSubmitting = false);
+
+    // Invalida i report per ricaricare dopo submit
+    ref.invalidate(safetyReportsProvider);
 
     // Feedback punti guadagnati
     if (mounted) {
