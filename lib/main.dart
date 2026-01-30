@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vigilo/core/env/env.dart';
 import 'package:vigilo/core/router/app_router.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
@@ -36,6 +37,7 @@ final logger = Logger(printer: PrettyPrinter());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   // Load environment variables from assets (intentionally empty placeholders)
   // and then fallback to filesystem .env.<flavor> or .env for local secrets.
   const flavor = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
