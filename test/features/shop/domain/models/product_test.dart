@@ -81,7 +81,7 @@ void main() {
         'emoji': '💡',
         'badge': 'scontato',
         'promo_discount_percent': 15,
-        'supplier_name': 'BigBuy',
+        'supplier_name': 'TestSupplier',
       };
 
       final product = Product.fromJson(json);
@@ -94,7 +94,7 @@ void main() {
       expect(product.emoji, '💡');
       expect(product.badge, ProductBadge.scontato);
       expect(product.promoDiscountPercent, 15);
-      expect(product.supplierName, 'BigBuy');
+      expect(product.supplierName, 'TestSupplier');
     });
 
     test('defaults missing fields', () {

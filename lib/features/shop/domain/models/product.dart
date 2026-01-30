@@ -32,7 +32,7 @@ class Product {
   /// Sconto promo in percentuale (0-100)
   final int? promoDiscountPercent;
 
-  /// Nome fornitore (CJDropshipping, BigBuy, ecc.)
+  /// Nome fornitore
   final String? supplierName;
 
   /// Prezzo dopo sconto promo
@@ -96,7 +96,7 @@ class Product {
         category: ProductCategory.casa,
         basePrice: 32.50,
         emoji: '🛁',
-        supplierName: 'BigBuy',
+        supplierName: null,
       ),
       Product(
         id: 'prod_2',
@@ -108,7 +108,7 @@ class Product {
         emoji: '💡',
         badge: ProductBadge.scontato,
         promoDiscountPercent: 15,
-        supplierName: 'BigBuy',
+        supplierName: null,
       ),
       // Abbigliamento
       Product(
@@ -119,7 +119,7 @@ class Product {
         category: ProductCategory.abbigliamento,
         basePrice: 65.00,
         emoji: '🧥',
-        supplierName: 'BigBuy',
+        supplierName: null,
       ),
       Product(
         id: 'prod_4',
@@ -130,7 +130,7 @@ class Product {
         basePrice: 18.90,
         emoji: '🧦',
         badge: ProductBadge.gratis,
-        supplierName: 'CJDropshipping',
+        supplierName: null,
       ),
       // Tech
       Product(
@@ -141,7 +141,7 @@ class Product {
         category: ProductCategory.tech,
         basePrice: 35.90,
         emoji: '🔋',
-        supplierName: 'CJDropshipping',
+        supplierName: null,
       ),
       Product(
         id: 'prod_6',
@@ -153,7 +153,7 @@ class Product {
         emoji: '🎧',
         badge: ProductBadge.promo,
         promoDiscountPercent: 20,
-        supplierName: 'CJDropshipping',
+        supplierName: null,
       ),
       // Consumabili
       Product(
@@ -164,7 +164,7 @@ class Product {
         category: ProductCategory.consumabili,
         basePrice: 14.90,
         emoji: '☀️',
-        supplierName: 'BigBuy',
+        supplierName: null,
       ),
       Product(
         id: 'prod_8',
@@ -174,7 +174,7 @@ class Product {
         category: ProductCategory.consumabili,
         basePrice: 22.50,
         emoji: '🩹',
-        supplierName: 'BigBuy',
+        supplierName: null,
       ),
       // Sport
       Product(
@@ -187,7 +187,7 @@ class Product {
         emoji: '🏋️',
         badge: ProductBadge.scontato,
         promoDiscountPercent: 10,
-        supplierName: 'CJDropshipping',
+        supplierName: null,
       ),
       Product(
         id: 'prod_10',
@@ -197,7 +197,7 @@ class Product {
         category: ProductCategory.sport,
         basePrice: 24.90,
         emoji: '🥤',
-        supplierName: 'CJDropshipping',
+        supplierName: null,
       ),
       // Voucher
       Product(

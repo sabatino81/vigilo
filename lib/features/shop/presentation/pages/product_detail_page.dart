@@ -84,6 +84,136 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
       extendBodyBehindAppBar: true,
+      extendBody: true,
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        decoration: BoxDecoration(
+          color: isDark
+              ? const Color(0xFF1E1E1E).withValues(alpha: 0.95)
+              : Colors.white.withValues(alpha: 0.95),
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: isDark ? 0.4 : 0.15),
+              blurRadius: 20,
+              offset: const Offset(0, -4),
+              spreadRadius: 0,
+            ),
+          ],
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.1)
+                : Colors.black.withValues(alpha: 0.05),
+          ),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Row(
+            children: [
+              // Compra ora
+              Expanded(
+                flex: 3,
+                child: GestureDetector(
+                  onTap: _buyNow,
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFFFFB800),
+                          Color(0xFFFF9500),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFFFB800)
+                              .withValues(alpha: 0.35),
+                          blurRadius: 10,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.flash_on_rounded,
+                          size: 20,
+                          color: Colors.black87,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Compra Ora',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black87,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              // Aggiungi al carrello
+              Expanded(
+                flex: 2,
+                child: GestureDetector(
+                  onTap: _addToCart,
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFF43A047),
+                          Color(0xFF2E7D32),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF2E7D32)
+                              .withValues(alpha: 0.35),
+                          blurRadius: 10,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shopping_cart_rounded,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Carrello',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -306,54 +436,158 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Listino + Scontato (piccoli)
+                        // Quantità
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.shopping_bag_rounded,
+                              size: 16,
+                              color: isDark ? Colors.white54 : Colors.black45,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Quantità',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: isDark ? Colors.white : Colors.black87,
+                              ),
+                            ),
+                            const Spacer(),
+                            _QuantityButton(
+                              icon: Icons.remove_rounded,
+                              onTap: _quantity > 1
+                                  ? () => setState(() => _quantity--)
+                                  : null,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: Text(
+                                '$_quantity',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  color:
+                                      isDark ? Colors.white : Colors.black87,
+                                ),
+                              ),
+                            ),
+                            _QuantityButton(
+                              icon: Icons.add_rounded,
+                              onTap: _quantity < 10
+                                  ? () => setState(() => _quantity++)
+                                  : null,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        // Divider
+                        Container(
+                          height: 1,
+                          color: isDark
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : Colors.black.withValues(alpha: 0.06),
+                        ),
+                        const SizedBox(height: 12),
+
+                        // Listino
                         Row(
                           children: [
                             Text(
-                              'Listino: ',
+                              'Listino',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: isDark ? Colors.white38 : Colors.black38,
                               ),
                             ),
+                            const Spacer(),
                             Text(
-                              product.formattedBasePrice,
+                              '${(product.basePrice * _quantity).toStringAsFixed(2)} EUR',
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                                 color: isDark ? Colors.white38 : Colors.black38,
                                 decoration: TextDecoration.lineThrough,
                                 decorationColor:
                                     isDark ? Colors.white38 : Colors.black38,
                               ),
                             ),
-                            if (product.hasPromo) ...[
-                              const SizedBox(width: 12),
+                          ],
+                        ),
+
+                        // Scontato (se promo)
+                        if (product.hasPromo) ...[
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
                               Text(
-                                'Scontato: ',
+                                'Scontato',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color:
                                       isDark ? Colors.white54 : Colors.black45,
                                 ),
                               ),
+                              const SizedBox(width: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 2,
+                                ),
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Color(0xFFE53935),
+                                      Color(0xFFD32F2F),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Text(
+                                  '-${product.promoDiscountPercent}%',
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
                               Text(
-                                product.formattedPrice,
+                                '${(product.displayPrice * _quantity).toStringAsFixed(2)} EUR',
                                 style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
                                   color:
                                       isDark ? Colors.white54 : Colors.black45,
                                 ),
                               ),
                             ],
-                          ],
+                          ),
+                        ],
+
+                        const SizedBox(height: 10),
+                        // Divider ambra
+                        Container(
+                          height: 1,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.transparent,
+                                const Color(0xFFFFB800)
+                                    .withValues(alpha: 0.3),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 10),
 
-                        // Prezzo Elmetto — in evidenza
+                        // Con Sconto Elmetto — in evidenza
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -375,46 +609,35 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Prezzo Elmetto',
+                                  'Con Sconto Elmetto',
                                   style: TextStyle(
-                                    fontSize: 11,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     color: isDark
                                         ? Colors.white54
                                         : Colors.black45,
-                                    letterSpacing: 0.3,
                                   ),
                                 ),
+                                const SizedBox(height: 2),
                                 Text(
-                                  '${elmettoPrice.toStringAsFixed(2)} EUR',
-                                  style: const TextStyle(
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.w900,
-                                    color: Color(0xFFFFB800),
-                                    letterSpacing: -0.5,
+                                  '-${(product.displayPrice * _maxElmettoDiscount * 60 * _quantity).round()} punti',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFFFFB800)
+                                        .withValues(alpha: 0.7),
                                   ),
                                 ),
                               ],
                             ),
                             const Spacer(),
-                            // Risparmio badge
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF2E7D32)
-                                    .withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                '-${((1 - elmettoPrice / product.basePrice) * 100).toStringAsFixed(0)}%',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color(0xFF2E7D32),
-                                ),
+                            Text(
+                              '${(elmettoPrice * _quantity).toStringAsFixed(2)} EUR',
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w900,
+                                color: Color(0xFFFFB800),
+                                letterSpacing: -0.5,
                               ),
                             ),
                           ],
@@ -474,176 +697,10 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                   ),
                   const SizedBox(height: 20),
 
-                  // Selettore quantità
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isDark
-                          ? Colors.white.withValues(alpha: 0.05)
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: isDark
-                            ? Colors.white.withValues(alpha: 0.08)
-                            : Colors.black.withValues(alpha: 0.06),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.shopping_bag_rounded,
-                          size: 16,
-                          color: isDark ? Colors.white54 : Colors.black45,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Quantità',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: isDark ? Colors.white : Colors.black87,
-                          ),
-                        ),
-                        const Spacer(),
-                        _QuantityButton(
-                          icon: Icons.remove_rounded,
-                          onTap: _quantity > 1
-                              ? () => setState(() => _quantity--)
-                              : null,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            '$_quantity',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                              color: isDark ? Colors.white : Colors.black87,
-                            ),
-                          ),
-                        ),
-                        _QuantityButton(
-                          icon: Icons.add_rounded,
-                          onTap: _quantity < 10
-                              ? () => setState(() => _quantity++)
-                              : null,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
                   // Breakdown prezzo
                   PriceBreakdownWidget(breakdown: breakdown),
-                  const SizedBox(height: 24),
-
-                  // Tasti azione — Compra + Carrello
-                  Row(
-                    children: [
-                      // Compra ora
-                      Expanded(
-                        flex: 3,
-                        child: GestureDetector(
-                          onTap: _buyNow,
-                          child: Container(
-                            height: 54,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xFFFFB800),
-                                  Color(0xFFFF9500),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFFFFB800)
-                                      .withValues(alpha: 0.35),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            alignment: Alignment.center,
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.flash_on_rounded,
-                                  size: 20,
-                                  color: Colors.black87,
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  'Compra Ora',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.black87,
-                                    letterSpacing: 0.3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      // Aggiungi al carrello
-                      Expanded(
-                        flex: 2,
-                        child: GestureDetector(
-                          onTap: _addToCart,
-                          child: Container(
-                            height: 54,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color(0xFF43A047),
-                                  Color(0xFF2E7D32),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color(0xFF2E7D32)
-                                      .withValues(alpha: 0.35),
-                                  blurRadius: 12,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            alignment: Alignment.center,
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.shopping_cart_rounded,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  'Carrello',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.white,
-                                    letterSpacing: 0.3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Spazio per i tasti flottanti
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
