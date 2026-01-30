@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
 import 'package:vigilo/features/shop/domain/models/product_category.dart';
 import 'package:vigilo/features/shop/presentation/pages/product_detail_page.dart';
@@ -66,16 +67,30 @@ class _ShopPageState extends ConsumerState<ShopPage> {
           // Title
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Spaccio Aziendale',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  color: isDark ? Colors.white : Colors.black87,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.storefront_rounded,
+                  size: 26,
+                  color: AppTheme.ambra,
                 ),
-              ),
+                const SizedBox(width: 10),
+                ShaderMask(
+                  shaderCallback: (bounds) => LinearGradient(
+                    colors: [AppTheme.ambra, AppTheme.teal],
+                  ).createShader(bounds),
+                  child: const Text(
+                    'Spaccio Aziendale',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 0.5,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
