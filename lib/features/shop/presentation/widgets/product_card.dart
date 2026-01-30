@@ -118,7 +118,7 @@ class ProductCard extends StatelessWidget {
                   bottom: Radius.circular(19),
                 ),
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(10, 18, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 18, 10, 5),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -270,7 +270,7 @@ class ProductCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                     ],
                   ),
                 ),

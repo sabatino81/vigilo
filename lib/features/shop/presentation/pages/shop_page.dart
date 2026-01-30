@@ -22,6 +22,8 @@ class _ShopPageState extends ConsumerState<ShopPage>
   String _searchQuery = '';
   late final AnimationController _shimmerCtrl;
   final ScrollController _scrollCtrl = ScrollController();
+  final FocusNode _searchFocus = FocusNode();
+  final TextEditingController _searchCtrl = TextEditingController();
 
   /// Quanti prodotti mostrare per "pagina"
   static const _pageSize = 10;
@@ -42,6 +44,8 @@ class _ShopPageState extends ConsumerState<ShopPage>
   void dispose() {
     _scrollCtrl.dispose();
     _shimmerCtrl.dispose();
+    _searchFocus.dispose();
+    _searchCtrl.dispose();
     super.dispose();
   }
 
@@ -124,96 +128,153 @@ class _ShopPageState extends ConsumerState<ShopPage>
     return Scaffold(
       body: Column(
         children: [
-          // Title — shimmer animato
+          // Title + Search sulla stessa riga
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Icona con pulse
-                AnimatedBuilder(
-                  animation: _shimmerCtrl,
-                  builder: (_, child) {
-                    final scale = 1.0 + 0.05 * (_shimmerCtrl.value < 0.5
-                        ? _shimmerCtrl.value * 2
-                        : (1 - _shimmerCtrl.value) * 2);
-                    return Transform.scale(
-                      scale: scale,
-                      child: child,
-                    );
-                  },
-                  child: Icon(
-                    Icons.storefront_rounded,
-                    size: 26,
-                    color: AppTheme.ambra,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                // Testo con shimmer gradient
-                AnimatedBuilder(
-                  animation: _shimmerCtrl,
-                  builder: (_, child) {
-                    return ShaderMask(
-                      shaderCallback: (bounds) {
-                        final offset = _shimmerCtrl.value * 3 - 1;
-                        return LinearGradient(
-                          begin: Alignment(offset - 0.3, 0),
-                          end: Alignment(offset + 0.3, 0),
-                          colors: [
-                            AppTheme.ambra,
-                            Colors.white,
-                            AppTheme.teal,
-                            AppTheme.ambra,
-                          ],
-                          stops: const [0.0, 0.4, 0.6, 1.0],
-                        ).createShader(bounds);
-                      },
-                      child: child!,
-                    );
-                  },
-                  child: const Text(
-                    'Spaccio Aziendale',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 0.5,
-                      color: Colors.white,
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 6),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 250),
+              switchInCurve: Curves.easeInOut,
+              switchOutCurve: Curves.easeInOut,
+              child: _searchQuery.isNotEmpty
+                  // ── Ricerca attiva: search bar a tutta larghezza
+                  ? SizedBox(
+                      key: const ValueKey('search-full'),
+                      height: 32,
+                      child: TextField(
+                        controller: _searchCtrl,
+                        focusNode: _searchFocus,
+                        onChanged: (v) => setState(() {
+                          _searchQuery = v;
+                          _visibleCount = _pageSize;
+                        }),
+                        style: const TextStyle(fontSize: 12),
+                        decoration: InputDecoration(
+                          hintText: 'Cerca prodotti...',
+                          hintStyle: const TextStyle(fontSize: 12),
+                          prefixIcon: const Icon(
+                            Icons.search_rounded,
+                            size: 18,
+                          ),
+                          prefixIconConstraints: const BoxConstraints(
+                            minWidth: 32,
+                            minHeight: 32,
+                          ),
+                          suffixIcon: IconButton(
+                            icon: const Icon(
+                              Icons.close_rounded,
+                              size: 16,
+                            ),
+                            onPressed: () {
+                              _searchCtrl.clear();
+                              _searchFocus.unfocus();
+                              setState(() {
+                                _searchQuery = '';
+                              });
+                            },
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 0,
+                          ),
+                          isDense: true,
+                        ),
+                      ),
+                    )
+                  // ── Default: titolo + search compatta
+                  : Row(
+                      key: const ValueKey('title-row'),
+                      children: [
+                        // Icona con pulse
+                        AnimatedBuilder(
+                          animation: _shimmerCtrl,
+                          builder: (_, child) {
+                            final scale = 1.0 +
+                                0.05 *
+                                    (_shimmerCtrl.value < 0.5
+                                        ? _shimmerCtrl.value * 2
+                                        : (1 - _shimmerCtrl.value) * 2);
+                            return Transform.scale(
+                              scale: scale,
+                              child: child,
+                            );
+                          },
+                          child: Icon(
+                            Icons.storefront_rounded,
+                            size: 22,
+                            color: AppTheme.ambra,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        // Testo con shimmer gradient
+                        AnimatedBuilder(
+                          animation: _shimmerCtrl,
+                          builder: (_, child) {
+                            return ShaderMask(
+                              shaderCallback: (bounds) {
+                                final offset =
+                                    _shimmerCtrl.value * 3 - 1;
+                                return LinearGradient(
+                                  begin: Alignment(offset - 0.3, 0),
+                                  end: Alignment(offset + 0.3, 0),
+                                  colors: [
+                                    AppTheme.ambra,
+                                    Colors.white,
+                                    AppTheme.teal,
+                                    AppTheme.ambra,
+                                  ],
+                                  stops: const [0.0, 0.4, 0.6, 1.0],
+                                ).createShader(bounds);
+                              },
+                              child: child!,
+                            );
+                          },
+                          child: const Text(
+                            'Spaccio Aziendale',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 0.3,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        // Search bar compatta
+                        Expanded(
+                          child: SizedBox(
+                            height: 32,
+                            child: TextField(
+                              controller: _searchCtrl,
+                              focusNode: _searchFocus,
+                              onChanged: (v) => setState(() {
+                                _searchQuery = v;
+                                _visibleCount = _pageSize;
+                              }),
+                              style: const TextStyle(fontSize: 12),
+                              decoration: InputDecoration(
+                                hintText: 'Cerca...',
+                                hintStyle: const TextStyle(fontSize: 12),
+                                prefixIcon: const Icon(
+                                  Icons.search_rounded,
+                                  size: 18,
+                                ),
+                                prefixIconConstraints:
+                                    const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 0,
+                                ),
+                                isDense: true,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Search bar
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 4, 16, 6),
-            child: SizedBox(
-              height: 38,
-              child: TextField(
-                onChanged: (v) => setState(() {
-                  _searchQuery = v;
-                  _visibleCount = _pageSize;
-                }),
-                style: const TextStyle(fontSize: 13),
-                decoration: InputDecoration(
-                  hintText: 'Cerca prodotti...',
-                  hintStyle: const TextStyle(fontSize: 13),
-                  prefixIcon: const Icon(Icons.search_rounded, size: 20),
-                  prefixIconConstraints:
-                      const BoxConstraints(minWidth: 38, minHeight: 38),
-                  suffixIcon: _searchQuery.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear_rounded, size: 18),
-                          onPressed: () =>
-                              setState(() => _searchQuery = ''),
-                        )
-                      : null,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-                  isDense: true,
-                ),
-              ),
             ),
           ),
 
