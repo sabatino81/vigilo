@@ -655,18 +655,24 @@
 |     sfondo #EEEEEE, borderRadius bottom 32                 |
 |                                                             |
 |  Nome Prodotto (24px, w900)                                |
-|  truck Fornitore (13px, w500, grigio)                      |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  CARD PREZZI (bordo giallo #FFB800)                    | |
+|  |  CARD PREZZI + QUANTITA (bordo giallo #FFB800)        | |
 |  |                                                        | |
-|  |  Listino: --30.00 EUR--    Scontato: 25.50 EUR         | |
-|  |  (12px, barrato, grigio)   (13px, se promo)            | |
+|  |  bag Quantita                       [-] 1 [+]         | |
+|  |  ---------------------------------------------------- | |
 |  |                                                        | |
-|  |  [elmetto]  Prezzo Elmetto          [-32%]             | |
-|  |  (icona     11px label              (verde, badge      | |
-|  |   in box)   26px, w900, #FFB800      risparmio %)      | |
-|  |             20.40 EUR                                  | |
+|  |  Listino                        --60.00 EUR--         | |
+|  |  (14px, barrato)                (16px, grigio)         | |
+|  |                                                        | |
+|  |  Scontato  [-15%]                51.00 EUR            | |
+|  |  (14px)    (pill rosso)          (16px, se promo)      | |
+|  |                                                        | |
+|  |  ~~~~~~~~~~~~~ divider ambra ~~~~~~~~~~~~~~~           | |
+|  |                                                        | |
+|  |  [elmetto]  Con Sconto Elmetto    40.80 EUR           | |
+|  |  (icona     -612 punti            (22px, w900,        | |
+|  |   in box)   (12px, ambra 0.7)      #FFB800)           | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
@@ -676,16 +682,11 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  bag  Quantita (14px, w700)         [-] 1 [+]         | |
-|  |                                  (gradient btn, 38px)  | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
 |  |  receipt  Riepilogo pagamento                          | |
 |  |                                                        | |
-|  |  Subtotale                        25.50 EUR            | |
-|  |  [elmetto] Sconto Elmetto (360pt) -5.10 EUR (ambra)   | |
-|  |  [biz] A carico azienda          -20.40 EUR (teal)    | |
+|  |  Subtotale                        51.00 EUR            | |
+|  |  [elmetto] Sconto Elmetto (612pt) -10.20 EUR (ambra)  | |
+|  |  [biz] A carico azienda          -40.80 EUR (teal)    | |
 |  |  ~~~~~~~~~~~~~ gradient divider ~~~~~~~~~~~~~~~        | |
 |  |  Da pagare                        0.00 EUR (giallo)   | |
 |  |                                                        | |
@@ -695,10 +696,13 @@
 |  |  +---------------------------------------------------+| |
 |  +-------------------------------------------------------+ |
 |                                                             |
++-------------------------------------------------------------+
+|                                                             |
+|  FLOATING BOTTOM BAR (borderRadius 24, shadow, semi-trasp) |
 |  +------------------------------+ +---------------------+  |
-|  | flash  Compra Ora  (16px)    | | cart  Carrello       |  |
+|  | flash  Compra Ora  (15px)    | | cart  Carrello       |  |
 |  | gradient giallo->arancione   | | gradient verde       |  |
-|  | h54, glow shadow             | | h54, glow shadow     |  |
+|  | h50, glow shadow             | | h50, glow shadow     |  |
 |  | flex: 3                      | | flex: 2              |  |
 |  +------------------------------+ +---------------------+  |
 |                                                             |
@@ -706,23 +710,25 @@
 ```
 
 **Note:**
-- AppBar trasparente con `extendBodyBehindAppBar: true`
+- AppBar trasparente con `extendBodyBehindAppBar: true` + `extendBody: true`
 - Tasto back floating con ombra e borderRadius 12
 - Categoria pill in alto a destra (icona + label, colore della categoria)
 - Hero: full-width 280px, sfondo #EEEEEE, borderRadius bottom 32, shadow
 - Badge sconto % (pill gradient rosso, glow) e badge prodotto (pill, glow) dentro hero
 - Emoji prodotto 120px centrata
-- Card prezzi: bordo giallo #FFB800 (1.5px, alpha 0.4), glow shadow ambra
-  - Listino (barrato) + Scontato (se promo) piccoli in alto
-  - Prezzo Elmetto grande (26px, w900, #FFB800) con icona construction in box
-  - Badge risparmio % verde in alto a destra
-- Descrizione, Quantita, Riepilogo: card bianche con bordo sottile, borderRadius 20
-- Ogni sezione ha icona header (info, bag, receipt)
-- Quantity selector: bottoni +/- con gradient e haptic feedback
-- Riepilogo: divider gradient (trasparente -> colore -> trasparente)
-- Totale "Da pagare" in giallo #FFB800 (18px, w900) o verde "GRATIS"
+- Card prezzi + quantita unificata: bordo giallo #FFB800 (1.5px, alpha 0.4), glow ambra
+  - Quantita in alto con bottoni +/- gradient (38px) e haptic feedback
+  - Listino (14px label, 16px prezzo barrato, grigio) — scalato per quantita
+  - Scontato (14px label, pill rosso -%, 16px prezzo) — solo se promo, scalato
+  - Divider gradient ambra
+  - Con Sconto Elmetto (14px label, 22px prezzo w900 #FFB800) con icona construction
+  - Sotto il label: "-N punti" (12px, ambra 0.7) — punti scalano con quantita
+- Descrizione, Riepilogo: card bianche con bordo sottile, borderRadius 20
+- Riepilogo: divider gradient, totale giallo #FFB800 (18px) o verde "GRATIS"
 - BNPL Scalapay: card con icona credit_card in box, layout a 2 righe
-- Tasti azione: Compra Ora (gradient giallo, icona flash, flex 3) + Carrello (gradient verde, icona cart, flex 2)
+- Tasti azione FLOTTANTI: barra bottom floating (borderRadius 24, sfondo semi-trasparente,
+  shadow, margin 16, SafeArea). Compra Ora (gradient giallo, flash, flex 3, h50) +
+  Carrello (gradient verde, cart, flex 2, h50)
 - Background: #F5F5F5 light, #121212 dark
 
 ---
@@ -1591,6 +1597,11 @@
 |         |          | risparmio %, sezioni card (descrizione, quantita, riepilogo),        |
 |         |          | tasti gradient Compra Ora + Carrello, riepilogo con divider gradient |
 |         |          | e BNPL Scalapay. Rimossi 5 scenari legacy, wireframe unificato      |
+| 2026-01 | 2.6      | Dettaglio: quantita spostata dentro card prezzi, 3 prezzi verticali  |
+|         |          | (listino/scontato/elmetto) scalati per quantita, punti elmetto       |
+|         |          | moltiplicati per qty. "Con Sconto Elmetto" + info punti. Tasti       |
+|         |          | Compra Ora + Carrello ora in barra flottante bottom (borderRadius    |
+|         |          | 24, semi-trasparente, shadow). Rimossi nomi fornitori dai mock       |
 
 ---
 
