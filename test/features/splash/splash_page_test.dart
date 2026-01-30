@@ -3,13 +3,15 @@ import 'package:vigilo/features/splash/presentation/splash_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('SplashPage shows logo and progress', (
+  testWidgets('SplashPage shows progress indicator', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const MaterialApp(home: SplashPage()));
 
-    // expects a CircularProgressIndicator and a FlutterLogo
+    // CircularProgressIndicator is rendered immediately.
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    expect(find.byType(FlutterLogo), findsOneWidget);
+
+    // Image.asset is present (even if the asset fails to load in tests).
+    expect(find.byType(Image), findsOneWidget);
   });
 }
