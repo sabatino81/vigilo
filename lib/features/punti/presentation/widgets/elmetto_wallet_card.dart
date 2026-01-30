@@ -232,39 +232,78 @@ class ElmettoWalletCard extends StatelessWidget {
   }
 }
 
-class _HowToEarnSection extends StatelessWidget {
+class _HowToEarnSection extends StatefulWidget {
   const _HowToEarnSection({required this.isDark});
 
   final bool isDark;
 
   @override
+  State<_HowToEarnSection> createState() => _HowToEarnSectionState();
+}
+
+class _HowToEarnSectionState extends State<_HowToEarnSection> {
+  bool _expanded = false;
+
+  @override
   Widget build(BuildContext context) {
-    final titleColor = isDark ? Colors.white : Colors.black87;
-    final subtitleColor = isDark ? Colors.white54 : Colors.black45;
+    final titleColor = widget.isDark ? Colors.white : Colors.black87;
+    final subtitleColor = widget.isDark ? Colors.white54 : Colors.black45;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(
-              Icons.emoji_events_rounded,
-              color: AppTheme.primary,
-              size: 20,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'Come guadagni Punti Elmetto',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w800,
-                color: titleColor,
+        GestureDetector(
+          onTap: () => setState(() => _expanded = !_expanded),
+          behavior: HitTestBehavior.opaque,
+          child: Row(
+            children: [
+              Icon(
+                Icons.emoji_events_rounded,
+                color: AppTheme.primary,
+                size: 20,
               ),
-            ),
-          ],
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'Come guadagni Punti Elmetto',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                    color: titleColor,
+                  ),
+                ),
+              ),
+              AnimatedRotation(
+                turns: _expanded ? 0.5 : 0,
+                duration: const Duration(milliseconds: 200),
+                child: Icon(
+                  Icons.expand_more_rounded,
+                  color: subtitleColor,
+                  size: 22,
+                ),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 12),
+        AnimatedCrossFade(
+          firstChild: const SizedBox.shrink(),
+          secondChild: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: _buildContent(titleColor, subtitleColor),
+          ),
+          crossFadeState: _expanded
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
+          duration: const Duration(milliseconds: 200),
+        ),
+      ],
+    );
+  }
 
+  Widget _buildContent(Color titleColor, Color subtitleColor) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Text(
           'AZIONI INDIVIDUALI',
           style: TextStyle(
