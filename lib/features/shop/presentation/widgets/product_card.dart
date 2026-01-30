@@ -152,36 +152,65 @@ class ProductCard extends StatelessWidget {
                       const SizedBox(height: 3),
 
                       // Prezzi: Listino + Scontato
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          if (product.hasPromo) ...[
-                            Text(
-                              product.formattedPrice,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color:
-                                    isDark ? Colors.white54 : Colors.black45,
-                              ),
-                            ),
-                          ],
-                          const Spacer(),
-                          Text(
-                            product.formattedBasePrice,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: isDark ? Colors.white : Colors.white,
-                              decoration: product.hasPromo
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
-                              decorationColor:
-                                  isDark ? Colors.white70 : Colors.white70,
-                            ),
+                      // Prezzo listino (allineato a dx)
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          product.formattedBasePrice,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: product.hasPromo
+                                ? FontWeight.w500
+                                : FontWeight.w700,
+                            color: product.hasPromo
+                                ? (isDark ? Colors.white38 : Colors.white38)
+                                : (isDark ? Colors.white : Colors.white),
+                            decoration: product.hasPromo
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            decorationColor:
+                                isDark ? Colors.white38 : Colors.white38,
                           ),
-                        ],
+                        ),
                       ),
+                      // Prezzo scontato (sotto, stessa grandezza)
+                      if (product.hasPromo)
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                  vertical: 1,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent
+                                      .withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  '-${product.promoDiscountPercent}%',
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                product.formattedPrice,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       const SizedBox(height: 1),
 
                       // Prezzo Elmetto — in evidenza
