@@ -793,6 +793,124 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                             ),
                           ],
                         ),
+
+                        // Klarna 3 rate (se totale > 50 EUR)
+                        if (elmettoPrice * _quantity + 5.90 >= 50) ...[
+                          const SizedBox(height: 12),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFFB8C7)
+                                  .withValues(alpha: isDark ? 0.1 : 0.08),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: const Color(0xFFFFB8C7)
+                                    .withValues(alpha: 0.2),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFFFB8C7)
+                                        .withValues(alpha: 0.15),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Icon(
+                                    Icons.credit_card_rounded,
+                                    size: 16,
+                                    color: Color(0xFFE91E8C),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'Paga in 3 rate con Klarna',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: isDark
+                                                    ? const Color(0xFFFFB8C7)
+                                                    : const Color(0xFFE91E8C),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            '${((elmettoPrice * _quantity + 5.90) / 3).toStringAsFixed(2)} EUR/mese',
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w800,
+                                              color: isDark
+                                                  ? const Color(0xFFFFB8C7)
+                                                  : const Color(0xFFE91E8C),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Builder(
+                                        builder: (_) {
+                                          final total =
+                                              elmettoPrice * _quantity + 5.90;
+                                          final rataBase = total / 3;
+                                          final interessi = total * 0.0399;
+                                          final rata =
+                                              (total + interessi) / 3;
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                width: 5,
+                                                height: 5,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: isDark
+                                                      ? const Color(
+                                                          0xFFFFB8C7,
+                                                        ).withValues(
+                                                          alpha: 0.5,
+                                                        )
+                                                      : const Color(
+                                                          0xFFE91E8C,
+                                                        ).withValues(
+                                                          alpha: 0.4,
+                                                        ),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 6),
+                                              Text(
+                                                '3 x ${rata.toStringAsFixed(2)} EUR'
+                                                ' (interessi ${interessi.toStringAsFixed(2)} EUR,'
+                                                ' TAEG 3.99%)',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: isDark
+                                                      ? Colors.white38
+                                                      : Colors.black38,
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),
