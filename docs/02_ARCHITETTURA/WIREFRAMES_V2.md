@@ -643,18 +643,29 @@
 |   shadow)                               colore categoria)   |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |                    HERO EMOJI                          | |
+|  |                  IMAGE SLIDER (PageView)               | |
 |  |                                                        | |
-|  |                      emoji                             | |
-|  |                     120px                               | |
+|  |                    [product image]                     | |
+|  |                      280px h                           | |
 |  |                                                        | |
 |  |  [-15%]                                    [PROMO]     | |
 |  |  (gradient rosso,                   (badge pill, glow) | |
 |  |   pill + glow)                                         | |
+|  |                                                        | |
+|  |                    o  O  o  o                          | |
+|  |               (dots indicator, 8px)                    | |
 |  +-------------------------------------------------------+ |
 |     sfondo #EEEEEE, borderRadius bottom 32                 |
 |                                                             |
 |  Nome Prodotto (24px, w900)                                |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  VARIANT SELECTOR (solo se hasMultipleVariants)        | |
+|  |                                                        | |
+|  |  [Standard]  [ Taglia M ]  [ Taglia L ]  [ XL ]      | |
+|  |  (ChoiceChip, selected = primary fill,                | |
+|  |   unselected = outlined, borderRadius 20)             | |
+|  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
 |  |  CARD PREZZI + QUANTITA (bordo giallo #FFB800)        | |
@@ -711,8 +722,14 @@
 - Tasto back floating con ombra e borderRadius 12
 - Categoria pill in alto a destra (icona + label, colore della categoria)
 - Hero: full-width 280px, sfondo #EEEEEE, borderRadius bottom 32, shadow
-- Badge sconto % (pill gradient rosso, glow) e badge prodotto (pill, glow) dentro hero
-- Emoji prodotto 120px centrata
+  - PageView con immagini prodotto (placeholder Unsplash se immagine mancante)
+  - Dots indicator centrato in basso (8px, colore primario per attivo)
+  - Badge sconto % (pill gradient rosso, glow) e badge prodotto (pill, glow) dentro hero
+- Variant selector: visibile solo se `product.hasMultipleVariants`
+  - ChoiceChip Wrap sotto il nome prodotto
+  - Selected = colore primario fill, unselected = outlined
+  - Cambio variante aggiorna prezzo (se variante ha price override)
+  - Ogni prodotto ha sempre almeno 1 variante ("Standard" per prodotti semplici)
 - Card prezzi + quantita unificata: bordo giallo #FFB800 (1.5px, alpha 0.4), glow ambra
   - Quantita in alto con bottoni +/- gradient (38px) e haptic feedback
   - Listino (14px label, 16px prezzo barrato, grigio) — scalato per quantita
@@ -746,8 +763,9 @@
 |  +-------------------------------------------------------+ |
 |  |  RIEPILOGO ORDINE                                      | |
 |  |                                                         | |
-|  |  [img] Borraccia Termica Pro    x1      E30.00         | |
-|  |  [img] Guanti Sicurezza Pro     x1      E15.00         | |
+|  |  [emoji] Borraccia Termica Pro  x1      E30.00         | |
+|  |          - Taglia L  (variant, se non Standard)         | |
+|  |  [emoji] Guanti Sicurezza Pro   x1      E15.00         | |
 |  |                                                         | |
 |  |  Subtotale:                             E45.00         | |
 |  +-------------------------------------------------------+ |
@@ -1611,6 +1629,11 @@
 |         |          | badge count reattivo, a destra delle notifiche. Dettaglio: tasto    |
 |         |          | "Aggiungi al carrello" su 2 righe, bottoni bilanciati (flex 3+3)   |
 | 2026-01 | 2.9      | Header: icona carrello visibile solo se carrello non vuoto          |
+| 2026-01 | 2.10     | Dettaglio: hero con image slider (PageView + dots indicator) al     |
+|         |          | posto di emoji. Variant selector (ChoiceChip) sotto il nome         |
+|         |          | prodotto, visibile solo per prodotti con varianti multiple.          |
+|         |          | Carrello e checkout mostrano variant label. DB: tabella              |
+|         |          | product_variants, ogni prodotto ha almeno 1 variante "Standard"     |
 
 ---
 
