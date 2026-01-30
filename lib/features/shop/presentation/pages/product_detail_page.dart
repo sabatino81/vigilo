@@ -270,11 +270,72 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero emoji — grande con sfondo grigio
+      body: Stack(
+        children: [
+          // Sfondo con gradiente e glow categoria
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: isDark
+                      ? [
+                          const Color(0xFF1A1A1A),
+                          const Color(0xFF121212),
+                          const Color(0xFF0D0D0D),
+                        ]
+                      : [
+                          const Color(0xFFF8F8F8),
+                          const Color(0xFFF2F2F2),
+                          const Color(0xFFEEEEEE),
+                        ],
+                ),
+              ),
+            ),
+          ),
+          // Glow radiale con colore categoria
+          Positioned(
+            top: -60,
+            right: -40,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    catColor.withValues(alpha: isDark ? 0.12 : 0.08),
+                    catColor.withValues(alpha: 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -80,
+            left: -80,
+            child: Container(
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    const Color(0xFF2E7D32)
+                        .withValues(alpha: isDark ? 0.10 : 0.06),
+                    const Color(0xFF2E7D32).withValues(alpha: 0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Contenuto
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Hero emoji — grande con sfondo grigio
             Container(
               width: double.infinity,
               height: 280,
@@ -706,6 +767,8 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
             ),
           ],
         ),
+          ),
+        ],
       ),
     );
   }
