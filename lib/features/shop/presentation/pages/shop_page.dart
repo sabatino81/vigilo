@@ -16,9 +16,26 @@ class ShopPage extends ConsumerStatefulWidget {
   ConsumerState<ShopPage> createState() => _ShopPageState();
 }
 
-class _ShopPageState extends ConsumerState<ShopPage> {
+class _ShopPageState extends ConsumerState<ShopPage>
+    with SingleTickerProviderStateMixin {
   ProductCategory? _selectedCategory;
   String _searchQuery = '';
+  late final AnimationController _shimmerCtrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _shimmerCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2500),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _shimmerCtrl.dispose();
+    super.dispose();
+  }
 
   List<Product> _filterProducts(List<Product> allProducts) {
     var products = allProducts;
@@ -64,22 +81,53 @@ class _ShopPageState extends ConsumerState<ShopPage> {
     return Scaffold(
       body: Column(
         children: [
-          // Title
+          // Title — shimmer animato
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.storefront_rounded,
-                  size: 26,
-                  color: AppTheme.ambra,
+                // Icona con pulse
+                AnimatedBuilder(
+                  animation: _shimmerCtrl,
+                  builder: (_, child) {
+                    final scale = 1.0 + 0.05 * (_shimmerCtrl.value < 0.5
+                        ? _shimmerCtrl.value * 2
+                        : (1 - _shimmerCtrl.value) * 2);
+                    return Transform.scale(
+                      scale: scale,
+                      child: child,
+                    );
+                  },
+                  child: Icon(
+                    Icons.storefront_rounded,
+                    size: 26,
+                    color: AppTheme.ambra,
+                  ),
                 ),
                 const SizedBox(width: 10),
-                ShaderMask(
-                  shaderCallback: (bounds) => LinearGradient(
-                    colors: [AppTheme.ambra, AppTheme.teal],
-                  ).createShader(bounds),
+                // Testo con shimmer gradient
+                AnimatedBuilder(
+                  animation: _shimmerCtrl,
+                  builder: (_, child) {
+                    return ShaderMask(
+                      shaderCallback: (bounds) {
+                        final offset = _shimmerCtrl.value * 3 - 1;
+                        return LinearGradient(
+                          begin: Alignment(offset - 0.3, 0),
+                          end: Alignment(offset + 0.3, 0),
+                          colors: [
+                            AppTheme.ambra,
+                            Colors.white,
+                            AppTheme.teal,
+                            AppTheme.ambra,
+                          ],
+                          stops: const [0.0, 0.4, 0.6, 1.0],
+                        ).createShader(bounds);
+                      },
+                      child: child!,
+                    );
+                  },
                   child: const Text(
                     'Spaccio Aziendale',
                     style: TextStyle(
