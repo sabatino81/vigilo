@@ -325,6 +325,13 @@ class ElmettoWalletCard extends StatelessWidget {
                   isDark: isDark,
                 ),
               ),
+
+          const SizedBox(height: 16),
+          const Divider(height: 1),
+          const SizedBox(height: 16),
+
+          // Come guadagnare punti
+          _HowToEarnSection(isDark: isDark),
         ],
       ),
     );
@@ -376,6 +383,134 @@ class _TransactionTile extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: transaction.type.color,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HowToEarnSection extends StatelessWidget {
+  const _HowToEarnSection({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    final titleColor = isDark ? Colors.white : Colors.black87;
+    final subtitleColor = isDark ? Colors.white54 : Colors.black45;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(
+              Icons.emoji_events_rounded,
+              color: AppTheme.primary,
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              'Come guadagni Punti Elmetto',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w800,
+                color: titleColor,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        Text(
+          'AZIONI INDIVIDUALI',
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            color: AppTheme.tertiary,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 6),
+        _earnRow(Icons.wb_sunny_rounded, 'Check-in benessere',
+            '+5/giorno', titleColor, subtitleColor),
+        _earnRow(Icons.rate_review_rounded, 'Feedback fine turno',
+            '+10/giorno', titleColor, subtitleColor),
+        _earnRow(Icons.warning_amber_rounded, 'Segnalazione rischio',
+            '+30-50', titleColor, subtitleColor),
+        _earnRow(Icons.star_rounded, 'Nomina Safety Star',
+            '+15 (tu) +25 (collega)', titleColor, subtitleColor),
+        _earnRow(Icons.local_fire_department_rounded, 'Streak giornaliero',
+            '+5-25/giorno', titleColor, subtitleColor),
+
+        const SizedBox(height: 10),
+        Text(
+          'AZIONI DI SQUADRA',
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            color: AppTheme.secondary,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 6),
+        _earnRow(Icons.groups_rounded, 'Sfida team completata',
+            '+50-100/membro', titleColor, subtitleColor),
+        _earnRow(Icons.forum_rounded, 'Post e commenti social',
+            '+3-5 (max 30/gg)', titleColor, subtitleColor),
+
+        const SizedBox(height: 10),
+        Text(
+          'FORMAZIONE',
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            color: AppTheme.warning,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 6),
+        _earnRow(Icons.play_circle_rounded, 'Micro-training',
+            '+15/giorno', titleColor, subtitleColor),
+        _earnRow(Icons.quiz_rounded, 'Quiz settimanale',
+            '+20 (+10 se >80%)', titleColor, subtitleColor),
+        _earnRow(Icons.school_rounded, 'Corso completato',
+            '+30-80', titleColor, subtitleColor),
+      ],
+    );
+  }
+
+  Widget _earnRow(
+    IconData icon,
+    String label,
+    String points,
+    Color titleColor,
+    Color subtitleColor,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        children: [
+          Icon(icon, size: 16, color: subtitleColor),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: titleColor,
+              ),
+            ),
+          ),
+          Text(
+            points,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.primary,
             ),
           ),
         ],
