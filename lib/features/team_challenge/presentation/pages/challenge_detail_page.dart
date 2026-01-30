@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/team_challenge/domain/models/challenge.dart';
+import 'package:vigilo/features/team_challenge/providers/challenge_providers.dart';
 
-/// Pagina dettaglio sfida team
-class ChallengeDetailPage extends StatelessWidget {
+/// Pagina dettaglio sfida team — ConsumerWidget con dati da Supabase.
+class ChallengeDetailPage extends ConsumerWidget {
   const ChallengeDetailPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final challenge = Challenge.mockChallenge();
-    final history = Challenge.mockHistory();
+
+    final challengeAsync = ref.watch(activeChallengeProvider);
+    final challenge = challengeAsync.when(
+      data: (c) => c,
+      loading: () => Challenge.mockChallenge(),
+      error: (_, __) => Challenge.mockChallenge(),
+    );
+
+    final historyAsync = ref.watch(challengeHistoryProvider);
+    final history = historyAsync.when(
+      data: (h) => h,
+      loading: () => <Challenge>[],
+      error: (_, __) => <Challenge>[],
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -20,27 +34,36 @@ class ChallengeDetailPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Challenge hero
-            _ChallengeHero(challenge: challenge, isDark: isDark),
-            const SizedBox(height: 20),
+      body: challenge == null
+          ? Center(
+              child: Text(
+                'Nessuna sfida attiva',
+                style: TextStyle(
+                  color: isDark ? Colors.white54 : Colors.black45,
+                ),
+              ),
+            )
+          : SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Challenge hero
+                  _ChallengeHero(challenge: challenge, isDark: isDark),
+                  const SizedBox(height: 20),
 
-            // Contributions
-            _ContributionsList(
-              contributions: challenge.contributions,
-              isDark: isDark,
+                  // Contributions
+                  _ContributionsList(
+                    contributions: challenge.contributions,
+                    isDark: isDark,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // History
+                  _ChallengeHistory(history: history, isDark: isDark),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-
-            // History
-            _ChallengeHistory(history: history, isDark: isDark),
-          ],
-        ),
-      ),
     );
   }
 }

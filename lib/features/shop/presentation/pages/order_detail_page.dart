@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/shop/domain/models/order.dart';
 import 'package:vigilo/features/shop/domain/models/voucher.dart';
 import 'package:vigilo/features/shop/presentation/widgets/order_status_badge.dart';
 import 'package:vigilo/features/shop/presentation/widgets/tracking_timeline.dart';
 import 'package:vigilo/features/shop/presentation/widgets/voucher_display.dart';
+import 'package:vigilo/features/shop/providers/shop_providers.dart';
 
-/// Pagina dettaglio ordine con tracking e voucher
-class OrderDetailPage extends StatelessWidget {
+/// Pagina dettaglio ordine con tracking e voucher — ConsumerWidget.
+class OrderDetailPage extends ConsumerWidget {
   const OrderDetailPage({required this.order, super.key});
 
   final Order order;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    // Check if any items are vouchers (mock)
     final hasVoucher = order.items.any(
       (i) => i.product.category.name == 'voucher',
+    );
+
+    final vouchersAsync = ref.watch(vouchersProvider);
+    final vouchers = vouchersAsync.when(
+      data: (v) => v,
+      loading: () => <Voucher>[],
+      error: (_, __) => <Voucher>[],
     );
 
     return Scaffold(
@@ -142,8 +150,8 @@ class OrderDetailPage extends StatelessWidget {
               TrackingTimeline(currentStatus: order.status),
             ],
 
-            // Voucher section (mock)
-            if (hasVoucher) ...[
+            // Voucher section
+            if (hasVoucher && vouchers.isNotEmpty) ...[
               const SizedBox(height: 16),
               Text(
                 'Voucher',
@@ -155,7 +163,7 @@ class OrderDetailPage extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               VoucherDisplay(
-                voucher: Voucher.mockVouchers().first,
+                voucher: vouchers.first,
               ),
             ],
           ],

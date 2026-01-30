@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/streak/domain/models/streak.dart';
+import 'package:vigilo/features/streak/providers/streak_providers.dart';
 
-/// Pagina dettaglio streak con livelli, calendario e moltiplicatore
-class StreakDetailPage extends StatelessWidget {
+/// Pagina dettaglio streak con livelli, calendario e moltiplicatore — ConsumerWidget.
+class StreakDetailPage extends ConsumerWidget {
   const StreakDetailPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final streak = Streak.mockStreak();
+
+    final streakAsync = ref.watch(streakProvider);
+    final streak = streakAsync.when(
+      data: (s) => s,
+      loading: () => Streak.mockStreak(),
+      error: (_, __) => Streak.mockStreak(),
+    );
 
     return Scaffold(
       appBar: AppBar(

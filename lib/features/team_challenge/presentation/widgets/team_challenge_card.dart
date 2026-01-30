@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/streak/providers/streak_providers.dart';
+import 'package:vigilo/features/team_challenge/domain/models/challenge.dart';
+import 'package:vigilo/features/team_challenge/providers/challenge_providers.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 
-class TeamChallengeCard extends StatelessWidget {
+/// Card sfida team sulla HomePage — ConsumerWidget con dati da provider.
+class TeamChallengeCard extends ConsumerWidget {
   const TeamChallengeCard({super.key});
 
-  // Static data
-  static const double _progress = 0.40;
-  static const int _hotStreakDays = 4;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
+
+    final challengeAsync = ref.watch(activeChallengeProvider);
+    final challenge = challengeAsync.when(
+      data: (c) => c,
+      loading: () => Challenge.mockChallenge(),
+      error: (_, __) => Challenge.mockChallenge(),
+    );
+
+    final streakAsync = ref.watch(streakProvider);
+    final hotStreakDays = streakAsync.when(
+      data: (s) => s.currentDays,
+      loading: () => 0,
+      error: (_, __) => 0,
+    );
+
+    final progress = challenge?.progress ?? 0.0;
+    final challengeTitle = challenge?.title;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -87,7 +105,7 @@ class TeamChallengeCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '$_hotStreakDays',
+                      '$hotStreakDays',
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w800,
@@ -103,7 +121,7 @@ class TeamChallengeCard extends StatelessWidget {
 
           // Challenge name
           Text(
-            l10n?.zeroInjuriesWeek ?? 'Zero Infortuni Week',
+            challengeTitle ?? l10n?.zeroInjuriesWeek ?? 'Zero Infortuni Week',
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w800,
@@ -124,7 +142,7 @@ class TeamChallengeCard extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                '${(_progress * 100).toInt()}%',
+                '${(progress * 100).toInt()}%',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,
@@ -139,7 +157,7 @@ class TeamChallengeCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: LinearProgressIndicator(
-              value: _progress,
+              value: progress,
               minHeight: 12,
               backgroundColor: isDark
                   ? Colors.white.withValues(alpha: 0.15)
@@ -175,7 +193,7 @@ class TeamChallengeCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  '$_hotStreakDays ${l10n?.days ?? 'giorni'}',
+                  '$hotStreakDays ${l10n?.days ?? 'giorni'}',
                   style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w800,
