@@ -6,6 +6,9 @@ class TeamLeaderboardCard extends StatelessWidget {
   const TeamLeaderboardCard({super.key});
 
   // Static data
+  static const String _teamName = 'Falchi Nord';
+  static const int _teamScore = 840;
+
   static final List<Map<String, dynamic>> _teams = [
     {'name': 'Falchi Nord', 'score': 840, 'trend': 'up', 'isUs': true},
     {'name': 'Tigri Est', 'score': 790, 'trend': 'down', 'isUs': false},
@@ -26,13 +29,12 @@ class TeamLeaderboardCard extends StatelessWidget {
         color: isDark ? const Color(0xFF2A2A2A) : Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: isDark
-              ? Colors.white.withValues(alpha: 0.15)
-              : Colors.black.withValues(alpha: 0.08),
+          color: AppTheme.tertiary.withValues(alpha: 0.5),
+          width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.08),
+            color: AppTheme.tertiary.withValues(alpha: isDark ? 0.15 : 0.1),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -41,7 +43,78 @@ class TeamLeaderboardCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
+          // Team header
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: AppTheme.tertiary.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Icon(
+                  Icons.groups_rounded,
+                  color: AppTheme.tertiary,
+                  size: 32,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n?.teamLabel ?? 'Squadra',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: AppTheme.neutral,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    const Text(
+                      _teamName,
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                decoration: BoxDecoration(
+                  color: AppTheme.tertiary.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.star_rounded,
+                      color: AppTheme.primary,
+                      size: 24,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '$_teamScore ${l10n?.pointsAbbr ?? 'pt'}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: AppTheme.tertiary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const Divider(height: 1),
+          const SizedBox(height: 16),
+
+          // Leaderboard header
           Row(
             children: [
               Container(
@@ -102,7 +175,7 @@ class TeamLeaderboardCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
 
           // Leaderboard items
           ...List.generate(_teams.length, (index) {

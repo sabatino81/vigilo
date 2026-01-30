@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vigilo/features/team/presentation/widgets/safety_star_card.dart';
-import 'package:vigilo/features/team/presentation/widgets/team_header_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/team_leaderboard_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/team_members_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/transparency_dashboard_card.dart';
@@ -15,16 +14,12 @@ class TeamPage extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: const [
-        // Header team
-        TeamHeaderCard(),
+        // Squadra + Classifica (card unificata)
+        TeamLeaderboardCard(),
         SizedBox(height: 16),
 
         // PRIORITÀ 1: Empatia e connessione - "come ti senti oggi?"
         WellnessCheckinCard(),
-        SizedBox(height: 16),
-
-        // Gamification sociale
-        TeamLeaderboardCard(),
         SizedBox(height: 16),
         SafetyStarCard(),
         SizedBox(height: 16),
