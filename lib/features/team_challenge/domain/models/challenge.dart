@@ -7,6 +7,14 @@ class ChallengeContribution {
 
   final String name;
   final int points;
+
+  /// Crea da JSON (risposta RPC get_active_challenge → contributions[]).
+  factory ChallengeContribution.fromJson(Map<String, dynamic> json) {
+    return ChallengeContribution(
+      name: json['name'] as String? ?? '',
+      points: json['points'] as int? ?? 0,
+    );
+  }
 }
 
 /// Sfida team
@@ -48,6 +56,27 @@ class Challenge {
     if (d.inDays > 0) return '${d.inDays}g rimanenti';
     if (d.inHours > 0) return '${d.inHours}h rimanenti';
     return '${d.inMinutes}min rimanenti';
+  }
+
+  /// Crea da JSON (risposta RPC get_active_challenge / get_challenge_history).
+  factory Challenge.fromJson(Map<String, dynamic> json) {
+    final rawContributions = json['contributions'] as List<dynamic>? ?? [];
+    return Challenge(
+      id: json['id'] as String,
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      targetPoints: json['target_points'] as int? ?? 0,
+      currentPoints: json['current_points'] as int? ?? 0,
+      bonusPoints: json['bonus_points'] as int? ?? 0,
+      deadline: json['deadline'] != null
+          ? DateTime.parse(json['deadline'] as String)
+          : DateTime.now(),
+      contributions: rawContributions
+          .whereType<Map<String, dynamic>>()
+          .map(ChallengeContribution.fromJson)
+          .toList(),
+      isCompleted: json['is_completed'] as bool? ?? false,
+    );
   }
 
   /// Mock sfida attiva

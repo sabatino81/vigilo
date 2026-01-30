@@ -90,6 +90,28 @@ class AppNotification {
     );
   }
 
+  /// Crea da JSON (risposta RPC get_my_notifications).
+  factory AppNotification.fromJson(Map<String, dynamic> json) {
+    return AppNotification(
+      id: json['id'] as String,
+      title: json['title'] as String? ?? '',
+      body: json['body'] as String? ?? '',
+      category: _parseCategory(json['category'] as String?),
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'] as String)
+          : DateTime.now(),
+      isRead: json['is_read'] as bool? ?? false,
+    );
+  }
+
+  static NotificationCategory _parseCategory(String? value) {
+    if (value == null) return NotificationCategory.system;
+    return NotificationCategory.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => NotificationCategory.system,
+    );
+  }
+
   /// Mock data: 10 notifiche
   static List<AppNotification> mockNotifications() {
     final now = DateTime.now();

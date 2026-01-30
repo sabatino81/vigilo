@@ -10,6 +10,7 @@ class SocialPost {
     this.thumbnailPath,
     this.comments = 0,
     this.aspectRatio = 1.0,
+    this.likedByMe = false,
   });
 
   final String id;
@@ -22,8 +23,29 @@ class SocialPost {
   final String? thumbnailPath;
   final double aspectRatio; // larghezza/altezza (es: 16/9, 4/3, 1/1)
 
+  /// Se l'utente corrente ha messo like
+  final bool likedByMe;
+
   /// Restituisce il percorso della thumbnail o l'immagine originale se non disponibile
   String get thumbPath => thumbnailPath ?? imagePath;
+
+  /// Crea da JSON (risposta RPC get_social_feed).
+  factory SocialPost.fromJson(Map<String, dynamic> json) {
+    return SocialPost(
+      id: json['id'] as String,
+      imagePath: json['image_url'] as String? ?? '',
+      thumbnailPath: json['thumbnail_url'] as String?,
+      caption: json['caption'] as String? ?? '',
+      author: json['author_name'] as String? ?? '',
+      likes: json['likes_count'] as int? ?? 0,
+      comments: json['comments_count'] as int? ?? 0,
+      aspectRatio: (json['aspect_ratio'] as num?)?.toDouble() ?? 1.0,
+      date: json['created_at'] != null
+          ? DateTime.parse(json['created_at'] as String)
+          : DateTime.now(),
+      likedByMe: json['liked_by_me'] as bool? ?? false,
+    );
+  }
 
   /// Lista di post statici di esempio
   static final List<SocialPost> staticPosts = [
