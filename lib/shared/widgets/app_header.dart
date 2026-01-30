@@ -130,9 +130,10 @@ class _PointsBadge extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              '\u26D1',
-              style: TextStyle(fontSize: 13),
+            Icon(
+              Icons.engineering_rounded,
+              size: 16,
+              color: isDark ? AppTheme.primary : AppTheme.tertiary,
             ),
             const SizedBox(width: 5),
             Text(
