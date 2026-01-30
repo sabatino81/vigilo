@@ -65,6 +65,51 @@ class SafetyReport {
     );
   }
 
+  /// Crea da JSON (risposta RPC get_my_reports).
+  factory SafetyReport.fromJson(Map<String, dynamic> json) {
+    final photoList = json['photo_urls'];
+    final photos = <String>[];
+    if (photoList is List) {
+      for (final url in photoList) {
+        if (url is String) photos.add(url);
+      }
+    }
+
+    return SafetyReport(
+      id: json['id'] as String,
+      reportCode: json['report_code'] as String?,
+      type: _parseType(json['type'] as String?),
+      description: json['description'] as String? ?? '',
+      photoUrls: photos,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
+      locationName: json['location_name'] as String?,
+      contactRequested: json['contact_requested'] as bool? ?? false,
+      status: _parseStatus(json['status'] as String?),
+      createdAt: DateTime.parse(json['created_at'] as String),
+      resolvedAt: json['resolved_at'] != null
+          ? DateTime.parse(json['resolved_at'] as String)
+          : null,
+      rsppNotes: json['rspp_notes'] as String?,
+    );
+  }
+
+  static ReportType _parseType(String? value) {
+    if (value == null) return ReportType.nearMiss;
+    return ReportType.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ReportType.nearMiss,
+    );
+  }
+
+  static ReportStatus _parseStatus(String? value) {
+    if (value == null) return ReportStatus.pending;
+    return ReportStatus.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ReportStatus.pending,
+    );
+  }
+
   /// Dati mock per testing
   static List<SafetyReport> mockReports() {
     final now = DateTime.now();

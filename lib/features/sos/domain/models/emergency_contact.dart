@@ -105,6 +105,26 @@ class EmergencyContact {
     );
   }
 
+  /// Crea da JSON (risposta RPC get_my_emergency_contacts).
+  factory EmergencyContact.fromJson(Map<String, dynamic> json) {
+    return EmergencyContact(
+      id: json['id'] as String,
+      type: _parseContactType(json['type'] as String?),
+      name: json['name'] as String? ?? '',
+      phoneNumber: json['phone_number'] as String? ?? '',
+      email: json['email'] as String?,
+      isActive: json['is_active'] as bool? ?? true,
+    );
+  }
+
+  static ContactType _parseContactType(String? value) {
+    if (value == null) return ContactType.companySafety;
+    return ContactType.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ContactType.companySafety,
+    );
+  }
+
   /// Dati mock per testing
   static List<EmergencyContact> mockContacts() {
     return [
