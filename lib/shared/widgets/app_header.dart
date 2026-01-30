@@ -7,6 +7,7 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/notifications/presentation/pages/notifications_page.dart';
 import 'package:vigilo/features/profile/presentation/pages/profile_page.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
+import 'package:vigilo/features/punti/providers/wallet_providers.dart';
 import 'package:vigilo/providers/locale_provider.dart';
 import 'package:vigilo/providers/theme_provider.dart';
 
@@ -81,6 +82,8 @@ class AppHeader extends ConsumerWidget {
                     letterSpacing: -0.3,
                   ),
                 ),
+                const SizedBox(height: 2),
+                _PointsBadge(ref: ref),
               ],
             ),
           ),
@@ -102,6 +105,41 @@ class AppHeader extends ConsumerWidget {
           _SettingsMenuButton(ref: ref, l10n: l10n, isDark: isDark),
         ],
       ),
+    );
+  }
+}
+
+class _PointsBadge extends StatelessWidget {
+  const _PointsBadge({required this.ref});
+
+  final WidgetRef ref;
+
+  @override
+  Widget build(BuildContext context) {
+    final walletAsync = ref.watch(walletProvider);
+
+    return walletAsync.when(
+      data: (wallet) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.hardware_rounded,
+            size: 14,
+            color: AppTheme.primary,
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '${wallet.puntiElmetto} pt',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: AppTheme.primary,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
+          ),
+        ],
+      ),
+      loading: () => const SizedBox.shrink(),
+      error: (_, __) => const SizedBox.shrink(),
     );
   }
 }
