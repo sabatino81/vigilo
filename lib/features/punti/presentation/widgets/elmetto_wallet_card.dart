@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
-import 'package:vigilo/features/punti/domain/models/points_level.dart';
-import 'package:vigilo/features/punti/domain/models/points_transaction.dart';
 
 /// Card wallet unico Punti Elmetto (con badge welfare se attivo)
 class ElmettoWalletCard extends StatelessWidget {
   const ElmettoWalletCard({
     required this.wallet,
-    this.onViewAllTransactions,
     super.key,
   });
 
   final ElmettoWallet wallet;
-  final VoidCallback? onViewAllTransactions;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final level = PointsLevel.fromPoints(wallet.puntiElmetto);
-    final progress = PointsLevel.progressToNextLevel(wallet.puntiElmetto);
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -226,165 +220,12 @@ class ElmettoWalletCard extends StatelessWidget {
               ),
             ),
           ],
-          const SizedBox(height: 12),
-
-          // Livello Elmetto
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: level.color.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(level.icon, color: level.color, size: 20),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Livello ${level.label}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: level.color,
-                      ),
-                    ),
-                    const Spacer(),
-                    if (level.nextLevel != null)
-                      Text(
-                        '${(progress * 100).toInt()}%',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: level.color,
-                        ),
-                      ),
-                  ],
-                ),
-                if (level.nextLevel != null) ...[
-                  const SizedBox(height: 8),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor: isDark
-                          ? Colors.white.withValues(alpha: 0.1)
-                          : Colors.black.withValues(alpha: 0.1),
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(level.color),
-                      minHeight: 6,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Prossimo: ${level.nextLevel!.label} '
-                    '(${level.maxPoints} pt)',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: isDark ? Colors.white54 : Colors.black45,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // Header transazioni
-          Row(
-            children: [
-              Text(
-                'Ultime transazioni',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: isDark ? Colors.white70 : Colors.black54,
-                ),
-              ),
-              const Spacer(),
-              if (onViewAllTransactions != null)
-                GestureDetector(
-                  onTap: onViewAllTransactions,
-                  child: const Text(
-                    'Vedi tutti',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.primary,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 8),
-
-          // Lista transazioni
-          ...wallet.transactions.take(5).map(
-                (tx) => _TransactionTile(
-                  transaction: tx,
-                  isDark: isDark,
-                ),
-              ),
-
           const SizedBox(height: 16),
           const Divider(height: 1),
           const SizedBox(height: 16),
 
           // Come guadagnare punti
           _HowToEarnSection(isDark: isDark),
-        ],
-      ),
-    );
-  }
-}
-
-class _TransactionTile extends StatelessWidget {
-  const _TransactionTile({
-    required this.transaction,
-    required this.isDark,
-  });
-
-  final PointsTransaction transaction;
-  final bool isDark;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        children: [
-          Container(
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
-              color: transaction.type.color.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              transaction.type.icon,
-              color: transaction.type.color,
-              size: 16,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              transaction.description,
-              style: TextStyle(
-                fontSize: 13,
-                color: isDark ? Colors.white : Colors.black87,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Text(
-            transaction.formattedAmount,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: transaction.type.color,
-            ),
-          ),
         ],
       ),
     );
