@@ -21,6 +21,12 @@ class _ShopPageState extends ConsumerState<ShopPage>
   ProductCategory? _selectedCategory;
   String _searchQuery = '';
   late final AnimationController _shimmerCtrl;
+  final ScrollController _scrollCtrl = ScrollController();
+
+  /// Quanti prodotti mostrare per "pagina"
+  static const _pageSize = 10;
+  int _visibleCount = _pageSize;
+  bool _loadingMore = false;
 
   @override
   void initState() {
@@ -29,12 +35,38 @@ class _ShopPageState extends ConsumerState<ShopPage>
       vsync: this,
       duration: const Duration(milliseconds: 2500),
     )..repeat();
+    _scrollCtrl.addListener(_onScroll);
   }
 
   @override
   void dispose() {
+    _scrollCtrl.dispose();
     _shimmerCtrl.dispose();
     super.dispose();
+  }
+
+  void _onScroll() {
+    if (_loadingMore) return;
+    final maxScroll = _scrollCtrl.position.maxScrollExtent;
+    final current = _scrollCtrl.position.pixels;
+    // Carica altri quando mancano 200px al fondo
+    if (current >= maxScroll - 200) {
+      _loadMore();
+    }
+  }
+
+  void _loadMore() {
+    if (_loadingMore) return;
+    setState(() => _loadingMore = true);
+    // Simula un breve delay per UX (anche con dati locali)
+    Future<void>.delayed(const Duration(milliseconds: 300), () {
+      if (mounted) {
+        setState(() {
+          _visibleCount += _pageSize;
+          _loadingMore = false;
+        });
+      }
+    });
   }
 
   List<Product> _filterProducts(List<Product> allProducts) {
@@ -77,6 +109,8 @@ class _ShopPageState extends ConsumerState<ShopPage>
     );
 
     final filtered = _filterProducts(allProducts);
+    final visible = filtered.take(_visibleCount).toList();
+    final hasMore = visible.length < filtered.length;
 
     return Scaffold(
       body: Column(
@@ -148,7 +182,10 @@ class _ShopPageState extends ConsumerState<ShopPage>
             child: SizedBox(
               height: 38,
               child: TextField(
-                onChanged: (v) => setState(() => _searchQuery = v),
+                onChanged: (v) => setState(() {
+                  _searchQuery = v;
+                  _visibleCount = _pageSize;
+                }),
                 style: const TextStyle(fontSize: 13),
                 decoration: InputDecoration(
                   hintText: 'Cerca prodotti...',
@@ -176,8 +213,10 @@ class _ShopPageState extends ConsumerState<ShopPage>
             padding: const EdgeInsets.only(left: 16),
             child: CategoryFilterBar(
               selected: _selectedCategory,
-              onSelected: (cat) =>
-                  setState(() => _selectedCategory = cat),
+              onSelected: (cat) => setState(() {
+                _selectedCategory = cat;
+                _visibleCount = _pageSize;
+              }),
             ),
           ),
           const SizedBox(height: 6),
@@ -186,7 +225,9 @@ class _ShopPageState extends ConsumerState<ShopPage>
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              '${filtered.length} prodotti',
+              hasMore
+                  ? '${visible.length} di ${filtered.length} prodotti'
+                  : '${filtered.length} prodotti',
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
@@ -196,7 +237,7 @@ class _ShopPageState extends ConsumerState<ShopPage>
           ),
           const SizedBox(height: 4),
 
-          // Product grid
+          // Product grid — infinite scroll
           Expanded(
             child: filtered.isEmpty
                 ? Center(
@@ -222,28 +263,53 @@ class _ShopPageState extends ConsumerState<ShopPage>
                       ],
                     ),
                   )
-                : GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(
-                      16,
-                      4,
-                      16,
-                      120,
-                    ),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.75,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                    ),
-                    itemCount: filtered.length,
-                    itemBuilder: (_, index) {
-                      final product = filtered[index];
-                      return ProductCard(
-                        product: product,
-                        onTap: () => _openProduct(product),
-                      );
-                    },
+                : CustomScrollView(
+                    controller: _scrollCtrl,
+                    slivers: [
+                      SliverPadding(
+                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+                        sliver: SliverGrid(
+                          delegate: SliverChildBuilderDelegate(
+                            (_, index) {
+                              final product = visible[index];
+                              return ProductCard(
+                                product: product,
+                                onTap: () => _openProduct(product),
+                              );
+                            },
+                            childCount: visible.length,
+                          ),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.75,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                          ),
+                        ),
+                      ),
+                      // Loader in fondo
+                      if (hasMore)
+                        const SliverToBoxAdapter(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: Center(
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2.5,
+                                  color: Color(0xFFFFB800),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      // Bottom padding
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 120),
+                      ),
+                    ],
                   ),
           ),
         ],
