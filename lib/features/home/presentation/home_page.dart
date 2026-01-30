@@ -6,7 +6,9 @@ import 'package:vigilo/features/personal_kpi/presentation/widgets/personal_kpi_c
 import 'package:vigilo/features/safety_score/presentation/widgets/safety_score_card.dart';
 import 'package:vigilo/features/smart_break/presentation/widgets/smart_break_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/social_wall_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/safety_star_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/team_challenge_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/vow_survey_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/wellness_checkin_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -39,6 +41,14 @@ class HomePage extends StatelessWidget {
 
         // PRIORITA 5: Info pratica immediata - countdown pausa
         SmartBreakCard(),
+        SizedBox(height: 16),
+
+        // Stella sicurezza della settimana
+        SafetyStarCard(),
+        SizedBox(height: 16),
+
+        // Sondaggio VOW
+        VowSurveyCard(),
         SizedBox(height: 16),
 
         // Info aggiuntive
