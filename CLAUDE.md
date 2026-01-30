@@ -49,7 +49,7 @@ Providers load persisted values asynchronously in `build()` using fire-and-forge
 
 ### UI System
 
-All pages wrap content in `AppBackground` (gradient + industrial decorative elements) + `AppHeader` (logo + settings). The `MainShell` bottom nav uses a custom floating pill-shaped bar with an enlarged center SOS/safety button. Theme colors are safety-focused: yellow (FFB800) primary, green (2E7D32) safety, blue (1565C0) info, red (D32F2F) emergency.
+All pages wrap content in `AppBackground` (gradient + industrial decorative elements) + `AppHeader` (avatar → profilo, badge Punti Elmetto blu, campana notifiche). Settings (lingua, tema, logout) sono nella pagina Profilo, non nell'header. App in modalità immersiva Android (barre di sistema nascoste). Il `MainShell` bottom nav usa una pill-shaped bar flottante con pulsante SOS centrale ingrandito. Theme colors: yellow (FFB800) primary, green (2E7D32) safety, blue (1565C0) info, red (D32F2F) emergency.
 
 ### Internationalization
 

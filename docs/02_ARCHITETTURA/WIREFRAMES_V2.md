@@ -119,7 +119,7 @@
 
 ```
 +-------------------------------------------------------------+
-|  < >  [gear]                                    [bell] [user]|
+|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
 |                                                             |
 |  Buongiorno, Mario!                                        |
 |  EdilPro S.r.l.                                            |
@@ -222,7 +222,7 @@
 
 ```
 +-------------------------------------------------------------+
-|  < >  [gear]                                    [bell] [user]|
+|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
 |                                                             |
 |  Team                                                      |
 |  EdilPro S.r.l.                                            |
@@ -334,7 +334,7 @@
 
 ```
 +-------------------------------------------------------------+
-|  < >  [gear]                                    [bell] [user]|
+|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
 |                                                             |
 |                      SICUREZZA                              |
 |-------------------------------------------------------------|
@@ -496,7 +496,7 @@
 
 ```
 +-------------------------------------------------------------+
-|  < >  [gear]                                    [bell] [user]|
+|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
 |                                                             |
 |  Punti                                                     |
 |-------------------------------------------------------------|
@@ -1145,7 +1145,7 @@
 
 ```
 +-------------------------------------------------------------+
-|  < >  [gear]                                    [bell] [user]|
+|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
 |                                                             |
 |  Impara                                                    |
 |-------------------------------------------------------------|
@@ -1698,6 +1698,25 @@
 | SCONTATO        | #1565C0     | white       | Punti Elmetto sufficienti per >=5%   |
 | PROMO           | #FF6D00     | white       | Sconto fornitore attivo              |
 
+### AppHeader (layout aggiornato)
+
+```
++-------------------------------------------------------------+
+|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
++-------------------------------------------------------------+
+```
+
+| Elemento        | Azione                               |
+|-----------------|--------------------------------------|
+| Avatar          | Naviga al Profilo (con settings)     |
+| Nome utente     | Testo informativo                    |
+| ⛑ Punti Elmetto| Chip blu con saldo formattato (1.8K) |
+| Campana [bell]  | Naviga a Notifiche (con badge count) |
+
+> **Note:** Il pulsante settings/ingranaggio è stato rimosso dall'header.
+> Lingua, tema e logout sono ora accessibili dalla pagina Profilo.
+> L'app utilizza modalità immersiva Android (barre di sistema nascoste).
+
 ### Icone
 
 | Categoria  | Stile               |
@@ -1720,6 +1739,9 @@
 |         |          | notifiche, profilo                                                   |
 | 2026-01 | 2.1      | Check-in Turno con autodichiarazione DPI per ruolo, terminologia     |
 |         |          | generica (non cantiere-specifica), conversione 60:1, pulizia orfani  |
+| 2026-01 | 2.2      | Header: rimosso settings (ora nel Profilo), aggiunto badge Punti     |
+|         |          | Elmetto, rimosso catalogo premi (sostituito da Spaccio Aziendale),   |
+|         |          | modalità immersiva Android                                           |
 
 ---
 

@@ -133,7 +133,7 @@ Review completa della codebase per eliminare riferimenti specifici a cantieri ed
 - `lib/features/notifications/presentation/pages/notifications_page.dart` — raggruppate per data, filtro categoria, toggle letto/non letto
 
 ### 3.3 Collegamento Header ✅
-- `lib/shared/widgets/app_header.dart` — avatar tap → ProfilePage, campana tap → NotificationsPage (con badge count)
+- `lib/shared/widgets/app_header.dart` — avatar tap → ProfilePage, badge Punti Elmetto (chip blu), campana tap → NotificationsPage (con badge count). Settings rimosso (ora nel Profilo). Modalità immersiva Android (barre di sistema nascoste)
 
 ### 3.4 Router + ARB ✅
 - Rotte /profile, /notifications in app_router.dart
@@ -226,7 +226,7 @@ Review completa della codebase per eliminare riferimenti specifici a cantieri ed
 - `flutter gen-l10n` — OK
 - Wallet unico Punti Elmetto con badge welfare attivo/non attivo
 - Spaccio Aziendale: catalogo → dettaglio → carrello → checkout (con calculateCheckout 60:1)
-- Header: avatar → profilo, campana → notifiche
+- Header: avatar → profilo, badge Punti Elmetto, campana → notifiche (settings rimosso, ora nel profilo)
 - Feedback "+X Punti Elmetto" snackbar
 - Streak e sfida con pagine dettaglio navigabili
 - Check-in turno con autodichiarazione DPI per ruolo

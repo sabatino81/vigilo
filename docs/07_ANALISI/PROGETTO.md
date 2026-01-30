@@ -565,10 +565,11 @@ lib/features/<feature>/
 ### Componenti Condivisi
 
 **AppHeader:**
-- Avatar utente con bordo gradient
-- Saluto personalizzato
-- Badge notifiche
-- Menu settings (Lingua, Tema, Logout)
+- Avatar utente con bordo gradient → naviga al Profilo
+- Saluto personalizzato + nome utente
+- Badge Punti Elmetto (chip blu con icona elmetto)
+- Pulsante notifiche con badge contatore
+- Modalità immersiva (barre di sistema Android nascoste)
 
 **AppBackground:**
 - Sfondo gradient industriale
