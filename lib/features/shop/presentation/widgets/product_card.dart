@@ -84,17 +84,31 @@ class ProductCard extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: Stack(
           children: [
-            // Sfondo con emoji grande
+            // Sfondo con immagine o emoji fallback
             Positioned.fill(
-              child: Container(
-                color: const Color(0xFFEEEEEE),
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(bottom: 50),
-                child: Text(
-                  product.emoji,
-                  style: const TextStyle(fontSize: 64),
-                ),
-              ),
+              child: product.imageUrl != null
+                  ? Image.network(
+                      product.imageUrl!,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        color: const Color(0xFFEEEEEE),
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.only(bottom: 50),
+                        child: Text(
+                          product.emoji,
+                          style: const TextStyle(fontSize: 64),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      color: const Color(0xFFEEEEEE),
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.only(bottom: 50),
+                      child: Text(
+                        product.emoji,
+                        style: const TextStyle(fontSize: 64),
+                      ),
+                    ),
             ),
 
             // Gradient overlay — glassmorphism bottom

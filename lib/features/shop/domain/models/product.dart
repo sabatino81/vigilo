@@ -13,6 +13,8 @@ class Product {
     this.badge = ProductBadge.none,
     this.promoDiscountPercent,
     this.supplierName,
+    this.imageUrl,
+    this.imageUrls = const [],
   });
 
   final String id;
@@ -34,6 +36,12 @@ class Product {
 
   /// Nome fornitore
   final String? supplierName;
+
+  /// URL immagine cover (per card catalogo)
+  final String? imageUrl;
+
+  /// URL tutte le immagini (per slider dettaglio)
+  final List<String> imageUrls;
 
   /// Prezzo dopo sconto promo
   double get displayPrice {
@@ -65,6 +73,11 @@ class Product {
       badge: _parseBadge(json['badge'] as String?),
       promoDiscountPercent: json['promo_discount_percent'] as int?,
       supplierName: json['supplier_name'] as String?,
+      imageUrl: json['image_url'] as String?,
+      imageUrls: (json['image_urls'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
   }
 

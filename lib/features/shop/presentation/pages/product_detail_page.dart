@@ -20,9 +20,23 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 
 class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   int _quantity = 1;
+  int _currentImagePage = 0;
+  late final PageController _pageController;
 
   /// Sconto massimo Punti Elmetto
   static const _maxElmettoDiscount = 0.20;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void _addToCart() {
     HapticFeedback.mediumImpact();
@@ -49,6 +63,156 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   void _buyNow() {
     HapticFeedback.heavyImpact();
     // TODO(nav): navigate to checkout
+  }
+
+  Widget _buildHeroSection(BuildContext context, Product product) {
+    final hasImages = product.imageUrls.isNotEmpty;
+    final images = hasImages
+        ? product.imageUrls
+        : (product.imageUrl != null ? [product.imageUrl!] : <String>[]);
+
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 280,
+          decoration: BoxDecoration(
+            color: const Color(0xFFEEEEEE),
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(32),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.08),
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Stack(
+            children: [
+              // Immagini slider o emoji fallback
+              if (images.isNotEmpty)
+                PageView.builder(
+                  controller: _pageController,
+                  itemCount: images.length,
+                  onPageChanged: (i) =>
+                      setState(() => _currentImagePage = i),
+                  itemBuilder: (_, i) => Image.network(
+                    images[i],
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    errorBuilder: (_, __, ___) => Center(
+                      child: Text(
+                        product.emoji,
+                        style: const TextStyle(fontSize: 120),
+                      ),
+                    ),
+                  ),
+                )
+              else
+                Center(
+                  child: Text(
+                    product.emoji,
+                    style: const TextStyle(fontSize: 120),
+                  ),
+                ),
+              // Badge top-right
+              if (product.badge.isVisible)
+                Positioned(
+                  top: MediaQuery.of(context).padding.top + 56,
+                  right: 16,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: product.badge.color,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              product.badge.color.withValues(alpha: 0.4),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      product.badge.label,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                ),
+              // Sconto % top-left
+              if (product.hasPromo)
+                Positioned(
+                  top: MediaQuery.of(context).padding.top + 56,
+                  left: 16,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFE53935), Color(0xFFD32F2F)],
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFD32F2F)
+                              .withValues(alpha: 0.4),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      '-${product.promoDiscountPercent}%',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        // Dots indicator
+        if (images.length > 1)
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                images.length,
+                (i) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: _currentImagePage == i ? 24 : 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: _currentImagePage == i
+                        ? const Color(0xFFFFB800)
+                        : Colors.grey.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
   }
 
   @override
@@ -316,101 +480,8 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Hero emoji — grande con sfondo grigio
-            Container(
-              width: double.infinity,
-              height: 280,
-              decoration: BoxDecoration(
-                color: const Color(0xFFEEEEEE),
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(32),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 20,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: Stack(
-                children: [
-                  // Emoji centrato
-                  Center(
-                    child: Text(
-                      product.emoji,
-                      style: const TextStyle(fontSize: 120),
-                    ),
-                  ),
-                  // Badge top-right
-                  if (product.badge.isVisible)
-                    Positioned(
-                      top: MediaQuery.of(context).padding.top + 56,
-                      right: 16,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          color: product.badge.color,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: product.badge.color.withValues(alpha: 0.4),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          product.badge.label,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ),
-                    ),
-                  // Sconto % top-left
-                  if (product.hasPromo)
-                    Positioned(
-                      top: MediaQuery.of(context).padding.top + 56,
-                      left: 16,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 5,
-                        ),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFFE53935), Color(0xFFD32F2F)],
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFFD32F2F)
-                                  .withValues(alpha: 0.4),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          '-${product.promoDiscountPercent}%',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
+                // Hero — slider immagini o emoji fallback
+            _buildHeroSection(context, product),
 
             // Contenuto
             Padding(

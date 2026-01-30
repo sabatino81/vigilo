@@ -82,6 +82,8 @@ void main() {
         'badge': 'scontato',
         'promo_discount_percent': 15,
         'supplier_name': 'TestSupplier',
+        'image_url': 'https://example.com/cover.jpg',
+        'image_urls': ['https://example.com/1.jpg', 'https://example.com/2.jpg'],
       };
 
       final product = Product.fromJson(json);
@@ -95,6 +97,8 @@ void main() {
       expect(product.badge, ProductBadge.scontato);
       expect(product.promoDiscountPercent, 15);
       expect(product.supplierName, 'TestSupplier');
+      expect(product.imageUrl, 'https://example.com/cover.jpg');
+      expect(product.imageUrls, ['https://example.com/1.jpg', 'https://example.com/2.jpg']);
     });
 
     test('defaults missing fields', () {
@@ -112,6 +116,8 @@ void main() {
       expect(product.badge, ProductBadge.none);
       expect(product.promoDiscountPercent, isNull);
       expect(product.supplierName, isNull);
+      expect(product.imageUrl, isNull);
+      expect(product.imageUrls, isEmpty);
     });
 
     test('unknown category defaults to casa', () {
