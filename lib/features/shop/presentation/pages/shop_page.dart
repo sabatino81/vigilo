@@ -111,6 +111,15 @@ class _ShopPageState extends ConsumerState<ShopPage>
     final filtered = _filterProducts(allProducts);
     final visible = filtered.take(_visibleCount).toList();
     final hasMore = visible.length < filtered.length;
+    final showFeatured =
+        _searchQuery.isEmpty && _selectedCategory == null;
+    // Prodotti in evidenza: quelli con badge o promo, max 6
+    final featured = showFeatured
+        ? allProducts
+            .where((p) => p.badge.isVisible || p.hasPromo)
+            .take(6)
+            .toList()
+        : <Product>[];
 
     return Scaffold(
       body: Column(
@@ -266,6 +275,89 @@ class _ShopPageState extends ConsumerState<ShopPage>
                 : CustomScrollView(
                     controller: _scrollCtrl,
                     slivers: [
+                      // Sezione In Evidenza
+                      if (featured.isNotEmpty) ...[
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.local_fire_department_rounded,
+                                  size: 18,
+                                  color: isDark
+                                      ? const Color(0xFFFF6D00)
+                                      : const Color(0xFFE65100),
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  'In evidenza',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
+                                    color: isDark
+                                        ? Colors.white
+                                        : Colors.black87,
+                                    letterSpacing: -0.2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: 220,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              itemCount: featured.length,
+                              separatorBuilder: (_, __) =>
+                                  const SizedBox(width: 12),
+                              itemBuilder: (_, index) {
+                                final product = featured[index];
+                                return SizedBox(
+                                  width: 155,
+                                  child: ProductCard(
+                                    product: product,
+                                    onTap: () => _openProduct(product),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.grid_view_rounded,
+                                  size: 16,
+                                  color: isDark
+                                      ? Colors.white54
+                                      : Colors.black45,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  'Tutti i prodotti',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
+                                    color: isDark
+                                        ? Colors.white
+                                        : Colors.black87,
+                                    letterSpacing: -0.2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                       SliverPadding(
                         padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
                         sliver: SliverGrid(

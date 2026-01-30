@@ -47,8 +47,8 @@ class ProductCard extends StatelessWidget {
           border: Border.all(
             color: product.hasPromo
                 ? borderColor.withValues(alpha: 0.5)
-                : borderColor.withValues(alpha: 0.3),
-            width: product.hasPromo ? 1.5 : 1,
+                : borderColor.withValues(alpha: 0.6),
+            width: product.hasPromo ? 2 : 1.5,
           ),
           boxShadow: [
             BoxShadow(
