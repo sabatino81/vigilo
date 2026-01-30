@@ -4,8 +4,8 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/home/presentation/home_page.dart';
 import 'package:vigilo/features/impara/presentation/impara_page.dart';
 import 'package:vigilo/features/punti/presentation/punti_page.dart';
+import 'package:vigilo/features/shop/presentation/pages/shop_page.dart';
 import 'package:vigilo/features/sos/presentation/sos_page.dart';
-import 'package:vigilo/features/team/presentation/team_page.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 import 'package:vigilo/shared/widgets/app_background.dart';
 import 'package:vigilo/shared/widgets/app_header.dart';
@@ -22,7 +22,7 @@ class _MainShellState extends State<MainShell> {
 
   final List<Widget> _pages = const [
     HomePage(),
-    TeamPage(),
+    ShopPage(),
     SosPage(),
     PuntiPage(),
     ImparaPage(),
@@ -95,9 +95,9 @@ class _MainShellState extends State<MainShell> {
                   ),
                   _buildNavItem(
                     1,
-                    Icons.group_outlined,
-                    Icons.group_rounded,
-                    l10n?.navTeam ?? 'Team',
+                    Icons.storefront_outlined,
+                    Icons.storefront_rounded,
+                    'Spaccio',
                   ),
                   _buildSafetyButton(),
                   _buildNavItem(

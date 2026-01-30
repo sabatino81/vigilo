@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/providers/wallet_providers.dart';
-import 'package:vigilo/features/shop/presentation/pages/shop_page.dart';
 import 'package:vigilo/features/punti/presentation/pages/spin_wheel_page.dart';
 import 'package:vigilo/features/punti/presentation/widgets/elmetto_wallet_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/instant_win_card.dart';
@@ -98,16 +96,6 @@ class PuntiPage extends ConsumerWidget {
                 const TeamLeaderboardCard(),
                 const SizedBox(height: 16),
 
-                // Shop entry point
-                _ShopEntryCard(
-                  onTap: () => Navigator.of(context).push<void>(
-                    MaterialPageRoute<void>(
-                      builder: (_) => const ShopPage(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
                 // Statistiche
                 if (stats != null) PointsStatsCard(stats: stats),
                 const SizedBox(height: 16),
@@ -130,88 +118,6 @@ class PuntiPage extends ConsumerWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ShopEntryCard extends StatelessWidget {
-  const _ShopEntryCard({required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: isDark
-                ? [
-                    AppTheme.ambra.withValues(alpha: 0.15),
-                    AppTheme.teal.withValues(alpha: 0.15),
-                  ]
-                : [
-                    AppTheme.ambra.withValues(alpha: 0.1),
-                    AppTheme.teal.withValues(alpha: 0.1),
-                  ],
-          ),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: AppTheme.ambra.withValues(alpha: 0.2),
-          ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppTheme.ambra.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.storefront_rounded,
-                color: AppTheme.ambra,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Spaccio Aziendale',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                      color: isDark ? Colors.white : Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Il tuo negozio riservato: sconti e prodotti gratis',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: isDark ? Colors.white54 : Colors.black45,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 16,
-              color: isDark ? Colors.white38 : Colors.black26,
-            ),
-          ],
         ),
       ),
     );
