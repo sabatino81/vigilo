@@ -554,30 +554,10 @@
 +-------------------------------------------------------------+
 |  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
 |                                                             |
-|  Spaccio Aziendale                                         |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  | [search] Cerca prodotti...                              | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  Filtri:                                                    |
-|  +------+ +------+ +--------+ +------+ +------+ +------+  |
-|  | Tutti| | Casa | |Abbigl. | | Tech | |Consum| | Sport|  |
-|  +------+ +------+ +--------+ +------+ +------+ +------+  |
-|                                                             |
-|  +------+ +------+                                         |
-|  |Voucher| |Gift  |                                         |
-|  +------+ +------+                                         |
-|                                                             |
-|  Ordina per:                                                |
-|  +-------------+ +------------------+ +-----------------+  |
-|  | Per te      | | Gratis per te    | | Con mio sconto  |  |
-|  | (default)   | | (welfare copre)  | | (Elmetto >10%)  |  |
-|  +-------------+ +------------------+ +-----------------+  |
-|                                                             |
-|  Punti Elmetto: 1.800 (E30)   |  Welfare: [ATTIVO]       |
-|                                                             |
-|  124 prodotti                                               |
+|      [store] Spaccio Aziendale (gradiente ambra→teal)       |
+|  [search] Cerca prodotti...                     (compact)  |
+|  [Tutti][Casa][Abbigl.][Tech][Consum][Sport][Voucher][Gift]|
+|  124 prodotti                                    (small)   |
 |                                                             |
 |  +---------------------------+ +---------------------------+|
 |  | [immagine prodotto]       | | [immagine prodotto]       ||
