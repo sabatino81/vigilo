@@ -11,6 +11,7 @@ import 'package:vigilo/features/punti/presentation/widgets/elmetto_wallet_card.d
 import 'package:vigilo/features/punti/presentation/widgets/instant_win_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/leaderboard_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/points_stats_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/team_leaderboard_card.dart';
 
 /// Pagina principale Punti — ConsumerWidget con dati da Supabase.
 class PuntiPage extends ConsumerWidget {
@@ -91,6 +92,10 @@ class PuntiPage extends ConsumerWidget {
               children: [
                 // Dual Wallet Card
                 if (wallet != null) ElmettoWalletCard(wallet: wallet),
+                const SizedBox(height: 16),
+
+                // Squadra + Membri + Classifica
+                const TeamLeaderboardCard(),
                 const SizedBox(height: 16),
 
                 // Shop entry point

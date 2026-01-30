@@ -203,13 +203,13 @@ class _MainShellState extends State<MainShell> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              AppTheme.tertiary,
-              AppTheme.tertiary.withValues(alpha: 0.85),
+              AppTheme.primary,
+              AppTheme.primary.withValues(alpha: 0.85),
             ],
           ),
           boxShadow: [
             BoxShadow(
-              color: AppTheme.tertiary.withValues(alpha: isDark ? 0.4 : 0.5),
+              color: AppTheme.primary.withValues(alpha: isDark ? 0.4 : 0.5),
               blurRadius: isSelected ? 20 : 16,
               offset: const Offset(0, 4),
               spreadRadius: isSelected ? 2 : 0,

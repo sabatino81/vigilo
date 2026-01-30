@@ -7,6 +7,7 @@ import 'package:vigilo/features/safety_score/presentation/widgets/safety_score_c
 import 'package:vigilo/features/smart_break/presentation/widgets/smart_break_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/social_wall_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/team_challenge_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/wellness_checkin_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,6 +17,10 @@ class HomePage extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
       children: const [
+        // PRIORITA 0: Empatia - "come ti senti oggi?"
+        WellnessCheckinCard(),
+        SizedBox(height: 16),
+
         // PRIORITA 1: Check-in turno - autodichiarazione DPI per ruolo
         ShiftCheckinCard(),
         SizedBox(height: 16),

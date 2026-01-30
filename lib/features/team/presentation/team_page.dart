@@ -3,7 +3,6 @@ import 'package:vigilo/features/team/presentation/widgets/safety_star_card.dart'
 import 'package:vigilo/features/team/presentation/widgets/team_leaderboard_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/transparency_dashboard_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/vow_survey_card.dart';
-import 'package:vigilo/features/team/presentation/widgets/wellness_checkin_card.dart';
 
 class TeamPage extends StatelessWidget {
   const TeamPage({super.key});
@@ -17,9 +16,6 @@ class TeamPage extends StatelessWidget {
         TeamLeaderboardCard(),
         SizedBox(height: 16),
 
-        // PRIORITÀ 1: Empatia e connessione - "come ti senti oggi?"
-        WellnessCheckinCard(),
-        SizedBox(height: 16),
         SafetyStarCard(),
         SizedBox(height: 16),
 
