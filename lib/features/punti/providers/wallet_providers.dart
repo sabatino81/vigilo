@@ -5,7 +5,6 @@ import 'package:vigilo/features/punti/data/wallet_repository.dart';
 import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 import 'package:vigilo/features/punti/domain/models/leaderboard_entry.dart';
 import 'package:vigilo/features/punti/domain/models/points_stats.dart';
-import 'package:vigilo/features/punti/domain/models/reward.dart';
 import 'package:vigilo/features/punti/domain/models/wheel_prize.dart';
 
 // ============================================================
@@ -103,35 +102,6 @@ class LeaderboardNotifier extends AsyncNotifier<List<LeaderboardEntry>> {
     state = await AsyncValue.guard(() async {
       final repo = ref.read(leaderboardRepositoryProvider);
       return repo.getLeaderboard();
-    });
-  }
-}
-
-// ============================================================
-// Rewards provider (catalogo premi)
-// ============================================================
-
-final rewardsProvider =
-    AsyncNotifierProvider<RewardsNotifier, List<Reward>>(
-  RewardsNotifier.new,
-);
-
-class RewardsNotifier extends AsyncNotifier<List<Reward>> {
-  @override
-  Future<List<Reward>> build() async {
-    try {
-      final repo = ref.read(walletRepositoryProvider);
-      return await repo.getRewards();
-    } on Object {
-      return Reward.mockRewards();
-    }
-  }
-
-  Future<void> refresh() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final repo = ref.read(walletRepositoryProvider);
-      return repo.getRewards();
     });
   }
 }

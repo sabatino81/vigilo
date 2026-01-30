@@ -4,37 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
-import 'package:vigilo/features/punti/domain/models/reward.dart';
 import 'package:vigilo/features/punti/providers/wallet_providers.dart';
 import 'package:vigilo/features/shop/presentation/pages/shop_page.dart';
-import 'package:vigilo/features/punti/presentation/pages/rewards_catalog_sheet.dart';
 import 'package:vigilo/features/punti/presentation/pages/spin_wheel_page.dart';
 import 'package:vigilo/features/punti/presentation/widgets/elmetto_wallet_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/instant_win_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/leaderboard_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/points_stats_card.dart';
-import 'package:vigilo/features/punti/presentation/widgets/rewards_catalog_preview.dart';
 
 /// Pagina principale Punti — ConsumerWidget con dati da Supabase.
 class PuntiPage extends ConsumerWidget {
   const PuntiPage({super.key});
-
-  void _openCatalog(
-    BuildContext context,
-    List<Reward> rewards,
-    int userPoints, {
-    Reward? initialReward,
-  }) {
-    unawaited(HapticFeedback.lightImpact());
-    unawaited(
-      RewardsCatalogSheet.show(
-        context,
-        rewards: rewards,
-        userPoints: userPoints,
-        initialReward: initialReward,
-      ),
-    );
-  }
 
   Future<void> _openSpinWheel(
     BuildContext context,
@@ -63,7 +43,6 @@ class PuntiPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final walletAsync = ref.watch(walletProvider);
-    final rewardsAsync = ref.watch(rewardsProvider);
     final leaderboardAsync = ref.watch(leaderboardProvider);
     final statsAsync = ref.watch(pointsStatsProvider);
     final todaySpinAsync = ref.watch(todaySpinProvider);
@@ -73,11 +52,6 @@ class PuntiPage extends ConsumerWidget {
       data: (w) => w,
       loading: () => null,
       error: (_, __) => null,
-    );
-    final rewards = rewardsAsync.when(
-      data: (r) => r,
-      loading: () => <Reward>[],
-      error: (_, __) => <Reward>[],
     );
     final leaderboard = leaderboardAsync.when(
       data: (l) => l,
@@ -101,7 +75,6 @@ class PuntiPage extends ConsumerWidget {
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(walletProvider);
-          ref.invalidate(rewardsProvider);
           ref.invalidate(leaderboardProvider);
           ref.invalidate(pointsStatsProvider);
           ref.invalidate(todaySpinProvider);
@@ -128,25 +101,6 @@ class PuntiPage extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-
-                // Catalogo Premi Preview
-                if (rewards.isNotEmpty)
-                  RewardsCatalogPreview(
-                    rewards: rewards,
-                    userPoints: totalPoints,
-                    onRewardTap: (reward) => _openCatalog(
-                      context,
-                      rewards,
-                      totalPoints,
-                      initialReward: reward,
-                    ),
-                    onViewAllTap: () => _openCatalog(
-                      context,
-                      rewards,
-                      totalPoints,
-                    ),
-                  ),
                 const SizedBox(height: 16),
 
                 // Statistiche
