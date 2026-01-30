@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:vigilo/core/data/async_data_view.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/profile/domain/models/user_profile.dart';
+import 'package:vigilo/features/profile/providers/profile_providers.dart';
 import 'package:vigilo/features/shop/presentation/pages/orders_page.dart';
 
-/// Pagina profilo utente
-class ProfilePage extends StatelessWidget {
+/// Pagina profilo utente — ConsumerWidget con dati da Supabase.
+class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final profile = UserProfile.mockProfile();
+    final profileAsync = ref.watch(profileProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -20,74 +24,90 @@ class ProfilePage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
-        child: Column(
-          children: [
-            // Avatar section
-            _AvatarSection(profile: profile, isDark: isDark),
-            const SizedBox(height: 20),
+      body: AsyncDataView<UserProfile>(
+        value: profileAsync,
+        onRefresh: () =>
+            ref.read(profileProvider.notifier).refresh(),
+        builder: (profile) => SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
+          child: Column(
+            children: [
+              // Avatar section
+              _AvatarSection(profile: profile, isDark: isDark),
+              const SizedBox(height: 20),
 
-            // Dual wallet compact
-            _WalletCompactCard(profile: profile, isDark: isDark),
-            const SizedBox(height: 16),
+              // Wallet compact
+              _WalletCompactCard(
+                profile: profile,
+                isDark: isDark,
+              ),
+              const SizedBox(height: 16),
 
-            // Safety stats
-            _SafetyStatsCard(profile: profile, isDark: isDark),
-            const SizedBox(height: 16),
+              // Safety stats
+              _SafetyStatsCard(
+                profile: profile,
+                isDark: isDark,
+              ),
+              const SizedBox(height: 16),
 
-            // Trust level
-            _TrustLevelCard(
-              trustLevel: profile.trustLevel,
-              isDark: isDark,
-            ),
-            const SizedBox(height: 16),
+              // Trust level
+              _TrustLevelCard(
+                trustLevel: profile.trustLevel,
+                isDark: isDark,
+              ),
+              const SizedBox(height: 16),
 
-            // My Orders
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () => Navigator.of(context).push<void>(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const OrdersPage(),
+              // My Orders
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () => Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const OrdersPage(),
+                    ),
+                  ),
+                  icon: const Icon(Icons.receipt_long_rounded),
+                  label: const Text('I miei ordini'),
+                  style: OutlinedButton.styleFrom(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 14),
                   ),
                 ),
-                icon: const Icon(Icons.receipt_long_rounded),
-                label: const Text('I miei ordini'),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              const SizedBox(height: 16),
+
+              // Settings shortcuts
+              _SettingsCard(isDark: isDark),
+              const SizedBox(height: 16),
+
+              // Logout
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () async {
+                    await Supabase.instance.client.auth.signOut();
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.logout_rounded,
+                    color: AppTheme.danger,
+                  ),
+                  label: const Text(
+                    'Esci',
+                    style: TextStyle(color: AppTheme.danger),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: AppTheme.danger),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 14),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-
-            // Settings shortcuts
-            _SettingsCard(isDark: isDark),
-            const SizedBox(height: 16),
-
-            // Logout
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton.icon(
-                onPressed: () {
-                  // Mock: pop back
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(
-                  Icons.logout_rounded,
-                  color: AppTheme.danger,
-                ),
-                label: const Text(
-                  'Esci',
-                  style: TextStyle(color: AppTheme.danger),
-                ),
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: AppTheme.danger),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -124,6 +124,7 @@ enum TrustLevel {
 /// Profilo utente
 class UserProfile {
   const UserProfile({
+    required this.id,
     required this.name,
     required this.email,
     required this.category,
@@ -134,8 +135,28 @@ class UserProfile {
     required this.puntiElmetto,
     required this.welfareActive,
     required this.companyName,
+    this.avatarUrl,
   });
 
+  /// Crea un [UserProfile] da una mappa JSON (risposta RPC Supabase).
+  factory UserProfile.fromJson(Map<String, dynamic> json) {
+    return UserProfile(
+      id: json['id'] as String,
+      name: json['name'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      category: _parseCategory(json['category'] as String?),
+      trustLevel: _parseTrustLevel(json['trust_level'] as String?),
+      safetyScore: json['safety_score'] as int? ?? 0,
+      streakDays: json['streak_days'] as int? ?? 0,
+      reportsCount: json['reports_count'] as int? ?? 0,
+      puntiElmetto: json['punti_elmetto'] as int? ?? 0,
+      welfareActive: json['welfare_active'] as bool? ?? false,
+      companyName: json['company_name'] as String? ?? '',
+      avatarUrl: json['avatar_url'] as String?,
+    );
+  }
+
+  final String id;
   final String name;
   final String email;
   final WorkerCategory category;
@@ -146,10 +167,73 @@ class UserProfile {
   final int puntiElmetto;
   final bool welfareActive;
   final String companyName;
+  final String? avatarUrl;
 
-  /// Mock profile
+  /// Converte in mappa JSON per invio a Supabase.
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'category': category.name,
+      'trust_level': trustLevel.name,
+      'safety_score': safetyScore,
+      'streak_days': streakDays,
+      'reports_count': reportsCount,
+      'punti_elmetto': puntiElmetto,
+      'welfare_active': welfareActive,
+      'company_name': companyName,
+      'avatar_url': avatarUrl,
+    };
+  }
+
+  UserProfile copyWith({
+    String? name,
+    WorkerCategory? category,
+    String? avatarUrl,
+    int? puntiElmetto,
+    int? safetyScore,
+    int? streakDays,
+    int? reportsCount,
+    TrustLevel? trustLevel,
+    bool? welfareActive,
+  }) {
+    return UserProfile(
+      id: id,
+      name: name ?? this.name,
+      email: email,
+      category: category ?? this.category,
+      trustLevel: trustLevel ?? this.trustLevel,
+      safetyScore: safetyScore ?? this.safetyScore,
+      streakDays: streakDays ?? this.streakDays,
+      reportsCount: reportsCount ?? this.reportsCount,
+      puntiElmetto: puntiElmetto ?? this.puntiElmetto,
+      welfareActive: welfareActive ?? this.welfareActive,
+      companyName: companyName,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+    );
+  }
+
+  static WorkerCategory _parseCategory(String? value) {
+    if (value == null) return WorkerCategory.operaio;
+    return WorkerCategory.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => WorkerCategory.operaio,
+    );
+  }
+
+  static TrustLevel _parseTrustLevel(String? value) {
+    if (value == null) return TrustLevel.base;
+    return TrustLevel.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => TrustLevel.base,
+    );
+  }
+
+  /// Mock profile (fallback per dev/test offline)
   static UserProfile mockProfile() {
     return const UserProfile(
+      id: 'mock-user-id',
       name: 'Marco Rossi',
       email: 'marco.rossi@costruzionirossi.it',
       category: WorkerCategory.operaio,
