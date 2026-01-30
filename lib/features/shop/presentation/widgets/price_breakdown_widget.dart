@@ -22,26 +22,43 @@ class PriceBreakdownWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: isDark
             ? Colors.white.withValues(alpha: 0.05)
-            : Colors.black.withValues(alpha: 0.03),
-        borderRadius: BorderRadius.circular(14),
+            : Colors.white,
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: isDark
               ? Colors.white.withValues(alpha: 0.08)
               : Colors.black.withValues(alpha: 0.06),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.04),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Riepilogo pagamento',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: isDark ? Colors.white : Colors.black87,
-            ),
+          Row(
+            children: [
+              Icon(
+                Icons.receipt_long_rounded,
+                size: 16,
+                color: isDark ? Colors.white54 : Colors.black45,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Riepilogo pagamento',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 14),
 
           // Subtotale
           _PriceLine(
@@ -76,7 +93,23 @@ class PriceBreakdownWidget extends StatelessWidget {
               isDark: isDark,
             ),
 
-          const Divider(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Container(
+              height: 1,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.transparent,
+                    isDark
+                        ? Colors.white.withValues(alpha: 0.15)
+                        : Colors.black.withValues(alpha: 0.08),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           // Totale da pagare
           _PriceLine(
@@ -88,51 +121,64 @@ class PriceBreakdownWidget extends StatelessWidget {
                 : '${breakdown.workerPaysEur.toStringAsFixed(2)} EUR',
             valueColor: breakdown.isFullyFree
                 ? AppTheme.secondary
-                : null,
+                : const Color(0xFFFFB800),
             isBold: true,
             isDark: isDark,
           ),
 
           // BNPL
           if (showBnpl && breakdown.isBnplAvailable) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: 14),
             Container(
               padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 8,
+                horizontal: 14,
+                vertical: 10,
               ),
               decoration: BoxDecoration(
-                color: AppTheme.tertiary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
+                color: AppTheme.tertiary.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(14),
                 border: Border.all(
-                  color: AppTheme.tertiary.withValues(alpha: 0.2),
+                  color: AppTheme.tertiary.withValues(alpha: 0.15),
                 ),
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.credit_card_rounded,
-                    size: 16,
-                    color: AppTheme.tertiary,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Paga in 3 rate con Scalapay',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.tertiary,
-                      ),
+                  Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: AppTheme.tertiary.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      Icons.credit_card_rounded,
+                      size: 16,
+                      color: AppTheme.tertiary,
                     ),
                   ),
-                  Text(
-                    '${(breakdown.workerPaysEur / 3).toStringAsFixed(2)}'
-                    ' EUR/mese',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: AppTheme.tertiary,
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Paga in 3 rate con Scalapay',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: AppTheme.tertiary,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          '${(breakdown.workerPaysEur / 3).toStringAsFixed(2)}'
+                          ' EUR/mese',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w800,
+                            color: AppTheme.tertiary,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -167,12 +213,19 @@ class _PriceLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 14, color: iconColor),
-            const SizedBox(width: 6),
+            Container(
+              padding: const EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                color: iconColor?.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Icon(icon, size: 13, color: iconColor),
+            ),
+            const SizedBox(width: 8),
           ],
           Expanded(
             child: Text(
@@ -187,10 +240,11 @@ class _PriceLine extends StatelessWidget {
           Text(
             value,
             style: TextStyle(
-              fontSize: isBold ? 16 : 13,
+              fontSize: isBold ? 18 : 13,
               fontWeight: isBold ? FontWeight.w900 : FontWeight.w600,
               color: valueColor ??
                   (isDark ? Colors.white : Colors.black87),
+              letterSpacing: isBold ? -0.3 : 0,
             ),
           ),
         ],

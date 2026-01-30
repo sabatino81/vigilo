@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 import 'package:vigilo/features/punti/providers/wallet_providers.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
@@ -24,6 +23,9 @@ class ProductDetailPage extends ConsumerStatefulWidget {
 
 class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   int _quantity = 1;
+
+  /// Sconto massimo Punti Elmetto
+  static const _maxElmettoDiscount = 0.20;
 
   double get _totalPrice => widget.product.displayPrice * _quantity;
 
@@ -49,10 +51,17 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     );
   }
 
+  void _buyNow() {
+    HapticFeedback.heavyImpact();
+    // TODO(nav): navigate to checkout
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final product = widget.product;
+    final catColor = product.category.color;
+    final elmettoPrice = product.displayPrice * (1 - _maxElmettoDiscount);
 
     final walletAsync = ref.watch(walletProvider);
     final wallet = walletAsync.when(
@@ -73,206 +82,569 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
         );
 
     return Scaffold(
+      backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text(
-          product.category.label,
-          style: const TextStyle(fontWeight: FontWeight.w600),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: isDark
+                  ? Colors.black.withValues(alpha: 0.5)
+                  : Colors.white.withValues(alpha: 0.9),
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Icon(
+              Icons.arrow_back_rounded,
+              color: isDark ? Colors.white : Colors.black87,
+            ),
+          ),
         ),
-        centerTitle: true,
+        actions: [
+          // Categoria pill
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: catColor.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: catColor.withValues(alpha: 0.3),
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(product.category.icon, size: 14, color: catColor),
+                const SizedBox(width: 6),
+                Text(
+                  product.category.label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: catColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Emoji hero
-            Center(
-              child: Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: isDark
-                      ? Colors.white.withValues(alpha: 0.05)
-                      : Colors.black.withValues(alpha: 0.03),
-                  borderRadius: BorderRadius.circular(24),
+            // Hero emoji — grande con sfondo grigio
+            Container(
+              width: double.infinity,
+              height: 280,
+              decoration: BoxDecoration(
+                color: const Color(0xFFEEEEEE),
+                borderRadius: const BorderRadius.vertical(
+                  bottom: Radius.circular(32),
                 ),
-                child: Center(
-                  child: Text(
-                    product.emoji,
-                    style: const TextStyle(fontSize: 64),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.08),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Badge
-            if (product.badge.isVisible)
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: product.badge.color,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  product.badge.label,
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
-            const SizedBox(height: 8),
-
-            // Nome
-            Text(
-              product.name,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w900,
-                color: isDark ? Colors.white : Colors.black87,
-              ),
-            ),
-            const SizedBox(height: 4),
-
-            // Fornitore
-            if (product.supplierName != null)
-              Text(
-                'Fornitore: ${product.supplierName}',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isDark ? Colors.white38 : Colors.black38,
-                ),
-              ),
-            const SizedBox(height: 12),
-
-            // Descrizione
-            Text(
-              product.description,
-              style: TextStyle(
-                fontSize: 14,
-                color: isDark ? Colors.white70 : Colors.black54,
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Prezzo
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                if (product.hasPromo) ...[
-                  Text(
-                    product.formattedBasePrice,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: isDark ? Colors.white38 : Colors.black26,
-                      decoration: TextDecoration.lineThrough,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
                 ],
-                Text(
-                  product.formattedPrice,
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w900,
-                    color: isDark ? Colors.white : Colors.black87,
-                  ),
-                ),
-                if (product.hasPromo) ...[
-                  const SizedBox(width: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppTheme.danger.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
+              ),
+              child: Stack(
+                children: [
+                  // Emoji centrato
+                  Center(
                     child: Text(
-                      '-${product.promoDiscountPercent}%',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: AppTheme.danger,
+                      product.emoji,
+                      style: const TextStyle(fontSize: 120),
+                    ),
+                  ),
+                  // Badge top-right
+                  if (product.badge.isVisible)
+                    Positioned(
+                      top: MediaQuery.of(context).padding.top + 56,
+                      right: 16,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: product.badge.color,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: product.badge.color.withValues(alpha: 0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          product.badge.label,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  // Sconto % top-left
+                  if (product.hasPromo)
+                    Positioned(
+                      top: MediaQuery.of(context).padding.top + 56,
+                      left: 16,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFFE53935), Color(0xFFD32F2F)],
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFFD32F2F)
+                                  .withValues(alpha: 0.4),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          '-${product.promoDiscountPercent}%',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
-              ],
+              ),
             ),
-            const SizedBox(height: 20),
 
-            // Selettore quantita
-            Row(
-              children: [
-                Text(
-                  'Quantita',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: isDark ? Colors.white70 : Colors.black54,
-                  ),
-                ),
-                const Spacer(),
-                _QuantityButton(
-                  icon: Icons.remove_rounded,
-                  onTap: _quantity > 1
-                      ? () => setState(() => _quantity--)
-                      : null,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    '$_quantity',
+            // Contenuto
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Nome prodotto
+                  Text(
+                    product.name,
                     style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
                       color: isDark ? Colors.white : Colors.black87,
+                      letterSpacing: -0.3,
+                      height: 1.2,
                     ),
                   ),
-                ),
-                _QuantityButton(
-                  icon: Icons.add_rounded,
-                  onTap: _quantity < 10
-                      ? () => setState(() => _quantity++)
-                      : null,
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
+                  const SizedBox(height: 6),
 
-            // Breakdown prezzo
-            PriceBreakdownWidget(breakdown: breakdown),
-            const SizedBox(height: 20),
+                  // Fornitore
+                  if (product.supplierName != null)
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.local_shipping_rounded,
+                          size: 14,
+                          color: isDark ? Colors.white38 : Colors.black38,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          product.supplierName!,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: isDark ? Colors.white38 : Colors.black38,
+                          ),
+                        ),
+                      ],
+                    ),
+                  const SizedBox(height: 20),
 
-            // Pulsante aggiungi
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: _addToCart,
-                icon: const Icon(Icons.shopping_cart_rounded),
-                label: Text(
-                  breakdown.isFullyFree
-                      ? 'Aggiungi gratis'
-                      : 'Aggiungi al carrello',
-                ),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: breakdown.isFullyFree
-                      ? AppTheme.teal
-                      : null,
-                  foregroundColor: breakdown.isFullyFree
-                      ? AppTheme.onTeal
-                      : null,
-                ),
+                  // Sezione prezzi — card con bordo
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.05)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: const Color(0xFFFFB800).withValues(alpha: 0.4),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFFFB800)
+                              .withValues(alpha: isDark ? 0.08 : 0.06),
+                          blurRadius: 16,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Listino + Scontato (piccoli)
+                        Row(
+                          children: [
+                            Text(
+                              'Listino: ',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: isDark ? Colors.white38 : Colors.black38,
+                              ),
+                            ),
+                            Text(
+                              product.formattedBasePrice,
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: isDark ? Colors.white38 : Colors.black38,
+                                decoration: TextDecoration.lineThrough,
+                                decorationColor:
+                                    isDark ? Colors.white38 : Colors.black38,
+                              ),
+                            ),
+                            if (product.hasPromo) ...[
+                              const SizedBox(width: 12),
+                              Text(
+                                'Scontato: ',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color:
+                                      isDark ? Colors.white54 : Colors.black45,
+                                ),
+                              ),
+                              Text(
+                                product.formattedPrice,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color:
+                                      isDark ? Colors.white54 : Colors.black45,
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+
+                        // Prezzo Elmetto — in evidenza
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFB800)
+                                    .withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Icon(
+                                Icons.construction_rounded,
+                                size: 20,
+                                color: Color(0xFFFFB800),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Prezzo Elmetto',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: isDark
+                                        ? Colors.white54
+                                        : Colors.black45,
+                                    letterSpacing: 0.3,
+                                  ),
+                                ),
+                                Text(
+                                  '${elmettoPrice.toStringAsFixed(2)} EUR',
+                                  style: const TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w900,
+                                    color: Color(0xFFFFB800),
+                                    letterSpacing: -0.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            // Risparmio badge
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF2E7D32)
+                                    .withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                '-${((1 - elmettoPrice / product.basePrice) * 100).toStringAsFixed(0)}%',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF2E7D32),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Descrizione
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.05)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: isDark
+                            ? Colors.white.withValues(alpha: 0.08)
+                            : Colors.black.withValues(alpha: 0.06),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.info_outline_rounded,
+                              size: 16,
+                              color: isDark ? Colors.white54 : Colors.black45,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Descrizione',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: isDark ? Colors.white : Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          product.description,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: isDark ? Colors.white70 : Colors.black54,
+                            height: 1.6,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Selettore quantità
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.05)
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: isDark
+                            ? Colors.white.withValues(alpha: 0.08)
+                            : Colors.black.withValues(alpha: 0.06),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.shopping_bag_rounded,
+                          size: 16,
+                          color: isDark ? Colors.white54 : Colors.black45,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Quantità',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: isDark ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                        const Spacer(),
+                        _QuantityButton(
+                          icon: Icons.remove_rounded,
+                          onTap: _quantity > 1
+                              ? () => setState(() => _quantity--)
+                              : null,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            '$_quantity',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: isDark ? Colors.white : Colors.black87,
+                            ),
+                          ),
+                        ),
+                        _QuantityButton(
+                          icon: Icons.add_rounded,
+                          onTap: _quantity < 10
+                              ? () => setState(() => _quantity++)
+                              : null,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Breakdown prezzo
+                  PriceBreakdownWidget(breakdown: breakdown),
+                  const SizedBox(height: 24),
+
+                  // Tasti azione — Compra + Carrello
+                  Row(
+                    children: [
+                      // Compra ora
+                      Expanded(
+                        flex: 3,
+                        child: GestureDetector(
+                          onTap: _buyNow,
+                          child: Container(
+                            height: 54,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFFFFB800),
+                                  Color(0xFFFF9500),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFFFFB800)
+                                      .withValues(alpha: 0.35),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            alignment: Alignment.center,
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.flash_on_rounded,
+                                  size: 20,
+                                  color: Colors.black87,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Compra Ora',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.black87,
+                                    letterSpacing: 0.3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      // Aggiungi al carrello
+                      Expanded(
+                        flex: 2,
+                        child: GestureDetector(
+                          onTap: _addToCart,
+                          child: Container(
+                            height: 54,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Color(0xFF43A047),
+                                  Color(0xFF2E7D32),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFF2E7D32)
+                                      .withValues(alpha: 0.35),
+                                  blurRadius: 12,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            alignment: Alignment.center,
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.shopping_cart_rounded,
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Carrello',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                    letterSpacing: 0.3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -297,17 +669,33 @@ class _QuantityButton extends StatelessWidget {
     final enabled = onTap != null;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        if (onTap != null) {
+          HapticFeedback.lightImpact();
+          onTap!();
+        }
+      },
       child: Container(
-        width: 36,
-        height: 36,
+        width: 38,
+        height: 38,
         decoration: BoxDecoration(
-          color: enabled
-              ? (isDark
-                  ? Colors.white.withValues(alpha: 0.1)
-                  : Colors.black.withValues(alpha: 0.05))
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          gradient: enabled
+              ? LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: isDark
+                      ? [
+                          Colors.white.withValues(alpha: 0.15),
+                          Colors.white.withValues(alpha: 0.08),
+                        ]
+                      : [
+                          Colors.black.withValues(alpha: 0.06),
+                          Colors.black.withValues(alpha: 0.03),
+                        ],
+                )
+              : null,
+          color: enabled ? null : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: enabled
                 ? (isDark
