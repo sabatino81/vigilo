@@ -106,20 +106,6 @@ class _ShopPageState extends ConsumerState<ShopPage> {
                     color: isDark ? Colors.white54 : Colors.black45,
                   ),
                 ),
-                const Spacer(),
-                Icon(
-                  Icons.info_outline_rounded,
-                  size: 14,
-                  color: isDark ? Colors.white38 : Colors.black26,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  'Markup 30% incluso',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: isDark ? Colors.white38 : Colors.black26,
-                  ),
-                ),
               ],
             ),
           ),
