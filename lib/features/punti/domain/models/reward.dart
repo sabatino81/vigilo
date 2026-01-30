@@ -114,6 +114,37 @@ class Reward {
   bool canRedeem(int userPoints) =>
       userPoints >= cost && availability != RewardAvailability.outOfStock;
 
+  /// Crea da JSON (risposta RPC get_rewards).
+  factory Reward.fromJson(Map<String, dynamic> json) {
+    return Reward(
+      id: json['id'] as String,
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      cost: json['cost'] as int? ?? 0,
+      category: _parseCategory(json['category'] as String?),
+      availability: _parseAvailability(json['availability'] as String?),
+      icon: json['icon'] as String? ?? '🎁',
+      imageUrl: json['image_url'] as String?,
+      deliveryInfo: json['delivery_info'] as String?,
+    );
+  }
+
+  static RewardCategory _parseCategory(String? value) {
+    if (value == null) return RewardCategory.other;
+    return RewardCategory.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => RewardCategory.other,
+    );
+  }
+
+  static RewardAvailability _parseAvailability(String? value) {
+    if (value == null) return RewardAvailability.available;
+    return RewardAvailability.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => RewardAvailability.available,
+    );
+  }
+
   /// Mock data
   static List<Reward> mockRewards() {
     return const [

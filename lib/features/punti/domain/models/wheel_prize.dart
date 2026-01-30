@@ -27,6 +27,34 @@ class WheelPrize {
 
   bool get isWin => type != WheelPrizeType.nothing;
 
+  /// Crea da JSON (risposta RPC get_wheel_prizes).
+  factory WheelPrize.fromJson(Map<String, dynamic> json) {
+    return WheelPrize(
+      id: json['id'] as String,
+      label: json['label'] as String? ?? '',
+      type: _parseType(json['type'] as String?),
+      color: _parseColor(json['color'] as String?),
+      pointsValue: json['points_value'] as int?,
+      gadgetName: json['gadget_name'] as String?,
+    );
+  }
+
+  static WheelPrizeType _parseType(String? value) {
+    if (value == null) return WheelPrizeType.nothing;
+    return WheelPrizeType.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => WheelPrizeType.nothing,
+    );
+  }
+
+  static Color _parseColor(String? hex) {
+    if (hex == null || hex.isEmpty) return const Color(0xFF9E9E9E);
+    final cleaned = hex.replaceFirst('#', '');
+    final value = int.tryParse(cleaned, radix: 16);
+    if (value == null) return const Color(0xFF9E9E9E);
+    return Color(0xFF000000 | value);
+  }
+
   /// Premi standard sulla ruota
   static List<WheelPrize> standardPrizes() {
     return const [

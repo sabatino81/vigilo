@@ -1,0 +1,46 @@
+-- Migration: 002_points_wallet
+-- Tabelle e RPC per il sistema punti, wallet, premi e ruota della fortuna.
+-- Applicata via Supabase MCP in 3 migrazioni:
+--   - create_points_transactions_table
+--   - create_points_rpc_functions
+--   - seed_wheel_prizes_and_rewards
+
+-- ============================================================
+-- TABELLE
+-- ============================================================
+
+-- points_transactions: ledger immutabile dei movimenti punti
+-- rewards: catalogo premi riscattabili
+-- wheel_prizes: configurazione segmenti ruota
+-- user_spins: tracciamento giri giornalieri (1/giorno)
+
+-- ============================================================
+-- RPC FUNCTIONS
+-- ============================================================
+
+-- award_points(amount, description, type, source_type, source_id)
+--   → inserisce transazione + aggiorna bilancio su user_profiles.punti_elmetto
+--
+-- get_my_wallet(limit)
+--   → saldo + welfare_active + company_name + transazioni recenti
+--
+-- get_my_points_stats()
+--   → total_points, 7gg/30gg punti e missioni, daily_points[7]
+--
+-- get_leaderboard(limit)
+--   → classifica utenti stessa azienda (rank, name, points, is_current_user)
+--
+-- get_rewards(category?)
+--   → catalogo premi attivi, opzionalmente filtrati
+--
+-- redeem_reward(reward_id)
+--   → verifica saldo + deduce punti + ritorna risultato
+--
+-- get_wheel_prizes()
+--   → configurazione segmenti ruota attivi
+--
+-- get_today_spin()
+--   → controlla se ha già girato oggi
+--
+-- spin_wheel()
+--   → seleziona premio random + registra spin + assegna punti

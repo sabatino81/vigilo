@@ -34,6 +34,18 @@ class LeaderboardEntry {
   final bool isCurrentUser;
   final String? avatarUrl;
 
+  /// Crea da JSON (risposta RPC get_leaderboard).
+  factory LeaderboardEntry.fromJson(Map<String, dynamic> json) {
+    return LeaderboardEntry(
+      rank: (json['rank'] as num?)?.toInt() ?? 0,
+      name: json['name'] as String? ?? '',
+      points: json['points'] as int? ?? 0,
+      trend: RankTrend.same, // Il trend viene calcolato client-side
+      isCurrentUser: json['is_current_user'] as bool? ?? false,
+      avatarUrl: json['avatar_url'] as String?,
+    );
+  }
+
   /// Mock data
   static List<LeaderboardEntry> mockLeaderboard() {
     return const [

@@ -18,6 +18,25 @@ class PointsStats {
   /// Punti giornalieri ultimi 7 giorni (L, M, M, G, V, S, D)
   final List<int> dailyPoints;
 
+  /// Crea da JSON (risposta RPC get_my_points_stats).
+  factory PointsStats.fromJson(Map<String, dynamic> json) {
+    final daily = json['daily_points'];
+    final dailyList = <int>[];
+    if (daily is List) {
+      for (final v in daily) {
+        dailyList.add((v as num?)?.toInt() ?? 0);
+      }
+    }
+    return PointsStats(
+      totalPoints: json['total_points'] as int? ?? 0,
+      pointsLast7Days: json['points_last_7_days'] as int? ?? 0,
+      pointsLast30Days: json['points_last_30_days'] as int? ?? 0,
+      missionsLast7Days: json['missions_last_7_days'] as int? ?? 0,
+      missionsLast30Days: json['missions_last_30_days'] as int? ?? 0,
+      dailyPoints: dailyList,
+    );
+  }
+
   /// Max punti giornalieri (per normalizzare il grafico)
   int get maxDailyPoints {
     if (dailyPoints.isEmpty) return 0;

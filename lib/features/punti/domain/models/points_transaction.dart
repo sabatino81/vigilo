@@ -54,6 +54,26 @@ class PointsTransaction {
   final TransactionType type;
   final String? rewardId;
 
+  /// Crea da JSON (risposta RPC Supabase).
+  factory PointsTransaction.fromJson(Map<String, dynamic> json) {
+    return PointsTransaction(
+      id: json['id'] as String,
+      amount: json['amount'] as int,
+      description: json['description'] as String? ?? '',
+      createdAt: DateTime.parse(json['created_at'] as String),
+      type: _parseType(json['type'] as String?),
+      rewardId: json['source_id'] as String?,
+    );
+  }
+
+  static TransactionType _parseType(String? value) {
+    if (value == null) return TransactionType.earned;
+    return TransactionType.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => TransactionType.earned,
+    );
+  }
+
   /// Formatta l'importo con segno
   String get formattedAmount {
     final sign = type.isPositive ? '+' : '-';

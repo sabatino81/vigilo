@@ -26,6 +26,25 @@ class ElmettoWallet {
   /// Storico transazioni
   final List<PointsTransaction> transactions;
 
+  /// Crea da JSON (risposta RPC get_my_wallet).
+  factory ElmettoWallet.fromJson(Map<String, dynamic> json) {
+    final txList = json['transactions'];
+    final transactions = <PointsTransaction>[];
+    if (txList is List) {
+      for (final item in txList) {
+        if (item is Map<String, dynamic>) {
+          transactions.add(PointsTransaction.fromJson(item));
+        }
+      }
+    }
+    return ElmettoWallet(
+      puntiElmetto: json['punti_elmetto'] as int? ?? 0,
+      welfareActive: json['welfare_active'] as bool? ?? false,
+      companyName: json['company_name'] as String?,
+      transactions: transactions,
+    );
+  }
+
   // ============================================
   // CONVERSIONE ELMETTO
   // ============================================
