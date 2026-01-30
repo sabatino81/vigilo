@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/team/domain/models/social_post.dart';
 import 'package:vigilo/features/team/presentation/pages/social_wall_page.dart';
+import 'package:vigilo/features/team/providers/team_providers.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 
-class SocialWallCard extends StatelessWidget {
+/// Card bacheca sociale sulla HomePage — ConsumerWidget.
+class SocialWallCard extends ConsumerWidget {
   const SocialWallCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
+
+    final feedAsync = ref.watch(socialFeedProvider);
+    final posts = feedAsync.when(
+      data: (p) => p,
+      loading: () => <SocialPost>[],
+      error: (_, __) => <SocialPost>[],
+    );
 
     return Hero(
       tag: 'social_wall_hero',
@@ -67,7 +77,7 @@ class SocialWallCard extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Griglia Pinterest con post clickabili
-              _PinterestMiniGrid(isDark: isDark),
+              _PinterestMiniGrid(isDark: isDark, posts: posts),
 
               const SizedBox(height: 12),
 
@@ -110,24 +120,25 @@ class SocialWallCard extends StatelessWidget {
 
 /// Griglia Pinterest compatta con 2 colonne - mostra solo 4 post
 class _PinterestMiniGrid extends StatelessWidget {
-  const _PinterestMiniGrid({required this.isDark});
+  const _PinterestMiniGrid({required this.isDark, required this.posts});
 
   final bool isDark;
+  final List<SocialPost> posts;
 
   @override
   Widget build(BuildContext context) {
     // Mostra solo i primi 4 post per evitare scroll
-    final posts = SocialPost.staticPosts.take(4).toList();
+    final displayPosts = posts.take(4).toList();
 
     // Dividi i post in due colonne
     final leftColumn = <SocialPost>[];
     final rightColumn = <SocialPost>[];
 
-    for (var i = 0; i < posts.length; i++) {
+    for (var i = 0; i < displayPosts.length; i++) {
       if (i % 2 == 0) {
-        leftColumn.add(posts[i]);
+        leftColumn.add(displayPosts[i]);
       } else {
-        rightColumn.add(posts[i]);
+        rightColumn.add(displayPosts[i]);
       }
     }
 

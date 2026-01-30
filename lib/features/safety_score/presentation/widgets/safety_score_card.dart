@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/profile/providers/profile_providers.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 
-class SafetyScoreCard extends StatelessWidget {
+/// Card Safety Score sulla HomePage — ConsumerWidget con dati da profileProvider.
+class SafetyScoreCard extends ConsumerWidget {
   const SafetyScoreCard({super.key});
 
-  // Static data
-  static const int _score = 78;
-  static const String _trend = '+3';
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context);
+
+    final profileAsync = ref.watch(profileProvider);
+    final score = profileAsync.when(
+      data: (p) => p.safetyScore,
+      loading: () => 0,
+      error: (_, __) => 0,
+    );
 
     final metrics = {
       l10n?.metricStress ?? 'Stress': 2,
@@ -76,11 +82,11 @@ class SafetyScoreCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                '$_score',
+                '$score',
                 style: TextStyle(
                   fontSize: 56,
                   fontWeight: FontWeight.w900,
-                  color: _getScoreColor(_score),
+                  color: _getScoreColor(score),
                   height: 1,
                 ),
               ),
@@ -114,7 +120,7 @@ class SafetyScoreCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '$_trend ${l10n?.trendVsYesterday ?? 'vs ieri'}',
+                      '+3 ${l10n?.trendVsYesterday ?? 'vs ieri'}',
                       style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -132,13 +138,13 @@ class SafetyScoreCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: LinearProgressIndicator(
-              value: _score / 100,
+              value: score / 100,
               minHeight: 12,
               backgroundColor: isDark
                   ? Colors.white.withValues(alpha: 0.1)
                   : Colors.black.withValues(alpha: 0.08),
               valueColor:
-                  AlwaysStoppedAnimation<Color>(_getScoreColor(_score)),
+                  AlwaysStoppedAnimation<Color>(_getScoreColor(score)),
             ),
           ),
           const SizedBox(height: 24),

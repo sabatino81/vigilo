@@ -1,52 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/checkin/domain/models/shift_checkin.dart';
+import 'package:vigilo/features/checkin/providers/checkin_providers.dart';
 import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
-/// Card check-in turno con checklist DPI autodichiarata
-class ShiftCheckinCard extends StatefulWidget {
+/// Card check-in turno con checklist DPI autodichiarata — ConsumerWidget.
+class ShiftCheckinCard extends ConsumerWidget {
   const ShiftCheckinCard({super.key});
 
   @override
-  State<ShiftCheckinCard> createState() => _ShiftCheckinCardState();
-}
-
-class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
-  late ShiftCheckin _checkin;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkin = ShiftCheckin.mockPending();
-  }
-
-  void _toggleDpi(String dpiId) {
-    if (_checkin.status == CheckinStatus.completed) return;
-    HapticFeedback.selectionClick();
-    setState(() {
-      _checkin = _checkin.toggleDpi(dpiId);
-    });
-  }
-
-  void _confirmCheckin() {
-    if (!_checkin.allDpiChecked) return;
-    HapticFeedback.mediumImpact();
-    setState(() {
-      _checkin = _checkin.confirm();
-    });
-    PointsEarnedSnackbar.show(
-      context,
-      points: 10,
-      action: 'Check-in turno',
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final isCompleted = _checkin.status == CheckinStatus.completed;
+
+    final checkinAsync = ref.watch(todayCheckinProvider);
+    final checkin = checkinAsync.when(
+      data: (c) => c,
+      loading: () => ShiftCheckin.mockPending(),
+      error: (_, __) => ShiftCheckin.mockPending(),
+    );
+
+    final isCompleted = checkin.status == CheckinStatus.completed;
     final accentColor = isCompleted ? AppTheme.secondary : AppTheme.primary;
 
     return Container(
@@ -183,9 +159,9 @@ class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
                             color: AppTheme.secondary,
                           ),
                         ),
-                        if (_checkin.checkinTime != null)
+                        if (checkin.checkinTime != null)
                           Text(
-                            'Oggi alle ${_checkin.checkinTime!.hour.toString().padLeft(2, '0')}:${_checkin.checkinTime!.minute.toString().padLeft(2, '0')}',
+                            'Oggi alle ${checkin.checkinTime!.hour.toString().padLeft(2, '0')}:${checkin.checkinTime!.minute.toString().padLeft(2, '0')}',
                             style: TextStyle(
                               fontSize: 12,
                               color: isDark ? Colors.white54 : Colors.black45,
@@ -195,7 +171,7 @@ class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
                     ),
                   ),
                   Text(
-                    '${_checkin.totalCount}/${_checkin.totalCount} DPI',
+                    '${checkin.totalCount}/${checkin.totalCount} DPI',
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
@@ -219,11 +195,11 @@ class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
                 ),
                 const Spacer(),
                 Text(
-                  '${_checkin.checkedCount}/${_checkin.totalCount}',
+                  '${checkin.checkedCount}/${checkin.totalCount}',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w800,
-                    color: _checkin.allDpiChecked
+                    color: checkin.allDpiChecked
                         ? AppTheme.secondary
                         : AppTheme.primary,
                   ),
@@ -234,14 +210,14 @@ class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
               child: LinearProgressIndicator(
-                value: _checkin.totalCount > 0
-                    ? _checkin.checkedCount / _checkin.totalCount
+                value: checkin.totalCount > 0
+                    ? checkin.checkedCount / checkin.totalCount
                     : 0,
                 backgroundColor: isDark
                     ? Colors.white.withValues(alpha: 0.1)
                     : Colors.black.withValues(alpha: 0.06),
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  _checkin.allDpiChecked
+                  checkin.allDpiChecked
                       ? AppTheme.secondary
                       : AppTheme.primary,
                 ),
@@ -251,13 +227,16 @@ class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
             const SizedBox(height: 16),
 
             // DPI checklist
-            ...List.generate(_checkin.requiredDpi.length, (i) {
-              final dpi = _checkin.requiredDpi[i];
-              final isChecked = _checkin.checkedDpiIds.contains(dpi.id);
+            ...List.generate(checkin.requiredDpi.length, (i) {
+              final dpi = checkin.requiredDpi[i];
+              final isChecked = checkin.checkedDpiIds.contains(dpi.id);
               return _DpiCheckItem(
                 dpi: dpi,
                 isChecked: isChecked,
-                onTap: () => _toggleDpi(dpi.id),
+                onTap: () {
+                  HapticFeedback.selectionClick();
+                  ref.read(todayCheckinProvider.notifier).toggleDpi(dpi.id);
+                },
                 isDark: isDark,
               );
             }),
@@ -268,10 +247,25 @@ class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: _checkin.allDpiChecked ? _confirmCheckin : null,
+                onPressed: checkin.allDpiChecked
+                    ? () async {
+                        HapticFeedback.mediumImpact();
+                        final dpiIds = checkin.checkedDpiIds.toList();
+                        await ref
+                            .read(todayCheckinProvider.notifier)
+                            .confirmCheckin(dpiIds);
+                        if (context.mounted) {
+                          PointsEarnedSnackbar.show(
+                            context,
+                            points: 10,
+                            action: 'Check-in turno',
+                          );
+                        }
+                      }
+                    : null,
                 icon: const Icon(Icons.check_rounded, size: 20),
                 label: Text(
-                  _checkin.allDpiChecked
+                  checkin.allDpiChecked
                       ? 'CONFERMA CHECK-IN'
                       : 'Seleziona tutti i DPI',
                   style: const TextStyle(
@@ -291,7 +285,7 @@ class _ShiftCheckinCardState extends State<ShiftCheckinCard> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  elevation: _checkin.allDpiChecked ? 2 : 0,
+                  elevation: checkin.allDpiChecked ? 2 : 0,
                 ),
               ),
             ),
