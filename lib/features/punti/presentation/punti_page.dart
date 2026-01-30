@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
-import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
-import 'package:vigilo/features/shop/presentation/pages/shop_page.dart';
-import 'package:vigilo/features/punti/domain/models/leaderboard_entry.dart';
-import 'package:vigilo/features/punti/domain/models/points_stats.dart';
-import 'package:vigilo/features/punti/domain/models/points_transaction.dart';
 import 'package:vigilo/features/punti/domain/models/reward.dart';
+import 'package:vigilo/features/punti/providers/wallet_providers.dart';
+import 'package:vigilo/features/shop/presentation/pages/shop_page.dart';
 import 'package:vigilo/features/punti/presentation/pages/rewards_catalog_sheet.dart';
 import 'package:vigilo/features/punti/presentation/pages/spin_wheel_page.dart';
 import 'package:vigilo/features/punti/presentation/widgets/elmetto_wallet_card.dart';
@@ -17,138 +15,161 @@ import 'package:vigilo/features/punti/presentation/widgets/leaderboard_card.dart
 import 'package:vigilo/features/punti/presentation/widgets/points_stats_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/rewards_catalog_preview.dart';
 
-/// Pagina principale Punti
-class PuntiPage extends StatefulWidget {
+/// Pagina principale Punti — ConsumerWidget con dati da Supabase.
+class PuntiPage extends ConsumerWidget {
   const PuntiPage({super.key});
 
-  @override
-  State<PuntiPage> createState() => _PuntiPageState();
-}
-
-class _PuntiPageState extends State<PuntiPage> {
-  // Mock data - in produzione verrebbe da un repository/provider
-  ElmettoWallet _wallet = ElmettoWallet.mockWallet();
-  bool _hasSpinAvailable = true;
-
-  int get _totalPoints => _wallet.puntiElmetto;
-
-  // Mock data usando i metodi statici dei modelli
-  final List<Reward> _rewards = Reward.mockRewards();
-  final List<LeaderboardEntry> _leaderboard =
-      LeaderboardEntry.mockLeaderboard();
-  PointsStats _stats = PointsStats.mockStats();
-
-  void _openCatalog({Reward? initialReward}) {
+  void _openCatalog(
+    BuildContext context,
+    List<Reward> rewards,
+    int userPoints, {
+    Reward? initialReward,
+  }) {
     unawaited(HapticFeedback.lightImpact());
     unawaited(
       RewardsCatalogSheet.show(
         context,
-        rewards: _rewards,
-        userPoints: _totalPoints,
+        rewards: rewards,
+        userPoints: userPoints,
         initialReward: initialReward,
       ),
     );
   }
 
-  Future<void> _openSpinWheel() async {
+  Future<void> _openSpinWheel(
+    BuildContext context,
+    WidgetRef ref,
+    bool hasSpinAvailable,
+    int currentPoints,
+  ) async {
     unawaited(HapticFeedback.mediumImpact());
     final wonPoints = await Navigator.of(context).push<int>(
       MaterialPageRoute<int>(
         builder: (context) => SpinWheelPage(
-          hasSpinAvailable: _hasSpinAvailable,
-          currentPoints: _totalPoints,
+          hasSpinAvailable: hasSpinAvailable,
+          currentPoints: currentPoints,
         ),
       ),
     );
 
-    if (wonPoints != null && wonPoints > 0) {
-      setState(() {
-        _hasSpinAvailable = false;
-        // Aggiorna wallet con nuovi punti e transazione
-        final newTransaction = PointsTransaction(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
-          description: 'Bonus Gira la Ruota',
-          amount: wonPoints,
-          type: TransactionType.bonus,
-          createdAt: DateTime.now(),
-        );
-        _wallet = ElmettoWallet(
-          puntiElmetto: _wallet.puntiElmetto + wonPoints,
-          welfareActive: _wallet.welfareActive,
-          companyName: _wallet.companyName,
-          transactions: [
-            newTransaction,
-            ..._wallet.transactions,
-          ],
-        );
-        // Aggiorna stats
-        _stats = PointsStats(
-          totalPoints: _totalPoints,
-          pointsLast7Days: _stats.pointsLast7Days + wonPoints,
-          pointsLast30Days: _stats.pointsLast30Days + wonPoints,
-          missionsLast7Days: _stats.missionsLast7Days,
-          missionsLast30Days: _stats.missionsLast30Days,
-          dailyPoints: _stats.dailyPoints,
-        );
-      });
-    } else if (wonPoints == 0) {
-      setState(() {
-        _hasSpinAvailable = false;
-      });
+    if (wonPoints != null && wonPoints >= 0) {
+      // Ricarica wallet e stats dal server
+      ref.invalidate(walletProvider);
+      ref.invalidate(pointsStatsProvider);
+      ref.invalidate(todaySpinProvider);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final walletAsync = ref.watch(walletProvider);
+    final rewardsAsync = ref.watch(rewardsProvider);
+    final leaderboardAsync = ref.watch(leaderboardProvider);
+    final statsAsync = ref.watch(pointsStatsProvider);
+    final todaySpinAsync = ref.watch(todaySpinProvider);
+
+    // Estrai dati con fallback per rendering progressivo
+    final wallet = walletAsync.when(
+      data: (w) => w,
+      loading: () => null,
+      error: (_, __) => null,
+    );
+    final rewards = rewardsAsync.when(
+      data: (r) => r,
+      loading: () => <Reward>[],
+      error: (_, __) => <Reward>[],
+    );
+    final leaderboard = leaderboardAsync.when(
+      data: (l) => l,
+      loading: () => null,
+      error: (_, __) => null,
+    );
+    final stats = statsAsync.when(
+      data: (s) => s,
+      loading: () => null,
+      error: (_, __) => null,
+    );
+    final hasSpinAvailable = todaySpinAsync.when(
+      data: (s) => s,
+      loading: () => false,
+      error: (_, __) => false,
+    );
+
+    final totalPoints = wallet?.puntiElmetto ?? 0;
+
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          // Simula refresh
-          await Future<void>.delayed(const Duration(seconds: 1));
+          ref.invalidate(walletProvider);
+          ref.invalidate(rewardsProvider);
+          ref.invalidate(leaderboardProvider);
+          ref.invalidate(pointsStatsProvider);
+          ref.invalidate(todaySpinProvider);
         },
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Dual Wallet Card
-              ElmettoWalletCard(wallet: _wallet),
-              const SizedBox(height: 16),
+        child: walletAsync.when(
+          loading: () =>
+              const Center(child: CircularProgressIndicator()),
+          error: (e, _) => Center(child: Text('Errore: $e')),
+          data: (_) => SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 120),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Dual Wallet Card
+                if (wallet != null) ElmettoWalletCard(wallet: wallet),
+                const SizedBox(height: 16),
 
-              // Shop entry point
-              _ShopEntryCard(
-                onTap: () => Navigator.of(context).push<void>(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const ShopPage(),
+                // Shop entry point
+                _ShopEntryCard(
+                  onTap: () => Navigator.of(context).push<void>(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const ShopPage(),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-              // Catalogo Premi Preview
-              RewardsCatalogPreview(
-                rewards: _rewards,
-                userPoints: _totalPoints,
-                onRewardTap: (reward) => _openCatalog(initialReward: reward),
-                onViewAllTap: _openCatalog,
-              ),
-              const SizedBox(height: 16),
+                // Catalogo Premi Preview
+                if (rewards.isNotEmpty)
+                  RewardsCatalogPreview(
+                    rewards: rewards,
+                    userPoints: totalPoints,
+                    onRewardTap: (reward) => _openCatalog(
+                      context,
+                      rewards,
+                      totalPoints,
+                      initialReward: reward,
+                    ),
+                    onViewAllTap: () => _openCatalog(
+                      context,
+                      rewards,
+                      totalPoints,
+                    ),
+                  ),
+                const SizedBox(height: 16),
 
-              // Statistiche
-              PointsStatsCard(stats: _stats),
-              const SizedBox(height: 16),
+                // Statistiche
+                if (stats != null) PointsStatsCard(stats: stats),
+                const SizedBox(height: 16),
 
-              // Classifica
-              LeaderboardCard(entries: _leaderboard),
-              const SizedBox(height: 16),
+                // Classifica
+                if (leaderboard != null)
+                  LeaderboardCard(entries: leaderboard),
+                const SizedBox(height: 16),
 
-              // Instant Win
-              InstantWinCard(
-                hasSpinAvailable: _hasSpinAvailable,
-                onSpinTap: _openSpinWheel,
-              ),
-            ],
+                // Instant Win
+                InstantWinCard(
+                  hasSpinAvailable: hasSpinAvailable,
+                  onSpinTap: () => _openSpinWheel(
+                    context,
+                    ref,
+                    hasSpinAvailable,
+                    totalPoints,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

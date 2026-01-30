@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
 import 'package:vigilo/features/shop/domain/models/product_category.dart';
 import 'package:vigilo/features/shop/presentation/pages/product_detail_page.dart';
 import 'package:vigilo/features/shop/presentation/widgets/category_filter_bar.dart';
 import 'package:vigilo/features/shop/presentation/widgets/product_card.dart';
+import 'package:vigilo/features/shop/providers/shop_providers.dart';
 
-/// Pagina catalogo prodotti — Spaccio Aziendale
-class ShopPage extends StatefulWidget {
+/// Pagina catalogo prodotti — ConsumerStatefulWidget con dati da Supabase.
+class ShopPage extends ConsumerStatefulWidget {
   const ShopPage({super.key});
 
   @override
-  State<ShopPage> createState() => _ShopPageState();
+  ConsumerState<ShopPage> createState() => _ShopPageState();
 }
 
-class _ShopPageState extends State<ShopPage> {
-  final List<Product> _allProducts = Product.mockProducts();
+class _ShopPageState extends ConsumerState<ShopPage> {
   ProductCategory? _selectedCategory;
   String _searchQuery = '';
 
-  List<Product> get _filteredProducts {
-    var products = _allProducts;
+  List<Product> _filterProducts(List<Product> allProducts) {
+    var products = allProducts;
     if (_selectedCategory != null) {
       products = products
           .where((p) => p.category == _selectedCategory)
@@ -50,7 +50,15 @@ class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final filtered = _filteredProducts;
+    final productsAsync = ref.watch(productsProvider);
+
+    final allProducts = productsAsync.when(
+      data: (p) => p,
+      loading: () => <Product>[],
+      error: (_, __) => <Product>[],
+    );
+
+    final filtered = _filterProducts(allProducts);
 
     return Scaffold(
       appBar: AppBar(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/impara/domain/models/certificate.dart';
 import 'package:vigilo/features/impara/domain/models/quiz.dart';
 import 'package:vigilo/features/impara/domain/models/training_content.dart';
@@ -12,55 +13,66 @@ import 'package:vigilo/features/impara/presentation/widgets/library_preview_card
 import 'package:vigilo/features/impara/presentation/widgets/recommended_content_card.dart';
 import 'package:vigilo/features/impara/presentation/widgets/training_progress_card.dart';
 import 'package:vigilo/features/impara/presentation/widgets/training_todo_card.dart';
+import 'package:vigilo/features/impara/providers/impara_providers.dart';
 
-/// Pagina principale Impara con formazione, video, quiz e certificazioni
-class ImparaPage extends StatefulWidget {
+/// Pagina principale Impara — ConsumerWidget con dati da Supabase.
+class ImparaPage extends ConsumerWidget {
   const ImparaPage({super.key});
 
-  @override
-  State<ImparaPage> createState() => _ImparaPageState();
-}
-
-class _ImparaPageState extends State<ImparaPage> {
-  // Mock data
-  final List<TrainingTodo> _todos = TrainingTodo.dailyTodos();
-  final List<TrainingContent> _contents = TrainingContent.mockContents();
-  final TrainingProgress _progress = TrainingProgress.mockProgress();
-
-  void _openLibrary() {
+  void _openLibrary(BuildContext context, List<TrainingContent> contents) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (context) => LibraryPage(contents: _contents),
+        builder: (context) => LibraryPage(contents: contents),
       ),
     );
   }
 
-  void _openContent(TrainingContent content) {
+  void _openContent(BuildContext context, TrainingContent content) {
     unawaited(ContentDetailSheet.show(context, content: content));
   }
 
-  void _handleTodoTap(TrainingTodo todo) {
+  void _handleTodoTap(
+    BuildContext context,
+    TrainingTodo todo,
+    List<TrainingContent> contents,
+  ) {
     if (todo.quizId != null) {
-      // Apri quiz
       Navigator.of(context).push(
         MaterialPageRoute<void>(
           builder: (context) => QuizPage(quiz: Quiz.weeklyQuiz()),
         ),
       );
     } else if (todo.contentId != null) {
-      // Apri contenuto
-      final content = _contents.firstWhere(
+      final content = contents.firstWhere(
         (c) => c.id == todo.contentId,
-        orElse: () => _contents.first,
+        orElse: () => contents.first,
       );
-      _openContent(content);
+      _openContent(context, content);
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final contentsAsync = ref.watch(trainingContentsProvider);
+    final progressAsync = ref.watch(trainingProgressProvider);
+
+    // TrainingTodo non ha tabella DB — resta mock
+    final todos = TrainingTodo.dailyTodos();
+
+    // Estrai dati con fallback
+    final contents = contentsAsync.when(
+      data: (c) => c,
+      loading: () => <TrainingContent>[],
+      error: (_, __) => <TrainingContent>[],
+    );
+    final progress = progressAsync.when(
+      data: (p) => p,
+      loading: () => null,
+      error: (_, __) => null,
+    );
+
     // Contenuti suggeriti (video e lezioni non completati)
-    final suggestedContents = _contents
+    final suggestedContents = contents
         .where(
           (c) =>
               c.status != ContentStatus.completed &&
@@ -70,7 +82,7 @@ class _ImparaPageState extends State<ImparaPage> {
         .toList();
 
     // Contenuti raccomandati
-    final recommendedContents = _contents
+    final recommendedContents = contents
         .where((c) => c.status == ContentStatus.notStarted)
         .take(3)
         .toList();
@@ -78,7 +90,8 @@ class _ImparaPageState extends State<ImparaPage> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          await Future<void>.delayed(const Duration(seconds: 1));
+          ref.invalidate(trainingContentsProvider);
+          ref.invalidate(trainingProgressProvider);
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -88,29 +101,32 @@ class _ImparaPageState extends State<ImparaPage> {
             children: [
               // To-Do Formativo
               TrainingTodoCard(
-                todos: _todos,
-                onTodoTap: _handleTodoTap,
+                todos: todos,
+                onTodoTap: (todo) =>
+                    _handleTodoTap(context, todo, contents),
               ),
               const SizedBox(height: 16),
 
               // Biblioteca Preview
               LibraryPreviewCard(
                 suggestedContents: suggestedContents,
-                onSearchTap: _openLibrary,
-                onContentTap: _openContent,
-                onViewAllTap: _openLibrary,
+                onSearchTap: () => _openLibrary(context, contents),
+                onContentTap: (c) => _openContent(context, c),
+                onViewAllTap: () => _openLibrary(context, contents),
               ),
               const SizedBox(height: 16),
 
               // Progresso Formativo
-              TrainingProgressCard(progress: _progress),
-              const SizedBox(height: 16),
+              if (progress != null)
+                TrainingProgressCard(progress: progress),
+              if (progress != null) const SizedBox(height: 16),
 
               // Consigliati per te
-              RecommendedContentCard(
-                contents: recommendedContents,
-                onContentTap: _openContent,
-              ),
+              if (recommendedContents.isNotEmpty)
+                RecommendedContentCard(
+                  contents: recommendedContents,
+                  onContentTap: (c) => _openContent(context, c),
+                ),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/sos/domain/models/emergency_contact.dart';
 import 'package:vigilo/features/sos/domain/models/report_type.dart';
@@ -13,32 +14,17 @@ import 'package:vigilo/features/sos/presentation/widgets/report_history_section.
 import 'package:vigilo/features/sos/presentation/widgets/sos_confirmation_dialog.dart';
 import 'package:vigilo/features/sos/presentation/widgets/sos_emergency_button.dart';
 import 'package:vigilo/features/sos/presentation/widgets/sos_success_dialog.dart';
+import 'package:vigilo/features/sos/providers/sos_providers.dart';
 
-/// Pagina principale SOS
-class SosPage extends StatefulWidget {
+/// Pagina principale SOS — ConsumerWidget con dati da Supabase.
+class SosPage extends ConsumerWidget {
   const SosPage({super.key});
 
-  @override
-  State<SosPage> createState() => _SosPageState();
-}
-
-class _SosPageState extends State<SosPage> {
-  late List<EmergencyContact> _contacts;
-  late List<SafetyReport> _reports;
-
-  @override
-  void initState() {
-    super.initState();
-    _contacts = EmergencyContact.mockContacts();
-    _reports = SafetyReport.mockReports();
-  }
-
-  void _onSosActivated() {
+  void _onSosActivated(BuildContext context, List<EmergencyContact> contacts) {
     unawaited(SosConfirmationDialog.show(
       context,
-      contacts: _contacts,
+      contacts: contacts,
       onConfirm: (selectedContacts) {
-        // Simula invio SOS
         unawaited(SosSuccessDialog.show(
           context,
           locationName: 'Sede A - Area 3',
@@ -47,12 +33,11 @@ class _SosPageState extends State<SosPage> {
     ));
   }
 
-  void _onReportSelected(ReportType type) {
+  void _onReportSelected(BuildContext context, ReportType type) {
     unawaited(ReportFormSheet.show(context, type));
   }
 
-  void _onCallContact(EmergencyContact contact) {
-    // In una implementazione reale qui si userebbe url_launcher
+  void _onCallContact(BuildContext context, EmergencyContact contact) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Chiamata a ${contact.name}: ${contact.phoneNumber}'),
@@ -65,127 +50,148 @@ class _SosPageState extends State<SosPage> {
     );
   }
 
-  void _onReportTap(SafetyReport report) {
+  void _onReportTap(BuildContext context, SafetyReport report) {
     unawaited(ReportDetailSheet.show(context, report));
   }
 
-  void _onViewAllReports() {
-    // In una implementazione reale qui si navigherebbe a una pagina
-    // con tutte le segnalazioni
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Funzione in arrivo'),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
+    final contactsAsync = ref.watch(emergencyContactsProvider);
+    final reportsAsync = ref.watch(safetyReportsProvider);
+
+    // Estrai dati con fallback
+    final contacts = contactsAsync.when(
+      data: (c) => c,
+      loading: () => <EmergencyContact>[],
+      error: (_, __) => <EmergencyContact>[],
+    );
+    final reports = reportsAsync.when(
+      data: (r) => r,
+      loading: () => <SafetyReport>[],
+      error: (_, __) => <SafetyReport>[],
+    );
+
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            // Header
-            SliverToBoxAdapter(
-              child: _SosPageHeader(isDark: isDark),
-            ),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            ref.invalidate(emergencyContactsProvider);
+            ref.invalidate(safetyReportsProvider);
+          },
+          child: CustomScrollView(
+            slivers: [
+              // Header
+              SliverToBoxAdapter(
+                child: _SosPageHeader(isDark: isDark),
+              ),
 
-            // Content
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate([
-                  // Sezione Emergenza
-                  _SectionHeader(
-                    title: 'CHIEDI AIUTO',
-                    isDark: isDark,
-                    color: AppTheme.danger,
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          AppTheme.dangerContainer.withValues(alpha: 0.5),
-                          AppTheme.dangerContainer.withValues(alpha: 0.2),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: AppTheme.danger.withValues(alpha: 0.2),
-                      ),
+              // Content
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    // Sezione Emergenza
+                    _SectionHeader(
+                      title: 'CHIEDI AIUTO',
+                      isDark: isDark,
+                      color: AppTheme.danger,
                     ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: AppTheme.danger.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Icon(
-                                Icons.sos_rounded,
-                                color: AppTheme.danger,
-                                size: 20,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                'Tieni premuto il pulsante rosso per 3 '
-                                'secondi per chiedere aiuto.',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: isDark
-                                      ? Colors.white70
-                                      : Colors.black54,
-                                ),
-                              ),
-                            ),
+                    const SizedBox(height: 16),
+                    Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            AppTheme.dangerContainer.withValues(alpha: 0.5),
+                            AppTheme.dangerContainer.withValues(alpha: 0.2),
                           ],
                         ),
-                        const SizedBox(height: 24),
-                        SosEmergencyButton(
-                          onActivated: _onSosActivated,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: AppTheme.danger.withValues(alpha: 0.2),
                         ),
-                      ],
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.danger.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Icon(
+                                  Icons.sos_rounded,
+                                  color: AppTheme.danger,
+                                  size: 20,
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  'Tieni premuto il pulsante rosso per 3 '
+                                  'secondi per chiedere aiuto.',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    color: isDark
+                                        ? Colors.white70
+                                        : Colors.black54,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          SosEmergencyButton(
+                            onActivated: () =>
+                                _onSosActivated(context, contacts),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
+                    const SizedBox(height: 32),
 
-                  // Sezione Segnalazioni Rapide
-                  QuickReportsSection(
-                    onReportSelected: _onReportSelected,
-                  ),
-                  const SizedBox(height: 32),
+                    // Sezione Segnalazioni Rapide
+                    QuickReportsSection(
+                      onReportSelected: (type) =>
+                          _onReportSelected(context, type),
+                    ),
+                    const SizedBox(height: 32),
 
-                  // Sezione Rubrica Emergenza
-                  EmergencyContactsSection(
-                    contacts: _contacts,
-                    onCallContact: _onCallContact,
-                  ),
-                  const SizedBox(height: 32),
+                    // Sezione Rubrica Emergenza
+                    if (contacts.isNotEmpty)
+                      EmergencyContactsSection(
+                        contacts: contacts,
+                        onCallContact: (c) => _onCallContact(context, c),
+                      ),
+                    if (contacts.isNotEmpty) const SizedBox(height: 32),
 
-                  // Sezione Storico Segnalazioni
-                  ReportHistorySection(
-                    reports: _reports,
-                    onReportTap: _onReportTap,
-                    onViewAllTap: _onViewAllReports,
-                  ),
-                  const SizedBox(height: 32),
-                ]),
+                    // Sezione Storico Segnalazioni
+                    if (reports.isNotEmpty)
+                      ReportHistorySection(
+                        reports: reports,
+                        onReportTap: (r) => _onReportTap(context, r),
+                        onViewAllTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Funzione in arrivo'),
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        },
+                      ),
+                    const SizedBox(height: 32),
+                  ]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
