@@ -1,5 +1,6 @@
 import 'package:vigilo/features/shop/domain/models/product_badge.dart';
 import 'package:vigilo/features/shop/domain/models/product_category.dart';
+import 'package:vigilo/features/shop/domain/models/product_variant.dart';
 
 /// Prodotto ecommerce con markup 30% sul costo fornitore
 class Product {
@@ -15,6 +16,7 @@ class Product {
     this.supplierName,
     this.imageUrl,
     this.imageUrls = const [],
+    this.variants = const [],
   });
 
   final String id;
@@ -42,6 +44,32 @@ class Product {
 
   /// URL tutte le immagini (per slider dettaglio)
   final List<String> imageUrls;
+
+  /// Varianti prodotto (almeno 1 — "Standard" per prodotti semplici)
+  final List<ProductVariant> variants;
+
+  /// Ha piu di una variante selezionabile
+  bool get hasMultipleVariants => variants.length > 1;
+
+  /// Variante default (prima della lista). Se non ci sono varianti,
+  /// genera una sintetica "Standard".
+  ProductVariant get defaultVariant =>
+      variants.isNotEmpty
+          ? variants.first
+          : ProductVariant(id: id, variantLabel: 'Standard');
+
+  /// Prezzo effettivo per una variante (override o basePrice)
+  double effectivePrice(ProductVariant variant) =>
+      variant.price ?? basePrice;
+
+  /// Prezzo display per una variante (dopo promo)
+  double variantDisplayPrice(ProductVariant variant) {
+    final base = effectivePrice(variant);
+    if (promoDiscountPercent != null && promoDiscountPercent! > 0) {
+      return base * (1 - promoDiscountPercent! / 100);
+    }
+    return base;
+  }
 
   /// Prezzo dopo sconto promo
   double get displayPrice {
@@ -78,6 +106,7 @@ class Product {
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      variants: _parseVariants(json['variants']),
     );
   }
 
@@ -87,6 +116,17 @@ class Product {
       (e) => e.name == value,
       orElse: () => ProductCategory.casa,
     );
+  }
+
+  static List<ProductVariant> _parseVariants(dynamic raw) {
+    if (raw == null) return const [];
+    if (raw is List) {
+      return raw
+          .whereType<Map<String, dynamic>>()
+          .map(ProductVariant.fromJson)
+          .toList();
+    }
+    return const [];
   }
 
   static ProductBadge _parseBadge(String? value) {

@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test/test.dart';
 import 'package:vigilo/features/shop/domain/models/cart_item.dart';
-import 'package:vigilo/features/shop/domain/models/product.dart';
-import 'package:vigilo/features/shop/domain/models/product_category.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
 
 import '../../../helpers/test_helpers.dart';
@@ -27,50 +25,57 @@ void main() {
     });
   });
 
-  group('CartNotifier.addProduct', () {
+  group('CartNotifier.addToCart', () {
     test('adds new item with quantity 1', () {
       final product = makeProduct(id: 'p1');
-      notifier().addProduct(product);
+      final variant = makeVariant(id: 'v1');
+      notifier().addToCart(product, variant);
 
       expect(state(), hasLength(1));
       expect(state().first.product.id, 'p1');
+      expect(state().first.variant.id, 'v1');
       expect(state().first.quantity, 1);
     });
 
-    test('increments quantity for existing product', () {
+    test('increments quantity for same variant', () {
       final product = makeProduct(id: 'p1');
+      final variant = makeVariant(id: 'v1');
       notifier()
-        ..addProduct(product)
-        ..addProduct(product);
+        ..addToCart(product, variant)
+        ..addToCart(product, variant);
 
       expect(state(), hasLength(1));
       expect(state().first.quantity, 2);
     });
 
-    test('adds different products as separate items', () {
+    test('adds different variants as separate items', () {
+      final product = makeProduct(id: 'p1');
       notifier()
-        ..addProduct(makeProduct(id: 'p1'))
-        ..addProduct(makeProduct(id: 'p2'));
+        ..addToCart(product, makeVariant(id: 'v1'))
+        ..addToCart(product, makeVariant(id: 'v2'));
 
       expect(state(), hasLength(2));
     });
   });
 
-  group('CartNotifier.removeProduct', () {
-    test('removes item by product id', () {
+  group('CartNotifier.removeItem', () {
+    test('removes item by variant id', () {
+      final p1 = makeProduct(id: 'p1');
+      final p2 = makeProduct(id: 'p2');
       notifier()
-        ..addProduct(makeProduct(id: 'p1'))
-        ..addProduct(makeProduct(id: 'p2'))
-        ..removeProduct('p1');
+        ..addToCart(p1, makeVariant(id: 'v1'))
+        ..addToCart(p2, makeVariant(id: 'v2'))
+        ..removeItem('v1');
 
       expect(state(), hasLength(1));
-      expect(state().first.product.id, 'p2');
+      expect(state().first.variant.id, 'v2');
     });
 
     test('is no-op for unknown id', () {
+      final p = makeProduct(id: 'p1');
       notifier()
-        ..addProduct(makeProduct(id: 'p1'))
-        ..removeProduct('unknown');
+        ..addToCart(p, makeVariant(id: 'v1'))
+        ..removeItem('unknown');
 
       expect(state(), hasLength(1));
     });
@@ -78,17 +83,19 @@ void main() {
 
   group('CartNotifier.updateQuantity', () {
     test('changes quantity for existing item', () {
+      final p = makeProduct(id: 'p1');
       notifier()
-        ..addProduct(makeProduct(id: 'p1'))
-        ..updateQuantity('p1', 5);
+        ..addToCart(p, makeVariant(id: 'v1'))
+        ..updateQuantity('v1', 5);
 
       expect(state().first.quantity, 5);
     });
 
     test('removes item when quantity <= 0', () {
+      final p = makeProduct(id: 'p1');
       notifier()
-        ..addProduct(makeProduct(id: 'p1'))
-        ..updateQuantity('p1', 0);
+        ..addToCart(p, makeVariant(id: 'v1'))
+        ..updateQuantity('v1', 0);
 
       expect(state(), isEmpty);
     });
@@ -97,8 +104,8 @@ void main() {
   group('CartNotifier.clear', () {
     test('empties the cart', () {
       notifier()
-        ..addProduct(makeProduct(id: 'p1'))
-        ..addProduct(makeProduct(id: 'p2'))
+        ..addToCart(makeProduct(id: 'p1'), makeVariant(id: 'v1'))
+        ..addToCart(makeProduct(id: 'p2'), makeVariant(id: 'v2'))
         ..clear();
 
       expect(state(), isEmpty);
@@ -108,18 +115,19 @@ void main() {
   group('CartNotifier computed', () {
     test('totalEur sums subtotals', () {
       notifier()
-        ..addProduct(makeProduct(id: 'p1', basePrice: 10.0))
-        ..addProduct(makeProduct(id: 'p2', basePrice: 25.0));
+        ..addToCart(makeProduct(id: 'p1', basePrice: 10.0), makeVariant(id: 'v1'))
+        ..addToCart(makeProduct(id: 'p2', basePrice: 25.0), makeVariant(id: 'v2'));
 
       expect(notifier().totalEur, 35.0);
     });
 
     test('itemCount sums quantities', () {
       final p = makeProduct(id: 'p1');
+      final v = makeVariant(id: 'v1');
       notifier()
-        ..addProduct(p)
-        ..addProduct(p) // qty 2
-        ..addProduct(makeProduct(id: 'p2')); // qty 1
+        ..addToCart(p, v)
+        ..addToCart(p, v) // qty 2
+        ..addToCart(makeProduct(id: 'p2'), makeVariant(id: 'v2')); // qty 1
 
       expect(notifier().itemCount, 3);
     });

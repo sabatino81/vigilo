@@ -6,6 +6,7 @@ import 'package:vigilo/features/shop/data/product_repository.dart';
 import 'package:vigilo/features/shop/domain/models/cart_item.dart';
 import 'package:vigilo/features/shop/domain/models/order.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
+import 'package:vigilo/features/shop/domain/models/product_variant.dart';
 import 'package:vigilo/features/shop/domain/models/voucher.dart';
 
 // ============================================================
@@ -76,8 +77,8 @@ class CartNotifier extends Notifier<List<CartItem>> {
   @override
   List<CartItem> build() => [];
 
-  void addProduct(Product product) {
-    final idx = state.indexWhere((c) => c.product.id == product.id);
+  void addToCart(Product product, ProductVariant variant) {
+    final idx = state.indexWhere((c) => c.cartKey == variant.id);
     if (idx >= 0) {
       final updated = List<CartItem>.from(state);
       updated[idx] = updated[idx].copyWith(
@@ -85,21 +86,21 @@ class CartNotifier extends Notifier<List<CartItem>> {
       );
       state = updated;
     } else {
-      state = [...state, CartItem(product: product)];
+      state = [...state, CartItem(product: product, variant: variant)];
     }
   }
 
-  void removeProduct(String productId) {
-    state = state.where((c) => c.product.id != productId).toList();
+  void removeItem(String variantId) {
+    state = state.where((c) => c.cartKey != variantId).toList();
   }
 
-  void updateQuantity(String productId, int quantity) {
+  void updateQuantity(String variantId, int quantity) {
     if (quantity <= 0) {
-      removeProduct(productId);
+      removeItem(variantId);
       return;
     }
     final updated = state.map((c) {
-      if (c.product.id == productId) {
+      if (c.cartKey == variantId) {
         return c.copyWith(quantity: quantity);
       }
       return c;
@@ -140,7 +141,7 @@ class CheckoutNotifier extends AsyncNotifier<Map<String, dynamic>?> {
       final repo = ref.read(orderRepositoryProvider);
       if (repo == null) return null;
       final result = await repo.calculateCheckout(
-        productIds: cart.map((c) => c.product.id).toList(),
+        variantIds: cart.map((c) => c.variant.id).toList(),
         quantities: cart.map((c) => c.quantity).toList(),
       );
       state = AsyncValue.data(result);
@@ -159,7 +160,7 @@ class CheckoutNotifier extends AsyncNotifier<Map<String, dynamic>?> {
       final repo = ref.read(orderRepositoryProvider);
       if (repo == null) return null;
       final result = await repo.placeOrder(
-        productIds: cart.map((c) => c.product.id).toList(),
+        variantIds: cart.map((c) => c.variant.id).toList(),
         quantities: cart.map((c) => c.quantity).toList(),
         useBnpl: useBnpl,
       );

@@ -8,13 +8,13 @@ class OrderRepository extends BaseRepository {
 
   /// Preview checkout breakdown (no side effects).
   Future<Map<String, dynamic>> calculateCheckout({
-    required List<String> productIds,
+    required List<String> variantIds,
     required List<int> quantities,
   }) async {
     return await rpc<Map<String, dynamic>>(
       'calculate_checkout',
       params: {
-        'p_product_ids': productIds,
+        'p_variant_ids': variantIds,
         'p_quantities': quantities,
       },
     );
@@ -22,14 +22,14 @@ class OrderRepository extends BaseRepository {
 
   /// Piazza ordine (crea ordine + deduce punti).
   Future<Map<String, dynamic>> placeOrder({
-    required List<String> productIds,
+    required List<String> variantIds,
     required List<int> quantities,
     bool useBnpl = false,
   }) async {
     return await rpc<Map<String, dynamic>>(
       'place_order',
       params: {
-        'p_product_ids': productIds,
+        'p_variant_ids': variantIds,
         'p_quantities': quantities,
         'p_use_bnpl': useBnpl,
       },

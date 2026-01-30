@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
+import 'package:vigilo/features/shop/domain/models/product_variant.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
 
 /// Pagina dettaglio prodotto — ConsumerStatefulWidget con wallet da Supabase.
@@ -22,6 +23,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   int _quantity = 1;
   int _currentImagePage = 0;
   late final PageController _pageController;
+  late ProductVariant _selectedVariant;
 
   /// Sconto massimo Punti Elmetto
   static const _maxElmettoDiscount = 0.20;
@@ -30,6 +32,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    _selectedVariant = widget.product.defaultVariant;
   }
 
   @override
@@ -41,7 +44,10 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   void _addToCart() {
     HapticFeedback.mediumImpact();
     for (var i = 0; i < _quantity; i++) {
-      ref.read(cartProvider.notifier).addProduct(widget.product);
+      ref.read(cartProvider.notifier).addToCart(
+            widget.product,
+            _selectedVariant,
+          );
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -220,7 +226,9 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final product = widget.product;
     final catColor = product.category.color;
-    final elmettoPrice = product.displayPrice * (1 - _maxElmettoDiscount);
+    final variantPrice = product.variantDisplayPrice(_selectedVariant);
+    final variantBasePrice = product.effectivePrice(_selectedVariant);
+    final elmettoPrice = variantPrice * (1 - _maxElmettoDiscount);
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
@@ -500,6 +508,47 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                       height: 1.2,
                     ),
                   ),
+
+                  // Selettore varianti (solo se >1)
+                  if (product.hasMultipleVariants) ...[
+                    const SizedBox(height: 14),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: product.variants
+                          .where((v) => v.isAvailable)
+                          .map(
+                            (v) => ChoiceChip(
+                              label: Text(v.variantLabel),
+                              selected: _selectedVariant.id == v.id,
+                              onSelected: (_) =>
+                                  setState(() => _selectedVariant = v),
+                              selectedColor: const Color(0xFFFFB800),
+                              labelStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13,
+                                color: _selectedVariant.id == v.id
+                                    ? Colors.black87
+                                    : (isDark
+                                        ? Colors.white70
+                                        : Colors.black54),
+                              ),
+                              backgroundColor: isDark
+                                  ? Colors.white.withValues(alpha: 0.08)
+                                  : Colors.black.withValues(alpha: 0.04),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: _selectedVariant.id == v.id
+                                      ? const Color(0xFFFFB800)
+                                      : Colors.transparent,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
                   const SizedBox(height: 20),
 
                   // Sezione prezzi — card con bordo
@@ -596,7 +645,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                             ),
                             const Spacer(),
                             Text(
-                              '${(product.basePrice * _quantity).toStringAsFixed(2)} EUR',
+                              '${(variantBasePrice * _quantity).toStringAsFixed(2)} EUR',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -649,7 +698,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                               ),
                               const Spacer(),
                               Text(
-                                '${(product.displayPrice * _quantity).toStringAsFixed(2)} EUR',
+                                '${(variantPrice * _quantity).toStringAsFixed(2)} EUR',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -711,7 +760,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  '-${(product.displayPrice * _maxElmettoDiscount * 60 * _quantity).round()} punti',
+                                  '-${(variantPrice * _maxElmettoDiscount * 60 * _quantity).round()} punti',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,

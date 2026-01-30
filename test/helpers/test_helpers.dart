@@ -12,6 +12,7 @@ import 'package:vigilo/features/shop/domain/models/cart_item.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
 import 'package:vigilo/features/shop/domain/models/product_badge.dart';
 import 'package:vigilo/features/shop/domain/models/product_category.dart';
+import 'package:vigilo/features/shop/domain/models/product_variant.dart';
 import 'package:vigilo/features/streak/domain/models/streak.dart';
 
 // ============================================================
@@ -62,12 +63,29 @@ Product makeProduct({
   );
 }
 
+ProductVariant makeVariant({
+  String id = 'var_test',
+  String variantLabel = 'Standard',
+  Map<String, dynamic> attributes = const {},
+  double? price,
+}) {
+  return ProductVariant(
+    id: id,
+    variantLabel: variantLabel,
+    attributes: attributes,
+    price: price,
+  );
+}
+
 CartItem makeCartItem({
   Product? product,
+  ProductVariant? variant,
   int quantity = 1,
 }) {
+  final p = product ?? makeProduct();
   return CartItem(
-    product: product ?? makeProduct(),
+    product: p,
+    variant: variant ?? p.defaultVariant,
     quantity: quantity,
   );
 }

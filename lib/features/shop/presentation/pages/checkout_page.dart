@@ -112,7 +112,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        '${item.product.name} x${item.quantity}',
+                        '${item.product.name}'
+                        '${item.variant.isStandard ? '' : ' - ${item.variant.variantLabel}'}'
+                        ' x${item.quantity}',
                         style: TextStyle(
                           fontSize: 13,
                           color: isDark

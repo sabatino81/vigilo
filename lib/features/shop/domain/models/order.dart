@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/shop/domain/models/cart_item.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
+import 'package:vigilo/features/shop/domain/models/product_variant.dart';
 
 /// Stato di un ordine
 enum OrderStatus {
@@ -143,6 +144,11 @@ class Order {
                       (item['unit_price'] as num?)?.toDouble() ?? 0.0,
                   emoji: item['product_emoji'] as String? ?? '🎁',
                 ),
+                variant: ProductVariant(
+                  id: item['variant_id'] as String? ?? '',
+                  variantLabel:
+                      item['variant_label'] as String? ?? 'Standard',
+                ),
                 quantity: item['quantity'] as int? ?? 1,
               ))
           .toList(),
@@ -183,7 +189,11 @@ class Order {
         id: 'ord_1',
         orderCode: 'VIG-2025-00142',
         items: [
-          CartItem(product: products[5], quantity: 1),
+          CartItem(
+            product: products[5],
+            variant: products[5].defaultVariant,
+            quantity: 1,
+          ),
         ],
         totalEur: 34.00,
         companyPaysEur: 20.00,
@@ -200,7 +210,10 @@ class Order {
         id: 'ord_2',
         orderCode: 'VIG-2025-00138',
         items: [
-          CartItem(product: products[10]),
+          CartItem(
+            product: products[10],
+            variant: products[10].defaultVariant,
+          ),
         ],
         totalEur: 25.00,
         companyPaysEur: 25.00,
@@ -215,8 +228,14 @@ class Order {
         id: 'ord_3',
         orderCode: 'VIG-2025-00151',
         items: [
-          CartItem(product: products[2]),
-          CartItem(product: products[7]),
+          CartItem(
+            product: products[2],
+            variant: products[2].defaultVariant,
+          ),
+          CartItem(
+            product: products[7],
+            variant: products[7].defaultVariant,
+          ),
         ],
         totalEur: 87.50,
         companyPaysEur: 50.00,

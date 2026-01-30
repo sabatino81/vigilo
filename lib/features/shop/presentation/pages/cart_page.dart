@@ -97,20 +97,20 @@ class CartPage extends ConsumerWidget {
                       onIncrement: () => ref
                           .read(cartProvider.notifier)
                           .updateQuantity(
-                            item.product.id,
+                            item.cartKey,
                             item.quantity + 1,
                           ),
                       onDecrement: () => ref
                           .read(cartProvider.notifier)
                           .updateQuantity(
-                            item.product.id,
+                            item.cartKey,
                             item.quantity - 1,
                           ),
                       onRemove: () {
                         HapticFeedback.lightImpact();
                         ref
                             .read(cartProvider.notifier)
-                            .removeProduct(item.product.id);
+                            .removeItem(item.cartKey);
                       },
                     );
                   }),
@@ -227,6 +227,14 @@ class _CartItemTile extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
+                if (!item.variant.isStandard)
+                  Text(
+                    item.variant.variantLabel,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: isDark ? Colors.white38 : Colors.black38,
+                    ),
+                  ),
                 const SizedBox(height: 4),
                 Text(
                   item.formattedSubtotal,
