@@ -96,19 +96,29 @@ class _ShopPageState extends ConsumerState<ShopPage> {
 
           // Search bar
           Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-            child: TextField(
-              onChanged: (v) => setState(() => _searchQuery = v),
-              decoration: InputDecoration(
-                hintText: 'Cerca prodotti...',
-                prefixIcon: const Icon(Icons.search_rounded),
-                suffixIcon: _searchQuery.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.clear_rounded),
-                        onPressed: () =>
-                            setState(() => _searchQuery = ''),
-                      )
-                    : null,
+            padding: const EdgeInsets.fromLTRB(16, 4, 16, 6),
+            child: SizedBox(
+              height: 38,
+              child: TextField(
+                onChanged: (v) => setState(() => _searchQuery = v),
+                style: const TextStyle(fontSize: 13),
+                decoration: InputDecoration(
+                  hintText: 'Cerca prodotti...',
+                  hintStyle: const TextStyle(fontSize: 13),
+                  prefixIcon: const Icon(Icons.search_rounded, size: 20),
+                  prefixIconConstraints:
+                      const BoxConstraints(minWidth: 38, minHeight: 38),
+                  suffixIcon: _searchQuery.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear_rounded, size: 18),
+                          onPressed: () =>
+                              setState(() => _searchQuery = ''),
+                        )
+                      : null,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                  isDense: true,
+                ),
               ),
             ),
           ),
@@ -122,25 +132,21 @@ class _ShopPageState extends ConsumerState<ShopPage> {
                   setState(() => _selectedCategory = cat),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 6),
 
           // Product count
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                Text(
-                  '${filtered.length} prodotti',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: isDark ? Colors.white54 : Colors.black45,
-                  ),
-                ),
-              ],
+            child: Text(
+              '${filtered.length} prodotti',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: isDark ? Colors.white38 : Colors.black38,
+              ),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 4),
 
           // Product grid
           Expanded(

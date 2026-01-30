@@ -18,7 +18,7 @@ class CategoryFilterBar extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return SizedBox(
-      height: 40,
+      height: 32,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
@@ -75,7 +75,7 @@ class _FilterChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
           color: isSelected
               ? chipColor.withValues(alpha: 0.15)
@@ -94,7 +94,7 @@ class _FilterChip extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 16,
+              size: 14,
               color: isSelected
                   ? chipColor
                   : isDark
@@ -105,7 +105,7 @@ class _FilterChip extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 11,
                 fontWeight:
                     isSelected ? FontWeight.w700 : FontWeight.w500,
                 color: isSelected
