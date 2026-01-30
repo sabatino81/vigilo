@@ -72,9 +72,29 @@ Asset env files are bundled but intentionally empty (no secrets in repo). For lo
 - **Services**: Accept clients via constructor for testability (see `AuthService`)
 - **Widgets**: Use `ConsumerWidget` for Riverpod, wrap pages in `AppBackground` + `AppHeader`
 
+## Testing
+
+221 tests across 25 files. Test helpers in `test/helpers/test_helpers.dart` with factory functions and mock repositories (`mocktail`).
+
+```bash
+flutter test                                    # All 221 tests
+flutter test test/features/punti/               # Single module
+flutter test --coverage                         # With coverage report
+```
+
+**Coverage by layer:**
+- Domain models (16 files): `fromJson`, computed properties, `copyWith`, enum parsing — all business-critical models covered (ElmettoWallet, Product, Quiz, Streak, ShiftCheckin, Order, UserProfile, etc.)
+- Provider state (1 file): `CartNotifier` — add/remove/update/clear, totals
+- Widget/integration (5 files): Auth, HomePage, SplashPage, LoginPage
+- Core utils (2 files): Validator, SecureStorage
+
+**Conventions:** Use `ProviderContainer` with overrides (not real Supabase) for provider tests. Wrap widgets in `ProviderScope` + `MaterialApp`. Always test `fromJson` with complete JSON + missing fields + unknown enum values.
+
+Full documentation: `docs/04_TESTING/TESTING.md`
+
 ## Current State
 
-The UI layer is largely complete across all features (mock data). Backend integration exists only for auth (Supabase login/signup/signout). All other features use hardcoded data. No repository pattern is implemented outside auth. Models do not use `@freezed` or `@JsonSerializable` despite `build_runner` being in dev dependencies. The `authProvider` (`Notifier<bool>`) is not connected to the actual `AuthService`.
+The UI layer is largely complete across all features (mock data). Backend integration exists only for auth (Supabase login/signup/signout). All other features use hardcoded data. Repository pattern implemented for shop (ProductRepository, OrderRepository), wallet (WalletRepository), and checkin (CheckinRepository). Models use plain Dart classes with manual `fromJson`/`toJson`/`copyWith`. The `authProvider` wraps `isAuthenticatedProvider` which derives from Supabase auth state.
 
 ## Documentation
 
@@ -88,6 +108,9 @@ Docs are organized in numbered folders:
 
 ### `docs/03_MODULI/` — Feature modules (M01-M14)
 - One folder per feature module with implementation specs
+
+### `docs/04_TESTING/` — Testing
+- `TESTING.md` — Test suite documentation: 221 tests, struttura file, helpers, copertura per feature, convenzioni
 
 ### `docs/07_ANALISI/` — Business Analysis
 - `SCORING_MODEL.md` — **Scoring system**: 2 channels (voluntary + training), 12 behaviors, dual wallet (Punti Elmetto + Punti Welfare), welfare plans S/M/L, worker category matrix, anti-abuse rules, UX card wireframes

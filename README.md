@@ -155,13 +155,18 @@ Each flavor has its own:
 
 ## 🧪 Testing
 
-```bash
-# Run all tests
-flutter test
+**221 test** su 25 file. Copertura: domain models, provider state, widget smoke test.
 
-# Run tests with coverage
-flutter test --coverage
+```bash
+flutter test                                    # Tutti i test (221)
+flutter test --coverage                         # Con report coverage
+flutter test test/features/punti/               # Solo un modulo
+flutter test test/features/shop/domain/models/  # Solo modelli shop
 ```
+
+Infrastruttura in `test/helpers/test_helpers.dart`: factory functions (`makeProduct()`, `makeWallet()`, `makeProfile()`, ...) e mock repositories con `mocktail`.
+
+Documentazione completa: [`docs/04_TESTING/TESTING.md`](docs/04_TESTING/TESTING.md)
 
 ---
 
