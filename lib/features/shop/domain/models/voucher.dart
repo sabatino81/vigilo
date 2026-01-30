@@ -26,6 +26,24 @@ class Voucher {
 
   String get formattedValue => '${valueEur.toStringAsFixed(0)} EUR';
 
+  /// Crea da JSON (risposta RPC get_my_vouchers).
+  factory Voucher.fromJson(Map<String, dynamic> json) {
+    return Voucher(
+      id: json['id'] as String,
+      code: json['code'] as String? ?? '',
+      productName: json['product_name'] as String? ?? '',
+      valueEur: (json['value_eur'] as num?)?.toDouble() ?? 0.0,
+      issuedAt: json['issued_at'] != null
+          ? DateTime.parse(json['issued_at'] as String)
+          : DateTime.now(),
+      expiresAt: json['expires_at'] != null
+          ? DateTime.parse(json['expires_at'] as String)
+          : DateTime.now().add(const Duration(days: 365)),
+      isUsed: json['is_used'] as bool? ?? false,
+      barcode: json['barcode'] as String?,
+    );
+  }
+
   /// Mock data
   static List<Voucher> mockVouchers() {
     final now = DateTime.now();

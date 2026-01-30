@@ -124,6 +124,55 @@ class Order {
   int get itemCount =>
       items.fold(0, (sum, item) => sum + item.quantity);
 
+  /// Crea da JSON (risposta RPC get_my_orders).
+  factory Order.fromJson(Map<String, dynamic> json) {
+    final rawItems = json['items'] as List<dynamic>? ?? [];
+    return Order(
+      id: json['id'] as String,
+      orderCode: json['order_code'] as String? ?? '',
+      items: rawItems
+          .whereType<Map<String, dynamic>>()
+          .map((item) => CartItem(
+                product: Product(
+                  id: item['product_id'] as String? ?? '',
+                  name: item['product_name'] as String? ?? '',
+                  description: '',
+                  category: Product._parseCategory(
+                      item['product_category'] as String?),
+                  basePrice:
+                      (item['unit_price'] as num?)?.toDouble() ?? 0.0,
+                  emoji: item['product_emoji'] as String? ?? '🎁',
+                ),
+                quantity: item['quantity'] as int? ?? 1,
+              ))
+          .toList(),
+      totalEur: (json['total_eur'] as num?)?.toDouble() ?? 0.0,
+      companyPaysEur: (json['company_pays_eur'] as num?)?.toDouble() ?? 0.0,
+      elmettoPointsUsed: json['elmetto_points_used'] as int? ?? 0,
+      elmettoDiscountEur:
+          (json['elmetto_discount_eur'] as num?)?.toDouble() ?? 0.0,
+      finalPriceEur: (json['final_price_eur'] as num?)?.toDouble() ?? 0.0,
+      shippingEur: (json['shipping_eur'] as num?)?.toDouble() ?? 0.0,
+      status: _parseStatus(json['status'] as String?),
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'] as String)
+          : DateTime.now(),
+      trackingCode: json['tracking_code'] as String?,
+      estimatedDelivery: json['estimated_delivery'] != null
+          ? DateTime.parse(json['estimated_delivery'] as String)
+          : null,
+      usedBnpl: json['used_bnpl'] as bool? ?? false,
+    );
+  }
+
+  static OrderStatus _parseStatus(String? value) {
+    if (value == null) return OrderStatus.confirmed;
+    return OrderStatus.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => OrderStatus.confirmed,
+    );
+  }
+
   /// Mock data
   static List<Order> mockOrders() {
     final now = DateTime.now();

@@ -53,6 +53,37 @@ class Product {
   bool get hasPromo =>
       promoDiscountPercent != null && promoDiscountPercent! > 0;
 
+  /// Crea da JSON (risposta RPC get_products).
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'] as String,
+      name: json['name'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      category: _parseCategory(json['category'] as String?),
+      basePrice: (json['base_price'] as num?)?.toDouble() ?? 0.0,
+      emoji: json['emoji'] as String? ?? '🎁',
+      badge: _parseBadge(json['badge'] as String?),
+      promoDiscountPercent: json['promo_discount_percent'] as int?,
+      supplierName: json['supplier_name'] as String?,
+    );
+  }
+
+  static ProductCategory _parseCategory(String? value) {
+    if (value == null) return ProductCategory.casa;
+    return ProductCategory.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ProductCategory.casa,
+    );
+  }
+
+  static ProductBadge _parseBadge(String? value) {
+    if (value == null) return ProductBadge.none;
+    return ProductBadge.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ProductBadge.none,
+    );
+  }
+
   /// Mock: 12 prodotti su 6 categorie
   static List<Product> mockProducts() {
     return const [
