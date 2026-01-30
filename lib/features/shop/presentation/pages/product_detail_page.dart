@@ -24,8 +24,6 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   /// Sconto massimo Punti Elmetto
   static const _maxElmettoDiscount = 0.20;
 
-  double get _totalPrice => widget.product.displayPrice * _quantity;
-
   void _addToCart() {
     HapticFeedback.mediumImpact();
     for (var i = 0; i < _quantity; i++) {
@@ -863,41 +861,50 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                         builder: (_) {
                                           final total =
                                               elmettoPrice * _quantity + 5.90;
-                                          final rataBase = total / 3;
                                           final interessi = total * 0.0399;
                                           final rata =
                                               (total + interessi) / 3;
                                           return Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Container(
-                                                width: 5,
-                                                height: 5,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: isDark
-                                                      ? const Color(
-                                                          0xFFFFB8C7,
-                                                        ).withValues(
-                                                          alpha: 0.5,
-                                                        )
-                                                      : const Color(
-                                                          0xFFE91E8C,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                  top: 4,
+                                                ),
+                                                child: Container(
+                                                  width: 5,
+                                                  height: 5,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: isDark
+                                                        ? const Color(
+                                                            0xFFFFB8C7,
+                                                          ).withValues(
+                                                            alpha: 0.5,
+                                                          )
+                                                        : const Color(
+                                                            0xFFE91E8C,
                                                         ).withValues(
                                                           alpha: 0.4,
                                                         ),
                                                 ),
                                               ),
+                                              ),
                                               const SizedBox(width: 6),
-                                              Text(
-                                                '3 x ${rata.toStringAsFixed(2)} EUR'
-                                                ' (interessi ${interessi.toStringAsFixed(2)} EUR,'
-                                                ' TAEG 3.99%)',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: isDark
-                                                      ? Colors.white38
-                                                      : Colors.black38,
+                                              Flexible(
+                                                child: Text(
+                                                  '3 x ${rata.toStringAsFixed(2)} EUR'
+                                                  ' (interessi ${interessi.toStringAsFixed(2)} EUR,'
+                                                  ' TAEG 3.99%)',
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: isDark
+                                                        ? Colors.white38
+                                                        : Colors.black38,
+                                                  ),
                                                 ),
                                               ),
                                             ],
