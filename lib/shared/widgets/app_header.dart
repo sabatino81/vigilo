@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/notifications/presentation/pages/notifications_page.dart';
 import 'package:vigilo/features/profile/presentation/pages/profile_page.dart';
+import 'package:vigilo/features/shop/presentation/pages/cart_page.dart';
+import 'package:vigilo/features/shop/providers/shop_providers.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 import 'package:vigilo/features/punti/providers/wallet_providers.dart';
 
@@ -96,6 +98,25 @@ class AppHeader extends ConsumerWidget {
             },
             isDark: isDark,
           ),
+          const SizedBox(width: 8),
+          // Cart button -> navigate to cart
+          _GlassIconButton(
+            icon: Icons.shopping_cart_outlined,
+            badgeCount: ref.watch(cartProvider).fold<int>(
+              0,
+              (sum, item) => sum + item.quantity,
+            ),
+            backgroundColor: AppTheme.secondary.withValues(alpha: 0.85),
+            iconColor: Colors.white,
+            onTap: () {
+              Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (_) => const CartPage(),
+                ),
+              );
+            },
+            isDark: isDark,
+          ),
         ],
       ),
     );
@@ -170,12 +191,16 @@ class _GlassIconButton extends StatelessWidget {
     required this.onTap,
     required this.isDark,
     this.badgeCount,
+    this.backgroundColor,
+    this.iconColor,
   });
 
   final IconData icon;
   final VoidCallback onTap;
   final bool isDark;
   final int? badgeCount;
+  final Color? backgroundColor;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -190,9 +215,10 @@ class _GlassIconButton extends StatelessWidget {
         width: 44,
         height: 44,
         decoration: BoxDecoration(
-          color: isDark
-              ? Colors.white.withValues(alpha: 0.08)
-              : Colors.black.withValues(alpha: 0.04),
+          color: backgroundColor ??
+              (isDark
+                  ? Colors.white.withValues(alpha: 0.08)
+                  : Colors.black.withValues(alpha: 0.04)),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: isDark
@@ -205,7 +231,7 @@ class _GlassIconButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: theme.colorScheme.onSurface,
+              color: iconColor ?? theme.colorScheme.onSurface,
               size: 22,
             ),
             if (badgeCount != null && badgeCount! > 0)

@@ -139,7 +139,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
               const SizedBox(width: 10),
               // Aggiungi al carrello
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: GestureDetector(
                   onTap: _addToCart,
                   child: Container(
@@ -173,13 +173,17 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                           color: Colors.white,
                         ),
                         SizedBox(width: 8),
-                        Text(
-                          'Carrello',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: 0.3,
+                        Flexible(
+                          child: Text(
+                            'Aggiungi\nal carrello',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              height: 1.2,
+                              letterSpacing: 0.3,
+                            ),
                           ),
                         ),
                       ],
