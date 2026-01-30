@@ -844,15 +844,28 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            '${((elmettoPrice * _quantity + 5.90) / 3).toStringAsFixed(2)} EUR/mese',
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w800,
-                                              color: isDark
-                                                  ? const Color(0xFFFFB8C7)
-                                                  : const Color(0xFFE91E8C),
-                                            ),
+                                          Builder(
+                                            builder: (_) {
+                                              final total =
+                                                  elmettoPrice * _quantity +
+                                                      5.90;
+                                              final rata =
+                                                  (total * 1.04) / 3;
+                                              return Text(
+                                                '${rata.toStringAsFixed(2)} EUR/mese',
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: isDark
+                                                      ? const Color(
+                                                          0xFFFFB8C7,
+                                                        )
+                                                      : const Color(
+                                                          0xFFE91E8C,
+                                                        ),
+                                                ),
+                                              );
+                                            },
                                           ),
                                         ],
                                       ),
@@ -861,9 +874,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                         builder: (_) {
                                           final total =
                                               elmettoPrice * _quantity + 5.90;
-                                          final interessi = total * 0.0399;
-                                          final rata =
-                                              (total + interessi) / 3;
+                                          final costoKlarna = total * 0.04;
                                           return Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -889,15 +900,14 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                                         ).withValues(
                                                           alpha: 0.4,
                                                         ),
+                                                  ),
                                                 ),
-                                              ),
                                               ),
                                               const SizedBox(width: 6),
                                               Flexible(
                                                 child: Text(
-                                                  '3 x ${rata.toStringAsFixed(2)} EUR'
-                                                  ' (interessi ${interessi.toStringAsFixed(2)} EUR,'
-                                                  ' TAEG 3.99%)',
+                                                  'Costo servizio Klarna:'
+                                                  ' ${costoKlarna.toStringAsFixed(2)} EUR',
                                                   style: TextStyle(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
