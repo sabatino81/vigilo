@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
-import 'package:vigilo/features/punti/providers/wallet_providers.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
-import 'package:vigilo/features/shop/presentation/widgets/price_breakdown_widget.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
 
 /// Pagina dettaglio prodotto — ConsumerStatefulWidget con wallet da Supabase.
@@ -62,24 +59,6 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     final product = widget.product;
     final catColor = product.category.color;
     final elmettoPrice = product.displayPrice * (1 - _maxElmettoDiscount);
-
-    final walletAsync = ref.watch(walletProvider);
-    final wallet = walletAsync.when(
-      data: (w) => w,
-      loading: () => null,
-      error: (_, __) => null,
-    );
-
-    final breakdown = wallet?.calculateCheckout(_totalPrice) ??
-        CheckoutBreakdown(
-          totalEur: _totalPrice,
-          elmettoDiscountEur: 0,
-          elmettoPointsUsed: 0,
-          workerPaysEur: _totalPrice,
-          companyPaysEur: 0,
-          welfareActive: false,
-          isFullyFree: false,
-        );
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
@@ -703,6 +682,117 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                             ),
                           ],
                         ),
+
+                        const SizedBox(height: 12),
+                        // Divider
+                        Container(
+                          height: 1,
+                          color: isDark
+                              ? Colors.white.withValues(alpha: 0.08)
+                              : Colors.black.withValues(alpha: 0.06),
+                        ),
+                        const SizedBox(height: 12),
+
+                        // Spedizione
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.local_shipping_rounded,
+                              size: 16,
+                              color: isDark ? Colors.white54 : Colors.black45,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Spedizione',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: isDark ? Colors.white54 : Colors.black45,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              '5.90 EUR',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: isDark ? Colors.white70 : Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+
+                        // Consegna prevista
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_today_rounded,
+                              size: 16,
+                              color: isDark ? Colors.white54 : Colors.black45,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Consegna prevista',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: isDark ? Colors.white54 : Colors.black45,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              '3-7 giorni lavorativi',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: isDark ? Colors.white70 : Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 10),
+                        // Divider ambra
+                        Container(
+                          height: 1,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.transparent,
+                                const Color(0xFFFFB800)
+                                    .withValues(alpha: 0.3),
+                                Colors.transparent,
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+
+                        // Totale con spedizione
+                        Row(
+                          children: [
+                            Text(
+                              'Totale con spedizione',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    isDark ? Colors.white54 : Colors.black45,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              '${(elmettoPrice * _quantity + 5.90).toStringAsFixed(2)} EUR',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color:
+                                    isDark ? Colors.white54 : Colors.black45,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -756,12 +846,8 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-
-                  // Breakdown prezzo
-                  PriceBreakdownWidget(breakdown: breakdown),
                   // Spazio per i tasti flottanti
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 100),
                 ],
               ),
             ),
