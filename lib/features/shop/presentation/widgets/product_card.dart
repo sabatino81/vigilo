@@ -7,19 +7,24 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     required this.product,
     required this.onTap,
+    this.onBuyNow,
+    this.onAddToCart,
     super.key,
   });
 
   final Product product;
   final VoidCallback onTap;
+  final VoidCallback? onBuyNow;
+  final VoidCallback? onAddToCart;
 
-  /// Conversione: 60 punti = 1 EUR
-  static const _pointsPerEur = 60;
+  /// Sconto massimo Punti Elmetto
+  static const _maxElmettoDiscount = 0.20;
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final points = (product.displayPrice * _pointsPerEur).round();
+    // Prezzo elmetto = displayPrice meno 20% sconto max
+    final elmettoPrice = product.displayPrice * (1 - _maxElmettoDiscount);
 
     return GestureDetector(
       onTap: onTap,
@@ -64,8 +69,11 @@ class ProductCard extends StatelessWidget {
               right: 0,
               bottom: 0,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(10, 24, 10, 10),
+                padding: const EdgeInsets.fromLTRB(10, 20, 10, 8),
                 decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(16),
+                  ),
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -99,58 +107,107 @@ class ProductCard extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 2),
 
-                    // Prezzi
+                    // Riga 1: Listino (barrato) + Scontato (se promo)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        // Prezzo scontato / prezzo attuale
+                        // Prezzo listino — sempre barrato
                         Text(
-                          product.formattedPrice,
+                          product.formattedBasePrice,
                           style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w900,
-                            color: isDark ? Colors.white : Colors.black87,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: isDark ? Colors.white38 : Colors.black26,
+                            decoration: TextDecoration.lineThrough,
+                            decorationColor:
+                                isDark ? Colors.white38 : Colors.black26,
                           ),
                         ),
                         if (product.hasPromo) ...[
                           const SizedBox(width: 5),
-                          // Prezzo originale barrato
+                          // Prezzo scontato
                           Text(
-                            product.formattedBasePrice,
+                            product.formattedPrice,
                             style: TextStyle(
-                              fontSize: 11,
-                              color: isDark ? Colors.white38 : Colors.black26,
-                              decoration: TextDecoration.lineThrough,
-                              decorationColor:
-                                  isDark ? Colors.white38 : Colors.black26,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: isDark ? Colors.white54 : Colors.black45,
                             ),
                           ),
                         ],
                       ],
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: 1),
 
-                    // Prezzo in punti
+                    // Riga 2: Prezzo Elmetto — in evidenza
                     Row(
                       children: [
                         Icon(
-                          Icons.toll_rounded,
-                          size: 12,
+                          Icons.construction_rounded,
+                          size: 13,
                           color: isDark
                               ? const Color(0xFFFFB800)
                               : const Color(0xFFE6A600),
                         ),
-                        const SizedBox(width: 3),
+                        const SizedBox(width: 4),
                         Text(
-                          '$points pt',
+                          '${elmettoPrice.toStringAsFixed(2)} EUR',
                           style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
                             color: isDark
                                 ? const Color(0xFFFFB800)
                                 : const Color(0xFFE6A600),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+
+                    // Tasti: Compra subito + Carrello
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: onBuyNow,
+                            child: Container(
+                              height: 28,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFB800),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              alignment: Alignment.center,
+                              child: const Text(
+                                'Compra',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        GestureDetector(
+                          onTap: onAddToCart,
+                          child: Container(
+                            height: 28,
+                            width: 34,
+                            decoration: BoxDecoration(
+                              color: isDark
+                                  ? Colors.white.withValues(alpha: 0.1)
+                                  : Colors.black.withValues(alpha: 0.06),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.shopping_cart_outlined,
+                              size: 15,
+                              color: isDark ? Colors.white70 : Colors.black54,
+                            ),
                           ),
                         ),
                       ],

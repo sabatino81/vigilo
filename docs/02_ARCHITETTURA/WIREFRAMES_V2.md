@@ -560,53 +560,54 @@
 |  124 prodotti                                    (small)   |
 |                                                             |
 |  +---------------------------+ +---------------------------+|
-|  | [immagine prodotto]       | | [immagine prodotto]       ||
-|  | +---------+               | |                           ||
-|  | |GRATIS   |               | | +---------+               ||
-|  | |PER TE   |               | | |SCONTATO |               ||
-|  | +---------+               | | +---------+               ||
+|  |                           | | -15%          SCONTATO    ||
+|  |  GRATIS        (emoji)   | |               (emoji)     ||
+|  |  PER TE         🛁        | |                💡         ||
+|  |              (grande)     | |             (grande)      ||
 |  |                           | |                           ||
-|  | Guanti Sicurezza Pro      | | Borraccia Termica Pro     ||
-|  | Sicurezza                 | | Benessere                 ||
-|  |                           | |                           ||
-|  | E15.00  Tu paghi: GRATIS  | | E30.00  Tu paghi: E24.00 ||
-|  |         (solo spedizione) | |         (sconto 20%)     ||
+|  |  ░░░░ gradient overlay ░░ | |  ░░░░ gradient overlay ░░ ||
+|  |  Set Asciugamani Premium  | |  Lampada LED Smart        ||
+|  |  32.50 EUR                | |  24.57 EUR  ~~28.90~~     ||
+|  |  ⛑ 1950 pt               | |  ⛑ 1474 pt               ||
 |  +---------------------------+ +---------------------------+|
 |                                                             |
 |  +---------------------------+ +---------------------------+|
-|  | [immagine prodotto]       | | [immagine prodotto]       ||
-|  |                           | | +---------+               ||
-|  |                           | | | PROMO   |               ||
-|  |                           | | +---------+               ||
+|  |                           | | -20%          PROMO       ||
+|  |              (emoji)      | |               (emoji)     ||
+|  |               🧥          | |                🎧         ||
+|  |            (grande)       | |             (grande)      ||
 |  |                           | |                           ||
-|  | Zaino Tecnico Waterproof  | | Cuffie Bluetooth          ||
-|  | Abbigliamento             | | Tecnologia                ||
-|  |                           | |                           ||
-|  | E85.00                    | | E65.00  E45.50 (-30%)     ||
-|  |                           | | Sconto fornitore!         ||
+|  |  ░░░░ gradient overlay ░░ | |  ░░░░ gradient overlay ░░ ||
+|  |  Giacca Softshell         | |  Auricolari Bluetooth     ||
+|  |  65.00 EUR                | |  34.00 EUR  ~~42.50~~     ||
+|  |  ⛑ 3900 pt               | |  ⛑ 2040 pt               ||
 |  +---------------------------+ +---------------------------+|
 |                                                             |
 |  +---------------------------+ +---------------------------+|
-|  | [immagine prodotto]       | | [immagine prodotto]       ||
+|  |                           | |              GRATIS       ||
+|  |              (emoji)      | |               (emoji)     ||
+|  |               🎁          | |                ⛽         ||
+|  |            (grande)       | |             (grande)      ||
 |  |                           | |                           ||
-|  | Voucher Amazon E25        | | Kit Integratori Sport     ||
-|  | Voucher                   | | Consumabili               ||
-|  |                           | |                           ||
-|  | E25.00                    | | E22.00                    ||
-|  | Consegna digitale         | |                           ||
+|  |  ░░░░ gradient overlay ░░ | |  ░░░░ gradient overlay ░░ ||
+|  |  Buono Amazon 25 EUR      | |  Buono Carburante 50 EUR  ||
+|  |  25.00 EUR                | |  50.00 EUR                ||
+|  |  ⛑ 1500 pt               | |  ⛑ 3000 pt               ||
 |  +---------------------------+ +---------------------------+|
 |                                                             |
 +-------------------------------------------------------------+
 ```
 
 **Note:**
-- Badge "GRATIS PER TE" (verde) se welfare copre tutto il prezzo
-- Badge "SCONTATO" (blu) se ha abbastanza Punti Elmetto per almeno 5%
-- Badge "PROMO" (arancione) se sconto fornitore attivo
-- Prezzo barrato solo se sconto fornitore attivo
-- Filtri per categoria + filtri smart (gratis per te, con mio sconto)
+- Card con emoji grande centrata come "immagine" su sfondo tinta categoria
+- Gradient overlay in basso (trasparente → solido) con nome, prezzi, punti
+- Badge top-right: "GRATIS PER TE" (verde), "SCONTATO" (blu), "PROMO" (arancione)
+- Badge sconto top-left: "-15%" (rosso) se promo attiva
+- Prezzo originale barrato accanto al prezzo scontato se promo attiva
+- Prezzo in punti (⛑) sempre visibile: displayPrice × 60 pt/EUR
+- Conversione: 60 Punti Elmetto = 1 EUR
+- Filtri per categoria + ricerca compatta
 - Saldo wallet visibile in header catalogo
-- Ordinamento "Per te" = ordina per vantaggio massimo ottenibile
 
 ---
 
@@ -1676,6 +1677,10 @@
 |         |          | unificata (header+membri+classifica espandibile) aggiunta a Punti.   |
 |         |          | Rimossi Livello e Transazioni dal wallet. "Come guadagni punti"      |
 |         |          | espandibile nella wallet card                                        |
+| 2026-01 | 2.4      | Spaccio: card prodotto ridisegnate con emoji grande, gradient overlay |
+|         |          | in basso, prezzo EUR + prezzo barrato se promo + prezzo in punti     |
+|         |          | (60pt=1EUR). Badge sconto % rosso top-left. Layout compatto          |
+|         |          | search/filtri. Titolo gradiente ambra→teal                           |
 
 ---
 

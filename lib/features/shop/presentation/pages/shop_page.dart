@@ -184,7 +184,7 @@ class _ShopPageState extends ConsumerState<ShopPage> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.72,
+                      childAspectRatio: 0.75,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
                     ),
