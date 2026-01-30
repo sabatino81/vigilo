@@ -559,6 +559,19 @@
 |  [Tutti][Casa][Abbigl.][Tech][Consum][Sport][Voucher][Gift]|
 |  10 di 124 prodotti                             (small)   |
 |                                                             |
+|  🔥 In evidenza                                             |
+|  +----------+ +----------+ +----------+ +----------+  >>>  |
+|  | (emoji)  | | -15%     | | (emoji)  | | -20%     |       |
+|  |   🛁     | |   💡     | |   🧦     | |   🎧     |       |
+|  | ░overlay | | ░overlay | | ░overlay | | ░overlay |       |
+|  | Set Asc. | | Lampada  | | Calzini  | | Auricol. |       |
+|  | ⛑26.00  | | ⛑19.65  | | ⛑15.12  | | ⛑27.20  |       |
+|  | [Compra] | | [Compra] | | [Compra] | | [Compra] |       |
+|  +----------+ +----------+ +----------+ +----------+  >>>  |
+|                                    (scroll orizzontale, 6)  |
+|                                                             |
+|  ▦ Tutti i prodotti                                         |
+|                                                             |
 |  +---------------------------+ +---------------------------+|
 |  |                           | | -15%          SCONTATO    ||
 |  |  GRATIS        (emoji)   | |               (emoji)     ||
@@ -610,6 +623,8 @@
 - **Tasti card**: "Compra" (gradient giallo→arancio) + carrello (gradient verde) con haptic feedback
 - Badge pill top-right con glow: "GRATIS PER TE" (verde), "SCONTATO" (blu), "PROMO" (arancione)
 - Badge sconto pill top-left: "-15%" (gradient rosso) se promo attiva
+- **In evidenza**: carosello orizzontale 6 card (prodotti con badge o promo), scompare con filtri/ricerca
+- **"Tutti i prodotti"**: header sezione prima della griglia principale
 - **Infinite scroll**: carica 10 prodotti alla volta, spinner giallo in fondo, contatore "X di Y prodotti"
 - Reset paginazione su cambio filtro/ricerca
 - Filtri per categoria + ricerca compatta
