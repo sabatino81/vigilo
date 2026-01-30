@@ -554,10 +554,10 @@
 +-------------------------------------------------------------+
 |  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
 |                                                             |
-|      [store] Spaccio Aziendale (gradiente ambra→teal)       |
+|      [store✨] Spaccio Aziendale (shimmer ambra→teal)        |
 |  [search] Cerca prodotti...                     (compact)  |
 |  [Tutti][Casa][Abbigl.][Tech][Consum][Sport][Voucher][Gift]|
-|  124 prodotti                                    (small)   |
+|  10 di 124 prodotti                             (small)   |
 |                                                             |
 |  +---------------------------+ +---------------------------+|
 |  |                           | | -15%          SCONTATO    ||
@@ -565,10 +565,11 @@
 |  |  PER TE         🛁        | |                💡         ||
 |  |              (grande)     | |             (grande)      ||
 |  |                           | |                           ||
-|  |  ░░░░ gradient overlay ░░ | |  ░░░░ gradient overlay ░░ ||
+|  |  ░░░ gradient overlay ░░░ | |  ░░░ gradient overlay ░░░ ||
 |  |  Set Asciugamani Premium  | |  Lampada LED Smart        ||
-|  |  32.50 EUR                | |  24.57 EUR  ~~28.90~~     ||
-|  |  ⛑ 1950 pt               | |  ⛑ 1474 pt               ||
+|  |  ~~32.50~~                | |  ~~28.90~~ 24.57 EUR      ||
+|  |  ⛑ 26.00 EUR             | |  ⛑ 19.65 EUR              ||
+|  |  [  Compra  ] [🛒]        | |  [  Compra  ] [🛒]        ||
 |  +---------------------------+ +---------------------------+|
 |                                                             |
 |  +---------------------------+ +---------------------------+|
@@ -577,10 +578,11 @@
 |  |               🧥          | |                🎧         ||
 |  |            (grande)       | |             (grande)      ||
 |  |                           | |                           ||
-|  |  ░░░░ gradient overlay ░░ | |  ░░░░ gradient overlay ░░ ||
+|  |  ░░░ gradient overlay ░░░ | |  ░░░ gradient overlay ░░░ ||
 |  |  Giacca Softshell         | |  Auricolari Bluetooth     ||
-|  |  65.00 EUR                | |  34.00 EUR  ~~42.50~~     ||
-|  |  ⛑ 3900 pt               | |  ⛑ 2040 pt               ||
+|  |  ~~65.00~~                | |  ~~42.50~~ 34.00 EUR      ||
+|  |  ⛑ 52.00 EUR             | |  ⛑ 27.20 EUR              ||
+|  |  [  Compra  ] [🛒]        | |  [  Compra  ] [🛒]        ||
 |  +---------------------------+ +---------------------------+|
 |                                                             |
 |  +---------------------------+ +---------------------------+|
@@ -589,23 +591,27 @@
 |  |               🎁          | |                ⛽         ||
 |  |            (grande)       | |             (grande)      ||
 |  |                           | |                           ||
-|  |  ░░░░ gradient overlay ░░ | |  ░░░░ gradient overlay ░░ ||
+|  |  ░░░ gradient overlay ░░░ | |  ░░░ gradient overlay ░░░ ||
 |  |  Buono Amazon 25 EUR      | |  Buono Carburante 50 EUR  ||
-|  |  25.00 EUR                | |  50.00 EUR                ||
-|  |  ⛑ 1500 pt               | |  ⛑ 3000 pt               ||
+|  |  ~~25.00~~                | |  ~~50.00~~                ||
+|  |  ⛑ 20.00 EUR             | |  ⛑ 40.00 EUR              ||
+|  |  [  Compra  ] [🛒]        | |  [  Compra  ] [🛒]        ||
 |  +---------------------------+ +---------------------------+|
+|                                                             |
+|              ○ Caricamento...  (spinner giallo)             |
 |                                                             |
 +-------------------------------------------------------------+
 ```
 
 **Note:**
-- Card con emoji grande centrata come "immagine" su sfondo tinta categoria
-- Gradient overlay in basso (trasparente → solido) con nome, prezzi, punti
-- Badge top-right: "GRATIS PER TE" (verde), "SCONTATO" (blu), "PROMO" (arancione)
-- Badge sconto top-left: "-15%" (rosso) se promo attiva
-- Prezzo originale barrato accanto al prezzo scontato se promo attiva
-- Prezzo in punti (⛑) sempre visibile: displayPrice × 60 pt/EUR
-- Conversione: 60 Punti Elmetto = 1 EUR
+- **Titolo**: shimmer gradient animato (ambra→bianco→teal) con icona pulse
+- **Card moderne**: bordo colorato in base a sconto (giallo=nessuno, arancio=10%+, rosso=20%+), ombre glow tinta categoria, sfondo grigio chiaro (#EEEEEE), overlay scuro (#424242)
+- **3 livelli prezzo**: listino (barrato), scontato (se promo), prezzo Elmetto (-20%) in evidenza giallo
+- **Tasti card**: "Compra" (gradient giallo→arancio) + carrello (gradient verde) con haptic feedback
+- Badge pill top-right con glow: "GRATIS PER TE" (verde), "SCONTATO" (blu), "PROMO" (arancione)
+- Badge sconto pill top-left: "-15%" (gradient rosso) se promo attiva
+- **Infinite scroll**: carica 10 prodotti alla volta, spinner giallo in fondo, contatore "X di Y prodotti"
+- Reset paginazione su cambio filtro/ricerca
 - Filtri per categoria + ricerca compatta
 - Saldo wallet visibile in header catalogo
 
@@ -1677,10 +1683,10 @@
 |         |          | unificata (header+membri+classifica espandibile) aggiunta a Punti.   |
 |         |          | Rimossi Livello e Transazioni dal wallet. "Come guadagni punti"      |
 |         |          | espandibile nella wallet card                                        |
-| 2026-01 | 2.4      | Spaccio: card prodotto ridisegnate con emoji grande, gradient overlay |
-|         |          | in basso, prezzo EUR + prezzo barrato se promo + prezzo in punti     |
-|         |          | (60pt=1EUR). Badge sconto % rosso top-left. Layout compatto          |
-|         |          | search/filtri. Titolo gradiente ambra→teal                           |
+| 2026-01 | 2.4      | Spaccio: card moderne glassmorphism con 3 livelli prezzo (listino,   |
+|         |          | scontato, Elmetto -20%), tasti Compra+Carrello gradient, bordo       |
+|         |          | colorato per sconto %, badge pill con glow, sfondo grigio/overlay    |
+|         |          | scuro. Titolo shimmer animato. Infinite scroll (10 per pagina)       |
 
 ---
 
