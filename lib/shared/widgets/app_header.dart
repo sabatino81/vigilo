@@ -137,14 +137,13 @@ class _PointsBadge extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.hardware_rounded,
-              size: 13,
-              color: AppTheme.ambra,
+            const Text(
+              '\u26D1',
+              style: TextStyle(fontSize: 13),
             ),
             const SizedBox(width: 5),
             Text(
-              '${_formatPoints(wallet.puntiElmetto)} pt',
+              '${_formatPoints(wallet.puntiElmetto)} Punti Elmetto',
               style: TextStyle(
                 color: isDark ? AppTheme.primary : AppTheme.ambra,
                 fontWeight: FontWeight.w700,
