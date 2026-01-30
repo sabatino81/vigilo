@@ -14,8 +14,8 @@ class VowQuestion {
     return const [
       VowQuestion(
         id: 'vow_1',
-        text: 'Ti sei sentito al sicuro oggi nel cantiere?',
-        textEn: 'Did you feel safe on site today?',
+        text: 'Ti sei sentito al sicuro oggi sul luogo di lavoro?',
+        textEn: 'Did you feel safe at work today?',
       ),
       VowQuestion(
         id: 'vow_2',

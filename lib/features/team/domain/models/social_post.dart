@@ -1,4 +1,4 @@
-/// Modello per un post nella bacheca sociale del cantiere
+/// Modello per un post nella bacheca sociale aziendale
 class SocialPost {
   const SocialPost({
     required this.id,
@@ -25,7 +25,7 @@ class SocialPost {
   /// Restituisce il percorso della thumbnail o l'immagine originale se non disponibile
   String get thumbPath => thumbnailPath ?? imagePath;
 
-  /// Lista di post statici dal cantiere
+  /// Lista di post statici di esempio
   static final List<SocialPost> staticPosts = [
     SocialPost(
       id: 'post_1',

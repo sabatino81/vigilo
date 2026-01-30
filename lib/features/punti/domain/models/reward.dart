@@ -142,7 +142,7 @@ class Reward {
       Reward(
         id: 'reward_3',
         name: 'Cuffie antirumore Pro',
-        description: 'Cuffie professionali per ridurre il rumore in cantiere, '
+        description: 'Cuffie professionali per ridurre il rumore sul lavoro, '
             'leggere e regolabili. Certificazione EN 352-1.',
         cost: 1200,
         category: RewardCategory.ppe,
@@ -152,7 +152,7 @@ class Reward {
       ),
       Reward(
         id: 'reward_4',
-        name: 'T-shirt cantiere',
+        name: 'T-shirt aziendale',
         description: 'T-shirt tecnica ad alta visibilità con logo aziendale. '
             'Materiale traspirante.',
         cost: 350,
@@ -165,7 +165,7 @@ class Reward {
         id: 'reward_5',
         name: 'Borraccia termica',
         description: 'Borraccia in acciaio inox 500ml, mantiene la temperatura '
-            'fino a 12 ore. Ideale per il cantiere.',
+            'fino a 12 ore. Ideale per il lavoro.',
         cost: 250,
         category: RewardCategory.gadget,
         availability: RewardAvailability.available,

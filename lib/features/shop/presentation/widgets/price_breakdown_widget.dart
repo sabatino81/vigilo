@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
-import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
+import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 
 /// Widget riutilizzabile per il breakdown prezzo con wallet unico
 class PriceBreakdownWidget extends StatelessWidget {

@@ -41,7 +41,7 @@ class _SosPageState extends State<SosPage> {
         // Simula invio SOS
         unawaited(SosSuccessDialog.show(
           context,
-          locationName: 'Cantiere A - Area 3',
+          locationName: 'Sede A - Area 3',
         ));
       },
     ));

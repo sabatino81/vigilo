@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
-import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
+import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 import 'package:vigilo/features/shop/presentation/pages/shop_page.dart';
 import 'package:vigilo/features/punti/domain/models/leaderboard_entry.dart';
 import 'package:vigilo/features/punti/domain/models/points_stats.dart';
@@ -11,7 +11,7 @@ import 'package:vigilo/features/punti/domain/models/points_transaction.dart';
 import 'package:vigilo/features/punti/domain/models/reward.dart';
 import 'package:vigilo/features/punti/presentation/pages/rewards_catalog_sheet.dart';
 import 'package:vigilo/features/punti/presentation/pages/spin_wheel_page.dart';
-import 'package:vigilo/features/punti/presentation/widgets/dual_wallet_card.dart';
+import 'package:vigilo/features/punti/presentation/widgets/elmetto_wallet_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/instant_win_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/leaderboard_card.dart';
 import 'package:vigilo/features/punti/presentation/widgets/points_stats_card.dart';
@@ -113,7 +113,7 @@ class _PuntiPageState extends State<PuntiPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Dual Wallet Card
-              DualWalletCard(wallet: _wallet),
+              ElmettoWalletCard(wallet: _wallet),
               const SizedBox(height: 16),
 
               // Shop entry point

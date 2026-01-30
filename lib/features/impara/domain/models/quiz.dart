@@ -50,22 +50,22 @@ class Quiz {
     return const Quiz(
       id: 'quiz_weekly',
       title: 'Quiz Settimanale',
-      description: 'Quiz sulla sicurezza base in cantiere',
+      description: 'Quiz sulla sicurezza base sul lavoro',
       points: 20,
-      category: 'Sicurezza base in cantiere',
+      category: 'Sicurezza base sul lavoro',
       estimatedMinutes: 5,
       questions: [
         QuizQuestion(
           id: 'q1',
           text: 'In quale situazione è obbligatorio indossare il casco?',
           options: [
-            'Sempre, in ogni area del cantiere',
+            'Sempre, in ogni area di lavoro',
             'Solo nelle aree con segnaletica "casco obbligatorio"',
             'Solo quando si lavora in altezza',
             'Solo quando lo dice il preposto',
           ],
           correctIndex: 0,
-          explanation: 'Il casco è obbligatorio in tutte le aree del cantiere '
+          explanation: 'Il casco è obbligatorio in tutte le aree di lavoro '
               'per proteggere da caduta di oggetti.',
         ),
         QuizQuestion(

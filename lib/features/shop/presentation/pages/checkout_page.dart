@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
-import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
+import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 import 'package:vigilo/features/shop/domain/models/cart_item.dart';
 import 'package:vigilo/features/shop/presentation/widgets/price_breakdown_widget.dart';
 

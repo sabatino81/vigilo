@@ -154,7 +154,7 @@ class AppNotification {
       ),
       AppNotification(
         id: 'n8',
-        title: 'Allerta meteo cantiere',
+        title: 'Allerta meteo sede operativa',
         body: 'Domani previste raffiche di vento >60km/h. '
             'Lavori in quota sospesi.',
         category: NotificationCategory.safety,

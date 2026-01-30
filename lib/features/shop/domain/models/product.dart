@@ -84,7 +84,7 @@ class Product {
         id: 'prod_3',
         name: 'Giacca Softshell',
         description: 'Giacca antivento e idrorepellente. '
-            'Ideale per il cantiere.',
+            'Ideale per il lavoro.',
         category: ProductCategory.abbigliamento,
         basePrice: 65.00,
         emoji: '🧥',
@@ -139,7 +139,7 @@ class Product {
         id: 'prod_8',
         name: 'Kit Primo Soccorso',
         description: 'Kit completo 120 pezzi. Conforme '
-            'normativa cantieri.',
+            'normativa vigente.',
         category: ProductCategory.consumabili,
         basePrice: 22.50,
         emoji: '🩹',

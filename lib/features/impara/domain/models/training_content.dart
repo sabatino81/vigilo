@@ -188,7 +188,7 @@ class TrainingContent {
         id: 'video_1',
         title: 'Uso sicuro dei DPI',
         description: 'Breve lezione sull\'uso corretto di casco, scarponi '
-            'e giubbino ad alta visibilità in cantiere.',
+            'e giubbino ad alta visibilità sul lavoro.',
         type: ContentType.video,
         category: ContentCategory.dpiSafety,
         durationMinutes: 4,
@@ -239,7 +239,7 @@ class TrainingContent {
         id: 'video_4',
         title: 'Come usare una gru',
         description: 'Guida pratica all\'utilizzo sicuro '
-            'della gru mobile in cantiere.',
+            'della gru mobile in sicurezza.',
         type: ContentType.video,
         category: ContentCategory.machinery,
         durationMinutes: 6,
@@ -269,7 +269,7 @@ class TrainingContent {
       ),
       TrainingContent(
         id: 'video_6',
-        title: '4 errori da evitare in cantiere',
+        title: '4 errori da evitare sul lavoro',
         description: 'Gli errori più comuni che causano infortuni '
             'e come evitarli.',
         type: ContentType.video,

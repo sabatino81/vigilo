@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
-import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
+import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 import 'package:vigilo/features/punti/domain/models/points_level.dart';
 import 'package:vigilo/features/punti/domain/models/points_transaction.dart';
 
 /// Card wallet unico Punti Elmetto (con badge welfare se attivo)
-class DualWalletCard extends StatelessWidget {
-  const DualWalletCard({
+class ElmettoWalletCard extends StatelessWidget {
+  const ElmettoWalletCard({
     required this.wallet,
     this.onViewAllTransactions,
     super.key,

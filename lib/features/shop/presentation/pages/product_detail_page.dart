@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
-import 'package:vigilo/features/punti/domain/models/dual_wallet.dart';
+import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
 import 'package:vigilo/features/shop/presentation/widgets/price_breakdown_widget.dart';
 
-/// Pagina dettaglio prodotto con breakdown prezzo dual wallet
+/// Pagina dettaglio prodotto con breakdown prezzo Elmetto wallet
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({
     required this.product,
