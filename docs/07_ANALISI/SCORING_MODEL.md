@@ -343,7 +343,7 @@ welfareActive = true (attivato dall'azienda)
 
 ### Algoritmo checkout (`ElmettoWallet.calculateCheckout`)
 
-Implementato in `lib/features/punti/domain/models/dual_wallet.dart`:
+Implementato in `lib/features/punti/domain/models/elmetto_wallet.dart`:
 
 ```
 Input:
