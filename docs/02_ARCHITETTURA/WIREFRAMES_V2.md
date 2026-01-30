@@ -1550,7 +1550,7 @@
 | Nome utente     | Testo informativo                    |
 | ⛑ Punti Elmetto| Chip blu con saldo formattato (1.8K) |
 | Campana [bell]  | Naviga a Notifiche (con badge count) |
-| Carrello [cart] | Naviga al Carrello (sfondo verde, icona bianca, badge count reattivo) |
+| Carrello [cart] | Naviga al Carrello (sfondo verde, icona bianca, badge count reattivo, visibile solo se carrello non vuoto) |
 
 > **Note:** Il pulsante settings/ingranaggio è stato rimosso dall'header.
 > Lingua, tema e logout sono ora accessibili dalla pagina Profilo.
@@ -1610,6 +1610,7 @@
 | 2026-01 | 2.8      | Header: aggiunta icona carrello (sfondo verde, icona bianca) con    |
 |         |          | badge count reattivo, a destra delle notifiche. Dettaglio: tasto    |
 |         |          | "Aggiungi al carrello" su 2 righe, bottoni bilanciati (flex 3+3)   |
+| 2026-01 | 2.9      | Header: icona carrello visibile solo se carrello non vuoto          |
 
 ---
 
