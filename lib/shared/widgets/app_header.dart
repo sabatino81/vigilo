@@ -125,13 +125,13 @@ class _PointsBadge extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppTheme.ambra.withValues(alpha: isDark ? 0.25 : 0.15),
+              AppTheme.tertiary.withValues(alpha: isDark ? 0.25 : 0.15),
               AppTheme.primary.withValues(alpha: isDark ? 0.15 : 0.08),
             ],
           ),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: AppTheme.ambra.withValues(alpha: isDark ? 0.4 : 0.3),
+            color: AppTheme.tertiary.withValues(alpha: isDark ? 0.4 : 0.3),
           ),
         ),
         child: Row(
@@ -145,7 +145,7 @@ class _PointsBadge extends StatelessWidget {
             Text(
               '${_formatPoints(wallet.puntiElmetto)} Punti Elmetto',
               style: TextStyle(
-                color: isDark ? AppTheme.primary : AppTheme.ambra,
+                color: isDark ? AppTheme.primary : AppTheme.tertiary,
                 fontWeight: FontWeight.w700,
                 fontSize: 12,
                 letterSpacing: 0.3,
