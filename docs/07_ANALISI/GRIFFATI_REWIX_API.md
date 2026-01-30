@@ -438,7 +438,8 @@ GET /restful/ghost/returnedgoods/serverkey/{order_id}
 | `emoji` | — | Assegnato per categoria |
 | `badge` | `tags` | Mapping da tag promo |
 | `promo_discount_percent` | `(streetPrice - suggestedPrice) / streetPrice * 100` | Se applicabile |
-| `supplier_name` | `tags[tag_1]` (brand) | Brand del prodotto |
+| `supplier_name` | `'Griffati'` (costante) | Identifica il supplier |
+| `supplier_product_id` | `id` (int → text) | ID prodotto Rewix (es. "82105") |
 | `image_url` | `images[0].url` | Prefissare con base URL Griffati |
 
 ### Variante → `product_variants` table
@@ -452,6 +453,7 @@ GET /restful/ghost/returnedgoods/serverkey/{order_id}
 | `price` | `model.taxable * 1.30` | NULL se uguale a base_price |
 | `image_url` | — | Se variante ha immagine specifica |
 | `supplier_sku` | `model.code` | SKU variante (es. "SKU-12345_36") |
+| `supplier_stock_id` | `model.id` (int → text) | ID numerico Rewix per piazzare ordini (es. "234225") |
 | `stock_status` | `model.availability` | `> 0` → 'available', `0` → 'out_of_stock' |
 
 ### Ordine → Rewix
@@ -459,7 +461,7 @@ GET /restful/ghost/returnedgoods/serverkey/{order_id}
 | Dato Vigilo | Campo Rewix | Note |
 |------------|-------------|------|
 | `order.id` | `key` | Nostro UUID come riferimento |
-| `order_items[].variant_id` → `supplier_sku` | `items[].stock_id` | **Serve stock_id numerico** |
+| `order_items[].variant_id` → `supplier_stock_id` | `items[].stock_id` | Lookup: variant → supplier_stock_id → Rewix stock_id |
 | Indirizzo utente | `recipient`, `street_name`, ecc. | Dal profilo utente |
 | `order.status` | Polling `GET /clientorders/serverkey/{id}` | Mapping status codes |
 | `order.tracking_code` | `tracking_code` da status response | Quando status = 3 (DISPATCHED) |
@@ -471,6 +473,10 @@ GET /restful/ghost/returnedgoods/serverkey/{order_id}
 ### Cosa abbiamo gia (compatibile)
 
 - **`product_variants` table** con `variant_label`, `attributes` JSONB, `price` nullable, `supplier_sku`, `stock_status` — matcha perfettamente con `models[]` di Rewix
+- **`products.supplier_product_id`** (text) — ID prodotto nel sistema del supplier (migrazione 008)
+- **`product_variants.supplier_stock_id`** (text) — ID variante nel sistema del supplier, usato per piazzare ordini Rewix (migrazione 008)
+- **`products.supplier_name`** (text) — distingue BigBuy vs Griffati
+- **Indici parziali** su `(supplier_name, supplier_product_id)` e `(supplier_stock_id)` per lookup rapido durante sync
 - **`order_items.variant_id`** — gia pronto per ordini per variante
 - **RPC `place_order`** con `p_variant_ids` — gia predisposto
 - **UI variant selector** (ChoiceChip) — gia implementato
@@ -480,18 +486,16 @@ GET /restful/ghost/returnedgoods/serverkey/{order_id}
 
 | # | Cosa | Dove | Priorita |
 |---|------|------|----------|
-| 1 | Colonna `supplier_id` su `products` | DB migration | Alta |
-| 2 | Colonna `supplier_product_id` (int) su `products` | DB migration | Alta |
-| 3 | Colonna `supplier_stock_id` (int) su `product_variants` | DB migration | Alta |
-| 4 | Base URL immagini per supplier | Config o colonna `suppliers` | Media |
-| 5 | Edge Function: sync catalogo Griffati | `supabase/functions/sync-griffati/` | Alta |
-| 6 | Edge Function: piazza ordine dropshipping | `supabase/functions/place-order-griffati/` | Alta |
-| 7 | Edge Function: polling status ordine + tracking | `supabase/functions/poll-order-status/` | Alta |
-| 8 | Tabella `suppliers` (id, name, api_base_url, api_key_env) | DB migration | Media |
-| 9 | Mapping categorie Rewix → Vigilo `ProductCategory` | Enum/tabella | Media |
-| 10 | Gestione resi via API | RPC + Edge Function | Bassa |
-| 11 | Cron job sync incrementale (`?since=`) ogni 15 min | pg_cron o scheduled function | Media |
-| 12 | Indirizzo spedizione utente (attualmente mock) | Profilo utente + form | Alta |
+| ~~1~~ | ~~Colonna `supplier_product_id` su `products`~~ | ~~DB migration~~ | ✅ Fatto (008) |
+| ~~2~~ | ~~Colonna `supplier_stock_id` su `product_variants`~~ | ~~DB migration~~ | ✅ Fatto (008) |
+| 3 | Base URL immagini per supplier | Config Edge Function o env var | Media |
+| 4 | Edge Function: sync catalogo Griffati | `supabase/functions/sync-griffati/` | Alta |
+| 5 | Edge Function: piazza ordine dropshipping | `supabase/functions/place-order-supplier/` | Alta |
+| 6 | Edge Function: polling status ordine + tracking | `supabase/functions/poll-order-status/` | Alta |
+| 7 | Mapping categorie Rewix → Vigilo `ProductCategory` | Enum/tabella | Media |
+| 8 | Gestione resi via API | RPC + Edge Function | Bassa |
+| 9 | Cron job sync incrementale (`?since=`) ogni 15 min | pg_cron o scheduled function | Media |
+| 10 | Indirizzo spedizione utente (attualmente mock) | Profilo utente + form | Alta |
 
 ### Flusso completo da implementare
 
