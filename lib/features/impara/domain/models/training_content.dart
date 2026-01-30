@@ -181,6 +181,49 @@ class TrainingContent {
     );
   }
 
+  /// Crea da JSON (risposta RPC get_training_contents).
+  factory TrainingContent.fromJson(Map<String, dynamic> json) {
+    return TrainingContent(
+      id: json['id'] as String,
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      type: _parseContentType(json['type'] as String?),
+      category: _parseCategory(json['category'] as String?),
+      durationMinutes: json['duration_minutes'] as int? ?? 0,
+      points: json['points'] as int? ?? 0,
+      status: _parseStatus(json['status'] as String?),
+      progress: (json['progress'] as num?)?.toDouble() ?? 0.0,
+      thumbnailUrl: json['thumbnail_url'] as String?,
+      contentUrl: json['content_url'] as String?,
+      isMandatory: json['is_mandatory'] as bool? ?? false,
+      isFavorite: json['is_favorite'] as bool? ?? false,
+    );
+  }
+
+  static ContentType _parseContentType(String? value) {
+    if (value == null) return ContentType.lesson;
+    return ContentType.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ContentType.lesson,
+    );
+  }
+
+  static ContentCategory _parseCategory(String? value) {
+    if (value == null) return ContentCategory.general;
+    return ContentCategory.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ContentCategory.general,
+    );
+  }
+
+  static ContentStatus _parseStatus(String? value) {
+    if (value == null) return ContentStatus.notStarted;
+    return ContentStatus.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => ContentStatus.notStarted,
+    );
+  }
+
   /// Mock data
   static List<TrainingContent> mockContents() {
     return const [

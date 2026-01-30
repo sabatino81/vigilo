@@ -25,6 +25,22 @@ class Certificate {
     return daysUntilExpiry <= 30 && daysUntilExpiry > 0;
   }
 
+  /// Crea da JSON (risposta RPC get_my_training_progress → certificates[]).
+  factory Certificate.fromJson(Map<String, dynamic> json) {
+    return Certificate(
+      id: json['id'] as String,
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      earnedAt: json['earned_at'] != null
+          ? DateTime.parse(json['earned_at'] as String)
+          : DateTime.now(),
+      expiresAt: json['expires_at'] != null
+          ? DateTime.parse(json['expires_at'] as String)
+          : null,
+      imageUrl: json['image_url'] as String?,
+    );
+  }
+
   /// Mock data
   static List<Certificate> mockCertificates() {
     return [
@@ -67,6 +83,24 @@ class TrainingProgress {
       totalModules > 0 ? completedModules / totalModules : 0;
 
   int get progressPercent => (progressPercentage * 100).round();
+
+  /// Crea da JSON (risposta RPC get_my_training_progress).
+  factory TrainingProgress.fromJson(Map<String, dynamic> json) {
+    final rawCerts = json['certificates'] as List<dynamic>? ?? [];
+    return TrainingProgress(
+      totalModules: json['total_modules'] as int? ?? 0,
+      completedModules: json['completed_modules'] as int? ?? 0,
+      inProgressModules:
+          (json['in_progress_modules'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      certificates: rawCerts
+          .whereType<Map<String, dynamic>>()
+          .map(Certificate.fromJson)
+          .toList(),
+    );
+  }
 
   /// Mock data
   static TrainingProgress mockProgress() {

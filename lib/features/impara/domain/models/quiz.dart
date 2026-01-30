@@ -17,6 +17,24 @@ class QuizQuestion {
   final String? explanation;
 
   bool isCorrect(int selectedIndex) => selectedIndex == correctIndex;
+
+  /// Crea da JSON (risposta RPC get_quizzes → questions[]).
+  factory QuizQuestion.fromJson(Map<String, dynamic> json) {
+    final rawOptions = json['options'];
+    List<String> options;
+    if (rawOptions is List) {
+      options = rawOptions.map((e) => e.toString()).toList();
+    } else {
+      options = [];
+    }
+    return QuizQuestion(
+      id: json['id'] as String,
+      text: json['text'] as String? ?? '',
+      options: options,
+      correctIndex: json['correct_index'] as int? ?? 0,
+      explanation: json['explanation'] as String?,
+    );
+  }
 }
 
 /// Quiz formativo
@@ -44,6 +62,25 @@ class Quiz {
   final double passingScore;
 
   int get questionCount => questions.length;
+
+  /// Crea da JSON (risposta RPC get_quizzes).
+  factory Quiz.fromJson(Map<String, dynamic> json) {
+    final rawQuestions = json['questions'] as List<dynamic>? ?? [];
+    return Quiz(
+      id: json['id'] as String,
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      questions: rawQuestions
+          .whereType<Map<String, dynamic>>()
+          .map(QuizQuestion.fromJson)
+          .toList(),
+      points: json['points'] as int? ?? 0,
+      category: json['category'] as String?,
+      estimatedMinutes: json['estimated_minutes'] as int? ?? 5,
+      maxAttempts: json['max_attempts'] as int? ?? 1,
+      passingScore: (json['passing_score'] as num?)?.toDouble() ?? 0.6,
+    );
+  }
 
   /// Mock data - Quiz settimanale
   static Quiz weeklyQuiz() {
@@ -207,6 +244,27 @@ class QuizResult {
   final List<int> answers;
   final DateTime completedAt;
   final int earnedPoints;
+
+  /// Crea da JSON (risposta RPC submit_quiz_result / get_my_quiz_results).
+  factory QuizResult.fromJson(Map<String, dynamic> json) {
+    final rawAnswers = json['answers'];
+    List<int> answers;
+    if (rawAnswers is List) {
+      answers = rawAnswers.map((e) => (e as num).toInt()).toList();
+    } else {
+      answers = [];
+    }
+    return QuizResult(
+      quizId: json['quiz_id'] as String? ?? '',
+      totalQuestions: json['total_questions'] as int? ?? 0,
+      correctAnswers: json['correct_answers'] as int? ?? 0,
+      answers: answers,
+      completedAt: json['completed_at'] != null
+          ? DateTime.parse(json['completed_at'] as String)
+          : DateTime.now(),
+      earnedPoints: json['earned_points'] as int? ?? 0,
+    );
+  }
 
   double get score => correctAnswers / totalQuestions;
   int get percentage => (score * 100).round();
