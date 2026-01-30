@@ -32,7 +32,7 @@ The app follows a feature-based architecture under `lib/features/`. Each feature
 
 ### Navigation
 
-Three Go Router routes: `/splash` → `/login` → `/home`. Initial route is chosen based on current Supabase session. The `/home` route renders `MainShell`, which uses `IndexedStack` with 5 tabs (Home, Team, SOS, Punti, Impara). Tab switching is handled via `setState` in `MainShell`, not Go Router sub-routes.
+Three Go Router routes: `/splash` → `/login` → `/home`. Initial route is chosen based on current Supabase session. The `/home` route renders `MainShell`, which uses `IndexedStack` with 5 tabs (Home, Spaccio, Sicurezza, Punti, Impara). Tab switching is handled via `setState` in `MainShell`, not Go Router sub-routes. The Sicurezza (SOS) tab has a distinctive yellow circular button (#FFB800).
 
 ### State Management
 

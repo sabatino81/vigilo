@@ -61,17 +61,6 @@ class _ShopPageState extends ConsumerState<ShopPage> {
     final filtered = _filterProducts(allProducts);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Spaccio Aziendale',
-          style: TextStyle(fontWeight: FontWeight.w800),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
       body: Column(
         children: [
           // Search bar

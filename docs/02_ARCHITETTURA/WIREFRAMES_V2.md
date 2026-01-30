@@ -9,20 +9,19 @@
 1. [Navigazione Principale](#navigazione-principale)
 2. [Splash e Login](#splash-e-login)
 3. [Home](#home)
-4. [Team](#team)
-5. [SOS](#sos)
-6. [Punti — Wallet Punti Elmetto](#punti--wallet-punti-elmetto)
-7. [Spaccio Aziendale — Catalogo](#spaccio-aziendale--catalogo)
-8. [Spaccio Aziendale — Card Prodotto](#spaccio-aziendale--card-prodotto)
-9. [Spaccio Aziendale — Checkout](#spaccio-aziendale--checkout)
-10. [Spaccio Aziendale — Ordini e Tracking](#spaccio-aziendale--ordini-e-tracking)
-11. [Impara](#impara)
-12. [Scoring — Check-in e Survey](#scoring--check-in-e-survey)
-13. [Scoring — Segnalazione Rischio](#scoring--segnalazione-rischio)
-14. [Scoring — Streak e Sfide](#scoring--streak-e-sfide)
-15. [Profilo e Settings](#profilo-e-settings)
-16. [Notifiche](#notifiche)
-17. [Appendice: Componenti UI](#appendice-componenti-ui)
+4. [SOS](#sos)
+5. [Punti — Wallet Punti Elmetto](#punti--wallet-punti-elmetto)
+6. [Spaccio Aziendale — Catalogo](#spaccio-aziendale--catalogo)
+7. [Spaccio Aziendale — Card Prodotto](#spaccio-aziendale--card-prodotto)
+8. [Spaccio Aziendale — Checkout](#spaccio-aziendale--checkout)
+9. [Spaccio Aziendale — Ordini e Tracking](#spaccio-aziendale--ordini-e-tracking)
+10. [Impara](#impara)
+11. [Scoring — Check-in e Survey](#scoring--check-in-e-survey)
+12. [Scoring — Segnalazione Rischio](#scoring--segnalazione-rischio)
+13. [Scoring — Streak e Sfide](#scoring--streak-e-sfide)
+14. [Profilo e Settings](#profilo-e-settings)
+15. [Notifiche](#notifiche)
+16. [Appendice: Componenti UI](#appendice-componenti-ui)
 
 ---
 
@@ -37,20 +36,21 @@
 |                                                             |
 +-------------------------------------------------------------+
 |                                                             |
-|   +------+  +------+  +--------+  +------+  +------+       |
-|   | Home |  | Team |  |  SOS   |  | Punti|  |Impara|       |
-|   |      |  |      |  |        |  |      |  |      |       |
-|   +------+  +------+  +--------+  +------+  +------+       |
-|                           ^                                 |
-|                      Pulsante                               |
-|                      circolare                              |
-|                      arancione                              |
+|   +------+  +--------+  +--------+  +------+  +------+     |
+|   | Home |  |Spaccio |  |  SOS   |  | Punti|  |Impara|     |
+|   |      |  |        |  |        |  |      |  |      |     |
+|   +------+  +--------+  +--------+  +------+  +------+     |
+|                             ^                               |
+|                        Pulsante                             |
+|                        circolare                            |
+|                        giallo sicurezza                     |
 +-------------------------------------------------------------+
 ```
 
 **Note:**
-- 5 tab con icone e label
-- Tab SOS con pulsante circolare arancione distintivo
+- 5 tab: Home, Spaccio (shop), Sicurezza (SOS), Punti, Impara
+- Tab Sicurezza con pulsante circolare giallo (#FFB800) distintivo
+- Tab Spaccio apre direttamente il catalogo prodotti (ShopPage)
 - Icone filled quando selezionate, outlined quando non attive
 - Border radius 28px sulla barra
 
@@ -126,6 +126,15 @@
 |-------------------------------------------------------------|
 |                                                             |
 |  +-------------------------------------------------------+ |
+|  |  COME TI SENTI OGGI?                         +5 pts  | |
+|  |                                                       | |
+|  |  +----------+ +----------+ +-----------+              | |
+|  |  |   :)     | |   :|     | |   :(      |              | |
+|  |  |  Bene    | |Cosi-cosi | | Stressato |              | |
+|  |  +----------+ +----------+ +-----------+              | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
 |  |  CHECK-IN TURNO                           [Da fare]   | |
 |  |  Autodichiarazione DPI - D.Lgs. 81/2008               | |
 |  |                                                         | |
@@ -194,6 +203,44 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
+|  |  SAFETY STAR DELLA SETTIMANA                          | |
+|  |                                                       | |
+|  |         +--------+                                    | |
+|  |         | Marco  |                                    | |
+|  |         +--------+                                    | |
+|  |      Marco Bianchi                                    | |
+|  |                                                       | |
+|  |  "Ha segnalato 3 near-miss questa settimana"          | |
+|  |                                                       | |
+|  |  +---------------------------------------------------+| |
+|  |  |          NOMINA UN COLLEGA (+15 pts)              || |
+|  |  +---------------------------------------------------+| |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  SURVEY VOW                                +10 pts    | |
+|  |                                                       | |
+|  |  Hai completato il survey di oggi?                    | |
+|  |                                                       | |
+|  |  +---------------------------------------------------+| |
+|  |  |            COMPILA SURVEY                         || |
+|  |  +---------------------------------------------------+| |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
+|  |  HAI DETTO -> ABBIAMO FATTO                          | |
+|  |                                                       | |
+|  |  [v] "Illuminazione Area B scarsa"                    | |
+|  |      -> Installati 4 fari LED (12/01)                 | |
+|  |                                                       | |
+|  |  [v] "Percorso pedonale non segnalato"                | |
+|  |      -> Aggiunta segnaletica orizzontale (10/01)      | |
+|  |                                                       | |
+|  |  [~] "Bagni chimici insufficienti"                    | |
+|  |      -> In corso: ordine 2 unita aggiuntive           | |
+|  +-------------------------------------------------------+ |
+|                                                             |
+|  +-------------------------------------------------------+ |
 |  |  I MIEI KPI                                            | |
 |  |                                                         | |
 |  |  FI (Fatica)     [green] 32    Nella norma             | |
@@ -203,7 +250,7 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Team    SOS    Punti    Impara                    |
+|   Home    Spaccio    SOS    Punti    Impara                    |
 +-------------------------------------------------------------+
 ```
 
@@ -211,120 +258,14 @@
 - **Card wallet unico** Punti Elmetto con badge welfare attivo/non attivo
 - **Card streak** con progress giornaliero e bonus crescente
 - **TODO giornalieri** mostrano punti guadagnabili per ogni azione
-- Rimossa card Social Wall dalla home (spostata in Team)
 - Rimossa card DPI Status (integrata in Check-in Turno con autodichiarazione)
 
----
-
-## Team
-
-### Team Page (V2)
-
-```
-+-------------------------------------------------------------+
-|  [avatar] Ciao! / Nome       ⛑ Punti Elmetto    [bell]      |
-|                                                             |
-|  Team                                                      |
-|  EdilPro S.r.l.                                            |
-|-------------------------------------------------------------|
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  TEAM ALFA                                             | |
-|  |                                                         | |
-|  |  [green] 12 Online    [grey] 3 Offline    Safety: 87%  | |
-|  |                                                         | |
-|  |  ooooooooooooo ooo                                      | |
-|  |  (avatar membri)                                        | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  COME TI SENTI OGGI?                         +5 pts   | |
-|  |                                                         | |
-|  |  +----------+ +----------+ +-----------+               | |
-|  |  |   :)     | |   :|     | |   :(      |               | |
-|  |  |  Bene    | |Cosi-cosi | | Stressato |               | |
-|  |  +----------+ +----------+ +-----------+               | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  SOCIAL WALL                              Vedi tutti   | |
-|  |                                                         | |
-|  |  +---------------------------------------------------+ | |
-|  |  | [avatar] Marco B.             2h fa                | | |
-|  |  | "Completato briefing area B senza problemi!"       | | |
-|  |  | [foto]                                             | | |
-|  |  | [heart] 12   [comment] 3          +5 pts per post  | | |
-|  |  +---------------------------------------------------+ | |
-|  |                                                         | |
-|  |  +---------------------------------------------------+ | |
-|  |  | [avatar] Anna R.              5h fa                | | |
-|  |  | "Nuova segnaletica installata zona C"              | | |
-|  |  | [foto]                                             | | |
-|  |  | [heart] 8    [comment] 1          +5 pts per post  | | |
-|  |  +---------------------------------------------------+ | |
-|  |                                                         | |
-|  |  +---------------------------------------------------+ | |
-|  |  |              SCRIVI UN POST (+5 pts)               | | |
-|  |  +---------------------------------------------------+ | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  CLASSIFICA TEAM                          Vedi tutti   | |
-|  |                                                         | |
-|  |  1. Marco B.    2,450 pts  [================]          | |
-|  |  2. Anna R.     2,120 pts  [==============]            | |
-|  |  3. Luca P.     1,980 pts  [=============]             | |
-|  |  4. TU (Mario)  1,850 pts  [============]              | |
-|  |  5. Giuseppe M.  1,720 pts  [===========]              | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  SAFETY STAR DELLA SETTIMANA                           | |
-|  |                                                         | |
-|  |         +--------+                                      | |
-|  |         | Marco  |                                      | |
-|  |         +--------+                                      | |
-|  |      Marco Bianchi                                      | |
-|  |                                                         | |
-|  |  "Ha segnalato 3 near-miss questa settimana"           | |
-|  |                                                         | |
-|  |  +---------------------------------------------------+ | |
-|  |  |          NOMINA UN COLLEGA (+15 pts)               | | |
-|  |  +---------------------------------------------------+ | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  HAI DETTO -> ABBIAMO FATTO                           | |
-|  |                                                         | |
-|  |  [v] "Illuminazione Area B scarsa"                     | |
-|  |      -> Installati 4 fari LED (12/01)                  | |
-|  |                                                         | |
-|  |  [v] "Percorso pedonale non segnalato"                 | |
-|  |      -> Aggiunta segnaletica orizzontale (10/01)       | |
-|  |                                                         | |
-|  |  [~] "Bagni chimici insufficienti"                     | |
-|  |      -> In corso: ordine 2 unita aggiuntive            | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  SURVEY VOW                                +10 pts    | |
-|  |                                                         | |
-|  |  Hai completato il survey di oggi?                     | |
-|  |                                                         | |
-|  |  +---------------------------------------------------+ | |
-|  |  |            COMPILA SURVEY                          | | |
-|  |  +---------------------------------------------------+ | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-+-------------------------------------------------------------|
-|   Home    Team    SOS    Punti    Impara                    |
-+-------------------------------------------------------------+
-```
-
-**Novita V2:**
-- Social wall integrato con punti visibili per ogni azione
-- Pulsante nomination mostra punti (+15)
-- Check-in benessere mostra punti (+5)
+**Novita V2.3:**
+- **Come ti senti oggi?** spostato da Team a Home (primo widget)
+- **Safety Star** spostata da Team a Home
+- **Survey VOW** spostato da Team a Home
+- **Hai detto -> Abbiamo fatto** (trasparenza) spostato da Team a Home
+- Tab Team rimosso, sostituito da tab Spaccio (accesso diretto al negozio)
 
 ---
 
@@ -403,7 +344,7 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Team    SOS    Punti    Impara                    |
+|   Home    Spaccio    SOS    Punti    Impara                    |
 +-------------------------------------------------------------+
 ```
 
@@ -517,38 +458,44 @@
 |  |  Quest'anno hai risparmiato: E42.30                    | |
 |  +-------------------------------------------------------+ |
 |                                                             |
+|  (nella card wallet, sezione espandibile:)                  |
 |  +-------------------------------------------------------+ |
-|  |  LIVELLO                                               | |
-|  |                                                         | |
-|  |  SILVER                                                | |
-|  |  [================............] 1.200/2.000 per Gold   | |
-|  |                                                         | |
-|  |  Bronze < SILVER < Gold < Platinum < Diamond           | |
+|  |  v COME GUADAGNI PUNTI ELMETTO        (espandibile)   | |
+|  |                                                        | |
+|  |  AZIONI INDIVIDUALI                                    | |
+|  |  Check-in benessere         +5/giorno                  | |
+|  |  Feedback fine turno        +10/giorno                 | |
+|  |  Segnalazione rischio      +30-50                      | |
+|  |  Nomina Safety Star        +15 (tu) +25 (collega)     | |
+|  |  Streak giornaliero        +5-25/giorno                | |
+|  |                                                        | |
+|  |  AZIONI DI SQUADRA                                    | |
+|  |  Sfida team completata     +50-100/membro             | |
+|  |  Post e commenti social    +3-5 (max 30/gg)           | |
+|  |                                                        | |
+|  |  FORMAZIONE                                           | |
+|  |  Micro-training            +15/giorno                  | |
+|  |  Quiz settimanale          +20 (+10 se >80%)          | |
+|  |  Corso completato          +30-80                      | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
-|  |  ULTIME TRANSAZIONI                                    | |
-|  |                                                         | |
-|  |  +15  Micro-training completato          Oggi          | |
-|  |   +5  Check-in benessere                 Oggi          | |
-|  |  +10  Survey VOW                         Ieri          | |
-|  | -500  Sconto cuffie bluetooth (20%)    3gg fa          | |
-|  |        Welfare: -E32.00 (azienda)      3gg fa          | |
-|  +-------------------------------------------------------+ |
-|                                                             |
-|  +-------------------------------------------------------+ |
-|  |  COME GUADAGNO PUNTI                                   | |
-|  |                                                         | |
-|  |  Azione                     Punti Elmetto               | |
-|  |  -------                    --------------              | |
-|  |  Check-in benessere              5                      | |
-|  |  Feedback VOW                   10                      | |
-|  |  Micro-training                 15                      | |
-|  |  Quiz settimanale               25                      | |
-|  |  Segnalazione rischio           35                      | |
-|  |  Sfida team                     75                      | |
-|  |                                                         | |
-|  |  60 punti = 1 EUR | Max 20% sconto (100% con welfare)  | |
+|  |  SQUADRA: Falchi Nord                      840 pt     | |
+|  |  ---------------------------------------------------- | |
+|  |  MEMBRI SQUADRA                                       | |
+|  |  [o] Ahmed R.   Perfetto     Online                   | |
+|  |  [o] Luca B.    Buono        Offline                  | |
+|  |  [o] Maria S.   Ottimo       Online                   | |
+|  |  [o] Diego P.   Perfetto     Offline                  | |
+|  |  [o] Sofia K.   Nuova        Online                   | |
+|  |  [Apri chat squadra]                                  | |
+|  |  ---------------------------------------------------- | |
+|  |  v CLASSIFICA                 LIVE    (espandibile)   | |
+|  |  1. Falchi Nord   840 pt  ^                           | |
+|  |  2. Tigri Est     790 pt  v                           | |
+|  |  3. Squadra Omega 720 pt  =                           | |
+|  |  4. Aquile Sud    680 pt  =                           | |
+|  |  5. Delta Crew    600 pt  ^                           | |
 |  +-------------------------------------------------------+ |
 |                                                             |
 |  +-------------------------------------------------------+ |
@@ -573,27 +520,29 @@
 |  |  -> 4. TU         1,850 pts   +2 posizioni             | |
 |  +-------------------------------------------------------+ |
 |                                                             |
-|  +---------------------------+  +-------------------------+ |
-|  |  VAI AL NEGOZIO           |  |  RUOTA FORTUNATA        | |
-|  |                           |  |                         | |
-|  |  Spendi i tuoi            |  |  1 giro gratuito       | |
-|  |  punti!                   |  |  disponibile oggi!      | |
-|  |                           |  |                         | |
-|  |  [Sfoglia catalogo]       |  |  [Gira la ruota!]       | |
-|  +---------------------------+  +-------------------------+ |
+|  +-------------------------------------------------------+ |
+|  |  RUOTA FORTUNATA                                       | |
+|  |  1 giro gratuito disponibile oggi!                     | |
+|  |  [Gira la ruota!]                                      | |
+|  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Team    SOS    Punti    Impara                    |
+|   Home    Spaccio    SOS    Punti    Impara                    |
 +-------------------------------------------------------------+
 ```
 
 **Novita V2:**
 - Wallet unico Punti Elmetto con badge welfare attivo/non attivo
-- Transazioni mostrano punti e eventuali quote welfare azienda
-- Tabella "Come guadagno punti" con soli Punti Elmetto
+- "Come guadagni punti" integrato nella wallet card, espandibile
 - Conversione e cap sconto ben visibili (60pt = 1EUR, max 20%, 100% con welfare)
 - Classifica su Punti Elmetto
 - Badge welfare nascosto se azienda non ha welfareActive
+
+**Novita V2.3:**
+- Rimossi Livello e Ultime Transazioni (punti si spendono, livello non significativo)
+- Card Squadra unificata (header + membri + classifica espandibile) aggiunta dopo wallet
+- Rimosso "Vai al negozio" (ora tab Spaccio nella bottom bar)
+- Ruota fortunata a larghezza piena
 
 ---
 
@@ -1223,7 +1172,7 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Team    SOS    Punti    Impara                    |
+|   Home    Spaccio    SOS    Punti    Impara                    |
 +-------------------------------------------------------------+
 ```
 
@@ -1742,6 +1691,12 @@
 | 2026-01 | 2.2      | Header: rimosso settings (ora nel Profilo), aggiunto badge Punti     |
 |         |          | Elmetto, rimosso catalogo premi (sostituito da Spaccio Aziendale),   |
 |         |          | modalità immersiva Android                                           |
+| 2026-01 | 2.3      | Tab Team sostituito con Spaccio (accesso diretto negozio). Bottone   |
+|         |          | Sicurezza giallo (#FFB800). Tutti i widget Team spostati in Home     |
+|         |          | (WellnessCheckin, SafetyStar, VowSurvey, Trasparenza). Card squadra  |
+|         |          | unificata (header+membri+classifica espandibile) aggiunta a Punti.   |
+|         |          | Rimossi Livello e Transazioni dal wallet. "Come guadagni punti"      |
+|         |          | espandibile nella wallet card                                        |
 
 ---
 
