@@ -52,16 +52,15 @@ class ProductsNotifier extends AsyncNotifier<List<Product>> {
     try {
       final repo = ref.read(productRepositoryProvider);
       if (repo == null) {
-        debugPrint('[ProductsNotifier] repo is null, using mock');
-        return Product.mockProducts();
+        debugPrint('[ProductsNotifier] repo is null');
+        return [];
       }
       final products = await repo.getProducts();
       debugPrint('[ProductsNotifier] fetched ${products.length} products from DB');
-      if (products.isEmpty) return Product.mockProducts();
       return products;
     } on Object catch (e) {
-      debugPrint('[ProductsNotifier] error: $e, using mock');
-      return Product.mockProducts();
+      debugPrint('[ProductsNotifier] error: $e');
+      rethrow;
     }
   }
 }
