@@ -17,6 +17,8 @@ class Product {
     this.imageUrl,
     this.imageUrls = const [],
     this.variants = const [],
+    this.costPrice,
+    this.elmettoDiscountPercent = 20,
   });
 
   final String id;
@@ -47,6 +49,12 @@ class Product {
 
   /// Varianti prodotto (almeno 1 — "Standard" per prodotti semplici)
   final List<ProductVariant> variants;
+
+  /// Prezzo di acquisto dal supplier (nullable, non esposto in UI)
+  final double? costPrice;
+
+  /// Sconto max Punti Elmetto per questo prodotto (default 20%)
+  final int elmettoDiscountPercent;
 
   /// Ha piu di una variante selezionabile
   bool get hasMultipleVariants => variants.length > 1;
@@ -89,6 +97,16 @@ class Product {
   bool get hasPromo =>
       promoDiscountPercent != null && promoDiscountPercent! > 0;
 
+  /// Sconto Elmetto come decimale (es. 20 → 0.20)
+  double get elmettoDiscountFraction => elmettoDiscountPercent / 100;
+
+  /// Prezzo con sconto Elmetto applicato (su displayPrice)
+  double get elmettoPrice => displayPrice * (1 - elmettoDiscountFraction);
+
+  /// Prezzo con sconto Elmetto per una variante specifica
+  double variantElmettoPrice(ProductVariant variant) =>
+      variantDisplayPrice(variant) * (1 - elmettoDiscountFraction);
+
   /// Crea da JSON (risposta RPC get_products).
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
@@ -107,6 +125,9 @@ class Product {
               .toList() ??
           const [],
       variants: _parseVariants(json['variants']),
+      costPrice: (json['cost_price'] as num?)?.toDouble(),
+      elmettoDiscountPercent:
+          (json['elmetto_discount_percent'] as int?) ?? 20,
     );
   }
 

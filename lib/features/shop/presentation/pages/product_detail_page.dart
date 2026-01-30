@@ -25,8 +25,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
   late final PageController _pageController;
   late ProductVariant _selectedVariant;
 
-  /// Sconto massimo Punti Elmetto
-  static const _maxElmettoDiscount = 0.20;
+
 
   @override
   void initState() {
@@ -228,7 +227,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     final catColor = product.category.color;
     final variantPrice = product.variantDisplayPrice(_selectedVariant);
     final variantBasePrice = product.effectivePrice(_selectedVariant);
-    final elmettoPrice = variantPrice * (1 - _maxElmettoDiscount);
+    final elmettoPrice = variantPrice * (1 - product.elmettoDiscountFraction);
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
@@ -739,7 +738,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: const Icon(
-                                Icons.construction_rounded,
+                                Icons.engineering_rounded,
                                 size: 20,
                                 color: Color(0xFFFFB800),
                               ),
@@ -760,7 +759,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  '-${(variantPrice * _maxElmettoDiscount * 60 * _quantity).round()} punti',
+                                  '-${(variantPrice * product.elmettoDiscountFraction * 60 * _quantity).round()} punti',
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,

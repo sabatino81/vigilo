@@ -76,7 +76,7 @@ class PriceBreakdownWidget extends StatelessWidget {
                   '-${breakdown.elmettoDiscountEur.toStringAsFixed(2)}'
                   ' EUR',
               valueColor: AppTheme.ambra,
-              icon: Icons.construction_rounded,
+              icon: Icons.engineering_rounded,
               iconColor: AppTheme.ambra,
               isDark: isDark,
             ),

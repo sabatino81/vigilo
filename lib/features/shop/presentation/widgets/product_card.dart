@@ -18,13 +18,10 @@ class ProductCard extends StatelessWidget {
   final VoidCallback? onBuyNow;
   final VoidCallback? onAddToCart;
 
-  /// Sconto massimo Punti Elmetto
-  static const _maxElmettoDiscount = 0.20;
-
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final elmettoPrice = product.displayPrice * (1 - _maxElmettoDiscount);
+    final elmettoPrice = product.elmettoPrice;
     final catColor = product.category.color;
 
     // Colore bordo in base alla % sconto base
@@ -158,19 +155,7 @@ class ProductCard extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                            product.formattedBasePrice,
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: isDark ? Colors.white30 : Colors.black26,
-                              decoration: TextDecoration.lineThrough,
-                              decorationColor:
-                                  isDark ? Colors.white30 : Colors.black26,
-                            ),
-                          ),
                           if (product.hasPromo) ...[
-                            const SizedBox(width: 4),
                             Text(
                               product.formattedPrice,
                               style: TextStyle(
@@ -181,119 +166,82 @@ class ProductCard extends StatelessWidget {
                               ),
                             ),
                           ],
+                          const Spacer(),
+                          Text(
+                            product.formattedBasePrice,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: isDark ? Colors.white : Colors.white,
+                              decoration: product.hasPromo
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                              decorationColor:
+                                  isDark ? Colors.white70 : Colors.white70,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 1),
 
                       // Prezzo Elmetto — in evidenza
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFFB800)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              const Color(0xFFFFB800)
                                   .withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: const Icon(
-                              Icons.construction_rounded,
-                              size: 11,
-                              color: Color(0xFFFFB800),
-                            ),
+                              const Color(0xFFFF8C00)
+                                  .withValues(alpha: 0.08),
+                            ],
                           ),
-                          const SizedBox(width: 4),
-                          Text(
-                            '${elmettoPrice.toStringAsFixed(2)} EUR',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xFFFFB800),
-                              letterSpacing: -0.3,
-                            ),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: const Color(0xFFFFB800)
+                                .withValues(alpha: 0.3),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-
-                      // Tasti: Compra + Carrello
-                      Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                HapticFeedback.mediumImpact();
-                                onBuyNow?.call();
-                              },
-                              child: Container(
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    colors: [
-                                      Color(0xFFFFB800),
-                                      Color(0xFFFF9500),
-                                    ],
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFFFFB800)
-                                          .withValues(alpha: 0.3),
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ],
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.engineering_rounded,
+                                  size: 11,
+                                  color: Color(0xFFFFB800),
                                 ),
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  'Compra',
+                                const SizedBox(width: 3),
+                                const Text(
+                                  'Con Punti Elmetto',
                                   style: TextStyle(
-                                    fontSize: 11,
+                                    fontSize: 8,
                                     fontWeight: FontWeight.w800,
-                                    color: Colors.black87,
-                                    letterSpacing: 0.3,
+                                    color: Color(0xFFFFB800),
                                   ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 1),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                '${elmettoPrice.toStringAsFixed(2)} EUR',
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xFFFFB800),
+                                  letterSpacing: -0.5,
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 6),
-                          GestureDetector(
-                            onTap: () {
-                              HapticFeedback.lightImpact();
-                              onAddToCart?.call();
-                            },
-                            child: Container(
-                              height: 30,
-                              width: 34,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFF43A047),
-                                    Color(0xFF2E7D32),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF2E7D32)
-                                        .withValues(alpha: 0.3),
-                                    blurRadius: 6,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              alignment: Alignment.center,
-                              child: const Icon(
-                                Icons.shopping_cart_rounded,
-                                size: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
+                      const SizedBox(height: 4),
                     ],
                   ),
                 ),
