@@ -8,6 +8,7 @@ import 'package:vigilo/features/smart_break/presentation/widgets/smart_break_car
 import 'package:vigilo/features/team/presentation/widgets/social_wall_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/safety_star_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/team_challenge_card.dart';
+import 'package:vigilo/features/team/presentation/widgets/transparency_dashboard_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/vow_survey_card.dart';
 import 'package:vigilo/features/team/presentation/widgets/wellness_checkin_card.dart';
 
@@ -49,6 +50,10 @@ class HomePage extends StatelessWidget {
 
         // Sondaggio VOW
         VowSurveyCard(),
+        SizedBox(height: 16),
+
+        // Trasparenza
+        TransparencyDashboardCard(),
         SizedBox(height: 16),
 
         // Info aggiuntive
