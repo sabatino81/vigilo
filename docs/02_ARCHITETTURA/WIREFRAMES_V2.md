@@ -36,19 +36,19 @@
 |                                                             |
 +-------------------------------------------------------------+
 |                                                             |
-|   +------+  +--------+  +--------+  +------+  +------+     |
-|   | Home |  |Spaccio |  |  SOS   |  | Punti|  |Impara|     |
-|   |      |  |        |  |        |  |      |  |      |     |
-|   +------+  +--------+  +--------+  +------+  +------+     |
-|                             ^                               |
-|                        Pulsante                             |
-|                        circolare                            |
-|                        giallo sicurezza                     |
+|   +------+  +------+  +----------+  +------+  +--------+   |
+|   | Home |  | Punti|  |Sicurezza |  |Impara|  |Spaccio |   |
+|   |      |  |      |  |          |  |      |  |        |   |
+|   +------+  +------+  +----------+  +------+  +--------+   |
+|                            ^                                |
+|                       Pulsante                              |
+|                       circolare                             |
+|                       giallo sicurezza                      |
 +-------------------------------------------------------------+
 ```
 
 **Note:**
-- 5 tab: Home, Spaccio (shop), Sicurezza (SOS), Punti, Impara
+- 5 tab: Home, Punti, Sicurezza (SOS), Impara, Spaccio (shop)
 - Tab Sicurezza con pulsante circolare giallo (#FFB800) distintivo
 - Tab Spaccio apre direttamente il catalogo prodotti (ShopPage)
 - Icone filled quando selezionate, outlined quando non attive
@@ -250,7 +250,7 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Spaccio    SOS    Punti    Impara                    |
+|   Home    Punti    Sicurezza    Impara    Spaccio                    |
 +-------------------------------------------------------------+
 ```
 
@@ -344,7 +344,7 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Spaccio    SOS    Punti    Impara                    |
+|   Home    Punti    Sicurezza    Impara    Spaccio                    |
 +-------------------------------------------------------------+
 ```
 
@@ -527,7 +527,7 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Spaccio    SOS    Punti    Impara                    |
+|   Home    Punti    Sicurezza    Impara    Spaccio                    |
 +-------------------------------------------------------------+
 ```
 
@@ -1172,7 +1172,7 @@
 |  +-------------------------------------------------------+ |
 |                                                             |
 +-------------------------------------------------------------|
-|   Home    Spaccio    SOS    Punti    Impara                    |
+|   Home    Punti    Sicurezza    Impara    Spaccio                    |
 +-------------------------------------------------------------+
 ```
 
