@@ -20,7 +20,7 @@ class AppHeader extends ConsumerWidget {
 
     return Container(
       padding: EdgeInsets.fromLTRB(
-        15, MediaQuery.of(context).padding.top, 15, 10,
+        15, MediaQuery.of(context).padding.top - 6, 15, 10,
       ),
       decoration: BoxDecoration(
         color: isDark
@@ -147,33 +147,53 @@ class _PointsBadge extends StatelessWidget {
 
     return walletAsync.when(
       data: (wallet) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
           gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              AppTheme.tertiary.withValues(alpha: isDark ? 0.25 : 0.15),
-              AppTheme.primary.withValues(alpha: isDark ? 0.15 : 0.08),
+              const Color(0xFFFFB800).withValues(alpha: isDark ? 0.20 : 0.12),
+              const Color(0xFFFF8C00).withValues(alpha: isDark ? 0.10 : 0.06),
             ],
           ),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: AppTheme.tertiary.withValues(alpha: isDark ? 0.4 : 0.3),
+            color: const Color(0xFFFFB800).withValues(alpha: isDark ? 0.5 : 0.4),
+            width: 1.5,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFFFFB800).withValues(alpha: isDark ? 0.15 : 0.08),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.engineering_rounded,
-              size: 12,
-              color: isDark ? AppTheme.primary : AppTheme.tertiary,
+              size: 14,
+              color: Color(0xFFFFB800),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              _formatPoints(wallet.puntiElmetto),
+              style: const TextStyle(
+                color: Color(0xFFFFB800),
+                fontWeight: FontWeight.w900,
+                fontSize: 13,
+                letterSpacing: -0.3,
+              ),
             ),
             const SizedBox(width: 3),
             Text(
-              '${_formatPoints(wallet.puntiElmetto)} Punti Elmetto',
+              'Punti Elmetto',
               style: TextStyle(
-                color: isDark ? AppTheme.primary : AppTheme.tertiary,
-                fontWeight: FontWeight.w700,
+                color: const Color(0xFFFFB800).withValues(alpha: 0.8),
+                fontWeight: FontWeight.w600,
                 fontSize: 10,
               ),
             ),
