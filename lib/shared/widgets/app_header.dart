@@ -5,6 +5,7 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/notifications/presentation/pages/notifications_page.dart';
 import 'package:vigilo/features/profile/presentation/pages/profile_page.dart';
 import 'package:vigilo/features/shop/presentation/pages/cart_page.dart';
+import 'package:vigilo/features/profile/providers/profile_providers.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
 import 'package:vigilo/features/punti/providers/wallet_providers.dart';
@@ -17,6 +18,12 @@ class AppHeader extends ConsumerWidget {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
     final isDark = theme.brightness == Brightness.dark;
+
+    final profileName = ref.watch(profileProvider).when(
+      data: (p) => p.name,
+      loading: () => '',
+      error: (_, __) => '',
+    );
 
     return Container(
       padding: EdgeInsets.fromLTRB(
@@ -81,7 +88,7 @@ class AppHeader extends ConsumerWidget {
                   ),
                 ),
                 Text(
-                  'Ranieri Ricciardi',
+                  profileName,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,

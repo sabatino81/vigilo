@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "hello": "Hello!",
+  "hello": "Hello,",
   "@hello": {
     "description": "Simple greeting"
   },

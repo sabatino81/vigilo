@@ -9,7 +9,7 @@ class AppLocalizationsIt extends AppLocalizations {
   AppLocalizationsIt([String locale = 'it']) : super(locale);
 
   @override
-  String get hello => 'Ciao!';
+  String get hello => 'Ciao,';
 
   @override
   String welcome(Object name) {

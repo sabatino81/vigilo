@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// Simple greeting
   ///
   /// In en, this message translates to:
-  /// **'Hello!'**
+  /// **'Hello,'**
   String get hello;
 
   /// No description provided for @welcome.
