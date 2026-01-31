@@ -8,6 +8,7 @@ import 'package:vigilo/features/shop/domain/models/cart_item.dart';
 import 'package:vigilo/features/shop/presentation/pages/checkout_page.dart';
 import 'package:vigilo/features/shop/presentation/widgets/price_breakdown_widget.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina carrello — ConsumerWidget con dati da provider.
 class CartPage extends ConsumerWidget {
@@ -55,7 +56,7 @@ class CartPage extends ConsumerWidget {
           isFullyFree: false,
         );
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: Text(
           'Carrello (${items.length})',

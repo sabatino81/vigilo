@@ -71,6 +71,7 @@ class PuntiPage extends ConsumerWidget {
     final totalPoints = wallet?.puntiElmetto ?? 0;
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(walletProvider);

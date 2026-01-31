@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/streak/domain/models/streak.dart';
 import 'package:vigilo/features/streak/providers/streak_providers.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina dettaglio streak con livelli, calendario e moltiplicatore — ConsumerWidget.
 class StreakDetailPage extends ConsumerWidget {
@@ -18,7 +19,7 @@ class StreakDetailPage extends ConsumerWidget {
       error: (_, __) => Streak.mockStreak(),
     );
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text(
           'Streak',

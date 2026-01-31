@@ -126,6 +126,7 @@ class _ShopPageState extends ConsumerState<ShopPage>
         : <Product>[];
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Column(
         children: [
           // Title + Search sulla stessa riga

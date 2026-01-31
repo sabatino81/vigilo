@@ -88,6 +88,7 @@ class ImparaPage extends ConsumerWidget {
         .toList();
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(trainingContentsProvider);

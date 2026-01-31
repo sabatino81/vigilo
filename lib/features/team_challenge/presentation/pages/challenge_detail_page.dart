@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/team_challenge/domain/models/challenge.dart';
 import 'package:vigilo/features/team_challenge/providers/challenge_providers.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina dettaglio sfida team — ConsumerWidget con dati da Supabase.
 class ChallengeDetailPage extends ConsumerWidget {
@@ -26,7 +27,7 @@ class ChallengeDetailPage extends ConsumerWidget {
       error: (_, __) => <Challenge>[],
     );
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text(
           'Sfida Team',

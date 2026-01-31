@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/impara/domain/models/quiz.dart';
 import 'package:vigilo/features/impara/presentation/pages/quiz_result_page.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina Quiz con domande
 class QuizPage extends StatefulWidget {
@@ -97,7 +98,7 @@ class _QuizPageState extends State<QuizPage> {
     final isDark = theme.brightness == Brightness.dark;
     final progress = (_currentQuestion + 1) / widget.quiz.questions.length;
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: Text(widget.quiz.title),
         centerTitle: true,

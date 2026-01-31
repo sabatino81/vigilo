@@ -7,6 +7,7 @@ import 'package:vigilo/features/shop/presentation/widgets/order_status_badge.dar
 import 'package:vigilo/features/shop/presentation/widgets/tracking_timeline.dart';
 import 'package:vigilo/features/shop/presentation/widgets/voucher_display.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina dettaglio ordine con tracking e voucher — ConsumerWidget.
 class OrderDetailPage extends ConsumerWidget {
@@ -28,7 +29,7 @@ class OrderDetailPage extends ConsumerWidget {
       error: (_, __) => <Voucher>[],
     );
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: Text(
           order.orderCode,

@@ -19,9 +19,16 @@ class AppHeader extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+      padding: EdgeInsets.fromLTRB(
+        10, MediaQuery.of(context).padding.top + 10, 10, 10,
+      ),
       decoration: BoxDecoration(
-        color: Colors.transparent,
+        color: isDark
+            ? Colors.white.withValues(alpha: 0.06)
+            : Colors.black.withValues(alpha: 0.04),
+        borderRadius: const BorderRadius.vertical(
+          bottom: Radius.circular(20),
+        ),
       ),
       child: Row(
         children: [
@@ -49,39 +56,48 @@ class AppHeader extends ConsumerWidget {
                 ),
               ),
               child: CircleAvatar(
-                radius: 18,
+                radius: 15,
                 backgroundColor: theme.colorScheme.surface,
                 child: const Icon(
                   Icons.person_rounded,
                   color: AppTheme.primary,
-                  size: 22,
+                  size: 18,
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 8),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   l10n?.hello ?? 'Ciao!',
-                  style: theme.textTheme.bodySmall?.copyWith(
+                  style: TextStyle(
+                    fontSize: 11,
                     color: AppTheme.neutral,
-                    letterSpacing: 0.5,
+                    letterSpacing: 0.3,
                   ),
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  'Ranieri Ricciardi',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: theme.colorScheme.onSurface,
-                    letterSpacing: -0.3,
-                  ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        'Ranieri Ricciardi',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: theme.colorScheme.onSurface,
+                          letterSpacing: -0.3,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    _PointsBadge(ref: ref),
+                  ],
                 ),
-                const SizedBox(height: 2),
-                _PointsBadge(ref: ref),
               ],
             ),
           ),
@@ -137,7 +153,7 @@ class _PointsBadge extends StatelessWidget {
 
     return walletAsync.when(
       data: (wallet) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -145,7 +161,7 @@ class _PointsBadge extends StatelessWidget {
               AppTheme.primary.withValues(alpha: isDark ? 0.15 : 0.08),
             ],
           ),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: AppTheme.tertiary.withValues(alpha: isDark ? 0.4 : 0.3),
           ),
@@ -155,17 +171,16 @@ class _PointsBadge extends StatelessWidget {
           children: [
             Icon(
               Icons.engineering_rounded,
-              size: 16,
+              size: 12,
               color: isDark ? AppTheme.primary : AppTheme.tertiary,
             ),
-            const SizedBox(width: 5),
+            const SizedBox(width: 3),
             Text(
-              '${_formatPoints(wallet.puntiElmetto)} Punti Elmetto',
+              '${_formatPoints(wallet.puntiElmetto)} pt',
               style: TextStyle(
                 color: isDark ? AppTheme.primary : AppTheme.tertiary,
                 fontWeight: FontWeight.w700,
-                fontSize: 12,
-                letterSpacing: 0.3,
+                fontSize: 10,
               ),
             ),
           ],
@@ -214,14 +229,14 @@ class _GlassIconButton extends StatelessWidget {
         onTap();
       },
       child: Container(
-        width: 38,
-        height: 38,
+        width: 34,
+        height: 34,
         decoration: BoxDecoration(
           color: backgroundColor ??
               (isDark
                   ? Colors.white.withValues(alpha: 0.08)
                   : Colors.black.withValues(alpha: 0.04)),
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isDark
                 ? Colors.white.withValues(alpha: 0.1)
@@ -229,26 +244,27 @@ class _GlassIconButton extends StatelessWidget {
           ),
         ),
         child: Stack(
+          clipBehavior: Clip.none,
           alignment: Alignment.center,
           children: [
             Icon(
               icon,
               color: iconColor ?? theme.colorScheme.onSurface,
-              size: 22,
+              size: 20,
             ),
             if (badgeCount != null && badgeCount! > 0)
               Positioned(
-                top: 8,
-                right: 8,
+                top: -2,
+                right: -2,
                 child: Container(
-                  width: 16,
-                  height: 16,
+                  width: 15,
+                  height: 15,
                   decoration: BoxDecoration(
                     color: AppTheme.danger,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: theme.colorScheme.surface,
-                      width: 2,
+                      width: 1.5,
                     ),
                   ),
                   child: Center(

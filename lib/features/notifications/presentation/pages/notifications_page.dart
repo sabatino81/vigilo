@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/notifications/domain/models/app_notification.dart';
 import 'package:vigilo/features/notifications/providers/notification_providers.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Centro notifiche — ConsumerStatefulWidget con dati da Supabase.
 class NotificationsPage extends ConsumerStatefulWidget {
@@ -54,7 +55,7 @@ class _NotificationsPageState extends ConsumerState<NotificationsPage> {
       grouped[label]!.add(n);
     }
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text(
           'Notifiche',

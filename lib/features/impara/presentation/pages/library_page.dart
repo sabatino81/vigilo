@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/impara/domain/models/training_content.dart';
 import 'package:vigilo/features/impara/presentation/pages/content_detail_sheet.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina Biblioteca completa con ricerca e filtri
 class LibraryPage extends StatefulWidget {
@@ -67,7 +68,7 @@ class _LibraryPageState extends State<LibraryPage> {
     final isDark = theme.brightness == Brightness.dark;
     final contents = _filteredContents;
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text('Biblioteca'),
         centerTitle: true,

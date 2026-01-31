@@ -36,12 +36,10 @@ class _MainShellState extends State<MainShell> {
 
     return Scaffold(
       body: AppBackground(
-        child: SafeArea(
-          bottom: false,
-          child: Column(
-            children: [
-              // Header fisso
-              const AppHeader(),
+        child: Column(
+          children: [
+            // Header fisso
+            const AppHeader(),
               // Contenuto scrollabile
               Expanded(
                 child: IndexedStack(
@@ -51,7 +49,6 @@ class _MainShellState extends State<MainShell> {
               ),
             ],
           ),
-        ),
       ),
       extendBody: true,
       bottomNavigationBar: Container(

@@ -75,6 +75,7 @@ class SosPage extends ConsumerWidget {
     );
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {

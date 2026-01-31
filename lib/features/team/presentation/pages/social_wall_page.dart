@@ -5,6 +5,7 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/team/domain/models/social_post.dart';
 import 'package:vigilo/features/team/providers/team_providers.dart';
 import 'package:vigilo/l10n/generated/app_localizations.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina che mostra tutti i post della bacheca sociale — ConsumerWidget.
 class SocialWallPage extends ConsumerWidget {
@@ -26,8 +27,7 @@ class SocialWallPage extends ConsumerWidget {
 
     return Hero(
       tag: 'social_wall_hero',
-      child: Scaffold(
-        backgroundColor: isDark ? const Color(0xFF1A1A1A) : Colors.grey[50],
+      child: AppScaffold(
         appBar: AppBar(
           title: Text(
             l10n?.socialWallTitle ?? 'BACHECA',
@@ -338,8 +338,7 @@ class PostDetailPage extends StatelessWidget {
     final dateFormat = DateFormat('dd MMM yyyy • HH:mm', 'it');
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: isDark ? Colors.black : Colors.white,
+    return AppScaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

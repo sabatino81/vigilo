@@ -4,6 +4,7 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/elmetto_wallet.dart';
 import 'package:vigilo/features/shop/domain/models/cart_item.dart';
 import 'package:vigilo/features/shop/presentation/widgets/price_breakdown_widget.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina checkout con conferma ordine
 class CheckoutPage extends StatefulWidget {
@@ -77,7 +78,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text(
           'Checkout',

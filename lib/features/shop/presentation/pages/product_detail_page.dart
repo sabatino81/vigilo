@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/features/shop/domain/models/product.dart';
 import 'package:vigilo/features/shop/domain/models/product_variant.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina dettaglio prodotto — ConsumerStatefulWidget con wallet da Supabase.
 class ProductDetailPage extends ConsumerStatefulWidget {
@@ -229,9 +230,7 @@ class _ProductDetailPageState extends ConsumerState<ProductDetailPage> {
     final variantBasePrice = product.effectivePrice(_selectedVariant);
     final elmettoPrice = variantPrice * (1 - product.elmettoDiscountFraction);
 
-    return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF121212) : const Color(0xFFF5F5F5),
-      extendBodyBehindAppBar: true,
+    return AppScaffold(
       extendBody: true,
       bottomNavigationBar: Container(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),

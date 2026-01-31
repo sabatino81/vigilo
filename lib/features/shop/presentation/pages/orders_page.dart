@@ -4,6 +4,7 @@ import 'package:vigilo/features/shop/domain/models/order.dart';
 import 'package:vigilo/features/shop/presentation/pages/order_detail_page.dart';
 import 'package:vigilo/features/shop/presentation/widgets/order_tile.dart';
 import 'package:vigilo/features/shop/providers/shop_providers.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Lista ordini — ConsumerWidget con dati da Supabase.
 class OrdersPage extends ConsumerWidget {
@@ -19,7 +20,7 @@ class OrdersPage extends ConsumerWidget {
       error: (_, __) => <Order>[],
     );
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text(
           'I miei ordini',

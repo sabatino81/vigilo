@@ -8,6 +8,7 @@ import 'package:vigilo/features/profile/providers/profile_providers.dart';
 import 'package:vigilo/features/shop/presentation/pages/orders_page.dart';
 import 'package:vigilo/providers/locale_provider.dart';
 import 'package:vigilo/providers/theme_provider.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina profilo utente — ConsumerWidget con dati da Supabase.
 class ProfilePage extends ConsumerWidget {
@@ -18,7 +19,7 @@ class ProfilePage extends ConsumerWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final profileAsync = ref.watch(profileProvider);
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text(
           'Profilo',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/impara/domain/models/quiz.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
 /// Pagina risultato quiz
@@ -33,7 +34,7 @@ class QuizResultPage extends StatelessWidget {
       });
     }
 
-    return Scaffold(
+    return AppScaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),

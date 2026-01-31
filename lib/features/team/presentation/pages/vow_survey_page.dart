@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/team/domain/models/vow_survey.dart';
 import 'package:vigilo/features/team/providers/team_providers.dart' show vowRepositoryProvider;
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 import 'package:vigilo/shared/widgets/points_earned_snackbar.dart';
 
 /// Pagina survey VOW — ConsumerStatefulWidget con submit via provider.
@@ -76,7 +77,7 @@ class _VowSurveyPageState extends ConsumerState<VowSurveyPage> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text(
           'Voice of Worker',

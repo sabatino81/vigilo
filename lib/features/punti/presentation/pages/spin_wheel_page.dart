@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/punti/domain/models/wheel_prize.dart';
+import 'package:vigilo/shared/widgets/app_scaffold.dart';
 
 /// Pagina Gira la Ruota
 class SpinWheelPage extends StatefulWidget {
@@ -214,7 +215,7 @@ class _SpinWheelPageState extends State<SpinWheelPage>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         title: const Text('Gira la Ruota'),
         centerTitle: true,
