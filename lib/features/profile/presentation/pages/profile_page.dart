@@ -528,17 +528,46 @@ class _SettingsCard extends ConsumerWidget {
             },
           ),
           _SettingsDivider(isDark: isDark),
-          // Tema
-          _SettingsTile(
-            icon: currentTheme == ThemeMode.dark
-                ? Icons.dark_mode_rounded
-                : Icons.light_mode_rounded,
-            label: 'Tema',
-            value: _themeLabel(currentTheme),
-            isDark: isDark,
-            onTap: () {
-              ref.read(themeProvider.notifier).toggleTheme();
-            },
+          // Tema con switch
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Row(
+              children: [
+                Icon(
+                  currentTheme == ThemeMode.dark
+                      ? Icons.dark_mode_rounded
+                      : Icons.light_mode_rounded,
+                  size: 20,
+                  color: isDark ? Colors.white54 : Colors.black45,
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Text(
+                    'Tema',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: isDark ? Colors.white : Colors.black87,
+                    ),
+                  ),
+                ),
+                Text(
+                  _themeLabel(currentTheme),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isDark ? Colors.white38 : Colors.black38,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Switch.adaptive(
+                  value: currentTheme == ThemeMode.dark,
+                  activeTrackColor: AppTheme.ambra.withValues(alpha: 0.5),
+                  activeThumbColor: AppTheme.ambra,
+                  onChanged: (_) {
+                    ref.read(themeProvider.notifier).toggleTheme();
+                  },
+                ),
+              ],
+            ),
           ),
           _SettingsDivider(isDark: isDark),
           _SettingsTile(

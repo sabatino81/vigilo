@@ -19,7 +19,7 @@ class AppHeader extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
       decoration: BoxDecoration(
         color: Colors.transparent,
       ),
@@ -49,17 +49,17 @@ class AppHeader extends ConsumerWidget {
                 ),
               ),
               child: CircleAvatar(
-                radius: 22,
+                radius: 18,
                 backgroundColor: theme.colorScheme.surface,
                 child: const Icon(
                   Icons.person_rounded,
                   color: AppTheme.primary,
-                  size: 26,
+                  size: 22,
                 ),
               ),
             ),
           ),
-          const SizedBox(width: 14),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,8 +214,8 @@ class _GlassIconButton extends StatelessWidget {
         onTap();
       },
       child: Container(
-        width: 44,
-        height: 44,
+        width: 38,
+        height: 38,
         decoration: BoxDecoration(
           color: backgroundColor ??
               (isDark
