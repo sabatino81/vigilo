@@ -51,8 +51,12 @@ class _MainShellState extends State<MainShell> {
           ),
       ),
       extendBody: true,
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      bottomNavigationBar: Align(
+        alignment: Alignment.bottomCenter,
+        heightFactor: 1,
+        child: Container(
+        width: MediaQuery.of(context).size.width * 0.95,
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
         decoration: BoxDecoration(
           color: isDark
               ? theme.colorScheme.surfaceContainerHighest.withValues(
@@ -80,9 +84,10 @@ class _MainShellState extends State<MainShell> {
           child: SafeArea(
             top: false,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+              padding: const EdgeInsets.fromLTRB(8, 12, 8, 3),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   _buildNavItem(
                     0,
@@ -114,6 +119,7 @@ class _MainShellState extends State<MainShell> {
             ),
           ),
         ),
+      ),
       ),
     );
   }
