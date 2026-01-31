@@ -20,7 +20,7 @@ class AppHeader extends ConsumerWidget {
 
     return Container(
       padding: EdgeInsets.fromLTRB(
-        10, MediaQuery.of(context).padding.top + 10, 10, 10,
+        15, MediaQuery.of(context).padding.top, 15, 10,
       ),
       decoration: BoxDecoration(
         color: isDark
@@ -80,24 +80,18 @@ class AppHeader extends ConsumerWidget {
                     letterSpacing: 0.3,
                   ),
                 ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: Text(
-                        'Ranieri Ricciardi',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: theme.colorScheme.onSurface,
-                          letterSpacing: -0.3,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    _PointsBadge(ref: ref),
-                  ],
+                Text(
+                  'Ranieri Ricciardi',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: theme.colorScheme.onSurface,
+                    letterSpacing: -0.3,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
+                const SizedBox(height: 2),
+                _PointsBadge(ref: ref),
               ],
             ),
           ),
@@ -176,7 +170,7 @@ class _PointsBadge extends StatelessWidget {
             ),
             const SizedBox(width: 3),
             Text(
-              '${_formatPoints(wallet.puntiElmetto)} pt',
+              '${_formatPoints(wallet.puntiElmetto)} Punti Elmetto',
               style: TextStyle(
                 color: isDark ? AppTheme.primary : AppTheme.tertiary,
                 fontWeight: FontWeight.w700,
