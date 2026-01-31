@@ -74,41 +74,48 @@ class _MainShellState extends State<MainShell> {
           ),
           child: Padding(
               padding: EdgeInsets.fromLTRB(
-                8, 3, 8, MediaQuery.of(context).padding.bottom + 3,
+                3, 3, 3, MediaQuery.of(context).padding.bottom + 3,
               ),
               child: Stack(
                 clipBehavior: Clip.none,
                 alignment: Alignment.bottomCenter,
                 children: [
-                  // 4 bottoni normali — Row compatta
+                  // 4 bottoni normali — distribuiti uniformemente
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _buildNavItem(
-                        0,
-                        Icons.home_outlined,
-                        Icons.home_rounded,
-                        l10n?.navHome ?? 'Home',
+                      Expanded(
+                        child: _buildNavItem(
+                          0,
+                          Icons.home_outlined,
+                          Icons.home_rounded,
+                          l10n?.navHome ?? 'Home',
+                        ),
                       ),
-                      _buildNavItem(
-                        1,
-                        Icons.star_outline_rounded,
-                        Icons.star_rounded,
-                        l10n?.navPunti ?? 'Punti',
+                      Expanded(
+                        child: _buildNavItem(
+                          1,
+                          Icons.star_outline_rounded,
+                          Icons.star_rounded,
+                          l10n?.navPunti ?? 'Punti',
+                        ),
                       ),
-                      // Spazio vuoto per il bottone centrale
+                      // Spazio per il bottone centrale
                       const SizedBox(width: 72),
-                      _buildNavItem(
-                        3,
-                        Icons.school_outlined,
-                        Icons.school_rounded,
-                        l10n?.navImpara ?? 'Impara',
+                      Expanded(
+                        child: _buildNavItem(
+                          3,
+                          Icons.school_outlined,
+                          Icons.school_rounded,
+                          l10n?.navImpara ?? 'Impara',
+                        ),
                       ),
-                      _buildNavItem(
-                        4,
-                        Icons.storefront_outlined,
-                        Icons.storefront_rounded,
-                        'Spaccio',
+                      Expanded(
+                        child: _buildNavItem(
+                          4,
+                          Icons.storefront_outlined,
+                          Icons.storefront_rounded,
+                          'Spaccio',
+                        ),
                       ),
                     ],
                   ),
@@ -145,7 +152,7 @@ class _MainShellState extends State<MainShell> {
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         padding: EdgeInsets.fromLTRB(
-          isSelected ? 16 : 12, 2, isSelected ? 16 : 12, 8,
+          isSelected ? 10 : 12, 2, isSelected ? 10 : 12, 4,
         ),
         decoration: BoxDecoration(
           color: isSelected
@@ -199,19 +206,18 @@ class _MainShellState extends State<MainShell> {
         margin: const EdgeInsets.only(bottom: 4),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: theme.colorScheme.primaryContainer.withValues(alpha: 0.95),
+          color: const Color(0xFFD32F2F).withValues(alpha: isSelected ? 1.0 : 0.6),
           boxShadow: [
             BoxShadow(
-              color: theme.colorScheme.primaryContainer
-                  .withValues(alpha: isDark ? 0.4 : 0.3),
+              color: const Color(0xFFD32F2F)
+                  .withValues(alpha: isDark ? 0.5 : 0.4),
               blurRadius: isSelected ? 20 : 16,
               offset: const Offset(0, 4),
               spreadRadius: isSelected ? 2 : 0,
             ),
           ],
           border: Border.all(
-            color: theme.colorScheme.onPrimaryContainer
-                .withValues(alpha: isSelected ? 0.3 : 0.15),
+            color: Colors.white.withValues(alpha: isSelected ? 0.3 : 0.15),
             width: 2,
           ),
         ),
@@ -220,14 +226,14 @@ class _MainShellState extends State<MainShell> {
           children: [
             Icon(
               Icons.shield_rounded,
-              color: theme.colorScheme.onPrimaryContainer,
+              color: Colors.white,
               size: isSelected ? 30 : 26,
             ),
             const SizedBox(height: 2),
             Text(
               l10n?.navSos ?? 'Sicurezza',
               style: TextStyle(
-                color: theme.colorScheme.onPrimaryContainer,
+                color: Colors.white,
                 fontSize: isSelected ? 10 : 9,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.5,
