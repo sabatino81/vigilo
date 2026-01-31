@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vigilo/core/theme/app_theme.dart';
+import 'package:vigilo/features/profile/domain/models/worker_info.dart';
 
 /// Categoria lavoratore
 enum WorkerCategory {
@@ -136,10 +137,13 @@ class UserProfile {
     required this.welfareActive,
     required this.companyName,
     this.avatarUrl,
+    this.isLinked = false,
+    this.workerInfo,
   });
 
   /// Crea un [UserProfile] da una mappa JSON (risposta RPC Supabase).
   factory UserProfile.fromJson(Map<String, dynamic> json) {
+    final isLinked = json['is_linked'] as bool? ?? false;
     return UserProfile(
       id: json['id'] as String,
       name: json['name'] as String? ?? '',
@@ -153,6 +157,10 @@ class UserProfile {
       welfareActive: json['welfare_active'] as bool? ?? false,
       companyName: json['company_name'] as String? ?? '',
       avatarUrl: json['avatar_url'] as String?,
+      isLinked: isLinked,
+      workerInfo: isLinked && json['lavoratore_id'] != null
+          ? WorkerInfo.fromJson(json)
+          : null,
     );
   }
 
@@ -168,6 +176,8 @@ class UserProfile {
   final bool welfareActive;
   final String companyName;
   final String? avatarUrl;
+  final bool isLinked;
+  final WorkerInfo? workerInfo;
 
   /// Converte in mappa JSON per invio a Supabase.
   Map<String, dynamic> toJson() {
@@ -184,6 +194,8 @@ class UserProfile {
       'welfare_active': welfareActive,
       'company_name': companyName,
       'avatar_url': avatarUrl,
+      'is_linked': isLinked,
+      if (workerInfo != null) ...workerInfo!.toJson(),
     };
   }
 
@@ -197,6 +209,8 @@ class UserProfile {
     int? reportsCount,
     TrustLevel? trustLevel,
     bool? welfareActive,
+    bool? isLinked,
+    WorkerInfo? workerInfo,
   }) {
     return UserProfile(
       id: id,
@@ -211,6 +225,8 @@ class UserProfile {
       welfareActive: welfareActive ?? this.welfareActive,
       companyName: companyName,
       avatarUrl: avatarUrl ?? this.avatarUrl,
+      isLinked: isLinked ?? this.isLinked,
+      workerInfo: workerInfo ?? this.workerInfo,
     );
   }
 
@@ -230,9 +246,18 @@ class UserProfile {
     );
   }
 
+  /// Nome turno per accesso rapido.
+  String? get turnoNome => workerInfo?.turno?.nome;
+
+  /// Nome mansione per accesso rapido.
+  String? get mansioneNome => workerInfo?.mansione;
+
+  /// Nome reparto per accesso rapido.
+  String? get repartoNome => workerInfo?.reparto;
+
   /// Mock profile (fallback per dev/test offline)
   static UserProfile mockProfile() {
-    return const UserProfile(
+    return UserProfile(
       id: 'mock-user-id',
       name: 'Marco Rossi',
       email: 'marco.rossi@costruzionirossi.it',
@@ -244,6 +269,8 @@ class UserProfile {
       puntiElmetto: 1800,
       welfareActive: true,
       companyName: 'Costruzioni Rossi S.r.l.',
+      isLinked: true,
+      workerInfo: WorkerInfo.mock(),
     );
   }
 }

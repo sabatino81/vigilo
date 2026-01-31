@@ -33,4 +33,19 @@ class ProfileRepository extends BaseRepository {
     );
     return UserProfile.fromJson(json);
   }
+
+  /// Collega l'utente corrente a un record lavoratore.
+  Future<Map<String, dynamic>> linkWorkerProfile(String lavoratoreId) async {
+    return await rpc<Map<String, dynamic>>(
+      'link_worker_profile',
+      params: {'p_lavoratore_id': lavoratoreId},
+    );
+  }
+
+  /// Tenta il collegamento automatico per email.
+  ///
+  /// Ritorna `{ linked: true/false, reason?: string }`.
+  Future<Map<String, dynamic>> autoLinkByEmail() async {
+    return await rpc<Map<String, dynamic>>('auto_link_by_email');
+  }
 }

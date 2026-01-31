@@ -47,6 +47,13 @@ class ProfilePage extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
 
+              // Worker info (dati lavoratore)
+              _WorkerInfoCard(
+                profile: profile,
+                isDark: isDark,
+              ),
+              const SizedBox(height: 16),
+
               // Safety stats
               _SafetyStatsCard(
                 profile: profile,
@@ -466,6 +473,238 @@ class _TrustLevelCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _WorkerInfoCard extends StatelessWidget {
+  const _WorkerInfoCard({
+    required this.profile,
+    required this.isDark,
+  });
+
+  final UserProfile profile;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!profile.isLinked || profile.workerInfo == null) {
+      return _NotLinkedCard(isDark: isDark);
+    }
+
+    final info = profile.workerInfo!;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Colors.white.withValues(alpha: 0.05)
+            : Colors.black.withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AppTheme.tertiary.withValues(alpha: 0.2),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.badge_rounded,
+                size: 18,
+                color: AppTheme.tertiary,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Dati Lavoratore',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          // Matricola + Contratto
+          Row(
+            children: [
+              if (info.matricola != null)
+                Expanded(
+                  child: _InfoRow(
+                    icon: Icons.tag_rounded,
+                    label: 'Matricola',
+                    value: info.matricola!,
+                    isDark: isDark,
+                  ),
+                ),
+              if (info.tipoContratto != null)
+                Expanded(
+                  child: _InfoRow(
+                    icon: Icons.description_outlined,
+                    label: 'Contratto',
+                    value: info.tipoContrattoLabel,
+                    isDark: isDark,
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          // Turno
+          if (info.turno != null)
+            _InfoRow(
+              icon: Icons.schedule_rounded,
+              label: 'Turno',
+              value: info.turno!.label,
+              isDark: isDark,
+              valueColor: AppTheme.ambra,
+            ),
+          if (info.turno != null) const SizedBox(height: 10),
+          // Mansione + Reparto
+          Row(
+            children: [
+              if (info.mansione != null)
+                Expanded(
+                  child: _InfoRow(
+                    icon: Icons.work_outline_rounded,
+                    label: 'Mansione',
+                    value: info.mansione!,
+                    isDark: isDark,
+                  ),
+                ),
+              if (info.reparto != null)
+                Expanded(
+                  child: _InfoRow(
+                    icon: Icons.location_city_rounded,
+                    label: 'Reparto',
+                    value: info.reparto!,
+                    isDark: isDark,
+                  ),
+                ),
+            ],
+          ),
+          if (info.ruoloSicurezza != null) ...[
+            const SizedBox(height: 10),
+            _InfoRow(
+              icon: Icons.health_and_safety_rounded,
+              label: 'Ruolo Sicurezza',
+              value: info.ruoloSicurezza!,
+              isDark: isDark,
+              valueColor: AppTheme.secondary,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _NotLinkedCard extends StatelessWidget {
+  const _NotLinkedCard({required this.isDark});
+
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark
+            ? Colors.white.withValues(alpha: 0.05)
+            : Colors.black.withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: AppTheme.ambra.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.link_off_rounded,
+            size: 28,
+            color: AppTheme.ambra,
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Profilo non collegato',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: isDark ? Colors.white : Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Contatta il tuo responsabile HR per collegare '
+                  'il profilo alla tua anagrafica aziendale.',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isDark ? Colors.white54 : Colors.black45,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  const _InfoRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.isDark,
+    this.valueColor,
+  });
+
+  final IconData icon;
+  final String label;
+  final String value;
+  final bool isDark;
+  final Color? valueColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 15,
+          color: isDark ? Colors.white38 : Colors.black26,
+        ),
+        const SizedBox(width: 6),
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: isDark ? Colors.white38 : Colors.black38,
+                ),
+              ),
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: valueColor ??
+                      (isDark ? Colors.white : Colors.black87),
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
