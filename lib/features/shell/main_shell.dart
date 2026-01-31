@@ -57,66 +57,68 @@ class _MainShellState extends State<MainShell> {
         child: Container(
         width: MediaQuery.of(context).size.width * 0.95,
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
-        decoration: BoxDecoration(
-          color: isDark
-              ? theme.colorScheme.surfaceContainerHighest.withValues(
-                  alpha: 0.95,
-                )
-              : theme.colorScheme.surface.withValues(alpha: 0.95),
-          borderRadius: BorderRadius.circular(28),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.1),
-              blurRadius: 20,
-              offset: const Offset(0, 4),
-              spreadRadius: 0,
-            ),
-          ],
-          border: Border.all(
+        child: CustomPaint(
+          painter: _NavBarShapePainter(
             color: isDark
+                ? theme.colorScheme.surfaceContainerHighest
+                    .withValues(alpha: 0.95)
+                : theme.colorScheme.surface.withValues(alpha: 0.95),
+            borderColor: isDark
                 ? Colors.white.withValues(alpha: 0.1)
                 : Colors.black.withValues(alpha: 0.05),
-            width: 1,
+            shadowColor:
+                Colors.black.withValues(alpha: isDark ? 0.3 : 0.1),
+            notchRadius: 40,
+            cornerRadius: 16,
+            padding: 3,
           ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(28),
-          child: SafeArea(
-            top: false,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(8, 12, 8, 3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.end,
+          child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                8, 3, 8, MediaQuery.of(context).padding.bottom + 3,
+              ),
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.bottomCenter,
                 children: [
-                  _buildNavItem(
-                    0,
-                    Icons.home_outlined,
-                    Icons.home_rounded,
-                    l10n?.navHome ?? 'Home',
+                  // 4 bottoni normali — Row compatta
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildNavItem(
+                        0,
+                        Icons.home_outlined,
+                        Icons.home_rounded,
+                        l10n?.navHome ?? 'Home',
+                      ),
+                      _buildNavItem(
+                        1,
+                        Icons.star_outline_rounded,
+                        Icons.star_rounded,
+                        l10n?.navPunti ?? 'Punti',
+                      ),
+                      // Spazio vuoto per il bottone centrale
+                      const SizedBox(width: 72),
+                      _buildNavItem(
+                        3,
+                        Icons.school_outlined,
+                        Icons.school_rounded,
+                        l10n?.navImpara ?? 'Impara',
+                      ),
+                      _buildNavItem(
+                        4,
+                        Icons.storefront_outlined,
+                        Icons.storefront_rounded,
+                        'Spaccio',
+                      ),
+                    ],
                   ),
-                  _buildNavItem(
-                    1,
-                    Icons.star_outline_rounded,
-                    Icons.star_rounded,
-                    l10n?.navPunti ?? 'Punti',
-                  ),
-                  _buildSafetyButton(),
-                  _buildNavItem(
-                    3,
-                    Icons.school_outlined,
-                    Icons.school_rounded,
-                    l10n?.navImpara ?? 'Impara',
-                  ),
-                  _buildNavItem(
-                    4,
-                    Icons.storefront_outlined,
-                    Icons.storefront_rounded,
-                    'Spaccio',
+                  // Bottone centrale posizionato in overlay
+                  Positioned(
+                    bottom: 0,
+                    child: _buildSafetyButton(),
                   ),
                 ],
               ),
-            ),
           ),
         ),
       ),
@@ -142,9 +144,8 @@ class _MainShellState extends State<MainShell> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
-        padding: EdgeInsets.symmetric(
-          horizontal: isSelected ? 16 : 12,
-          vertical: 8,
+        padding: EdgeInsets.fromLTRB(
+          isSelected ? 16 : 12, 2, isSelected ? 16 : 12, 8,
         ),
         decoration: BoxDecoration(
           color: isSelected
@@ -199,7 +200,7 @@ class _MainShellState extends State<MainShell> {
         duration: const Duration(milliseconds: 200),
         width: isSelected ? 72 : 64,
         height: isSelected ? 72 : 64,
-        margin: const EdgeInsets.only(bottom: 8),
+        margin: const EdgeInsets.only(bottom: 4),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: LinearGradient(
@@ -246,5 +247,110 @@ class _MainShellState extends State<MainShell> {
         ),
       ),
     );
+  }
+}
+
+/// Custom painter per la nav bar con notch centrale per il bottone Sicurezza.
+class _NavBarShapePainter extends CustomPainter {
+  _NavBarShapePainter({
+    required this.color,
+    required this.borderColor,
+    required this.shadowColor,
+    required this.notchRadius,
+    required this.cornerRadius,
+    required this.padding,
+  });
+
+  final Color color;
+  final Color borderColor;
+  final Color shadowColor;
+  final double notchRadius;
+  final double cornerRadius;
+  final double padding;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = _buildPath(size);
+
+    // Shadow
+    canvas.drawShadow(path, shadowColor, 20, true);
+
+    // Fill
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+    canvas.drawPath(path, paint);
+
+    // Border
+    final borderPaint = Paint()
+      ..color = borderColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+    canvas.drawPath(path, borderPaint);
+  }
+
+  Path _buildPath(Size size) {
+    final w = size.width;
+    final h = size.height;
+    final r = cornerRadius;
+    final nr = notchRadius + padding;
+    final cx = w / 2;
+    // Quanto il notch sale SOPRA la barra
+    final notchHeight = 8.0;
+
+    final path = Path()
+      // Top-left corner
+      ..moveTo(0, r)
+      ..arcToPoint(Offset(r, 0), radius: Radius.circular(r),
+          clockwise: true)
+
+      // Bordo superiore sinistro → ingresso notch
+      ..lineTo(cx - nr, 0)
+
+      // Curva ingresso notch (sale sopra)
+      ..cubicTo(
+        cx - nr * 0.55, 0,
+        cx - nr * 0.45, -notchHeight,
+        cx, -notchHeight,
+      )
+
+      // Curva uscita notch (torna giù)
+      ..cubicTo(
+        cx + nr * 0.45, -notchHeight,
+        cx + nr * 0.55, 0,
+        cx + nr, 0,
+      )
+
+      // Bordo superiore destro
+      ..lineTo(w - r, 0)
+
+      // Top-right corner
+      ..arcToPoint(Offset(w, r), radius: Radius.circular(r))
+
+      // Lato destro
+      ..lineTo(w, h - r)
+
+      // Bottom-right corner
+      ..arcToPoint(Offset(w - r, h), radius: Radius.circular(r))
+
+      // Lato inferiore
+      ..lineTo(r, h)
+
+      // Bottom-left corner
+      ..arcToPoint(Offset(0, h - r), radius: Radius.circular(r))
+
+      // Lato sinistro
+      ..lineTo(0, r)
+
+      ..close();
+
+    return path;
+  }
+
+  @override
+  bool shouldRepaint(covariant _NavBarShapePainter oldDelegate) {
+    return color != oldDelegate.color ||
+        borderColor != oldDelegate.borderColor ||
+        notchRadius != oldDelegate.notchRadius;
   }
 }
