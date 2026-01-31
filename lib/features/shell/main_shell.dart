@@ -149,7 +149,7 @@ class _MainShellState extends State<MainShell> {
         ),
         decoration: BoxDecoration(
           color: isSelected
-              ? theme.colorScheme.primaryContainer.withValues(alpha: 0.8)
+              ? AppTheme.primary.withValues(alpha: 0.9)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
@@ -161,9 +161,7 @@ class _MainShellState extends State<MainShell> {
               child: Icon(
                 isSelected ? activeIcon : icon,
                 key: ValueKey(isSelected),
-                color: isSelected
-                    ? theme.colorScheme.onPrimaryContainer
-                    : AppTheme.neutral,
+                color: isSelected ? Colors.white : AppTheme.neutral,
                 size: isSelected ? 26 : 24,
               ),
             ),
@@ -173,9 +171,7 @@ class _MainShellState extends State<MainShell> {
               style: TextStyle(
                 fontSize: isSelected ? 11 : 10,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                color: isSelected
-                    ? theme.colorScheme.onPrimaryContainer
-                    : AppTheme.neutral,
+                color: isSelected ? Colors.white : AppTheme.neutral,
               ),
               child: Text(label),
             ),
@@ -203,24 +199,19 @@ class _MainShellState extends State<MainShell> {
         margin: const EdgeInsets.only(bottom: 4),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppTheme.primary,
-              AppTheme.primary.withValues(alpha: 0.85),
-            ],
-          ),
+          color: theme.colorScheme.primaryContainer.withValues(alpha: 0.95),
           boxShadow: [
             BoxShadow(
-              color: AppTheme.primary.withValues(alpha: isDark ? 0.4 : 0.5),
+              color: theme.colorScheme.primaryContainer
+                  .withValues(alpha: isDark ? 0.4 : 0.3),
               blurRadius: isSelected ? 20 : 16,
               offset: const Offset(0, 4),
               spreadRadius: isSelected ? 2 : 0,
             ),
           ],
           border: Border.all(
-            color: Colors.white.withValues(alpha: isSelected ? 0.3 : 0.2),
+            color: theme.colorScheme.onPrimaryContainer
+                .withValues(alpha: isSelected ? 0.3 : 0.15),
             width: 2,
           ),
         ),
@@ -229,14 +220,14 @@ class _MainShellState extends State<MainShell> {
           children: [
             Icon(
               Icons.shield_rounded,
-              color: Colors.white,
+              color: theme.colorScheme.onPrimaryContainer,
               size: isSelected ? 30 : 26,
             ),
             const SizedBox(height: 2),
             Text(
               l10n?.navSos ?? 'Sicurezza',
               style: TextStyle(
-                color: Colors.white,
+                color: theme.colorScheme.onPrimaryContainer,
                 fontSize: isSelected ? 10 : 9,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.5,
