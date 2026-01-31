@@ -6,6 +6,8 @@ import 'package:vigilo/core/theme/app_theme.dart';
 import 'package:vigilo/features/profile/domain/models/user_profile.dart';
 import 'package:vigilo/features/profile/providers/profile_providers.dart';
 import 'package:vigilo/features/shop/presentation/pages/orders_page.dart';
+import 'package:vigilo/providers/locale_provider.dart';
+import 'package:vigilo/providers/theme_provider.dart';
 
 /// Pagina profilo utente — ConsumerWidget con dati da Supabase.
 class ProfilePage extends ConsumerWidget {
@@ -467,13 +469,39 @@ class _TrustLevelCard extends StatelessWidget {
   }
 }
 
-class _SettingsCard extends StatelessWidget {
+class _SettingsCard extends ConsumerWidget {
   const _SettingsCard({required this.isDark});
 
   final bool isDark;
 
+  static const _locales = [
+    (Locale('it'), 'Italiano'),
+    (Locale('en'), 'English'),
+  ];
+
+  static String _localeLabel(Locale locale) {
+    for (final entry in _locales) {
+      if (entry.$1.languageCode == locale.languageCode) return entry.$2;
+    }
+    return locale.languageCode.toUpperCase();
+  }
+
+  static String _themeLabel(ThemeMode mode) {
+    switch (mode) {
+      case ThemeMode.dark:
+        return 'Scuro';
+      case ThemeMode.light:
+        return 'Chiaro';
+      case ThemeMode.system:
+        return 'Sistema';
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentLocale = ref.watch(localeProvider);
+    final currentTheme = ref.watch(themeProvider);
+
     return Container(
       decoration: BoxDecoration(
         color: isDark
@@ -483,18 +511,34 @@ class _SettingsCard extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Lingua
           _SettingsTile(
             icon: Icons.language_rounded,
             label: 'Lingua',
-            value: 'Italiano',
+            value: _localeLabel(currentLocale),
             isDark: isDark,
+            onTap: () {
+              final currentIdx = _locales.indexWhere(
+                (e) => e.$1.languageCode == currentLocale.languageCode,
+              );
+              final nextIdx = (currentIdx + 1) % _locales.length;
+              ref
+                  .read(localeProvider.notifier)
+                  .setLocale(_locales[nextIdx].$1);
+            },
           ),
           _SettingsDivider(isDark: isDark),
+          // Tema
           _SettingsTile(
-            icon: Icons.dark_mode_rounded,
+            icon: currentTheme == ThemeMode.dark
+                ? Icons.dark_mode_rounded
+                : Icons.light_mode_rounded,
             label: 'Tema',
-            value: 'Scuro',
+            value: _themeLabel(currentTheme),
             isDark: isDark,
+            onTap: () {
+              ref.read(themeProvider.notifier).toggleTheme();
+            },
           ),
           _SettingsDivider(isDark: isDark),
           _SettingsTile(
@@ -522,48 +566,54 @@ class _SettingsTile extends StatelessWidget {
     required this.label,
     required this.value,
     required this.isDark,
+    this.onTap,
   });
 
   final IconData icon;
   final String label;
   final String value;
   final bool isDark;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            size: 20,
-            color: isDark ? Colors.white54 : Colors.black45,
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                color: isDark ? Colors.white : Colors.black87,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 20,
+              color: isDark ? Colors.white54 : Colors.black45,
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
               ),
             ),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 13,
-              color: isDark ? Colors.white38 : Colors.black38,
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 13,
+                color: isDark ? Colors.white38 : Colors.black38,
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          Icon(
-            Icons.chevron_right_rounded,
-            size: 18,
-            color: isDark ? Colors.white24 : Colors.black12,
-          ),
-        ],
+            const SizedBox(width: 8),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 18,
+              color: isDark ? Colors.white24 : Colors.black12,
+            ),
+          ],
+        ),
       ),
     );
   }
