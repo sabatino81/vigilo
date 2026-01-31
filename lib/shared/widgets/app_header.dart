@@ -73,7 +73,7 @@ class AppHeader extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  l10n?.hello ?? 'Ciao!',
+                  l10n?.hello ?? 'Ciao,',
                   style: TextStyle(
                     fontSize: 11,
                     color: AppTheme.neutral,
